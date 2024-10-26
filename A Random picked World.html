@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="GamePlayStyles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="icon" href="Resource/logo-pin.png"> <!-- ページアイコン -->
+
+    <script src="Resource/maplink/ARWlinks.js"></script>
+    <title>A Random picked World</title>
+    <div class="map-name">
+        A Random picked World
+    </div>
+</head>
+<body>
+    <iframe id="streetview" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    
+    <!-- ボタンを2つ表示するためのコンテナ -->
+    <div class="button-container">
+        <button onclick="showRandomStreetView()">Next Round🚩</button>
+        <button onclick="showAnswer()">show answer</button>
+        <br> <!-- Next Roundと戻るボタンの間にスペースを作る -->
+        <button onclick="goBack()">戻る</button> <!-- 戻るボタンを追加 -->
+    </div>
+    
+    <div id="map-container">
+        <div id="map"></div> <!-- Leaflet地図の表示領域 -->
+    </div>
+    <button class="guess-button" onclick="guess()">guess</button>
+    
+    <div id="distance">Distance: <span id="distance-value">0</span> km</div>
+    <script src="SingleGamePlay.js"></script>
+</body>
+
+</html>
