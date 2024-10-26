@@ -25,15 +25,16 @@ showRandomStreetView();// ページの読み込み後に初期化
 
 //===========================================guessとかピンとか===========================================
 
-
 function setMapStage() {
     const currentFileName = window.location.pathname.split("/").pop();
     // ファイル名ごとにステージの設定を分ける
     
-    if (currentFileName === "stage1.html") {
-        map.setView([-18, 45], 5);
-    } else if (currentFileName === "stage2.html") {
-        map.setView([-22, 47], 7);
+    if (currentFileName === "A%20Random%20picked%20World.html") {
+        map.setView([1,1], 1);
+        mapSize =1;
+    } else if (currentFileName === "Japan.html") {
+        map.setView([-22, 47], 5);
+        mapSize =5;
     } else if (currentFileName === "Madagascar.html") {
         map.setView([-18, 44], 5);
         mapSize =5;
@@ -42,9 +43,6 @@ function setMapStage() {
         map.setView([0, 0], 2);
     }
 }
-
-// 初期化
-//var map = L.map('map').setView([-18, 45], 5);
 
 
 // OpenStreetMapのタイルを使用
