@@ -23,11 +23,12 @@
         <button onclick="showAnswer()">show answer</button>
         <br> <!-- Next Roundと戻るボタンの間にスペースを作る -->
         <button onclick="goBack()">戻る</button> <!-- 戻るボタンを追加 -->
-    </div>
+    </div>    
 
     <div id="map-container">
         <div id="map"></div> <!-- Leaflet地図の表示領域 -->
     </div>
+    <button class="guess-button" onclick="guess()">guess</button>
 
     <div id="distance">Distance: <span id="distance-value">0</span> km</div>
     <script src="SingleGamePlay.js"></script>

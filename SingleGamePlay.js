@@ -49,10 +49,8 @@ function setMapStage() {
 // 初期化
 //var map = L.map('map').setView([-18, 45], 5);
 
-
-// OpenStreetMapのタイルを使用
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+	attribution: "<a href='https://developers.google.com/maps/documentation' target='_blank'>Google Map</a>"
 }).addTo(map);
 
 let marker; // ピンを保持する変数

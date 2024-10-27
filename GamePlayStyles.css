@@ -34,6 +34,10 @@ button {
     color: black;
 }
 
+.leaflet-container {
+    cursor:default;
+}
+
 .map-name {
     position: absolute;
     top: 15px;
@@ -60,8 +64,8 @@ button {
     border: solid black 2px;
     overflow: hidden;
     /* はみ出す部分を隠す */
-    transition: width 0.3s, height 0.3s;
-    /* 幅と高さのアニメーション */
+    transition: width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.6; /* 初期状態で半透明 */
 }
 
 #map {
@@ -73,22 +77,29 @@ button {
 
 #map-container:hover {
     width: 600px;
-    /* マウスオーバー時に枠を大きく */
     height: 400px;
-    /* マウスオーバー時に枠を大きく */
+    opacity: 1;
 }
 
 .guess-button {
-    background-color: rgb(121, 221, 21);
+    background: linear-gradient(90deg, #b2da8f, #6cb928); /* 左から右へのグラデーション */
     color: black;
     padding: 8px 95px;
-    border-radius: 10px;
+    border-radius: 30px;
     cursor: pointer;
     font-size: 16px;
     position: absolute;
     bottom: 10px;
     right: 67px;
     z-index: 3;
+    opacity: 0.6; /* 初期状態で半透明 */
+    transition: width 0.3s, opacity 0.3s; /* アニメーションのトランジションを追加 */
+    transform-origin: right;
+}
+/* マウスオーバーで拡大 */
+#map-container:hover ~ .guess-button {
+    width: 603px;
+    opacity: 1; /* 不透明にする */
 }
 
 #distance {
