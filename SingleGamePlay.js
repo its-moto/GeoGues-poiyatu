@@ -25,7 +25,9 @@ showRandomStreetView();// ページの読み込み後に初期化
 
 //===========================================guessとかピンとか===========================================
 
+
 function setMapStage() {
+
     const currentFileName = window.location.pathname.split("/").pop();
     // ファイル名ごとにステージの設定を分ける
     
@@ -33,7 +35,7 @@ function setMapStage() {
         map.setView([1,1], 1);
         mapSize =1;
     } else if (currentFileName === "Japan.html") {
-        map.setView([-22, 47], 5);
+        map.setView([38.2547029,131], 4);
         mapSize =5;
     } else if (currentFileName === "Madagascar.html") {
         map.setView([-18, 44], 5);
@@ -43,6 +45,9 @@ function setMapStage() {
         map.setView([0, 0], 2);
     }
 }
+
+// 初期化
+//var map = L.map('map').setView([-18, 45], 5);
 
 
 // OpenStreetMapのタイルを使用
@@ -75,13 +80,13 @@ map.on('click', function (e) {
     marker = L.marker([lat, lng], { icon: createCustomIcon() }).addTo(map);
 });
 
-function pointCul(distance){
-    let score = Math.round(5000 - (0.002 * mapSize * (distance)^1));
-    if (score >=0){
-        return score;
-    }
-    return 0;
+
+//距離からポイント計算するやつ
+function pointCul(distance) {
+    let points = Math.round(Math.pow(0.9993, (((distance/1000)*(mapSize)) - 12163)));
+    return  Math.max(0, points);
 }
+
 
 // 距離を計算して表示する関数
 function guess() {
@@ -93,12 +98,17 @@ function guess() {
     const latLng1 = L.latLng(marker.getLatLng().lat, marker.getLatLng().lng);
     const latLng2 = L.latLng(streetViews[currentStreetViewIndex].lat, streetViews[currentStreetViewIndex].lng); // 現在のストリートビューの位置を使用
 
-    const distance = latLng1.distanceTo(latLng2); // メートルをキロメートルに変換
-    if (distance > 600) {
+    const distance = latLng1.distanceTo(latLng2);
+    if (distance > 10000) {
         document.getElementById('distance-value').textContent = distance.toFixed(2);
         
         alert(Math.round(distance / 1000) + "km ," +pointCul(distance));
-    } else {
+    } else if(distance > 1000){
+        document.getElementById('distance-value').textContent = distance.toFixed(2);
+
+        alert((Math.round(distance/100))/10 + "km ," + pointCul(distance));
+    }
+    else {
         document.getElementById('distance-value').textContent = distance.toFixed(2);
         alert(Math.round(distance) + "m ," + pointCul(distance));
     }
