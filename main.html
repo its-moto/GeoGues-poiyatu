@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoGuessrっぽい何か</title>
+  <link rel="icon" href="Resource/icon.jpg"> <!-- ページアイコン -->
+  <style>  
+    * {
+      font-family: Comic Sans MS;
+      color: white;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #484b75, #573b5b, #1a1a2e);
+      background-attachment: fixed;
+      height: 100vh; /* ビューポートの高さを設定 */
+    }
+
+    /* タイトルのスタイル */
+    .header {
+      text-align: left;
+      padding: 9px;
+      padding-top: 5px;
+      padding-left: 20px;
+      background-color: #1b1421;
+      font-size: 40px;
+      font-family: 'Neo Sans', sans-serif;
+      -webkit-text-stroke:2px rgb(207, 20, 43 ); /* 赤い縁取り */
+    }
+
+    /* グリッドレイアウト */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px 0;
+      padding: 0;
+      margin: 30px 140px;
+    }
+
+    /* カードのスタイル */
+    .card {
+      width: 250px;
+      margin: auto;
+      background-color: #1a1a2e;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding-bottom: 20px;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;  /* 幅を100%に指定して、親要素にフィットさせる */
+      height: 170px; /* 高さは固定 */
+      border-radius: 8px 8px 0 0; /* カードの上部分の角を丸める */
+      object-fit: cover; /* 画像を指定したサイズに収める */
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .card button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px;
+      text-align: center;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .card button:hover {
+      background-color: #45a049;
+    }
+
+    .footer {
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        bottom: 10px;
+    }
+    </style>
+</head>
+<body>
+
+    <!-- タイトル -->
+    <div class="header">
+        <b>GeoGuessrっぽい何か</b>
+    </div>
+
+    <!-- ブロックのグリッドコンテナ -->
+    <div class="grid-container">
+        <div class="card">
+            <img src="Resource/mapimg/world.png" alt="world.png">
+            <h3>A Random picked world</h3>
+            <button onclick="location.href='A Random picked World.html'">プレイ</button>
+        </div>
+
+        <div class="card">
+            <img src="Resource/mapimg/japan.png" alt="japan,png">
+            <h3>日本</h3>
+            <button onclick="location.href='Japan.html'">プレイ</button>
+        </div>
+
+        <div class="card">
+            <img src="Resource/mapimg/japan.png" alt="AAJ,png">
+            <h3>An Urban Japan</h3>
+            <button onclick="location.href='An Urban Japan.html'">プレイ</button>
+        </div>
+
+        <div class="card">
+            <img src="Resource/mapimg/madagascar.png" alt="madagascar,png">
+            <h3>マダガスカル</h3>
+            <button onclick="location.href='Madagascar.html'">プレイ</button>
+        </div>
+
+        <div class="card">
+            <img src="Resource/mapimg/sanmarino.png" alt="sanmarino,png">
+            <h3>サン・マリノ</h3>
+            <button onclick="location.href='San Marino.html'">プレイ</button>
+        </div>
+    </div>
+    <div class="footer">
+        pwered by:google maps,leaflet js,visual studio code
+    </div>
+</body>
+</html>
