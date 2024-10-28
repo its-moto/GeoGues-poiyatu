@@ -9,7 +9,7 @@
     <link rel="icon" href="Resource/logo-pin.png"> <!-- ページアイコン -->
 
     <script src="Resource/maplink/JPlinks.js"></script>
-    <title>日本</title>
+    <title>GeoPpoi - 日本</title>
     <div class="map-name">
         日本
     </div>
@@ -19,7 +19,7 @@
 
     <!-- ボタンを2つ表示するためのコンテナ -->
     <div class="button-container">
-        <button onclick="showRandomStreetView()">Next Round🚩</button>
+        <button id="next-round-button" onclick="showRandomStreetView()">Next Round🚩</button>
         <button onclick="showAnswer()">show answer</button>
         <br> <!-- Next Roundと戻るボタンの間にスペースを作る -->
         <button onclick="goBack()">戻る</button> <!-- 戻るボタンを追加 -->
@@ -30,8 +30,9 @@
     </div>
     <button class="guess-button" onclick="guess()">guess</button>
 
-    <div id="distance">Distance: <span id="distance-value">0</span> km</div>
+    <div id="distance"><span id="distance-value">0km</span>, <span id="point-value">0</span> /5000 pt</div>
     <script src="SingleGamePlay.js"></script>
+    <script src="cssanimation.js"></script>
 </body>
 
 </html>

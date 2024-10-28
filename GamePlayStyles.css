@@ -60,50 +60,72 @@ button {
     width: 230px;
     height: 180px;
     z-index: 2;
-    /* Leaflet地図が上に来るように設定 */
     border: solid black 2px;
     overflow: hidden;
-    /* はみ出す部分を隠す */
-    transition: width 0.3s, height 0.3s, opacity 0.3s;
-    opacity: 0.6; /* 初期状態で半透明 */
-}
-
-#map {
-    width: 200%;
-    height: 200%;
-    transition: transform 0.3s;
-    /* マップ自体のアニメーション */
+    transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+    opacity: 0.6;
 }
 
 #map-container:hover {
     width: 600px;
     height: 400px;
     opacity: 1;
+    transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease 0s;
+    /* ホバー時にすぐ拡大 */
 }
 
+#map-container:not(:hover) {
+    transition: width 0.2s ease 1.2s, height 0.2s ease 1.2s, opacity 0.2s ease 1.2s;
+    /* ホバー解除時に遅延 */
+}
+
+#map {
+    width: 300%;
+    height: 300%;
+    cursor: cell;
+    transition: transform 0.2s;
+    /* マップ自体のアニメーション */
+}
+
+/* guess-button の設定 */
+/* ボタンの設定 */
 .guess-button {
-    background: linear-gradient(90deg, #b2da8f, #6cb928); /* 左から右へのグラデーション */
+    background: radial-gradient(ellipse at top, #b2da8f, #6cb928);
     color: black;
-    padding: 8px 95px;
+    padding: 6px 96px;
+    padding-top: 4px;
+    padding-bottom: 8px;
+    /* 横幅はJavaScriptで設定するので左右のpaddingは不要 */
     border-radius: 30px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
     position: absolute;
     bottom: 10px;
     right: 67px;
     z-index: 3;
-    opacity: 0.6; /* 初期状態で半透明 */
-    transition: width 0.3s, opacity 0.3s; /* アニメーションのトランジションを追加 */
-    transform-origin: right;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+    /* opacityのみCSSで制御 */
 }
-/* マウスオーバーで拡大 */
-#map-container:hover ~ .guess-button {
-    width: 603px;
-    opacity: 1; /* 不透明にする */
+.guess-button:hover {
+    opacity: 1;
+    /* ホバー時の不透明度を変更 */
+    transition: opacity 0.2s ease;
+    /* ホバー効果のトランジション */
 }
 
+.guess-button:active {
+    transform: scale(0.95);
+    /* クリック時に少し縮む */
+    transition: transform 0.1s ease;
+    /* クリック効果のトランジション */
+}
 #distance {
-    margin: 20px;
+    position: absolute; /* 絶対位置を指定して地図の上に配置 */
     font-size: 20px;
     background-color: #573b5b;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000; /* 地図よりも上に表示されるようにz-indexを設定 */
+    padding: 10px; /* 内側の余白 */
 }

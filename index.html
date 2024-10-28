@@ -15,6 +15,7 @@
       margin: 0;
       padding: 0;
       background: linear-gradient(to bottom right, #484b75, #573b5b, #1a1a2e);
+      background-attachment: fixed;
       height: 100vh; /* ビューポートの高さを設定 */
     }
 
@@ -34,8 +35,9 @@
     .grid-container {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0px;
-      padding: 10px;
+      gap: 40px 0;
+      padding: 0;
+      margin: 30px 140px;
     }
 
     /* カードのスタイル */
@@ -79,6 +81,7 @@
     .footer {
         color: white;
         text-align: center;
+        padding: 10px 0;
         bottom: 10px;
     }
     </style>
@@ -92,28 +95,30 @@
 
     <!-- ブロックのグリッドコンテナ -->
     <div class="grid-container">
-        <!-- カード1 -->
         <div class="card">
             <img src="Resource/mapimg/world.png" alt="world.png">
             <h3>A Random picked world</h3>
             <button onclick="location.href='A Random picked World.html'">プレイ</button>
         </div>
 
-        <!-- カード2 -->
         <div class="card">
             <img src="Resource/mapimg/japan.png" alt="japan,png">
             <h3>日本</h3>
             <button onclick="location.href='Japan.html'">プレイ</button>
         </div>
 
-        <!-- カード3 -->
+        <div class="card">
+            <img src="Resource/mapimg/japan.png" alt="AAJ,png">
+            <h3>An Urban Japan</h3>
+            <button onclick="location.href='An Urban Japan.html'">プレイ</button>
+        </div>
+
         <div class="card">
             <img src="Resource/mapimg/madagascar.png" alt="madagascar,png">
             <h3>マダガスカル</h3>
             <button onclick="location.href='Madagascar.html'">プレイ</button>
         </div>
 
-        <!-- カード4 -->
         <div class="card">
             <img src="Resource/mapimg/sanmarino.png" alt="sanmarino,png">
             <h3>サン・マリノ</h3>
