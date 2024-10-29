@@ -106,7 +106,7 @@ const streetViews = [
     },
     //-----ここから鹿児島-----
     {
-        embedUrl: '"https://www.google.com/maps/embed?pb=!4v1730211532277!6m8!1m7!1sX0zK7pbTn1CesdpdCYvjGQ!2m2!1d31.58487360291157!2d130.5386978134463!3f328.4159785263216!4f0!5f0.7820865974627469',
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730211532277!6m8!1m7!1sX0zK7pbTn1CesdpdCYvjGQ!2m2!1d31.58487360291157!2d130.5386978134463!3f328.4159785263216!4f0!5f0.7820865974627469',
         answerUrl: 'https://maps.app.goo.gl/f9pHYccd53nHRynE6',
         lat: 31.5848736,
         lng: 130.5386978    
