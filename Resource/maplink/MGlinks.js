@@ -40,7 +40,7 @@ const streetViews = [
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730091165054!6m8!1m7!1sbArHCxPbFNF2EzbKkHtNHg!2m2!1d-18.31949764124678!2d43.74608570625899!3f283.3509744693897!4f0!5f0.7820865974627469',
         answerUrl: 'https://maps.app.goo.gl/BUnTnA9stRoK17ed7',
         lat: -18.3194976,
-        lng: -18.3194976
+        lng: 43.7460857
     }
     /*
     ,{
