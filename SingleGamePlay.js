@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //距離からポイント計算するやつ
 function pointCul(distance) {
-    let points = Math.round(Math.pow(0.9993, (((distance/1000)*(mapSize)) - 12163.08)));
+    let points = Math.round(Math.pow(0.99933, (((distance/1000)*(mapSize)) - 12708)));
     return  Math.max(0, Math.min(5000,points));
 }
 

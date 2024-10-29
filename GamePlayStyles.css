@@ -35,7 +35,7 @@ button {
 }
 
 .leaflet-container {
-    cursor:default;
+    cursor:context-menu;
 }
 
 .map-name {
@@ -82,7 +82,7 @@ button {
 #map {
     width: 300%;
     height: 300%;
-    cursor: cell;
+    cursor: crosshair;
     transition: transform 0.2s;
     /* マップ自体のアニメーション */
 }
