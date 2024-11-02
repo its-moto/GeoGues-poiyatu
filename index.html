@@ -7,8 +7,21 @@
 	<title>GeoGuessrっぽい何か</title>
 	<link rel="icon" href="Resource/icon.jpg"> <!-- ページアイコン -->
 	<style>
+
+		/* Neo Sans Std - 極太斜体 */
+		@font-face {
+			font-family: 'NeoSansBoldItalic';
+			src: url('fonts/NeoSans/NeoSans Black Italic.otf') format('opentype');
+		}
+		
+		/* Noto Sans JP  */
+		@font-face {
+			font-family: 'NotoSansJP';
+			src: url('fonts/Noto Sans JP/NotoSansJP-VariableFont_wght.ttf') format('truetype');
+		}
+
 		* {
-			font-family: Comic Sans MS;
+			font-family: "NeoSansBoldItalic", "NotoSansJP", "Comic Sans MS", sans-serif;
 			color: white;
 		}
 
@@ -28,12 +41,29 @@
 			text-align: left;
 			padding: 9px;
 			padding-top: 5px;
-			padding-left: 20px;
-			background-color: rgba(33, 34, 56,0.8);
+			padding-left: 80px;
+			background-color: rgba(33, 34, 56, 0.8);
 			font-size: 40px;
-			font-family: 'Neo Sans', sans-serif;
-			-webkit-text-stroke: 2px rgb(207, 20, 43);
-			/* 赤い縁取り */
+			font-family: 'Neo Sans', 'NotoSansJP';
+			color: rgba(207, 20, 43, 0);   /* 縁取りのみ表示 */
+			-webkit-text-stroke: 5px rgb(207, 20, 43); /* 赤い縁取り */
+			position: absolute;             /* 重ねて配置 */
+			top: 0;
+			left: 0;
+			width: 100%;                   /* 横幅を全体に広げる */
+			box-sizing: border-box;         /* パディングを含める */
+		}
+		
+		.title {
+			padding: 9px;
+			padding-top: 5px;
+			padding-left: 80px;
+			font-size: 40px;
+			font-family: 'Neo Sans', 'NotoSansJP';
+			color: rgb(207, 20, 43);        /* 縁取りなし文字の色 */
+			position: relative;             /* 重ねて配置 */
+			top: 5px;
+			left: 0;
 		}
 
 		/* 検索バーのスタイル */
@@ -113,9 +143,10 @@
 
 <body>
 
-	<!-- タイトル -->
-	<div class="header">
-		<b>GeoGuessrっぽい何か</b>
+	<div style="position: relative; display: inline-block; width: 100%;">
+		<!-- タイトル -->
+		<span class="header"><b>GeoGuessrっぽい何か</b></span>
+		<span class="title"><b>GeoGuessrっぽい何か</b></span>
 	</div>
 
 	<!-- 検索バー -->

@@ -56,16 +56,17 @@ function setMapStage() {
 //var map = L.map('map').setView([-18, 45], 5);
 
 L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
-	attribution: "<a href='https://developers.google.com/maps/documentation' target='_blank'>Google Map</a>"
+	attribution: "<a href='https://developers.google.com/maps/documentation' target='_blank'>Google Map</a>",
+    maxZoom: 19
 }).addTo(map);
 
 // カスタムアイコンの作成
 function createCustomIcon() {
     return L.icon({
         iconUrl: 'Resource/pin.png', // ここを実際の画像パスに変更
-        iconSize: [30, 38], // 画像のサイズを設定
-        iconAnchor: [15, 40], // ピンのアンカー位置を調整
-        popupAnchor: [0, -40] // ポップアップの位置を調整
+        iconSize: [20, 25], // 画像のサイズを設定
+        iconAnchor: [10, 26], // ピンのアンカー位置を調整
+        popupAnchor: [0, -20] // ポップアップの位置を調整
     });
 }
 

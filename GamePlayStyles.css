@@ -1,5 +1,17 @@
+/* Neo Sans Std - 極太斜体 */
+@font-face {
+    font-family: 'NeoSansBoldItalic';
+    src: url('fonts/NeoSans/NeoSans Black Italic.otf') format('opentype');
+}
+
+/* Noto Sans JP  */
+@font-face {
+    font-family: 'NotoSansJP';
+    src: url('fonts/Noto Sans JP/NotoSansJP-VariableFont_wght.ttf') format('truetype');
+}
+
 * {
-    font-family: Comic Sans MS;
+    font-family: "NeoSansBoldItalic", "NotoSansJP","Comic Sans MS", sans-serif;
     color: white;
 }
 /* 画面全体にiframeを広げる */
