@@ -48,6 +48,13 @@ const streetViews = [
         lat: 35.681787,
         lng: 139.7647194
     },
+    //-----ここから神奈川-----
+    {
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730468077957!6m8!1m7!1sT5_-4guzUcfDfG8miMURHA!2m2!1d35.46901272029854!2d139.6166553687639!3f129.5257461091021!4f-0.6770413925873129!5f0.7820865974627469',
+        answerUrl: 'https://maps.app.goo.gl/YsHrUfgFMzeLYmKB7',
+        lat: 35.4690127,
+        lng: 139.6166554
+    },
     //-----ここから長野-----
     {
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730213988361!6m8!1m7!1sBJi44kPnNypZHhWI6qYtNw!2m2!1d36.64339538674999!2d138.187156680505!3f286.73!4f-7.189999999999998!5f0.7820865974627469',
@@ -92,10 +99,17 @@ const streetViews = [
     },
     //-----ここから徳島-----
     {
-        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730213750470!6m8!1m7!1s5k6A-3ARjqFiZ-VPmCxNVA!2m2!1d34.07139852494615!2d134.5580897233915!3f183.45429078832646!4f0!5f0.7820865974627469',
-        answerUrl: 'https://maps.app.goo.gl/Vq745edwqLcCUijx6',
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730537056510!6m8!1m7!1s9NNrwaGf59i2zMRKuu926g!2m2!1d33.5595549403466!2d133.5433349584211!3f256.60783570553616!4f0!5f0.7820865974627469',
+        answerUrl: 'https://maps.app.goo.gl/moByzZhmJLvAhekw7',
         lat: 34.0713985,
         lng: 134.5580897
+    },
+    //-----ここから高知-----
+    {
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730213750470!6m8!1m7!1s5k6A-3ARjqFiZ-VPmCxNVA!2m2!1d34.07139852494615!2d134.5580897233915!3f183.45429078832646!4f0!5f0.7820865974627469',
+        answerUrl: 'https://maps.app.goo.gl/Vq745edwqLcCUijx6',
+        lat: 33.5595549,
+        lng: 133.543335
     },
     //-----ここから長崎-----
     {

@@ -130,7 +130,13 @@ const streetViews = [
         lat: 48.8910485,
         lng: 2.2922262
     },
-
+    //--------ここからギリシャ.gr------
+    {
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730475857388!6m8!1m7!1sfZBAUZ8m94InC4FrW_-1dQ!2m2!1d37.96387129659052!2d23.72467432929581!3f267.00992!4f0!5f0.7820865974627469',
+        answerUrl: 'https://maps.app.goo.gl/T6W9uhEXrpSqkJYD7',
+        lat:37.9638713,
+        lng:23.7246743
+    },
     //--------ここからアイルランド.ie--------
     {//ダブリン
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1729658345150!6m8!1m7!1sxq0uletp3_1DPdVOyTtuYg!2m2!1d53.36167201463208!2d-6.25947547839687!3f21.110134154370453!4f3.3152340536305616!5f0.7820865974627469',
@@ -360,6 +366,14 @@ const streetViews = [
     //===================================================
     //====================　南アメリカ　====================
     //===================================================
+    //--------ここからアルゼンチン.ar--------
+    {//ブエノスアイレス
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1729654026425!6m8!1m7!1sT5A39ulw7gBKol0sBC7mmw!2m2!1d-34.60988419369181!2d-58.45087021634892!3f59.08582!4f0!5f0.7820865974627469',
+        answerUrl: 'https://maps.app.goo.gl/n42KagaQmE1rnFqm9',
+        lat: -34.6098842,
+        lng: -58.4508702
+    },
+
     //--------ここからボリビア.bo--------
     {//ラパス
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1729653783043!6m8!1m7!1se-XFAAI2ASLqHDbCSl296Q!2m2!1d-16.48706056494146!2d-68.12913546847376!3f170.85405415926917!4f-6.012594925853563!5f0.7820865974627469',
@@ -368,21 +382,20 @@ const streetViews = [
         lng: -68.1291355
     },
     
-    //--------ここからアルゼンチン.ar--------
-    {//ブエノスアイレス
-        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1729654026425!6m8!1m7!1sT5A39ulw7gBKol0sBC7mmw!2m2!1d-34.60988419369181!2d-58.45087021634892!3f59.08582!4f0!5f0.7820865974627469',
-        answerUrl: 'https://maps.app.goo.gl/n42KagaQmE1rnFqm9',
-        lat: -34.6098842,
-        lng: -58.4508702
-    },
-    
     //--------ここからエクアドル.ec--------
     {//ガラパゴス
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1729654365050!6m8!1m7!1s34FrRPdaWCjZwM7hMT3S-w!2m2!1d-0.3939843952755621!2d-91.00094057538234!3f247.77589624221633!4f-2.7731317237751227!5f0.7820865974627469',
         answerUrl: 'https://maps.app.goo.gl/yYzvpbQu6DD7U6h79',
         lat: -0.3939844,
         lng: -91.0009406
-    }
+    },
+    //--------ここからペルー.pe------
+    {//アンカシュの赤い
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730475017849!6m8!1m7!1sLdo9EmtDndA4gmb773F8ng!2m2!1d-9.220379656490188!2d-77.82253136082498!3f222.24837833765517!4f0!5f0.7820865974627469',
+        answerUrl: 'https://maps.app.goo.gl/au7YSGV3jPSjjvnj8',
+        lat: -9.2203797,
+        lng: -77.8225314
+    },
     /*
     {
         embedUrl: '',
