@@ -15,15 +15,52 @@
     </div>
 </head>
 <body>
+    
+	<audio loop id="bgm" preload="auto"></audio>
+    <audio id="SoundEffect" preload="auto"></audio>
+
     <iframe id="streetview" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
     <!-- ボタンを2つ表示するためのコンテナ -->
     <div class="button-container">
-        <button id="next-round-button" onclick="showRandomStreetView()">Next Round🚩</button>
+        <button onclick="showRandomStreetView()">Next Round🚩</button>
         <button onclick="showAnswer()">show answer</button>
         <br> <!-- Next Roundと戻るボタンの間にスペースを作る -->
         <button onclick="goBack()">戻る</button> <!-- 戻るボタンを追加 -->
+        <button id="bgmButton">BGM:ON</button>
     </div>    
+    <script>
+        const bgm = document.getElementById("bgm");
+        const button = document.getElementById("bgmButton");
+        let isMuted = true;
+
+        bgm.volume = 0.3; // 初期ボリュームを0.2に設定
+
+        const bgmTracks = [
+            "Resource/bgm/Track01.mp3",
+            "Resource/bgm/Track02.mp3",
+            "Resource/bgm/Track03.mp3",
+            "Resource/bgm/Track04.mp3",
+            "Resource/bgm/Track05.mp3",
+            "Resource/bgm/Track06.mp3"
+        ];
+
+        const randomTrack = bgmTracks[Math.floor(Math.random() * bgmTracks.length)];
+        bgm.src = randomTrack;
+
+        button.addEventListener("click", () => {
+            if (isMuted) {
+                bgm.play();
+                bgm.muted = false;
+                button.textContent = "BGM:OFF";
+                isMuted = false;
+            } else {
+                bgm.muted = true;
+                button.textContent = "BGM:ON";
+                isMuted = true;
+            }
+        });
+    </script>
 
     <div id="map-container">
         <div id="map"></div> <!-- Leaflet地図の表示領域 -->

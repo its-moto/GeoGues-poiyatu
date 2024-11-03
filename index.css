@@ -1,0 +1,130 @@
+/* Neo Sans Std - 極太斜体 */
+@font-face {
+    font-family: 'NeoSansBoldItalic';
+    src: url('fonts/NeoSans/NeoSans Black Italic.otf') format('opentype');
+}
+
+/* Noto Sans JP  */
+@font-face {
+    font-family: 'NotoSansJP';
+    src: url('fonts/Noto Sans JP/NotoSansJP-VariableFont_wght.ttf') format('truetype');
+}
+
+* {
+    font-family: "NeoSansBoldItalic", "NotoSansJP", "Comic Sans MS", sans-serif;
+    color: white;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(170deg, rgba(33, 34, 56,0) , rgba(33, 34, 56,1) 70%),
+                linear-gradient(120deg, rgba(40, 90, 144,1) 10%, rgba(100, 59, 91,1) 40%);
+    background-attachment: fixed;
+    height: 100vh;
+    /* ビューポートの高さを設定 */
+}
+
+/* タイトルのスタイル */
+.header {
+    text-align: left;
+    padding: 9px;
+    padding-top: 5px;
+    padding-left: 80px;
+    background-color: rgba(33, 34, 56, 0.8);
+    font-size: 40px;
+    font-family: 'Neo Sans', 'NotoSansJP';
+    color: rgba(207, 20, 43, 0);   /* 縁取りのみ表示 */
+    -webkit-text-stroke: 5px rgb(207, 20, 43); /* 赤い縁取り */
+    position: absolute;             /* 重ねて配置 */
+    top: 0;
+    left: 0;
+    width: 100%;                   /* 横幅を全体に広げる */
+    box-sizing: border-box;         /* パディングを含める */
+}
+
+.title {
+    padding: 9px;
+    padding-top: 5px;
+    padding-left: 80px;
+    font-size: 40px;
+    font-family: 'Neo Sans', 'NotoSansJP';
+    color: rgb(207, 20, 43);        /* 縁取りなし文字の色 */
+    position: relative;             /* 重ねて配置 */
+    top: 5px;
+    left: 0;
+}
+
+/* 検索バーのスタイル */
+.search-container {
+    text-align: center;
+    margin: 20px;
+}
+
+.search-container input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    color: black;
+    border: 1px solid #ccc;
+    width: 300px;
+}
+
+/* グリッドレイアウト */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px 0;
+    padding: 0;
+    margin: 30px 140px;
+}
+
+/* カードのスタイル */
+.card {
+    width: 250px;
+    margin: auto;
+    background-color: #1a1a2e;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+    /* 幅を100%に指定して、親要素にフィットさせる */
+    height: 170px;
+    /* 高さは固定 */
+    border-radius: 8px 8px 0 0;
+    /* カードの上部分の角を丸める */
+    object-fit: cover;
+    /* 画像を指定したサイズに収める */
+}
+
+.card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.card button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background-color: #45a049;
+}
+
+.footer {
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    bottom: 5px;
+}

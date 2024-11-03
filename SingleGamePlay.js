@@ -1,5 +1,8 @@
 
 function showRandomStreetView() {
+    document.getElementById('distance-value').textContent = "0km";
+    document.getElementById('point-value').textContent = 0;
+
     const randomIndex = Math.floor(Math.random() * streetViews.length);
     currentStreetViewIndex = randomIndex;
     if (marker) {
@@ -57,7 +60,7 @@ function setMapStage() {
 
 L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
 	attribution: "<a href='https://developers.google.com/maps/documentation' target='_blank'>Google Map</a>",
-    maxZoom: 19
+    maxZoom: 20
 }).addTo(map);
 
 // カスタムアイコンの作成
@@ -81,6 +84,11 @@ map.on('click', function (e) {
 
     // 新しいピンを追加
     marker = L.marker([lat, lng], { icon: createCustomIcon() }).addTo(map);
+    
+    const soundEffect = document.getElementById("SoundEffect");
+    soundEffect.src ="Resource/pick.mp3" 
+    soundEffect.currentTime = 0; // 再生位置を先頭に戻す
+    soundEffect.play(); // 効果音を再生
 });
 
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -109,21 +117,63 @@ function guess() {
     if (!marker) {
         return; // ピンが置かれていない場合は処理を中止
     }
+    const soundEffect = document.getElementById("SoundEffect");
+    soundEffect.src ="Resource/ResultScore.mp3" 
+    soundEffect.currentTime = 0; // 再生位置を先頭に戻す
+    soundEffect.play(); // 効果音を再生
 
     const latLng1 = L.latLng(marker.getLatLng().lat, marker.getLatLng().lng);
     const latLng2 = L.latLng(streetViews[currentStreetViewIndex].lat, streetViews[currentStreetViewIndex].lng); // 現在のストリートビューの位置を使用
 
     const distance = latLng1.distanceTo(latLng2);
     const finalpoint = pointCul(distance);
+    
+    // 表示する数値を決定
+    let targetDistance;
     if (distance > 10000) {
-        document.getElementById('distance-value').textContent = Math.round(distance / 1000) +"km";
-        document.getElementById('point-value').textContent = finalpoint;
-    } else if(distance > 1000){
-        document.getElementById('distance-value').textContent = ((Math.round(distance / 100)) / 10) + "km";
-        document.getElementById('point-value').textContent = finalpoint;
+        targetDistance = Math.round(distance / 1000) +"km";
+    } else if (distance > 1000) {
+        targetDistance = ((Math.round(distance / 100)) / 10) + "km";
+    } else {
+        targetDistance = Math.round(distance) + "m";
     }
-    else {
-        document.getElementById('distance-value').textContent = Math.round(distance) + "m";
-        document.getElementById('point-value').textContent = finalpoint;
+    // 数値をアニメーションで変化させる
+    animateValue('distance-value', targetDistance ,1000); // 1秒かけて変化
+    animateValue('point-value', finalpoint.toString(), 1000); // finalpointを文字列に変換
+}
+
+// 数値をアニメーションで変化させる関数
+function animateValue(id, target, duration) {
+    const element = document.getElementById(id);
+    const end = parseFloat(target) || 0; // 目標値を数値として取得
+    const startTime = performance.now();
+
+    function update() {
+        const currentTime = performance.now();
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1); // 0から1の範囲に制限
+
+        // 線形補間で値を計算
+        const currentValue = 0 + (end - 0) * progress;
+
+        // 値を表示
+        if (target.endsWith("km")) {
+            if (currentValue >= 0 && currentValue < 10) {
+                element.textContent = currentValue.toFixed(1) + "km"; // 小数点以下1桁を表示
+            } else {
+                element.textContent = Math.round(currentValue) + "km"; // 整数表示
+            }
+        } else if (target.endsWith("m")) {
+            element.textContent = Math.round(currentValue) + "m";
+        } else {
+            element.textContent = Math.round(currentValue); // finalpointが数値の場合
+        }
+
+        // アニメーションが終了していない場合は次のフレームをリクエスト
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
     }
+
+    update(); // アニメーションを開始
 }
