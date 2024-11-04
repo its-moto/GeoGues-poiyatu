@@ -1,1 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css">
+	<title>GeoGuessrっぽい何か</title>
+	<link rel="icon" href="Resource/icon.jpg"> <!-- ページアイコン -->
+</head>
+
+<body>
+	<audio muted loop id="bgm" preload="auto" src="Resource/bgm/Ambient.mp3"type="audio/mp3"></audio>
+
+	<div style="position: relative; display: inline-block; width: 100%;">
+		<!-- タイトル -->
+		<span class="header"><b>GEOGUESSRっぽい何か</b></span>
+		<span class="title"><b>GEOGUESSRっぽい何か</b></span>
+	</div>
+
+	<!-- 検索バー -->
+	<div class="search-container">
+		<input type="text" id="searchBar" placeholder="検索（例: アジア, 日本, 世界）" onkeyup="filterCards()">
+	</div>
+
+	<!-- ブロックのグリッドコンテナ -->
+	<div class="grid-container">
+		<div class="card" data-keywords="world">
+			<img src="Resource/mapimg/world.png" alt="world.png">
+			<h3>A Random picked world</h3>
+			<button onclick="location.href='A Random picked World.html'">プレイ</button>
+		</div>
+
+		<div class="card" data-keywords="japan アジア">
+			<img src="Resource/mapimg/japan.png" alt="japan,png">
+			<h3>日本</h3>
+			<button onclick="location.href='Japan.html'">プレイ</button>
+		</div>
+
+		<div class="card" data-keywords="an urban japan">
+			<img src="Resource/mapimg/japan.png" alt="AAJ,png">
+			<h3>An Urban Japan</h3>
+			<button onclick="location.href='An%20Urban%20Japan.html'">プレイ</button>
+		</div>
+
+		<div class="card" data-keywords="madagascar">
+			<img src="Resource/mapimg/madagascar.png" alt="madagascar,png">
+			<h3>マダガスカル</h3>
+			<button onclick="location.href='Madagascar.html'">プレイ</button>
+		</div>
+
+		<div class="card" data-keywords="sanmarino san marino">
+			<img src="Resource/mapimg/sanmarino.png" alt="sanmarino,png">
+			<h3>サン・マリノ</h3>
+			<button onclick="location.href='San%20Marino.html'">プレイ</button>
+		</div>
+	</div>
+	
+
+	<button id="settingsButton" onclick="openPopup()">
+		<img src="Resource/setting.png" alt="設定" />
+	</button>
+
+	<div class="popup-overlay" id="popup">
+		<div class="popup-content">
+			<h2>設定</h2>
+			<p>BGM</p>
+			<label class="toggle-switch">
+				<input type="checkbox" id="bgmToggle">
+				<span class="slider"></span>
+				</label>
+			<br>
+			<button class="close-popup-btn" onclick="closePopup()">クローズ</button>
+		</div>
+	</div>
+    
+	<div class="footer">
+		powered by: Google Map, Leaflet, Visual Studio Code<br>made by it_s_moto, Inspired by GEOGUESSR
+	</div>
+
+	<script>
+		// ポップアップを表示する関数
+		function openPopup() {
+			document.getElementById("popup").style.display = "flex";
+		}
+
+		// ポップアップを閉じる関数
+		function closePopup() {
+			document.getElementById("popup").style.display = "none";
+		}
+		
+		const bgm = document.getElementById("bgm");
+		const toggle = document.getElementById("bgmToggle");
+        let isMuted = true;
+
+        bgm.volume = 0.3; // 初期ボリュームを0.2に設定
+
+		toggle.addEventListener("change", () => {
+			if (toggle.checked) {
+				bgm.play();
+				bgm.muted = false;
+				isMuted = false;
+			} else {
+				bgm.muted = true;
+				isMuted = true;
+			}
+		});
+
+		function filterCards() {
+			const searchInput = document.getElementById('searchBar').value.toLowerCase();
+			const cards = document.querySelectorAll('.card');
+
+			cards.forEach(card => {
+				const keywords = card.getAttribute('data-keywords');
+				if (keywords.includes(searchInput)) {
+					card.style.display = '';
+				} else {
+					card.style.display = 'none';
+				}
+			});
+		}
+	</script>
+</body>
+
+</html>
