@@ -10,12 +10,12 @@
 </head>
 
 <body>
-	<audio loop id="bgm" preload="auto" src="Resource/bgm/Ambient.mp3"type="audio/mp3"></audio>
+	<audio muted loop id="bgm" preload="auto" src="Resource/bgm/Ambient.mp3"type="audio/mp3"></audio>
 
 	<div style="position: relative; display: inline-block; width: 100%;">
 		<!-- タイトル -->
-		<span class="header"><b>GeoGuessrっぽい何か</b></span>
-		<span class="title"><b>GeoGuessrっぽい何か</b></span>
+		<span class="header"><b>GEOGUESSRっぽい何か</b></span>
+		<span class="title"><b>GEOGUESSRっぽい何か</b></span>
 	</div>
 
 	<!-- 検索バー -->
@@ -56,38 +56,56 @@
 		</div>
 	</div>
 	
-	<button id="bgmButton" >再生</button>
 
+	<button id="settingsButton" onclick="openPopup()">
+		<img src="Resource/setting.png" alt="設定" />
+	</button>
+
+	<div class="popup-overlay" id="popup">
+		<div class="popup-content">
+			<h2>設定</h2>
+			<p>BGM</p>
+			<label class="toggle-switch">
+				<input type="checkbox" id="bgmToggle">
+				<span class="slider"></span>
+				</label>
+			<br>
+			<button class="close-popup-btn" onclick="closePopup()">クローズ</button>
+		</div>
+	</div>
+    
 	<div class="footer">
-		powered by: Google Map, Leaflet, Visual Studio Code
+		powered by: Google Map, Leaflet, Visual Studio Code<br>made by it_s_moto, Inspired by GEOGUESSR
 	</div>
 
 	<script>
-        const bgm = document.getElementById("bgm");
-        const button = document.getElementById("bgmButton");
-        let isPlaying = false;
-        let isMuted = false;
+		// ポップアップを表示する関数
+		function openPopup() {
+			document.getElementById("popup").style.display = "flex";
+		}
+
+		// ポップアップを閉じる関数
+		function closePopup() {
+			document.getElementById("popup").style.display = "none";
+		}
+		
+		const bgm = document.getElementById("bgm");
+		const toggle = document.getElementById("bgmToggle");
+        let isMuted = true;
 
         bgm.volume = 0.3; // 初期ボリュームを0.2に設定
 
-        button.addEventListener("click", () => {
-            if (!isPlaying) {
-                bgm.play();
-                button.textContent = "BGMをミュート";
-                isPlaying = true;
-                isMuted = false;
-            } else if (isMuted) {
-                bgm.muted = false;
-                button.textContent = "BGMをミュート";
-                isMuted = false;
-            } else {
-                bgm.muted = true;
-                button.textContent = "BGMのミュート解除";
-                isMuted = true;
-            }
-        });
+		toggle.addEventListener("change", () => {
+			if (toggle.checked) {
+				bgm.play();
+				bgm.muted = false;
+				isMuted = false;
+			} else {
+				bgm.muted = true;
+				isMuted = true;
+			}
+		});
 
-		
 		function filterCards() {
 			const searchInput = document.getElementById('searchBar').value.toLowerCase();
 			const cards = document.querySelectorAll('.card');
