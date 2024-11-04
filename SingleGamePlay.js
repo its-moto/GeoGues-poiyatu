@@ -1,3 +1,11 @@
+let currentAnswerUrl; // 正解リンクを保持する変数
+let currentStreetViewIndex;
+let mapSize;
+let marker; // ピンを保持する変数
+
+var map = L.map('map').setView([0, 0], 1);
+
+showRandomStreetView();// ページの読み込み後に初期化
 
 function showRandomStreetView() {
     document.getElementById('distance-value').textContent = "0km";
@@ -22,14 +30,6 @@ function showAnswer() {
 function goBack() {
     window.location.href = 'index.html'; // ローカルファイルへのパス
 }
-
-let currentAnswerUrl; // 正解リンクを保持する変数
-let currentStreetViewIndex;
-let mapSize;
-let marker; // ピンを保持する変数
-
-var map = L.map('map').setView([0, 0], 1);
-showRandomStreetView();// ページの読み込み後に初期化
 
 //===========================================guessとかピンとか===========================================
 
@@ -176,4 +176,14 @@ function animateValue(id, target, duration) {
     }
 
     update(); // アニメーションを開始
+}
+
+//==============================
+function openPopup() {
+    document.getElementById("popup").style.display = "flex";
+}
+
+// ポップアップを閉じる関数
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
 }

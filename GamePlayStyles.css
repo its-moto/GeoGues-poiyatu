@@ -58,7 +58,7 @@ button {
     padding-left: 30px;
     padding-right: 20px;
     color: white;
-    background-color: #573b5b;
+    background: linear-gradient( to bottom , #9589c9,  #563b9a);
     font-size: 20px;
 
     /* 左の辺を斜めにする */
@@ -140,4 +140,149 @@ button {
     left: 20px;
     z-index: 1000; /* 地図よりも上に表示されるようにz-indexを設定 */
     padding: 10px; /* 内側の余白 */
+}
+
+
+/* スライダーコンテナのスタイル */
+.slider-container {
+    display: flex;
+    white-space: nowrap;
+    width: 80%;
+    max-width: 300px;
+    color: white;
+}
+/* 音量スライダーのスタイル */
+#volumeSlider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #a19bd9;
+    outline: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    border-radius: 5px;
+}
+
+#volumeSlider:hover {
+    opacity: 1;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #7950e5;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+#volumeSlider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #7950e5;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+
+/* トグルスイッチのスタイル */
+.toggle-switch {
+    position: relative;
+    width: 50px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider {
+    background-color: #7950e5;
+}
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider-container {
+    margin-top: 20px;
+    width: 80%;
+    max-width: 300px;
+}
+
+/* ボタンのスタイル */
+#settingsButton {
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    position: absolute;
+    top: 11px;
+    left: 0%;
+    z-index: 10;
+    width: 200px;
+    height: 54px;
+}
+
+/* ポップアップ全体のスタイル */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(14, 8, 39, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+/* ポップアップコンテンツのスタイル */
+.popup-content {
+    color: white;
+    padding: 20px;
+    width: 70%;
+    text-align: center;
+}
+/* 閉じるボタンのスタイル */
+.close-popup-btn {
+    background-color: #4CAF50;
+    border: none;
+    margin-top: 10px;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.goBack{
+    background: none;
+    color: white;
+    font-size: 20px;
+    margin-top: 10px;
+    padding: 8px 16px;
+    border: 1.5px solid white;
+    border-radius: 30px;
 }
