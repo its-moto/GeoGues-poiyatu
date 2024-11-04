@@ -18,3 +18,21 @@ function updateButtonWidthContinuously() {
 
 // 更新を開始
 requestAnimationFrame(updateButtonWidthContinuously);
+
+
+document.getElementById("settingsButton").addEventListener("click", function() {
+    document.getElementById("settingsModal").style.display = "block";
+  });
+  
+  document.getElementById("closeButton").addEventListener("click", function() {
+    document.getElementById("settingsModal").style.display = "none";
+  });
+  
+  // モーダル外をクリックすると非表示にする
+  window.addEventListener("click", function(event) {
+    const modal = document.getElementById("settingsModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+  
