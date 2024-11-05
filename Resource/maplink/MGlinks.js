@@ -127,6 +127,12 @@ const streetViews = [
         lat: -13.7553778,
         lng:48.4602239
     }
+    ,{//ディストリクトしたの川(徒歩)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730816157837!6m8!1m7!1szYWlkmEOg_grMNGFz6BbNA!2m2!1d-13.75094602023101!2d48.46522753918993!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/DzcFBHHXK65qmnsq9',
+        lat: -13.750946,
+        lng: 48.4652275
+    }
     ,{
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730725856853!6m8!1m7!1s_yXLjUQXdOUrC8ocOpM0kw!2m2!1d-23.57253966247112!2d43.76202358662786!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/sYbjP1zVKup5JBxR7',
