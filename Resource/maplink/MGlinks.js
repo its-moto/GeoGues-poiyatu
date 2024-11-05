@@ -57,13 +57,19 @@ const streetViews = [
     },
     {//ディストリクト・ダンバンジャ(橋の近く)
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730725999854!6m8!1m7!1sFrmp1NylpUpFY_bYE9zHFw!2m2!1d-13.68730411938349!2d48.45371870309766!3f0!4f0!5f0.4',
-        answerUrl: 'https://maps.app.goo.gl/eN5S7oahK9Xc7ALt6',
-        lat: -13.6746186,
-        lng: 48.4517221
+        answerUrl: 'https://maps.app.goo.gl/AG2pR2neruMsWTCw7',
+        lat: -13.6873041,
+        lng: 48.4537187
+    },
+    {//ディストリクト・ダンバンジャ近くの海(小型船)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730815861574!6m8!1m7!1sP7Qpa2HiIWquuRl5Tu4eGg!2m2!1d-13.58267811928074!2d48.39504656283499!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/AG2pR2neruMsWTCw7',
+        lat: -13.5826781,
+        lng: 48.3950466
     },
     {//汚い浜
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730724690462!6m8!1m7!1sY0dpY8sDH_LNFWpjuNoavw!2m2!1d-20.74116513783829!2d43.99953603075323!3f0!4f0!5f0.4',
-        answerUrl: 'https://maps.app.goo.gl/B5zpRqwckYhLHecD7',
+        answerUrl: 'https://maps.app.goo.gl/D7kAUChNssFu7wWn7',
         lat: -20.7411651,
         lng:43.999536
     }, 
