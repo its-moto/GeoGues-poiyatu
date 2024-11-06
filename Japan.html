@@ -21,7 +21,10 @@
 
     <iframe id="streetview" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-	<button id="settingsButton" onclick="openPopup()">オプション</button>
+    <div class="button-container">
+        <button class="settingsButton" onclick="openPopup()">OPTIONS</button>
+        <button onclick="showRandomStreetView()">Next Round🚩</button>
+    </div>
 
 	<div class="popup-overlay" id="popup">
 		<div class="popup-content">
@@ -41,10 +44,10 @@
             <button onclick="showAnswer()">show answer</button>
             <hr color="#c7c7c7" width="50%">
 			<button class="close-popup-btn" onclick="closePopup()">ゲームに戻る</button>
-            <button onclick="showRandomStreetView()">Next Round🚩</button>
             <button class="goBack" onclick="goBack()">ゲームを出る</button> <!-- 戻るボタンを追加 -->
 		</div>
 	</div>
+
 
     <script>
         const bgm = document.getElementById("bgm");
@@ -66,22 +69,22 @@
         ];
         const randomTrack = bgmTracks[Math.floor(Math.random() * bgmTracks.length)];
         bgm.src = randomTrack;
-
-        // BGMトグル（オン・オフ）
+        toggle.checked = !isMuted; 
+        bgm.muted = isMuted;
         toggle.addEventListener("change", () => {
-            if (toggle.checked) {
+            isMuted = !toggle.checked; // トグルの状態からisMutedを反転
+            bgm.muted = isMuted;
+
+            if (!isMuted) {
                 bgm.play();
-                bgm.muted = false;
-                isMuted = false;
-            } else {
-                bgm.muted = true;
-                isMuted = true;
             }
         });
 
         // スライダーで音量を調整
         volumeSlider.addEventListener("input", function() {
             bgm.volume = this.value;
+
+            localStorage.setItem("bgmVolume", JSON.stringify(this.value));
         });
     </script>
 

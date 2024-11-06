@@ -8,7 +8,7 @@ var map = L.map('map').setView([0, 0], 1);
 showRandomStreetView();// ページの読み込み後に初期化
 
 function showRandomStreetView() {
-    document.getElementById('distance-value').textContent = "0km";
+    document.getElementById('distance-value').textContent = "0m";
     document.getElementById('point-value').textContent = 0;
 
     const randomIndex = Math.floor(Math.random() * streetViews.length);

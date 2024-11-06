@@ -14,36 +14,40 @@
         A Random picked World
     </div>
 </head>
-<body>    
-	<audio loop id="bgm" preload="auto"></audio>
+<body>
+    <audio loop id="bgm" preload="auto"></audio>
     <audio id="SoundEffect" preload="auto"></audio>
 
     <iframe id="streetview" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-	<button id="settingsButton" onclick="openPopup()">オプション</button>
+    <div class="button-container">
+        <button class="settingsButton" onclick="openPopup()">OPTIONS</button>
+        <button onclick="showRandomStreetView()">Next Round🚩</button>
+    </div>
 
-	<div class="popup-overlay" id="popup">
-		<div class="popup-content">
-			<h2>設定</h2>
-            <center><div class="slider-container">
-                <label class="slider-label" for="volumeSlider">音量:</label>
-                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.2">
-            </div>
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <h2>設定</h2>
+            <center>
+                <div class="slider-container">
+                    <label class="slider-label" for="volumeSlider">音量:</label>
+                    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.2">
+                </div>
             </center>
-			<p>BGM</p>
-			<label class="toggle-switch">
-				<input type="checkbox" id="bgmToggle">
-				<span class="slider"></span>
-			</label>
-			<br>
-			<br>
+            <p>BGM</p>
+            <label class="toggle-switch">
+                <input type="checkbox" id="bgmToggle">
+                <span class="slider"></span>
+            </label>
+            <br>
+            <br>
             <button onclick="showAnswer()">show answer</button>
             <hr color="#c7c7c7" width="50%">
-			<button class="close-popup-btn" onclick="closePopup()">ゲームに戻る</button>
-            <button onclick="showRandomStreetView()">Next Round🚩</button>
+            <button class="close-popup-btn" onclick="closePopup()">ゲームに戻る</button>
             <button class="goBack" onclick="goBack()">ゲームを出る</button> <!-- 戻るボタンを追加 -->
-		</div>
-	</div>
+        </div>
+    </div>
+
 
     <script>
         const bgm = document.getElementById("bgm");
@@ -53,7 +57,7 @@
 
         // 初期設定
         bgm.volume = volumeSlider.value;
-        
+
         // ランダムなBGMトラックを選択
         const bgmTracks = [
             "Resource/bgm/Track01.mp3",
@@ -65,22 +69,22 @@
         ];
         const randomTrack = bgmTracks[Math.floor(Math.random() * bgmTracks.length)];
         bgm.src = randomTrack;
-
-        // BGMトグル（オン・オフ）
+        toggle.checked = !isMuted;
+        bgm.muted = isMuted;
         toggle.addEventListener("change", () => {
-            if (toggle.checked) {
+            isMuted = !toggle.checked; // トグルの状態からisMutedを反転
+            bgm.muted = isMuted;
+
+            if (!isMuted) {
                 bgm.play();
-                bgm.muted = false;
-                isMuted = false;
-            } else {
-                bgm.muted = true;
-                isMuted = true;
             }
         });
 
         // スライダーで音量を調整
-        volumeSlider.addEventListener("input", function() {
+        volumeSlider.addEventListener("input", function () {
             bgm.volume = this.value;
+
+            localStorage.setItem("bgmVolume", JSON.stringify(this.value));
         });
     </script>
 

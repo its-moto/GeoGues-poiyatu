@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="index.css">
-	<title>GeoGuessrっぽい何か</title>
+	<title>GeoGuessr®っぽい何か</title>
 	<link rel="icon" href="Resource/icon.jpg"> <!-- ページアイコン -->
 </head>
 
@@ -14,8 +14,8 @@
 
 	<div style="position: relative; display: inline-block; width: 100%;">
 		<!-- タイトル -->
-		<span class="header"><b>GEOGUESSRっぽい何か</b></span>
-		<span class="title"><b>GEOGUESSRっぽい何か</b></span>
+		<span class="header"><b>GEOGUESSR®っぽい何か</b></span>
+		<span class="title"><b>GEOGUESSR®っぽい何か</b></span>
 	</div>
 
 	<!-- 検索バー -->
@@ -56,6 +56,7 @@
 		</div>
 	</div>
 	
+	<p id="noResults" style="display: none; text-align: center; font-size: 1.2em; color:rgba(225, 225, 225, 0.63)">検索結果なし</p>
 
 	<button id="settingsButton" onclick="openPopup()">
 		<img src="Resource/setting.png" alt="設定" />
@@ -109,15 +110,19 @@
 		function filterCards() {
 			const searchInput = document.getElementById('searchBar').value.toLowerCase();
 			const cards = document.querySelectorAll('.card');
+			let anyVisible = false;
 
 			cards.forEach(card => {
 				const keywords = card.getAttribute('data-keywords');
 				if (keywords.includes(searchInput)) {
 					card.style.display = '';
+					anyVisible = true;
 				} else {
 					card.style.display = 'none';
 				}
 			});
+
+			document.getElementById('noResults').style.display = anyVisible ? 'none' : 'block';
 		}
 	</script>
 </body>
