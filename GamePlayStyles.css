@@ -43,6 +43,7 @@ button {
     text-align: center;
     height: 60px;
     padding: 13px 20px;
+    border-radius: 10px;
     font-size: 18px;
     margin-right: 3px;
     /* ボタン同士の間隔を開ける */

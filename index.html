@@ -25,31 +25,31 @@
 
 	<!-- ブロックのグリッドコンテナ -->
 	<div class="grid-container">
-		<div class="card" data-keywords="world">
+		<div class="card" data-keywords="a random picked world 世界">
 			<img src="Resource/mapimg/world.png" alt="world.png">
 			<h3>A Random picked world</h3>
 			<button onclick="location.href='A Random picked World.html'">プレイ</button>
 		</div>
 
-		<div class="card" data-keywords="japan アジア">
+		<div class="card" data-keywords="japan アジア 日本">
 			<img src="Resource/mapimg/japan.png" alt="japan,png">
 			<h3>日本</h3>
 			<button onclick="location.href='Japan.html'">プレイ</button>
 		</div>
 
-		<div class="card" data-keywords="an urban japan">
+		<div class="card" data-keywords="an urban japan 日本 アジア urban 都会">
 			<img src="Resource/mapimg/japan.png" alt="AAJ,png">
 			<h3>An Urban Japan</h3>
 			<button onclick="location.href='An%20Urban%20Japan.html'">プレイ</button>
 		</div>
 
-		<div class="card" data-keywords="madagascar">
+		<div class="card" data-keywords="madagascar マダガスカル">
 			<img src="Resource/mapimg/madagascar.png" alt="madagascar,png">
 			<h3>マダガスカル</h3>
 			<button onclick="location.href='Madagascar.html'">プレイ</button>
 		</div>
 
-		<div class="card" data-keywords="sanmarino san marino">
+		<div class="card" data-keywords="sanmarino san marino ヨーロッパ eu">
 			<img src="Resource/mapimg/sanmarino.png" alt="sanmarino,png">
 			<h3>サン・マリノ</h3>
 			<button onclick="location.href='San%20Marino.html'">プレイ</button>
@@ -92,7 +92,7 @@
 		
 		const bgm = document.getElementById("bgm");
 		const toggle = document.getElementById("bgmToggle");
-        let isMuted = true;
+        let isMuted = false;
 
         bgm.volume = 0.3; // 初期ボリュームを0.2に設定
 
@@ -106,6 +106,7 @@
 				isMuted = true;
 			}
 		});
+		
 
 		function filterCards() {
 			const searchInput = document.getElementById('searchBar').value.toLowerCase();
