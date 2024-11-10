@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="GamePlayStyles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link rel="icon" href="Resource/logo-pin.png"> <!-- ページアイコン -->
 
     <script src="Resource/maplink/JPlinks.js"></script>
@@ -15,14 +14,15 @@
     </div>
 </head>
 
-<body>    
+<body>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 	<audio loop id="bgm" preload="auto"></audio>
     <audio id="SoundEffect" preload="auto"></audio>
 
     <iframe id="streetview" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
     <div class="button-container">
-        <button class="settingsButton" onclick="openPopup()">OPTIONS</button>
+        <button class="settingsButton" onclick="openSetting()">OPTIONS</button>
         <button onclick="showRandomStreetView()">Next Round🚩</button>
     </div>
 
@@ -43,11 +43,10 @@
 			<br>
             <button onclick="showAnswer()">show answer</button>
             <hr color="#c7c7c7" width="50%">
-			<button class="close-popup-btn" onclick="closePopup()">ゲームに戻る</button>
+			<button class="close-popup-btn" onclick="closeSetting()">ゲームに戻る</button>
             <button class="goBack" onclick="goBack()">ゲームを出る</button> <!-- 戻るボタンを追加 -->
 		</div>
 	</div>
-
 
     <script>
         const bgm = document.getElementById("bgm");
@@ -88,12 +87,19 @@
         });
     </script>
 
+    <div class="result-overlay" id="resultPopup">
+        <div id="distance"><span id="distance-value">0km</span>, <span id="point-value">0</span> /5000 pt</div>
+
+        <div id="remap"></div> <!-- Leaflet地図の表示領域 -->
+        
+        <div id="nextRound" onclick="showRandomStreetView()">Next Round</div>
+    </div>
+
     <div id="map-container">
         <div id="map"></div> <!-- Leaflet地図の表示領域 -->
     </div>
     <button class="guess-button" onclick="guess()">guess</button>
 
-    <div id="distance"><span id="distance-value">0km</span>, <span id="point-value">0</span> /5000 pt</div>
     <script src="SingleGamePlay.js"></script>
     <script src="cssanimation.js"></script>
 </body>

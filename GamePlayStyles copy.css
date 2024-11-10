@@ -154,53 +154,23 @@ button {
 #distance {
     position: absolute; /* 絶対位置を指定して地図の上に配置 */
     font-size: 20px;
-    background-color: #1A1A2E;
-    bottom: 50px;
-    text-align: center;
+    background-color: #573b5b;
+    bottom: 20px;
+    left: 20px;
     z-index: 10; /* 地図よりも上に表示されるようにz-indexを設定 */
     padding: 10px; /* 内側の余白 */
 }
 
 .result-overlay {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
     width: 100%;
-    height: 100%;
-    background-color: #1A1A2E;
+    height: 10%;
+    background-color: rgb(86, 59, 154);
     justify-content: center;
     align-items: center;
-}
-#resultMap {
-    position: absolute;
-    top: 0;
-    width: 80%;
-    height: 80%;
-    z-index: 20;
-    overflow: hidden;
-
-}
-
-#remap {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 80%;
-    border: solid red 2px;
-}
-
-#nextRound {
-    background: radial-gradient(ellipse at top, #97E851, #6CB928);
-
-    font-size: 30;
-    z-index: 100;
-    color: black;
-    position: absolute;
-    border-radius: 10px;
-    padding: 10px 30px;
-    bottom: 20px;
 }
 
 

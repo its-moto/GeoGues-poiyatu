@@ -95,6 +95,9 @@
         let isMuted = false;
 
         bgm.volume = 0.3; // 初期ボリュームを0.2に設定
+		window.onload = () => {
+			bgm.play();
+		};
 
 		toggle.addEventListener("change", () => {
 			if (toggle.checked) {
