@@ -15,7 +15,8 @@
     </div>
 </head>
 <body>
-    <audio loop id="bgm" preload="auto"></audio>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<audio loop id="bgm" preload="auto"></audio>
     <audio id="SoundEffect" preload="auto"></audio>
 
     <iframe id="streetview" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -25,29 +26,27 @@
         <button onclick="showRandomStreetView()">Next Round🚩</button>
     </div>
 
-    <div class="popup-overlay" id="popup">
-        <div class="popup-content">
-            <h2>設定</h2>
-            <center>
-                <div class="slider-container">
-                    <label class="slider-label" for="volumeSlider">音量:</label>
-                    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.2">
-                </div>
+	<div class="popup-overlay" id="popup">
+		<div class="popup-content">
+			<h2>設定</h2>
+            <center><div class="slider-container">
+                <label class="slider-label" for="volumeSlider">音量:</label>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.2">
+            </div>
             </center>
-            <p>BGM</p>
-            <label class="toggle-switch">
-                <input type="checkbox" id="bgmToggle">
-                <span class="slider"></span>
-            </label>
-            <br>
-            <br>
+			<p>BGM</p>
+			<label class="toggle-switch">
+				<input type="checkbox" id="bgmToggle">
+				<span class="slider"></span>
+			</label>
+			<br>
+			<br>
             <button onclick="showAnswer()">show answer</button>
             <hr color="#c7c7c7" width="50%">
-            <button class="close-popup-btn" onclick="closeSetting()">ゲームに戻る</button>
+			<button class="close-popup-btn" onclick="closeSetting()">ゲームに戻る</button>
             <button class="goBack" onclick="goBack()">ゲームを出る</button> <!-- 戻るボタンを追加 -->
-        </div>
-    </div>
-
+		</div>
+	</div>
 
     <script>
         const bgm = document.getElementById("bgm");
@@ -57,7 +56,7 @@
 
         // 初期設定
         bgm.volume = volumeSlider.value;
-
+        
         // ランダムなBGMトラックを選択
         const bgmTracks = [
             "Resource/bgm/Track01.mp3",
@@ -69,7 +68,7 @@
         ];
         const randomTrack = bgmTracks[Math.floor(Math.random() * bgmTracks.length)];
         bgm.src = randomTrack;
-        toggle.checked = !isMuted;
+        toggle.checked = !isMuted; 
         bgm.muted = isMuted;
         toggle.addEventListener("change", () => {
             isMuted = !toggle.checked; // トグルの状態からisMutedを反転
@@ -81,19 +80,26 @@
         });
 
         // スライダーで音量を調整
-        volumeSlider.addEventListener("input", function () {
+        volumeSlider.addEventListener("input", function() {
             bgm.volume = this.value;
 
             localStorage.setItem("bgmVolume", JSON.stringify(this.value));
         });
     </script>
 
+    <div class="result-overlay" id="resultPopup">
+        <div id="distance"><span id="distance-value">0km</span>, <span id="point-value">0</span> /5000 pt</div>
+
+        <div id="remap"></div> <!-- Leaflet地図の表示領域 -->
+        
+        <div id="nextRound" onclick="showRandomStreetView()">Next Round</div>
+    </div>
+
     <div id="map-container">
         <div id="map"></div> <!-- Leaflet地図の表示領域 -->
     </div>
     <button class="guess-button" onclick="guess()">guess</button>
 
-    <div id="distance"><span id="distance-value">0km</span>, <span id="point-value">0</span> /5000 pt</div>
     <script src="SingleGamePlay.js"></script>
     <script src="cssanimation.js"></script>
 </body>

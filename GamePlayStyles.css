@@ -176,18 +176,19 @@ button {
 #resultMap {
     position: absolute;
     top: 0;
-    right: 0;
-    left: 0;
-    bottom: 20%;
+    width: 80%;
+    height: 80%;
     z-index: 20;
-    border: solid black 2px;
     overflow: hidden;
-    text-align: center;
+
 }
 
-#rmap {
+#remap {
+    position: absolute;
+    top: 0;
     width: 100%;
-    height: 100%;
+    height: 80%;
+    border: solid red 2px;
 }
 
 #nextRound {
