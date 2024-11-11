@@ -110,8 +110,8 @@ button {
 }
 
 #map {
-    width: 300%;
-    height: 300%;
+    width: 600px;
+    height: 400px;
     cursor: crosshair;
     transition: transform 0.2s;
     /* マップ自体のアニメーション */

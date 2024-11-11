@@ -1,5 +1,6 @@
 let currentAnswerUrl; // 正解リンクを保持する変数
 let currentStreetViewIndex;
+let nowdisplay = 'play';
 let Size;
 let marker; // ピンを保持する変数
 let rmarker; // ピンを保持する変数
@@ -40,19 +41,21 @@ function goBack() {
 //===========================================guessとかピンとか===========================================
 
 function setMapStage() {
+    let mapcontainer = document.getElementById('map-container').style;
+
     const currentFileName = window.location.pathname.split("/").pop();
     // ファイル名ごとにステージの設定を分ける
     
     if (currentFileName === "A%20Random%20picked%20World.html") {
-        map.setView([-40,180], 1);
-        rfmap.setView([-20,180], 2);
+        map.setView([0,0], 1);
+        rfmap.setView([20,0], 2);
         mapSize =1;
     } else if (currentFileName === "Japan.html") {
-        map.setView([35,140], 3.5);
+        map.setView([37, 135], 4);
         rfmap.setView([38,138], 5);
         mapSize =4;
     } else if (currentFileName === "An%20Urban%20Japan.html") {
-        map.setView([33, 139], 4);
+        map.setView([37, 135], 4);
         rfmap.setView([38,138], 5);
         mapSize = 4;
     } else if (currentFileName === "Madagascar.html") {
@@ -115,7 +118,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // スペースキーのコードは32
         if (event.code === 'Space') {
             event.preventDefault(); // スペースキーのデフォルト動作を防止（スクロールなど）
-            guess(); // guess関数を呼び出す
+            if (nowdisplay == 'play'){
+                guess(); // guess関数を呼び出す
+            }else{
+                showRandomStreetView();
+                nowdisplay = 'play';
+            }
         }
     });
 });
@@ -126,13 +134,25 @@ function pointCul(distance) {
     return  Math.max(0, Math.min(5000,points));
 }
 
+function normalizeLongitude(lng) {
+    // 経度を -180 から 180 の範囲に正規化
+    return ((lng + 180) % 360 + 360) % 360 - 180;
+}
+
 // 距離を計算して表示する関数
+
 function guess() {
     if (!marker) {
         return; // ピンが置かれていない場合は処理を中止
     }
 
     openResult();
+    nowdisplay = 'result';
+
+    const soundEffect = document.getElementById("SoundEffect");
+    soundEffect.src = "Resource/ResultScore.mp3";
+    soundEffect.currentTime = 0; // 再生位置を先頭に戻す
+    soundEffect.play(); // 効果音を再生
 
     window.dispatchEvent(new Event('resize'));
     if (rmarker) {
@@ -140,25 +160,33 @@ function guess() {
         rfmap.removeLayer(ranswermarker);
         rfmap.removeLayer(rline);
     }
-    rmarker = L.marker([marker.getLatLng().lat, marker.getLatLng().lng], { icon: createCustomIcon() }).addTo(rfmap);    
-    ranswermarker = L.marker([streetViews[currentStreetViewIndex].lat, streetViews[currentStreetViewIndex].lng]).addTo(rfmap); 
-    rline = L.polyline([[marker.getLatLng().lat, marker.getLatLng().lng],[streetViews[currentStreetViewIndex].lat, streetViews[currentStreetViewIndex].lng]],{ "color": "black", "weight": 2, "opacity": 0.8,"dashArray":"5 8"}).addTo(rfmap);
-    
-    const soundEffect = document.getElementById("SoundEffect");
-    soundEffect.src ="Resource/ResultScore.mp3" 
-    soundEffect.currentTime = 0; // 再生位置を先頭に戻す
-    soundEffect.play(); // 効果音を再生
 
-    const latLng1 = L.latLng(marker.getLatLng().lat, marker.getLatLng().lng);
-    const latLng2 = L.latLng(streetViews[currentStreetViewIndex].lat, streetViews[currentStreetViewIndex].lng); // 現在のストリートビューの位置を使用
+    const latLng1 = L.latLng((marker.getLatLng().lat), normalizeLongitude(marker.getLatLng().lng));
+    const latLng2 = L.latLng(streetViews[currentStreetViewIndex].lat, (streetViews[currentStreetViewIndex].lng));
+
+    // ピンの追加
+    rmarker = L.marker([latLng1.lat, latLng1.lng], { icon: createCustomIcon() }).addTo(rfmap);    
+    ranswermarker = L.marker([latLng2.lat, latLng2.lng]).addTo(rfmap); 
+    rline = L.polyline([[latLng1.lat, latLng1.lng],[latLng2.lat, latLng2.lng]],{ "color": "black", "weight": 2, "opacity": 0.8,"dashArray":"5 8"}).addTo(rfmap);
 
     const distance = latLng1.distanceTo(latLng2);
     const finalpoint = pointCul(distance);
 
+    // ピン2つの位置から中央位置とズームレベルを調整
+    const bounds = L.latLngBounds([
+        [latLng1.lat, latLng1.lng],
+        [latLng2.lat, latLng2.lng]
+    ]);
+
+    // 遅延を加えてfitBoundsを実行
+    setTimeout(() => {
+        rfmap.fitBounds(bounds, { padding: [50, 50] });
+    }, 100); // 遅延の時間は調整可能です
+
     // 表示する数値を決定
     let targetDistance;
     if (distance > 10000) {
-        targetDistance = Math.round(distance / 1000) +"km";
+        targetDistance = Math.round(distance / 1000) + "km";
     } else if (distance > 1000) {
         targetDistance = ((Math.round(distance / 100)) / 10) + "km";
     } else {
@@ -166,9 +194,12 @@ function guess() {
     }
 
     // 数値をアニメーションで変化させる
-    animateValue('distance-value', targetDistance ,1000); // 1秒かけて変化
+    animateValue('distance-value', targetDistance, 1000); // 1秒かけて変化
     animateValue('point-value', finalpoint.toString(), 1000); // finalpointを文字列に変換
+
+    marker = undefined;
 }
+
 
 // 数値をアニメーションで変化させる関数
 function animateValue(id, target, duration) {
