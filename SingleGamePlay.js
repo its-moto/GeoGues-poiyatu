@@ -1,6 +1,8 @@
 let currentAnswerUrl; // 正解リンクを保持する変数
 let currentStreetViewIndex;
-let nowdisplay = 'play';
+let currentBackToViewIndex;
+let nowDisplay = 'play';
+let nowSteeing = 'close';
 let Size;
 let marker; // ピンを保持する変数
 let rmarker; // ピンを保持する変数
@@ -22,8 +24,10 @@ function showRandomStreetView() {
     currentStreetViewIndex = randomIndex;
     if (marker) {
         map.removeLayer(marker);
+        marker = undefined;
     }
     document.getElementById('streetview').src = streetViews[randomIndex].embedUrl;
+    currentBackToViewIndex = streetViews[randomIndex].embedUrl;
     currentAnswerUrl = streetViews[randomIndex].answerUrl; // 正解リンクを保存
     setMapStage();
 }
@@ -36,6 +40,10 @@ function showAnswer() {
 
 function goBack() {
     window.location.href = 'index.html'; // ローカルファイルへのパス
+}
+
+function backToStart() {
+    document.getElementById('streetview').src = currentBackToViewIndex;
 }
 
 //===========================================guessとかピンとか===========================================
@@ -62,6 +70,10 @@ function setMapStage() {
         map.setView([-22, 48.3], 5);
         rfmap.setView([-22, 48.3], 5);
         mapSize =5;
+    } else if (currentFileName === "OkayamaCity.html") {
+        map.setView([34.65,133.9], 12);
+        rfmap.setView([34.7,133.9], 12);
+        mapSize = 350;
     } else {
         // デフォルトのビュー設定
         map.setView([0, 0], 2);
@@ -115,14 +127,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
 document.addEventListener('DOMContentLoaded', function () {
     // スペースキーが押されたときのイベントリスナーを追加
     document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            if (nowSteeing=='open'){
+                closeSetting();
+            }else{
+                openSetting();
+            }
+        }
         // スペースキーのコードは32
         if (event.code === 'Space') {
             event.preventDefault(); // スペースキーのデフォルト動作を防止（スクロールなど）
-            if (nowdisplay == 'play'){
+            if (nowDisplay == 'play'){
                 guess(); // guess関数を呼び出す
             }else{
                 showRandomStreetView();
-                nowdisplay = 'play';
+                nowDisplay = 'play';
             }
         }
     });
@@ -130,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //距離からポイント計算するやつ
 function pointCul(distance) {
-    let points = Math.round(Math.pow(0.99933, (((distance/1000)*(mapSize)) - 12708)));
+    let points = Math.round(Math.pow(0.99933, (((distance/1000)*(mapSize)^2) - 12708)));
     return  Math.max(0, Math.min(5000,points));
 }
 
@@ -147,7 +166,6 @@ function guess() {
     }
 
     openResult();
-    nowdisplay = 'result';
 
     const soundEffect = document.getElementById("SoundEffect");
     soundEffect.src = "Resource/ResultScore.mp3";
@@ -196,8 +214,6 @@ function guess() {
     // 数値をアニメーションで変化させる
     animateValue('distance-value', targetDistance, 1000); // 1秒かけて変化
     animateValue('point-value', finalpoint.toString(), 1000); // finalpointを文字列に変換
-
-    marker = undefined;
 }
 
 
@@ -240,15 +256,19 @@ function animateValue(id, target, duration) {
 //==============================
 function openSetting() {
     document.getElementById("popup").style.display = "flex";
+    nowSteeing = 'open';
 }
 // ポップアップを閉じる関数
 function closeSetting() {
     document.getElementById("popup").style.display = "none";
+    nowSteeing = 'close';
 }
 
 function openResult() {
     document.getElementById("resultPopup").style.display = "flex";
+    nowDisplay = 'result';
 }
 function closeResult() {
     document.getElementById("resultPopup").style.display = "none";
+    nowDisplay = 'play';
 }

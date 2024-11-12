@@ -21,10 +21,9 @@
 
     <iframe id="streetview" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-    <div class="button-container">
-        <button class="settingsButton" onclick="openSetting()">OPTIONS</button>
-        <button onclick="showRandomStreetView()">Next Round🚩</button>
-    </div>
+    <button class="nextRound"id="button" onclick="showRandomStreetView()">Next Round🚩</button>
+    <button class="itemIcon" id="button" onclick="openSetting()" style="bottom: 90px;">⚙</button>
+    <button class="itemIcon" id="button" onclick="backToStart()">🏳️</button>
 
 	<div class="popup-overlay" id="popup">
 		<div class="popup-content">
