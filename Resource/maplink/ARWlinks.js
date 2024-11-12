@@ -10,6 +10,27 @@ const streetViews = [
     //===================================================
     //====================　　アジア　　====================
     //===================================================
+
+    //--------ここからインドネシア.id--------
+    {//ジャカルタ
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731376448891!6m8!1m7!1s9hC8b_mkzPSLQibGb6zeaw!2m2!1d-6.167174711466791!2d106.7875837817412!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/wShZmNgGZhkbU522A',
+        lat: -6.1671747,
+        lng:106.7875838
+    },
+    {//バリ
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731383281933!6m8!1m7!1sbWjaDmbXTpUU2SiV2bzLiA!2m2!1d-8.516240367841542!2d115.1668193856281!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/8RjeKDhVTbWMzeBh7',
+        lat:-8.5162404,
+        lng:115.1668194
+    },
+    {//スマトラ
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731383568725!6m8!1m7!1sr4cGhbN2-JxQ0m12fV3xyg!2m2!1d3.596462457939239!2d98.6770682795509!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/dFoLonjScDiFQTKC6',
+        lat:3.5964625,
+        lng:98.6770683
+    },
+
     //--------ここからインド.in--------
     {//ニューデリー
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1729656431149!6m8!1m7!1s2DxQbZenx4AaM1YXp2of8w!2m2!1d28.56691300292865!2d77.23432386645625!3f0!4f0!5f0.4',
@@ -19,8 +40,7 @@ const streetViews = [
     },
 
     //--------ここから日本.jp--------
-    //-----ここから北海道-----
-    {
+    {//北海道
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730093099776!6m8!1m7!1sxTNQRsULtWW24iZBt2E39w!2m2!1d43.07054473330154!2d141.3525311548342!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/iCydRAJpu21RcoDr5',
         lat: 43.0705447,
@@ -32,132 +52,130 @@ const streetViews = [
         lat: 44.0206633,
         lng: 144.2556662
     },
-    //-----ここから青森-----
-    {
+    {//青森
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730213836504!6m8!1m7!1sc9KKiw_g4hdRnXu7So3rTA!2m2!1d40.8248615168055!2d140.7394887906193!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/z2vb2XzfRuLCV8xd9',
         lat: 40.8248615,
         lng: 140.7394888
     },
-    //-----ここから宮城-----
-    {
+    {//宮城
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730204517151!6m8!1m7!1sF7NHtI0thttmItvNAjaXlw!2m2!1d38.26017765071882!2d140.8861613652267!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/UzDAVfRa34YoC44n9',
         lat: 38.2601777,
         lng: 140.8861614
-    },
-    //-----ここから千葉-----
-    {
+    },-
+    {//千葉
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730213923352!6m8!1m7!1sSPGgC6-EtKwa0tYSP3C-fw!2m2!1d35.61164523125404!2d140.1175861840636!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/qJ6oxhqZjy5nb5WY7',
         lat: 35.6116452,
         lng: 140.1175862
     },
-    //-----ここから東京-----
-    {
+    {//東京
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730069828919!6m8!1m7!1sik3rTbfzp0-TAPzLWydrWQ!2m2!1d35.6817870240367!2d139.7647193792978!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/PaMXJmkeVuj9X3KC8',
         lat: 35.681787,
         lng: 139.7647194
     },
-    //-----ここから神奈川-----
-    {
+    {//神奈川
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730468077957!6m8!1m7!1sT5_-4guzUcfDfG8miMURHA!2m2!1d35.46901272029854!2d139.6166553687639!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/YsHrUfgFMzeLYmKB7',
         lat: 35.4690127,
         lng: 139.6166554
     },
-    //-----ここから長野-----
-    {
+    {//長野
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730213988361!6m8!1m7!1sBJi44kPnNypZHhWI6qYtNw!2m2!1d36.64339538674999!2d138.187156680505!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/Bh9eSWytZDcUVfhy6',
         lat: 36.6433954,
         lng: 138.1871567
     },
-    //-----ここから愛知-----
-    {
+    {//愛知
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730092741542!6m8!1m7!1s63ABdAOCxNeOxgQ6n94nug!2m2!1d35.17128764194855!2d136.8848857235975!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/LQQYwxvyKRZzc1bB7',
         lat: 35.1712876,
         lng: 136.8848857
     },
-    //-----ここから富山-----
-    {
+    {//富山
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730211302779!6m8!1m7!1sHNP7G0d48xhHFDzgLpjnDg!2m2!1d36.69861367477401!2d137.21103412974!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/dZrmxRhNVwYN5VJ97',
         lat: 36.6986137,
         lng: 137.2110341
     },
-    //-----ここから大阪-----
-    {
+    {//大阪
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730092470154!6m8!1m7!1sKPk_SObjniAifv7MMBMulQ!2m2!1d34.70489316917189!2d135.4971172987883!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/QTsDjCmPEV9ygwMdA',
         lat: 34.7048932,
         lng: 135.4971173
     },
-    //-----ここから鳥取-----
-    {
+    {//鳥取
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730794750400!6m8!1m7!1sDeEz563_NNe8VjfOnSsxWw!2m2!1d35.49536731660927!2d134.2292170086912!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/Yt6wUqpSjGDxqkDs5',
         lat: 35.4953673,
         lng: 134.229217
     },
-    //-----ここから岡山-----
-    {
+    {//岡山
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730092956254!6m8!1m7!1sZiYFMUw8UhTMJNju3TtVwQ!2m2!1d34.66353145416075!2d133.9191741861175!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/KkuuDh64z9xtoUR89',
         lat: 34.6635315,
         lng: 133.9191742
     },
-    //-----ここから広島-----
-    {
+    {//広島
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730106070847!6m8!1m7!1svAcoZT_hhMTjg2yrEIXg8g!2m2!1d34.39938125405674!2d132.4780077377843!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/MK93dnpaJTsVKBzV7',
         lat: 34.3993813,
         lng: 132.4780077
     },
-    //-----ここから香川-----
-    {
+    {//香川
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730476378906!6m8!1m7!1sGlgVKgchnJLJd4Ff_a2WDQ!2m2!1d34.28881558129756!2d133.7943960330805!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/LjoHpZzMZG432wE1A',
         lat: 34.2888156,
         lng: 133.794396
     },
-    //-----ここから徳島-----
-    {
+    {//徳島
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730213750470!6m8!1m7!1s5k6A-3ARjqFiZ-VPmCxNVA!2m2!1d34.07139852494615!2d134.5580897233915!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/Vq745edwqLcCUijx6',
         lat: 34.0713985,
         lng: 134.5580897
     },
-    //-----ここから長崎-----
-    {
+    {//長崎
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730211391898!6m8!1m7!1sQdpBwq_om9JeQbMwkXMrAA!2m2!1d32.7514327790084!2d129.8721315304493!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/nhnA9iGi7yubxskm9',
         lat: 32.7514328,
         lng: 129.8721315
     },
-    //-----ここから鹿児島-----
-    {
+    {//鹿児島
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730211532277!6m8!1m7!1sX0zK7pbTn1CesdpdCYvjGQ!2m2!1d31.58487360291157!2d130.5386978134463!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/f9pHYccd53nHRynE6',
         lat: 31.5848736,
         lng: 130.5386978
     },
-    //-----ここから沖縄-----
-    {
+    {//沖縄
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730093318134!6m8!1m7!1s50fsU3TQxzgGaG2w3WWbKA!2m2!1d26.21576506469355!2d127.6784788195732!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/HKePMZpUSEBaDcfg6',
         lat: 26.2157651,
         lng: 127.6784788
     },
     
-    //--------キルギス.kg--------
+    //--------ここからキルギス.kg--------
     {//ウランバートル
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730849320900!6m8!1m7!1sib9excEtkPkx4A8quVesFg!2m2!1d42.8806529823396!2d74.60485651175918!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/SDpEM1Uaca1WGoPc7',
         lat: 42.880653,
         lng: 74.6048565
+    },
+
+    //--------ここからカンボジア.kh--------
+    {
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731286573579!6m8!1m7!1s0U0_0FqsPM_OE_LSHBI9-Q!2m2!1d11.56771231209583!2d104.9179600943284!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/jHKzbsAFyhDy9Yhu8',
+        lat:11.5677123,
+        lng:104.9179601
+    },
+
+    {//--------ここからスリランカ.lk--------
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731280530719!6m8!1m7!1sIBsIUC8zJpb_iw-Fdj1NIg!2m2!1d7.241279199007866!2d80.21159448222103!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/8RJD1gq8aG9MouKUA',
+        lat: 7.2412792,
+        lng: 80.2115945
     },
     
     //--------ここからモンゴル.mn--------
@@ -168,12 +186,32 @@ const streetViews = [
         lng: 106.5924571
     },
 
-    //--------フィリピン.ph--------
+    //--------ここからマレーシア.my--------
     {
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731376111408!6m8!1m7!1ssxDLiAZOrpY1f9d7ImWFuQ!2m2!1d3.077297941527307!2d101.5867012855656!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/X3s47T8MZvFDaZ3Y8',
+        lat: 3.0772979,
+        lng:101.5867013
+    },
+    {//ジョホール
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731376226627!6m8!1m7!1sd8NCFRaNCKsjdCO9tv2sIQ!2m2!1d1.472794796070253!2d103.7623851460524!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/hnK2EaMP9AuBod7CA',
+        lat:1.4727948,
+        lng:103.7623851
+    },
+
+    //--------フィリピン.ph--------
+    {//マニラ
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730164947080!6m8!1m7!1sVwSLObEyK2XX92FqHuMkUA!2m2!1d14.6035901764576!2d120.9819792575408!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/DA7bjsGksN4bj2qi6',
         lat: 14.6035902,
         lng: 120.9819793
+    },
+    {//南のカーメタ
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731383794088!6m8!1m7!1s7AerXQyMLXEQKpVg4yDNFA!2m2!1d5.858317062451184!2d125.0554239539182!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/eGGgBbaiWsc7CuNe8',
+        lat:5.8583171,
+        lng:125.055424
     },
 
     //--------ここからカタール.qa--------
@@ -182,6 +220,48 @@ const streetViews = [
         answerUrl: 'https://maps.app.goo.gl/azwjRM8kv3qo1PT98',
         lat: 25.3899328,
         lng: 51.5075414
+    
+    },
+
+    //--------ここからシンガポール.sg--------
+    {//PIEの看板の眼の前
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731280686845!6m8!1m7!1stPcJQJFUVMNMnb4MWBXy-g!2m2!1d1.327447303574664!2d103.8677278805782!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/Lhiy5c3JfUHdaEQW9',
+        lat: 1.3274473,
+        lng:103.8677279
+    },
+    {//シンガポール住宅街1
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731281035682!6m8!1m7!1stPmFRt8j1euca0xvhYHqnw!2m2!1d1.338608411329395!2d103.7226186222121!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/yaPappVTNheCUpsi9',
+        lat: 1.3386084,
+        lng:103.7226186
+    },
+
+    //--------ここからタイ.th--------
+    {
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731286744934!6m8!1m7!1sdDhsYGu1pRih8AzQflNlEA!2m2!1d13.73343454444623!2d100.5148942657133!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/ssAjTF7Jisw6CCDaA',
+        lat:13.7334345,
+        lng:100.5148943
+    },
+
+    {//--------ここから台湾.tw--------
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731281695277!6m8!1m7!1sB43mXZ3Bd10sVkohoOjeGw!2m2!1d24.25437267831829!2d120.5249767535166!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/jeNvrmgf3csCa3F18',
+        lat:24.2543727,
+        lng:120.5249768
+    },
+    {//台北
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731282787914!6m8!1m7!1sACT1ix3kRR9-YBTMP9ZRvA!2m2!1d25.02058104649157!2d121.546744383985!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/JGe7eQkTzVgSzGhD8',
+        lat:25.020581,
+        lng:121.5467444
+    },
+    {//高雄
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731283009009!6m8!1m7!1sX-EA5XITS30ICBjGfJm7hg!2m2!1d22.63483956250418!2d120.300493470209!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/S7H12z3JSPAF13SB8',
+        lat: 22.6348396,
+        lng:120.3004935
     },
 
     //--------ここからウクライナ.ua--------
@@ -349,6 +429,14 @@ const streetViews = [
         answerUrl: 'https://maps.app.goo.gl/DKqcADvro9W3orhHA',
         lat: 52.3596726,
         lng: 4.9254857
+    },
+
+    //--------ここからノルウェ.noー--------
+    {
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731384281627!6m8!1m7!1sVTdwEa8blIj5CY54N-iq5w!2m2!1d59.90821562159554!2d10.75605157650714!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/5TqhV4BF9iKoziei8',
+        lat:59.9082156,
+        lng:10.7560516
     },
 
     //--------ここからポーランド.pl--------
