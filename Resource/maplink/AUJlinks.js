@@ -34,6 +34,39 @@ const streetViews = [
         lat: 38.2601777,
         lng: 140.8861614
     },
+    //-----ここから秋田-----
+    {
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731513671722!6m8!1m7!1sz1OOyoddpz1pwFLMC46ZhQ!2m2!1d39.71688777427755!2d140.1485232960538!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/EvDVNFCsErbzW5yT9',
+        lat:39.7168878,
+        lng:140.1485233
+    },
+    //-----ここから群馬-----
+    {//高崎
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731514036874!6m8!1m7!1ssaQfd-4UFKnVBNERfqp8ug!2m2!1d36.317049583334!2d139.0142303035027!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/MQUoAP7Qt3FKnQdG8',
+        lat:36.3170496,
+        lng:139.0142303
+    },
+    //-----ここから栃木-----
+    {//宇都宮
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731514114348!6m8!1m7!1sq_A8gKbstItEzswoXUy4wA!2m2!1d36.55842632753073!2d139.8958725886651!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/LTAFQYjFbbzLgbcz6',
+        lat:36.5584263,
+        lng:139.8958726
+    },
+    //-----ここから栃木-----
+    {//水戸
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731514216146!6m8!1m7!1sePu5QagbJM7xDQdUt7zu9Q!2m2!1d36.36608976653896!2d140.4752483639899!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/t6MfDPkAAiCScR9bA',
+        lat:36.3660898,
+        lng:140.4752484
+    },{
+        embedUrl: '"https://www.google.com/maps/embed?pb=!4v1731514357730!6m8!1m7!1s590FgmqG6uU10IcS3HhDmA!2m2!1d36.08521950863133!2d140.1167654746796!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/kizU77nyxqkZzqZ17',
+        lat:36.0852195,
+        lng:140.1167655
+    },
     //-----ここから千葉-----
     {
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730213923352!6m8!1m7!1sSPGgC6-EtKwa0tYSP3C-fw!2m2!1d35.61164523125404!2d140.1175861840636!3f0!4f0!5f0.4',
@@ -42,7 +75,7 @@ const streetViews = [
         lng: 140.1175862
     },
     //-----ここから東京-----
-    {
+    {//東京駅
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730069828919!6m8!1m7!1sik3rTbfzp0-TAPzLWydrWQ!2m2!1d35.6817870240367!2d139.7647193792978!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/PaMXJmkeVuj9X3KC8',
         lat: 35.681787,
@@ -54,6 +87,20 @@ const streetViews = [
         answerUrl: 'https://maps.app.goo.gl/YsHrUfgFMzeLYmKB7',
         lat: 35.4690127,
         lng: 139.6166554
+    },
+    //ここから静岡
+    {
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731514653490!6m8!1m7!1sNtiNNuMEC7wL59VoFL2OmQ!2m2!1d34.96924411062385!2d138.3832420292492!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/Wzy8NdaQuopeSQYd6',
+        lat:34.9692441,
+        lng:138.383242
+    },
+    //-----ここから富山-----
+    {
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730211302779!6m8!1m7!1sHNP7G0d48xhHFDzgLpjnDg!2m2!1d36.69861367477401!2d137.21103412974!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/dZrmxRhNVwYN5VJ97',
+        lat: 36.6986137,
+        lng: 137.2110341
     },
     //-----ここから長野-----
     {
@@ -69,12 +116,12 @@ const streetViews = [
         lat: 35.1712876,
         lng: 136.8848857
     },
-    //-----ここから富山-----
+    //-----ここから滋賀-----
     {
-        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730211302779!6m8!1m7!1sHNP7G0d48xhHFDzgLpjnDg!2m2!1d36.69861367477401!2d137.21103412974!3f0!4f0!5f0.4',
-        answerUrl: 'https://maps.app.goo.gl/dZrmxRhNVwYN5VJ97',
-        lat: 36.6986137,
-        lng: 137.2110341
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731514757434!6m8!1m7!1sgCRthnLDs9CiiCTOah6vwQ!2m2!1d35.00173901216767!2d135.873399573357!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/DJFAaGCRPHdUfvkW9',
+        lat:35.001739,
+        lng:135.8733996
     },
     //-----ここから大阪-----
     {
@@ -118,12 +165,26 @@ const streetViews = [
         lat: 34.0713985,
         lng: 134.5580897
     },
+    //-----ここから愛媛-----
+    {
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731513869444!6m8!1m7!1sRdnv-gcA2p1E3w-HIcO7aQ!2m2!1d33.83598703164661!2d132.7586934373035!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/LZsuVcEKuE9BvAWn9',
+        lat:33.835987,
+        lng:132.7586934
+    },
     //-----ここから長崎-----
     {
         embedUrl: 'https://www.google.com/maps/embed?pb=!4v1730211391898!6m8!1m7!1sQdpBwq_om9JeQbMwkXMrAA!2m2!1d32.7514327790084!2d129.8721315304493!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/nhnA9iGi7yubxskm9',
         lat: 32.7514328,
         lng: 129.8721315
+    },
+    //-----ここから大分-----
+    {
+        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1731513765395!6m8!1m7!1szXcdY_Ih20_wSEC0585ZSw!2m2!1d33.23713201496236!2d131.6023038367734!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/k1eXpNvdRhzNtEZ27',
+        lat:33.237132,
+        lng:131.6023038
     },
     //-----ここから鹿児島-----
     {
