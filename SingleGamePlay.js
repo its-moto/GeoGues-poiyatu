@@ -9,14 +9,31 @@ let rmarker; // ピンを保持する変数
 let ranswermarker; // ピンを保持する変数
 let rline;
 
+const RPZbool =localStorage.getItem('RPZbool') === 'true';
+const NMPZbool =localStorage.getItem('NMPZbool') === 'true';
+
 var map = L.map('map').setView([0, 0], 1);
 var rfmap = L.map('remap').setView([0, 0], 1);
 
+const bgm = document.getElementById("bgm");
+const volumeSlider = document.getElementById("volumeSlider");
+const toggle = document.getElementById("bgmToggle");
+const bgmTracks = [
+    "Resource/bgm/Track01.mp3",
+    "Resource/bgm/Track02.mp3",
+    "Resource/bgm/Track03.mp3",
+    "Resource/bgm/Track04.mp3",
+    "Resource/bgm/Track05.mp3",
+    "Resource/bgm/Track06.mp3"
+];
+const ambientBgm = "Resource/bgm/Ambient.mp3";
 
-showRandomStreetView();// ページの読み込み後に初期化
 
 function showRandomStreetView() {
     closeResult();
+    if(NMPZbool){
+        document.getElementById('NMPZ-overlay').style.display = 'flex';
+    }
     document.getElementById('distance-value').textContent = "0m";
     document.getElementById('point-value').textContent = 0;
 
@@ -26,16 +43,23 @@ function showRandomStreetView() {
         map.removeLayer(marker);
         marker = undefined;
     }
-    document.getElementById('streetview').src = streetViews[randomIndex].embedUrl;
-    currentBackToViewIndex = streetViews[randomIndex].embedUrl;
+    let embedUrl = streetViews[randomIndex].embedUrl;
+    if (RPZbool){
+        // ランダムなパン（横角度）、チルト（上下角度）、ズームを生成
+        const randomHeading = Math.floor(Math.random() * 360);  // 0～360度
+        const randomPitch = Math.floor(Math.random() * 179) - 90; // -90～+90度
+        const randomZoom = (Math.random() * 3) + 0.4; // ズーム: 0.5～1.0
+        // ストリートビューのURLにランダムパラメータを追加
+        embedUrl = streetViews[randomIndex].embedUrl
+            .replace(/3f[0-9!]+/, `3f${randomHeading}!4`)   // 横角度（パン）
+            .replace(/4f[0-9!]+/, `4f${randomPitch}!`)    // 上下角度（チルト）
+            .replace(/5f[0-9.]+/, `5f${randomZoom}`);     // ズーム
+    }
+    document.getElementById('streetview').src = embedUrl;
+    currentBackToViewIndex = embedUrl;
     currentAnswerUrl = streetViews[randomIndex].answerUrl; // 正解リンクを保存
     setMapStage();
-}
-
-function showAnswer() {
-    if (typeof currentAnswerUrl !== 'undefined') {
-        window.open(currentAnswerUrl, '_blank');
-    }
+    randomBgms();
 }
 
 function goBack() {
@@ -46,42 +70,39 @@ function backToStart() {
     document.getElementById('streetview').src = currentBackToViewIndex;
 }
 
-//===========================================guessとかピンとか===========================================
-
+//================================================guessとかピンとか================================================
+const mapName = localStorage.getItem('mapName');
 function setMapStage() {
-    let mapcontainer = document.getElementById('map-container').style;
-
-    const currentFileName = window.location.pathname.split("/").pop();
     // ファイル名ごとにステージの設定を分ける
-    
-    if (currentFileName === "A%20Random%20picked%20World.html") {
+    if (mapName === "A Random picked World") {
         map.setView([0,0], 1);
         rfmap.setView([20,0], 2);
         mapSize =1;
-    } else if (currentFileName === "Japan.html") {
+    } else if (mapName === "日本") {
         map.setView([37, 135], 4);
         rfmap.setView([38,138], 5);
         mapSize =4;
-    } else if (currentFileName === "An%20Urban%20Japan.html") {
+    } else if (mapName === "An Urban Japan") {
         map.setView([37, 135], 4);
         rfmap.setView([38,138], 5);
         mapSize = 4;
-    } else if (currentFileName === "Madagascar.html") {
-        map.setView([-22, 48.3], 5);
+    } else if (mapName === "マダガスカル") {
+        map.setView([-19, 46.7], 5);
         rfmap.setView([-22, 48.3], 5);
         mapSize =5;
-    } else if (currentFileName === "OkayamaCity.html") {
+    } else if (mapName === "岡山市") {
         map.setView([34.65,133.9], 12);
         rfmap.setView([34.7,133.9], 12);
         mapSize = 350;
+    } else if (mapName === "testMap") {
+        map.setView([34.65,133.9], 2);
+        rfmap.setView([34.7,133.9], 2);
+        mapSize = 10;
     } else {
         // デフォルトのビュー設定
         map.setView([0, 0], 2);
     }
 }
-
-// 初期化
-//var map = L.map('map').setView([-18, 45], 5);
 
 L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
 	attribution: "<a href='https://developers.google.com/maps/documentation' target='_blank'>Google Map</a>",
@@ -149,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //距離からポイント計算するやつ
 function pointCul(distance) {
-    let points = Math.round(Math.pow(0.99933, (((distance/1000)*(mapSize)^2) - 12708)));
+    let points = Math.round(Math.pow(0.99933, (((distance/1000)*(mapSize)) - 12708)));
     return  Math.max(0, Math.min(5000,points));
 }
 
@@ -159,13 +180,16 @@ function normalizeLongitude(lng) {
 }
 
 // 距離を計算して表示する関数
-
 function guess() {
     if (!marker) {
         return; // ピンが置かれていない場合は処理を中止
     }
 
     openResult();
+
+    bgm.src = ambientBgm;
+    bgm.currentTime = 0; // 再生位置を先頭に戻す
+    bgm.play();
 
     const soundEffect = document.getElementById("SoundEffect");
     soundEffect.src = "Resource/ResultScore.mp3";
@@ -253,7 +277,7 @@ function animateValue(id, target, duration) {
     update(); // アニメーションを開始
 }
 
-//==============================
+//================================================popup================================================
 function openSetting() {
     document.getElementById("popup").style.display = "flex";
     nowSteeing = 'open';
@@ -272,3 +296,12 @@ function closeResult() {
     document.getElementById("resultPopup").style.display = "none";
     nowDisplay = 'play';
 }
+
+function randomBgms() {
+    const randomTrack = bgmTracks[Math.floor(Math.random() * bgmTracks.length)];
+    bgm.src = randomTrack;
+    bgm.currentTime = 0; // 再生位置を先頭に戻す
+    bgm.play();
+}
+
+showRandomStreetView();// ページの読み込み後に初期化

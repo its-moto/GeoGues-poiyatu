@@ -13,6 +13,7 @@
 * {
     font-family: "NeoSansBoldItalic", "NotoSansJP", "Comic Sans MS", sans-serif;
     font-style: italic;
+    font-weight: bold;
     color: white;
 }
 
@@ -60,7 +61,8 @@ body {
 /* 検索バーのスタイル 180475965*/
 .search-container {
     text-align: center;
-    margin: 20px;
+    margin: 30px;
+    margin-top: 40px;
 }
 
 .search-container input {
@@ -174,10 +176,11 @@ input:checked + .slider:before {
 
 /* ボタンのスタイル */
 #settingsButton {
+    font-size: 25px;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 2px;
+    margin: 5px;
 }
 
 /* ポップアップ全体のスタイル */

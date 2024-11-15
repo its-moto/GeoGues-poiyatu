@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="GamePlayStyles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link rel="icon" href="Resource/logo-pin.png"> <!-- ページアイコン -->
 
-    <script src="Resource/maplink/JPlinks.js"></script>
-    <title>GeoPpoi - 日本</title>
+    <script src="Resource/maplink/TEST.js"></script>
+    <title>test</title>
     <div class="map-name">
-        日本
+        test
     </div>
 </head>
 <body>
@@ -69,7 +70,7 @@
 
         // 初期設定
         bgm.volume = volumeSlider.value;
-        
+      
         toggle.checked = !isMuted; 
         bgm.muted = isMuted;
         toggle.addEventListener("change", () => {
@@ -84,7 +85,7 @@
         // スライダーで音量を調整
         volumeSlider.addEventListener("input", function() {
             bgm.volume = this.value;
-
+            
             localStorage.setItem("bgmVolume", JSON.stringify(this.value));
         });
     </script>

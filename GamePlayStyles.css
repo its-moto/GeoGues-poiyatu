@@ -12,6 +12,8 @@
 
 * {
     font-family: "NeoSansBoldItalic", "NotoSansJP","Comic Sans MS", sans-serif;
+    font-style: italic;
+    font-weight: bold;
     color: white;
 }
 /* 画面全体にiframeを広げる */
@@ -64,6 +66,7 @@ button {
     padding: 5px;
     z-index: 30;
     color: white;
+    font-style: normal;
 }
 
 .goBack{
@@ -169,12 +172,23 @@ button {
 }
 #distance {
     position: absolute; /* 絶対位置を指定して地図の上に配置 */
-    font-size: 20px;
+    font-size: 25px;
     background-color: #1A1A2E;
-    bottom: 50px;
+    bottom: 60px;
     text-align: center;
     z-index: 10; /* 地図よりも上に表示されるようにz-indexを設定 */
     padding: 10px; /* 内側の余白 */
+}
+
+#NMPZ-overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 0;
 }
 
 .result-overlay {
@@ -204,7 +218,7 @@ button {
     top: 0;
     width: 100%;
     height: 80%;
-    border: solid red 2px;
+    border: solid white 2px;
 }
 
 #nextRound {

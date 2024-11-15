@@ -1,10 +1,66 @@
-GEOGUESSR®っぽいやつ<br>
-<br>
-友達向けに作ったやーつ<br>
-index.htmlがホームのやつね<br>
-ブックマークしときな<br>
-二次配布は控えてね<br>
-もしこれをインターネットの海に流したら私が死にます<br>
-色々パクリ散らかしてるから、際どいとこ攻めてるから<br>
-<br>
-2024 it_s_moto
+<style>
+    /* Neo Sans Std - 極太斜体 */
+    @font-face {
+        font-family: 'NeoSansBoldItalic';
+        src: url('fonts/NeoSans/NeoSans Black Italic.otf') format('opentype');
+    }
+    
+    * {
+        font-family: "NeoSansBoldItalic", "NotoSansJP", "Comic Sans MS", sans-serif;
+        font-style: italic;
+        font-weight: bold;
+        text-align: left;
+        position: fixed;
+    }
+    body{
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(170deg, rgba(33, 34, 56,0) , rgba(33, 34, 56,1) 70%),
+                    linear-gradient(120deg, rgba(40, 90, 144,1) 10%, rgba(100, 59, 91,1) 40%);
+        color: white;
+        background-attachment: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100vh;
+    }
+    .title{
+        padding: 20;
+        font-size: 40;
+        background:none;
+    }
+    .main{
+        left: 40;
+        top: 100px;
+    }
+
+    #button{
+        background-color: rgba(255, 255, 255, 0.713);
+    }
+</style>
+<main>
+	<title>GeoGuessr®っぽい何か</title>
+</main>
+<body>
+    <div class="title">GEOGUESSR®っぽいやつ</div>
+    <div class="main">
+        友達向けに作ったやーつ<br>
+        index.htmlがホームのやつね<br>
+        ブックマークしときな<br>
+        二次配布は控えてね<br>
+        もしこれをインターネットの海に流したら私が死にます<br>
+        色々パクリ散らかしてるから、際どいとこ攻めてるから<br>
+        <br>
+        ~~リリースノート~~
+        <br>
+        2024<br>
+        v1.0   - 公開したのです<br>
+        v1.1   - 11/14 いろいろ追加したよ。設定とかmapとか<br>
+        v1.2   - 11/15 NMPZ・Random Pan Zoom 追加<br>
+        v1.2.1 - 11/16 バグ修正(表示されないバグ)<br>
+        <br>
+        <button onclick="location.href='index.html'" id="button">戻る</button><br>
+        <br>
+        2024 it_s_moto
+    </div>
+</body>

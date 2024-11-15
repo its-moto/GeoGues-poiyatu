@@ -21,6 +21,8 @@
 
     <iframe id="streetview" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
+    <div id="NMPZ-overlay"></div>
+
     <button class="nextRound"id="button" onclick="showRandomStreetView()">Next Round🚩</button>
     <button class="itemIcon" id="button" onclick="openSetting()" style="bottom: 90px;">⚙</button>
     <button class="itemIcon" id="button" onclick="backToStart()">🏳️</button>
@@ -47,26 +49,28 @@
 		</div>
 	</div>
 
-    <script>
-        const bgm = document.getElementById("bgm");
-        const volumeSlider = document.getElementById("volumeSlider");
-        const toggle = document.getElementById("bgmToggle");
+    <div class="result-overlay" id="resultPopup">
+        <div id="distance"><span id="distance-value">0km</span>, <span id="point-value">0</span> /5000 pt</div>
+
+        <div id="remap"></div> <!-- Leaflet地図の表示領域 -->
+        
+        <div id="nextRound" onclick="showRandomStreetView()">Next Round</div>
+    </div>
+
+    <div id="map-container">
+        <div id="map"></div> <!-- Leaflet地図の表示領域 -->
+    </div>
+    <button class="guess-button" onclick="guess()">guess</button>
+
+    <script src="SingleGamePlay.js"></script>
+    <script src="cssanimation.js"></script>
+
+    <script>//settingのbgmとか
         let isMuted = true;
 
         // 初期設定
         bgm.volume = volumeSlider.value;
         
-        // ランダムなBGMトラックを選択
-        const bgmTracks = [
-            "Resource/bgm/Track01.mp3",
-            "Resource/bgm/Track02.mp3",
-            "Resource/bgm/Track03.mp3",
-            "Resource/bgm/Track04.mp3",
-            "Resource/bgm/Track05.mp3",
-            "Resource/bgm/Track06.mp3"
-        ];
-        const randomTrack = bgmTracks[Math.floor(Math.random() * bgmTracks.length)];
-        bgm.src = randomTrack;
         toggle.checked = !isMuted; 
         bgm.muted = isMuted;
         toggle.addEventListener("change", () => {
@@ -85,22 +89,6 @@
             localStorage.setItem("bgmVolume", JSON.stringify(this.value));
         });
     </script>
-
-    <div class="result-overlay" id="resultPopup">
-        <div id="distance"><span id="distance-value">0km</span>, <span id="point-value">0</span> /5000 pt</div>
-
-        <div id="remap"></div> <!-- Leaflet地図の表示領域 -->
-        
-        <div id="nextRound" onclick="showRandomStreetView()">Next Round</div>
-    </div>
-
-    <div id="map-container">
-        <div id="map"></div> <!-- Leaflet地図の表示領域 -->
-    </div>
-    <button class="guess-button" onclick="guess()">guess</button>
-
-    <script src="SingleGamePlay.js"></script>
-    <script src="cssanimation.js"></script>
 </body>
 
 </html>

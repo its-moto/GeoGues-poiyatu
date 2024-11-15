@@ -18,6 +18,18 @@
 		<span class="title"><b>GEOGUESSR®っぽい何か</b></span>
 	</div>
 
+	<div style="right:20px;position: absolute; top:105px">
+		NMPZ : 
+		<label class="toggle-switch" >
+			<input type="checkbox" id="NMPZToggle">
+			<span class="slider"></span>
+		</label>
+		Random Pan Zoom : 
+		<label class="toggle-switch" >
+			<input type="checkbox" id="RPZToggle">
+			<span class="slider"></span>
+		</label>
+	</div>
 	<!-- 検索バー -->
 	<div class="search-container">
 		<input type="text" id="searchBar" placeholder="検索（例: アジア, 日本, 世界）" onkeyup="filterCards()">
@@ -28,52 +40,50 @@
 		<div class="card" data-keywords="a random picked world 世界">
 			<img src="Resource/mapimg/world.png" alt="world.png">
 			<h3>A Random picked world</h3>
-			<button onclick="location.href='A Random picked World.html'">プレイ</button>
+			<button onclick="location.href='A Random picked World.html';localStorage.setItem('mapName','A Random picked World' );">プレイ</button>
 		</div>
 
 		<div class="card" data-keywords="japan アジア 日本">
-			<img src="Resource/mapimg/japan.png" alt="japan,png">
+			<img src="Resource/mapimg/japan.png" alt="japan.png">
 			<h3>日本</h3>
-			<button onclick="location.href='Japan.html'">プレイ</button>
+			<button onclick="location.href='Japan.html';localStorage.setItem('mapName','日本' );">プレイ</button>
 		</div>
 
 		<div class="card" data-keywords="an urban japan 日本 アジア urban 都会">
-			<img src="Resource/mapimg/japan.png" alt="AAJ,png">
+			<img src="Resource/mapimg/japan.png" alt="AAJ.png">
 			<h3>An Urban Japan</h3>
-			<button onclick="location.href='An%20Urban%20Japan.html'">プレイ</button>
+			<button onclick="location.href='An%20Urban%20Japan.html';localStorage.setItem('mapName','An Urban Japan' );">プレイ</button>
 		</div>
 
 		<div class="card" data-keywords="madagascar マダガスカル">
-			<img src="Resource/mapimg/madagascar.png" alt="madagascar,png">
+			<img src="Resource/mapimg/madagascar.png" alt="madagascar.png">
 			<h3>マダガスカル</h3>
-			<button onclick="location.href='Madagascar.html'">プレイ</button>
+			<button onclick="location.href='Madagascar.html';localStorage.setItem('mapName','マダガスカル' );">プレイ</button>
 		</div>
 
 		<div class="card" data-keywords="sanmarino san marino ヨーロッパ eu">
-			<img src="Resource/mapimg/sanmarino.png" alt="sanmarino,png">
+			<img src="Resource/mapimg/sanmarino.png" alt="sanmarino.png">
 			<h3>サン・マリノ</h3>
-			<button onclick="location.href='San%20Marino.html'">プレイ</button>
+			<button onclick="location.href='San%20Marino.html';localStorage.setItem('mapName','サン・マリノ' );">プレイ</button>
 		</div>
 
 		<div class="card" data-keywords="岡山市 岡山県 日本 西日本 中国地方">
-			<img src="Resource/mapimg/okayamacity.png" alt="okayamacity,png">
+			<img src="Resource/mapimg/okayamacity.png" alt="okayamacity.png">
 			<h3>岡山市</h3>
-			<button onclick="location.href='OkayamaCity.html'">プレイ</button>
+			<button onclick="location.href='OkayamaCity.html';localStorage.setItem('mapName','岡山市' );">プレイ</button>
 		</div>
 	</div>
 	
 	<p id="noResults" style="display: none; text-align: center; font-size: 1.2em; color:rgba(225, 225, 225, 0.63)">検索結果なし</p>
 
-	<button id="settingsButton" onclick="openPopup()">
-		<img src="Resource/setting.png" alt="設定" />
-	</button>
+	<button id="settingsButton" onclick="openPopup()">	⚙</button>
 
 	<div class="popup-overlay" id="popup">
 		<div class="popup-content">
 			<h2>設定</h2>
             <center><div class="slider-container">
                 <label class="slider-label" for="volumeSlider">音量:</label>
-                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.2">
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
             </div>
             </center>
 			<p>BGM</p>
@@ -87,6 +97,8 @@
 		</div>
 	</div>
     
+	<button onclick="location.href='README%20~私を読んで~.html'" id="button" style="background-color: rgba(225, 225, 225, 0.5);padding: 9px;font-size: 17px;border-radius: 15px;">readme</button><br>
+
 	<div class="footer">
 		powered by: Google Map, Leaflet, Visual Studio Code<br>made by it_s_moto, Inspired by GEOGUESSR, for my friends
 	</div>
@@ -103,16 +115,19 @@
 		}
 		
 		const bgm = document.getElementById("bgm");
-		const toggle = document.getElementById("bgmToggle");
+		const bgmtoggle = document.getElementById("bgmToggle");
         let isMuted = false;
 
-        bgm.volume = 0.3; // 初期ボリュームを0.2に設定
+		const NMPZToggle = document.getElementById("NMPZToggle");
+		const RPZToggle = document.getElementById("RPZToggle");
+
+        bgm.volume = 0.5; // 初期ボリュームを0.2に設定
 		window.onload = () => {
 			bgm.play();
 		};
 
-		toggle.addEventListener("change", () => {
-			if (toggle.checked) {
+		bgmtoggle.addEventListener("change", () => {
+			if (bgmtoggle.checked) {
 				bgm.play();
 				bgm.muted = false;
 				isMuted = false;
@@ -122,6 +137,12 @@
 			}
 		});
 		
+        // スライダーで音量を調整
+        volumeSlider.addEventListener("input", function() {
+            bgm.volume = this.value;
+
+            localStorage.setItem("bgmVolume", JSON.stringify(this.value));
+        });
 
 		function filterCards() {
 			const searchInput = document.getElementById('searchBar').value.toLowerCase();
@@ -141,12 +162,14 @@
 			document.getElementById('noResults').style.display = anyVisible ? 'none' : 'block';
 		}
 
-        // スライダーで音量を調整
-        volumeSlider.addEventListener("input", function() {
-            bgm.volume = this.value;
-
-            localStorage.setItem("bgmVolume", JSON.stringify(this.value));
-        });
+		NMPZToggle.checked = (localStorage.getItem('NMPZbool') === 'true');
+		RPZToggle.checked = (localStorage.getItem('RPZbool')=== 'true');
+		NMPZToggle.addEventListener("change", () => {
+			localStorage.setItem('NMPZbool',NMPZToggle.checked);
+		});
+		RPZToggle.addEventListener("change", () => {
+			localStorage.setItem('RPZbool',RPZToggle.checked);
+		});
 	</script>
 </body>
 
