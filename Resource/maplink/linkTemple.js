@@ -1,4 +1,4 @@
-const streetViews = [
+export const streetViews = [
     {
         embedUrl: '',
         answerUrl: '',
