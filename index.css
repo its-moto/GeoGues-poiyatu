@@ -44,6 +44,7 @@ body {
     left: 0;
     width: 100%;                   /* 横幅を全体に広げる */
     box-sizing: border-box;         /* パディングを含める */
+    user-select: none;  
 }
 
 .title {
@@ -56,6 +57,7 @@ body {
     position: relative;             /* 重ねて配置 */
     top: 5px;
     left: 0;
+    user-select: none;
 }
 
 /* 検索バーのスタイル 180475965*/
@@ -130,6 +132,7 @@ body {
     text-align: center;
     padding: 10px 0;
     padding-bottom: 5px;
+    user-select: none;
 }
 
 /* トグルスイッチのスタイル */

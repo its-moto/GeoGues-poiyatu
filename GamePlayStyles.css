@@ -97,6 +97,8 @@ button {
     background: linear-gradient( to bottom , #9589c9,  #563b9a);
     font-size: 20px;
 
+    user-select: none;
+    
     /* 左の辺を斜めにする */
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 10% 100%);
 }
@@ -223,7 +225,7 @@ button {
 
 #nextRound {
     background: radial-gradient(ellipse at top, #97E851, #6CB928);
-
+    color:  white;
     font-size: 30;
     z-index: 100;
     color: black;

@@ -1,6 +1,8 @@
 let currentAnswerUrl; // 正解リンクを保持する変数
 let currentStreetViewIndex;
 let currentBackToViewIndex;
+let currentLat;
+let currentLng;
 let nowDisplay = 'play';
 let nowSteeing = 'close';
 let Size;
@@ -43,11 +45,16 @@ function showRandomStreetView() {
         map.removeLayer(marker);
         marker = undefined;
     }
+
     let embedUrl = streetViews[randomIndex].embedUrl;
+
+    currentLat = parseFloat((embedUrl.match(/1d([-+]?[0-9]*\.?[0-9]+)/))[1]);
+    currentLng = parseFloat((embedUrl.match(/2d([-+]?[0-9]*\.?[0-9]+)/))[1]);
+
     if (RPZbool){
         // ランダムなパン（横角度）、チルト（上下角度）、ズームを生成
         const randomHeading = Math.floor(Math.random() * 360);  // 0～360度
-        const randomPitch = Math.floor(Math.random() * 179) - 90; // -90～+90度
+        const randomPitch = Math.floor(Math.random() * 180) - 90; // -90～+90度
         const randomZoom = (Math.random() * 3) + 0.4; // ズーム: 0.5～1.0
         // ストリートビューのURLにランダムパラメータを追加
         embedUrl = streetViews[randomIndex].embedUrl
@@ -81,19 +88,23 @@ function setMapStage() {
     } else if (mapName === "日本") {
         map.setView([37, 135], 4);
         rfmap.setView([38,138], 5);
-        mapSize =4;
+        mapSize =7;
     } else if (mapName === "An Urban Japan") {
         map.setView([37, 135], 4);
         rfmap.setView([38,138], 5);
-        mapSize = 4;
+        mapSize = 7;
     } else if (mapName === "マダガスカル") {
         map.setView([-19, 46.7], 5);
         rfmap.setView([-22, 48.3], 5);
-        mapSize =5;
+        mapSize =7.35;
+    } else if (mapName === "サン・マリノ") {
+        map.setView([43.94, 12.47], 12);
+        rfmap.setView([44,12.5], 12);
+        mapSize =1000;
     } else if (mapName === "岡山市") {
-        map.setView([34.65,133.9], 12);
-        rfmap.setView([34.7,133.9], 12);
-        mapSize = 350;
+        map.setView([34.65,133.9], 13);
+        rfmap.setView([34.7,133.9], 13);
+        mapSize = 700;
     } else if (mapName === "testMap") {
         map.setView([34.65,133.9], 2);
         rfmap.setView([34.7,133.9], 2);
@@ -170,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //距離からポイント計算するやつ
 function pointCul(distance) {
-    let points = Math.round(Math.pow(0.99933, (((distance/1000)*(mapSize)) - 12708)));
+    let points = Math.round(Math.pow(0.99933, (((Math.max(0,distance-(Math.sqrt(mapSize)))/1000)*(mapSize)) - 12708)));
     return  Math.max(0, Math.min(5000,points));
 }
 
@@ -204,7 +215,7 @@ function guess() {
     }
 
     const latLng1 = L.latLng((marker.getLatLng().lat), normalizeLongitude(marker.getLatLng().lng));
-    const latLng2 = L.latLng(streetViews[currentStreetViewIndex].lat, (streetViews[currentStreetViewIndex].lng));
+    const latLng2 = L.latLng(currentLat, currentLng);
 
     // ピンの追加
     rmarker = L.marker([latLng1.lat, latLng1.lng], { icon: createCustomIcon() }).addTo(rfmap);    
