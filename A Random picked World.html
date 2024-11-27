@@ -15,7 +15,6 @@
     </div>
 </head>
 <body>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <audio loop id="bgm" preload="auto"></audio>
     <audio id="SoundEffect" preload="auto"></audio>
 
@@ -26,6 +25,12 @@
     <button class="nextRound"id="button" onclick="showRandomStreetView()">Next Round🚩</button>
     <button class="itemIcon" id="button" onclick="openSetting()" style="bottom: 90px;">⚙</button>
     <button class="itemIcon" id="button" onclick="backToStart()">🏳️</button>
+
+    
+    <div class="timer" id="timer">
+        <h1 id="countdown">00:00</h1>
+        <div class="progress-overlay"></div>
+    </div>
 
     <div class="popup-overlay" id="popup">
         <div class="popup-content">

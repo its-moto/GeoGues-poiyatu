@@ -1,15 +1,16 @@
-let currentAnswerUrl; // 正解リンクを保持する変数
-let currentStreetViewIndex;
-let currentBackToViewIndex;
-let currentLat;
-let currentLng;
-let nowDisplay = 'play';
-let nowSteeing = 'close';
-let Size;
+let currentAnswerUrl; //正解リンクを保持する変数
+let currentStreetViewIndex; //乱数保存用
+let currentBackToViewIndex; //初期位置に戻るためのiframe保存用
+let currentLat; //現在の〜
+let currentLng; //緯度経度
+let nowDisplay = 'play'; //spaceキーで進行するための変数
+let nowSteeing = 'close'; //設定開いてるかの判定
+let Size; //???????????
 let marker; // ピンを保持する変数
 let rmarker; // ピンを保持する変数
 let ranswermarker; // ピンを保持する変数
-let rline;
+let rline; //リザルトの点線v
+let noPin = true;
 
 const RPZbool =localStorage.getItem('RPZbool') === 'true';
 const NMPZbool =localStorage.getItem('NMPZbool') === 'true';
@@ -46,7 +47,13 @@ function showRandomStreetView() {
         marker = undefined;
     }
 
+    noPin = true;
     let embedUrl = streetViews[randomIndex].embedUrl;
+
+    if (totalTime != 0) {
+        countdownTime = totalTime;
+        timerInterval = setInterval(updateTimer, 50);
+    }
 
     currentLat = parseFloat((embedUrl.match(/1d([-+]?[0-9]*\.?[0-9]+)/))[1]);
     currentLng = parseFloat((embedUrl.match(/2d([-+]?[0-9]*\.?[0-9]+)/))[1]);
@@ -75,6 +82,40 @@ function goBack() {
 
 function backToStart() {
     document.getElementById('streetview').src = currentBackToViewIndex;
+}
+
+//=================================================タイマーとか==================================================
+
+let countdownTime; // 初期時間（秒単位）
+let timerInterval;
+const totalTime = localStorage.getItem('timer') || 120; // タイマーの総時間を保存
+
+if (totalTime == 0) {
+    document.getElementById("timer").style.display = "none";
+}
+
+function formatTime(seconds) {
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+function updateTimer() {
+    const countdownElement = document.getElementById('countdown');
+    const progressRing = document.querySelector('.timer');
+  
+    countdownElement.textContent = formatTime(Math.round(countdownTime));
+
+    // プログレス更新（CSS変数）
+    const progress = ((totalTime - countdownTime) / totalTime) * 100; // 経過時間の割合（%）
+    progressRing.style.setProperty('--progress', `${progress}%`);
+
+    if (countdownTime > 0) {
+        countdownTime -= 0.05;
+    } else {
+        clearInterval(timerInterval); // タイマー停止
+        guess(); // タイマー終了時の処理
+    }
 }
 
 //================================================guessとかピンとか================================================
@@ -143,6 +184,7 @@ map.on('click', function (e) {
         map.removeLayer(marker);
     }
 
+    noPin = false;
     // 新しいピンを追加
     marker = L.marker([lat, lng], { icon: createCustomIcon() }).addTo(map);
     
@@ -192,10 +234,11 @@ function normalizeLongitude(lng) {
 
 // 距離を計算して表示する関数
 function guess() {
-    if (!marker) {
+    if (noPin && countdownTime > 0) {
         return; // ピンが置かれていない場合は処理を中止
     }
 
+    clearInterval(timerInterval);
     openResult();
 
     bgm.src = ambientBgm;
@@ -208,49 +251,55 @@ function guess() {
     soundEffect.play(); // 効果音を再生
 
     window.dispatchEvent(new Event('resize'));
-    if (rmarker) {
+    if (ranswermarker) {
         rfmap.removeLayer(rmarker);
         rfmap.removeLayer(ranswermarker);
         rfmap.removeLayer(rline);
     }
 
-    const latLng1 = L.latLng((marker.getLatLng().lat), normalizeLongitude(marker.getLatLng().lng));
-    const latLng2 = L.latLng(currentLat, currentLng);
-
-    // ピンの追加
-    rmarker = L.marker([latLng1.lat, latLng1.lng], { icon: createCustomIcon() }).addTo(rfmap);    
-    ranswermarker = L.marker([latLng2.lat, latLng2.lng]).addTo(rfmap); 
-    rline = L.polyline([[latLng1.lat, latLng1.lng],[latLng2.lat, latLng2.lng]],{ "color": "black", "weight": 2, "opacity": 0.8,"dashArray":"5 8"}).addTo(rfmap);
-
-    const distance = latLng1.distanceTo(latLng2);
-    const finalpoint = pointCul(distance);
-
-    // ピン2つの位置から中央位置とズームレベルを調整
-    const bounds = L.latLngBounds([
-        [latLng1.lat, latLng1.lng],
-        [latLng2.lat, latLng2.lng]
-    ]);
-
-    // 遅延を加えてfitBoundsを実行
-    setTimeout(() => {
-        rfmap.fitBounds(bounds, { padding: [50, 50] });
-    }, 100); // 遅延の時間は調整可能です
-
-    // 表示する数値を決定
-    let targetDistance;
-    if (distance > 10000) {
-        targetDistance = Math.round(distance / 1000) + "km";
-    } else if (distance > 1000) {
-        targetDistance = ((Math.round(distance / 100)) / 10) + "km";
-    } else {
-        targetDistance = Math.round(distance) + "m";
+    if (!noPin){
+        const latLng1 = L.latLng((marker.getLatLng().lat), normalizeLongitude(marker.getLatLng().lng));
+        const latLng2 = L.latLng(currentLat, currentLng);
+    
+        // ピンの追加
+        rmarker = L.marker([latLng1.lat, latLng1.lng], { icon: createCustomIcon() }).addTo(rfmap);    
+        ranswermarker = L.marker([latLng2.lat, latLng2.lng]).addTo(rfmap); 
+        rline = L.polyline([[latLng1.lat, latLng1.lng],[latLng2.lat, latLng2.lng]],{ "color": "black", "weight": 2, "opacity": 0.8,"dashArray":"5 8"}).addTo(rfmap);
+    
+        const distance = latLng1.distanceTo(latLng2);
+        const finalpoint = pointCul(distance);
+    
+        // ピン2つの位置から中央位置とズームレベルを調整
+        const bounds = L.latLngBounds([
+            [latLng1.lat, latLng1.lng],
+            [latLng2.lat, latLng2.lng]
+        ]);
+    
+        // 遅延を加えてfitBoundsを実行
+        setTimeout(() => {
+            rfmap.fitBounds(bounds, { padding: [50, 50] });
+        }, 100); // 遅延の時間は調整可能です
+    
+        // 表示する数値を決定
+        let targetDistance;
+        if (distance > 10000) {
+            targetDistance = Math.round(distance / 1000) + "km";
+        } else if (distance > 1000) {
+            targetDistance = ((Math.round(distance / 100)) / 10) + "km";
+        } else {
+            targetDistance = Math.round(distance) + "m";
+        }
+    
+        // 数値をアニメーションで変化させる
+        animateValue('distance-value', targetDistance, 1000); // 1秒かけて変化
+        animateValue('point-value', finalpoint.toString(), 1000); // finalpointを文字列に変換
+    } else{
+        document.getElementById('point-value').textContent = "0"
+        document.getElementById('distance-value').textContent = "N/A"
+        const latLng2 = L.latLng(currentLat, currentLng);
+        ranswermarker = L.marker([latLng2.lat, latLng2.lng]).addTo(rfmap); 
     }
-
-    // 数値をアニメーションで変化させる
-    animateValue('distance-value', targetDistance, 1000); // 1秒かけて変化
-    animateValue('point-value', finalpoint.toString(), 1000); // finalpointを文字列に変換
 }
-
 
 // 数値をアニメーションで変化させる関数
 function animateValue(id, target, duration) {

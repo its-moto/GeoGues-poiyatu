@@ -148,6 +148,15 @@ body {
     width: 0;
     height: 0;
 }
+
+.gmp-slider {
+    width: 200px;
+}
+
+#timertxt {
+    position: absolute;
+}
+
 .slider {
     position: absolute;
     cursor: pointer;
@@ -205,6 +214,8 @@ input:checked + .slider:before {
     padding: 20px;
     width: 70%;
     text-align: center;
+    user-select: none;
+    line-height: 40px;
 }
 /* 閉じるボタンのスタイル */
 .close-popup-btn {
