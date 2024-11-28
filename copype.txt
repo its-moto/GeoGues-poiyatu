@@ -1,7 +1,5 @@
 
     {
         embedUrl: '',
-        answerUrl: '',
-        lat:,
-        lng:
+        answerUrl: ''
     },

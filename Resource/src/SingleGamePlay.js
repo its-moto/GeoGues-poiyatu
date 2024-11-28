@@ -22,14 +22,14 @@ const bgm = document.getElementById("bgm");
 const volumeSlider = document.getElementById("volumeSlider");
 const toggle = document.getElementById("bgmToggle");
 const bgmTracks = [
-    "Resource/bgm/Track01.mp3",
-    "Resource/bgm/Track02.mp3",
-    "Resource/bgm/Track03.mp3",
-    "Resource/bgm/Track04.mp3",
-    "Resource/bgm/Track05.mp3",
-    "Resource/bgm/Track06.mp3"
+    "../bgm/Track01.mp3",
+    "../bgm/Track02.mp3",
+    "../bgm/Track03.mp3",
+    "../bgm/Track04.mp3",
+    "../bgm/Track05.mp3",
+    "../bgm/Track06.mp3"
 ];
-const ambientBgm = "Resource/bgm/Ambient.mp3";
+const ambientBgm = "../bgm/Trackmbient.mp3";
 
 
 function showRandomStreetView() {
@@ -77,7 +77,7 @@ function showRandomStreetView() {
 }
 
 function goBack() {
-    window.location.href = 'index.html'; // ローカルファイルへのパス
+    window.location.href = '../../index.html'; // ローカルファイルへのパス
 }
 
 function backToStart() {
@@ -168,7 +168,7 @@ L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
 // カスタムアイコンの作成
 function createCustomIcon() {
     return L.icon({
-        iconUrl: 'Resource/pin.png', // ここを実際の画像パスに変更
+        iconUrl: '../images/pin.png', // ここを実際の画像パスに変更
         iconSize: [20, 25], // 画像のサイズを設定
         iconAnchor: [10, 26], // ピンのアンカー位置を調整
         popupAnchor: [0, -20] // ポップアップの位置を調整
@@ -189,7 +189,7 @@ map.on('click', function (e) {
     marker = L.marker([lat, lng], { icon: createCustomIcon() }).addTo(map);
     
     const soundEffect = document.getElementById("SoundEffect");
-    soundEffect.src ="Resource/pick.mp3" 
+    soundEffect.src ="../pick.mp3" 
     soundEffect.currentTime = 0; // 再生位置を先頭に戻す
     soundEffect.play(); // 効果音を再生
 });
@@ -238,7 +238,7 @@ function guess() {
         return; // ピンが置かれていない場合は処理を中止
     }
 
-    clearInterval(timerInterval);
+    clearInterval(timerInterval); // タイマー停止
     openResult();
 
     bgm.src = ambientBgm;
@@ -246,7 +246,7 @@ function guess() {
     bgm.play();
 
     const soundEffect = document.getElementById("SoundEffect");
-    soundEffect.src = "Resource/ResultScore.mp3";
+    soundEffect.src = "../ResultScore.mp3";
     soundEffect.currentTime = 0; // 再生位置を先頭に戻す
     soundEffect.play(); // 効果音を再生
 

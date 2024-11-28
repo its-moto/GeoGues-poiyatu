@@ -1,13 +1,13 @@
 /* Neo Sans Std - 極太斜体 */
 @font-face {
     font-family: 'NeoSansBoldItalic';
-    src: url('fonts/NeoSans/NeoSans Black Italic.otf') format('opentype');
+    src: url('../../fonts/NeoSans/NeoSans Black Italic.otf') format('opentype');
 }
 
 /* Noto Sans JP  */
 @font-face {
     font-family: 'NotoSansJP';
-    src: url('fonts/Noto Sans JP/NotoSansJP-VariableFont_wght.ttf') format('truetype');
+    src: url('../../fonts/Noto\ Sans\ JP/NotoSansJP-VariableFont_wght.ttf') format('truetype');
 }
 
 * {
