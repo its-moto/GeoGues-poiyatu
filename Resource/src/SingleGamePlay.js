@@ -130,11 +130,11 @@ function formatTime(seconds) {
 
 function LowTimerAlert() {
     const timerOLay = document.getElementById('timerLowLeft').style;
-    if (localStorage.getItem('timer') > 30 ){
-        if (countdownTime < 30 && countdownTime >29.5){
+    if (localStorage.getItem('timer') > 10 ){
+        if (countdownTime < 11 && countdownTime >10.5){
             timerLeftAlertOp = 1;
-        } else if (countdownTime < 29.5 && timerLeftAlertOp > 0){
-            timerLeftAlertOp = countdownTime-28.5;
+        } else if (countdownTime < 10.5 && timerLeftAlertOp > 0){
+            timerLeftAlertOp = countdownTime-9.5;
         } else {
             timerLeftAlertOp = 0;
         }
@@ -154,7 +154,7 @@ function updateTimer() {
     if (countdownTime > 0) {
         countdownTime -= 0.05;
         LowTimerAlert();
-        if (countdownTime < 15){
+        if (countdownTime < 11){
             progressRing.style.background = "conic-gradient(rgba(0,0,0,0) var(--progress ,0%) ,#E94560 0%)";
         } else {
             progressRing.style.background = "conic-gradient(rgba(0,0,0,0) var(--progress ,0%) ,#7950E5 0%)";
