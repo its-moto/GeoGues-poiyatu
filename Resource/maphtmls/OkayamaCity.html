@@ -16,7 +16,7 @@
 </head>
 <body>
     <div id="loading"><div id="loadingtext">Loading...</div></div>
-    
+
     <audio loop id="bgm" preload="auto"></audio>
     <audio id="SoundEffect" preload="auto"></audio>
 
@@ -24,7 +24,7 @@
 
     <div id="NMPZ-overlay"></div>
 
-    <button class="nextRound"id="button" onclick="showRandomStreetView()">Next Round🚩</button>
+    <div id="total">Round <span id="totalRound">0</span> , pt <span id="totalPoint">0</span></div>
     <button class="itemIcon" id="button" onclick="openSetting()" style="bottom: 90px;">⚙</button>
     <button class="itemIcon" id="button" onclick="backToStart()">🏳️</button>
 
@@ -58,11 +58,11 @@
     </div>
 
     <div class="result-overlay" id="resultPopup">
-        <div id="distance"><span id="distance-value">0km</span>, <span style="color: #FECD19;"id="point-value">0</span> <span style="color: #FECD19;">/5000 pt</span></div>
+        <div id="distance"><span id="distance-value">0km</span>, <span id="point-value">0</span> <span id="point-5000">/5000 pt</span></div>
 
         <div id="remap"></div> <!-- Leaflet地図の表示領域 -->
         
-        <div id="nextRound" onclick="showRandomStreetView()">Next Round</div>
+        <div id="nextRound" onclick="showRandomStreetView()">次</div>
     </div>
 
     <div id="map-container">
