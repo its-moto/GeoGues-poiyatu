@@ -1,9 +1,7 @@
 export const streetViews = [
     {
         embedUrl: '',
-        answerUrl: '',
-        lat: 
-        lng: 
+        answerUrl: ''
     }
     /*
     ,{
