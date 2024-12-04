@@ -9,12 +9,14 @@
     <link rel="icon" href="../images/logo-pin.png"> <!-- ページアイコン -->
 
     <script src="../maplink/AUJlinks.js"></script>
-    <title>GeoPpoi - An Urban Japan</title>
+    <title>GeoPpoi - 日本都市部</title>
     <div class="map-name">
-        An Urban Japan
+        日本都市部
     </div>
 </head>
 <body>
+    <div id="loading"><div id="loadingtext">Loading...</div></div>
+    
     <audio loop id="bgm" preload="auto"></audio>
     <audio id="SoundEffect" preload="auto"></audio>
 
@@ -22,15 +24,16 @@
 
     <div id="NMPZ-overlay"></div>
 
-    <button class="nextRound"id="button" onclick="showRandomStreetView()">Next Round🚩</button>
-    <button class="itemIcon" id="button" onclick="openSetting()" style="bottom: 90px;">⚙</button>
-    <button class="itemIcon" id="button" onclick="backToStart()">🏳️</button>
+    <button class="nextRound" onclick="showRandomStreetView()">Next Round🚩</button>
+    <button class="itemIcon" id="button" style="bottom: 90px;">⚙</button>
+    <button class="itemIcon" id="backToStart" onclick="backToStart()">🏳️</button>
 
     
     <div class="timer" id="timer">
         <h1 id="countdown">00:00</h1>
         <div class="progress-overlay"></div>
     </div>
+    <div id="timerLowLeft"></div>
 
     <div class="popup-overlay" id="popup">
         <div class="popup-content">
@@ -65,7 +68,7 @@
     <div id="map-container">
         <div id="map"></div> <!-- Leaflet地図の表示領域 -->
     </div>
-    <button class="guess-button" onclick="guess()">guess</button>
+    <button class="guess-button" id="guess-button" onclick="guess()">guess</button>
 
     <script src="../src/SingleGamePlay.js"></script>
     <script src="../src/cssanimation.js"></script>
