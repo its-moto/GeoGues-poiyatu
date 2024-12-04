@@ -1,45 +1,42 @@
-<style>
-    /* Neo Sans Std - 極太斜体 */
-    @font-face {
-        font-family: 'NeoSansBoldItalic';
-        src: url('fonts/NeoSans/NeoSans Black Italic.otf') format('opentype');
-    }
-    
-    * {
-        font-family: "NeoSansBoldItalic", "NotoSansJP", "Comic Sans MS", sans-serif;
-        font-style: italic;
-        font-weight: bold;
-        text-align: left;
-        position: fixed;
-    }
-    body{
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(170deg, rgba(33, 34, 56,0) , rgba(33, 34, 56,1) 70%),
-                    linear-gradient(120deg, rgba(40, 90, 144,1) 10%, rgba(100, 59, 91,1) 40%);
-        color: white;
-        background-attachment: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100vh;
-        user-select: none;
-    }
-    .title{
-        padding: 20;
-        font-size: 40;
-        background:none;
-    }
-    .main{
-        left: 40;
-        top: 100px;
-    }
+<head>
+    <style>
+        @font-face {
+            font-family: 'NeoSansBoldItalic';
+            src: url('fonts/NeoSans/NeoSans Black Italic.otf') format('opentype');
+        }
+        
+        * {
+            font-family: "NeoSansBoldItalic", "NotoSansJP", "Comic Sans MS", sans-serif;
+            font-style: italic;
+            font-weight: bold;
+        }
+        body {
+            background: linear-gradient(170deg, rgba(33, 34, 56,0) , rgba(33, 34, 56,1) 70%),
+                        linear-gradient(120deg, rgba(40, 90, 144,1) 10%, rgba(100, 59, 91,1) 40%);
+            color: white;
+            background-attachment: fixed;
+            user-select: none;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto; /* 縦スクロールを許可 */
+        }
+        .title {
+            padding: 20px;
+            font-size: 40px;
+            background: none;
+        }
+        .main {
+            margin: 40px;
+        }
+        #button {
+            background-color: rgb(255, 255, 255);
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
 
-    #button{
-        background-color: rgba(255, 255, 255, 0.713);
-        cursor: pointer;
-    }
-</style>
 <main>
 	<title>GeoGuessr®っぽい何か</title>
 </main>
@@ -53,7 +50,16 @@
         もしこれをインターネットの海に流したら私が死にます<br>
         色々パクリ散らかしてるから、際どいとこ攻めてるから<br>
         <br>
-        ~~リリースノート~~
+        ~~内容~~<br>
+        本家GeoGuessrと同じように世界のどこかに投下されます(私が選んだ)<br>
+        それを元に現在地を推測して右下のマップを開く<br>
+        ボタンを押すか時間切れになると答え合わせ　距離とポイントが計算されます<br>
+        <br>
+        ~~推奨環境~~<br>
+        Chromeかな<br>
+        Downloadしておくと画像の読み込みが早くなったり<br>
+        <br>
+        ~~リリースノート~~<br>
         <br>
         2024<br>
         v1.0　　-　公開したのです<br>
@@ -62,6 +68,7 @@
         v1.2.1　-　11/16 バグ修正(表示されないバグ)<br>
         v1.2.2　-　11/19 Location追加、データ軽量化、修正<br>
         v1.2.3　-　11/27 タイマー機能試作版追加<br>
+        v1.3　　-　12/ タイマー機能一時完成、location大幅追加、日本等改善<br>
         <br>
         <button onclick="location.href='index.html'" id="button">戻る</button><br>
         <br>

@@ -33,32 +33,44 @@
 
 		<div class="card" data-keywords="japan アジア 日本">
 			<img src="Resource/mapimg/japan.png" alt="japan.png">
-			<h3>日本(同じ⇛)</h3>
-			<button onclick="location.href='Resource/maphtmls/An%20Urban%20Japan.html';localStorage.setItem('mapName','日本' );">プレイ</button>
+			<h3>日本</h3>
+			<button onclick="location.href='Resource/maphtmls/Japan.html';localStorage.setItem('mapName','日本' );">プレイ</button>
 		</div>
 
 		<div class="card" data-keywords="an urban japan 日本 アジア urban 都会">
 			<img src="Resource/mapimg/japan.png" alt="AAJ.png">
-			<h3>An Urban Japan</h3>
+			<h3>日本都市部</h3>
 			<button onclick="location.href='Resource/maphtmls/An%20Urban%20Japan.html';localStorage.setItem('mapName','An Urban Japan' );">プレイ</button>
 		</div>
 
-		<div class="card" data-keywords="madagascar マダガスカル">
+		<div class="card" data-keywords="madagascar マダガスカル madagasukaru">
 			<img src="Resource/mapimg/madagascar.png" alt="madagascar.png">
 			<h3>マダガスカル</h3>
 			<button onclick="location.href='Resource/maphtmls/Madagascar.html';localStorage.setItem('mapName','マダガスカル' );">プレイ</button>
 		</div>
 
+		<div class="card" data-keywords="ヨーロッパ eu europe 欧州">
+			<img src="Resource/mapimg/europe.png" alt="europe.png">
+			<h3>ヨーロッパ</h3>
+			<button onclick="location.href='Resource/maphtmls/Europe.html';localStorage.setItem('mapName','ヨーロッパ' );">プレイ</button>
+		</div>
+
 		<div class="card" data-keywords="sanmarino san marino ヨーロッパ eu">
 			<img src="Resource/mapimg/sanmarino.png" alt="sanmarino.png">
-			<h3>サン・マリノ</h3>
+			<h3>サン・マリノ(制作中)</h3>
 			<button onclick="location.href='Resource/maphtmls/San%20Marino.html';localStorage.setItem('mapName','サン・マリノ' );">プレイ</button>
 		</div>
 
-		<div class="card" data-keywords="岡山市 岡山県 日本 西日本 中国地方">
+		<div class="card" data-keywords="岡山市 岡山県 日本 西日本 中国地方 okayama">
 			<img src="Resource/mapimg/okayamacity.png" alt="okayamacity.png">
-			<h3>岡山市</h3>
+			<h3>岡山市(制作中)</h3>
 			<button onclick="location.href='Resource/maphtmls/OkayamaCity.html';localStorage.setItem('mapName','岡山市' );">プレイ</button>
+		</div>
+
+		<div class="card" data-keywords="航空自衛隊 SDF">
+			<img src="Resource/mapimg/sdf.png" alt="SDF.png">
+			<h3>SDF</h3>
+			<button onclick="location.href='Resource/maphtmls/SDF.html';localStorage.setItem('mapName','SDF' );">プレイ</button>
 		</div>
 	</div>
 	
@@ -105,7 +117,7 @@
     
 	<button onclick="location.href='README%20~私を読んで~.html'" id="button" style="background-color: rgba(225, 225, 225, 0.5);padding: 9px;font-size: 17px;border-radius: 15px;">readme</button><br>
 
-	<div style="z-index: 70;position: fixed;color: rgb(190, 190, 190);bottom: 0; user-select: none;">v1.2.3</div>
+	<div style="z-index: 70;position: fixed;color: rgb(190, 190, 190);bottom: 0; user-select: none;">v1.3</div>
 	<div class="footer">
 		powered by: Google Map, Leaflet, Visual Studio Code<br>made by it_s_moto, Inspired by GEOGUESSR, for my friends
 	</div>
@@ -113,13 +125,23 @@
 	<script>
 		// ポップアップを表示する関数
 		function openPopup() {
+			isSettingOpen = true;
 			document.getElementById("popup").style.display = "flex";
 		}
 
 		// ポップアップを閉じる関数
 		function closePopup() {
+			isSettingOpen = false;
 			document.getElementById("popup").style.display = "none";
 		}
+
+		let isSettingOpen = false;
+
+		document.addEventListener('keydown', function (event) {
+			if (event.key ==='Escape') {
+				if(isSettingOpen) {	closePopup();} else {openPopup();}
+			}
+		});
 		
 		const bgm = document.getElementById("bgm");
 		const bgmtoggle = document.getElementById("bgmToggle");
