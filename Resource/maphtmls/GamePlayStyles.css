@@ -67,12 +67,19 @@ button {
     color: black;
 }
 
+#point-value {
+    color: white;
+    text-shadow:  0 0 20px #FFA43D , 0 0 5px #FFA43D, 0 3px 0 #FFA43D, 0 5px 10px #FFA43D;
+}
+#point-5000 {
+    text-shadow:  0 0 20px #FFA43D , 0 0 5px #FFA43D, 0 3px 0 #FFA43D, 0 5px 10px #FFA43D;
+}
+
 #nextRound {
     background: radial-gradient(ellipse at top, #97E851, #6CB928);
     color:  white;
     font-size: 30;
     z-index: 100;
-    color: black;
     position: absolute;
     border-radius: 10px;
     padding: 10px 30px;
@@ -261,6 +268,10 @@ button {
     text-align: center;
     z-index: 10; /* 地図よりも上に表示されるようにz-indexを設定 */
     padding: 10px; /* 内側の余白 */
+}
+
+#distance-value {
+    text-shadow:  0 0 20px #00A2FE , 0 0 5px #00A2FE, 0 3px 0 #00A2FE, 0 5px 10px #00A2FE;
 }
 
 #NMPZ-overlay {
