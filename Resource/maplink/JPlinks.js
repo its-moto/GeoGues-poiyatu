@@ -73,9 +73,17 @@ const streetViews = [
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sz1OOyoddpz1pwFLMC46ZhQ!2m2!1d39.71688777427755!2d140.1485232960538!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/EvDVNFCsErbzW5yT9'
     },
+    {//仙北市
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sFCEXCGsSj1vqkhCiXb8aeQ!2m2!1d39.69714960312506!2d140.7205191223818!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/Xtr5VDKLEJMZMWXi6'
+    },
     {//大館市
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sqO_Y3KQ6HsM5X38vqns-PA!2m2!1d40.2681074377845!2d140.5547454178499!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/PMDQm4xMzX6AutFv5'
+    },
+    {//にかほ市
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sfMhHvi6iDsd7OZSvqhBnhA!2m2!1d39.19901993459892!2d139.9063203214892!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/p2Wwq5oeCqYmJLD47'
     },
     //--------------------ここから宮城
     {
@@ -85,6 +93,10 @@ const streetViews = [
     {//石巻市
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1stJmRIJGqob4EUAbejuEZtQ!2m2!1d38.44774857072552!2d141.2678274225415!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/QkjYtYSnYLZ7BYP79'
+    },
+    {//名取市
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sXp-ngEMFIDU7HGfcrqivVg!2m2!1d38.16581940747301!2d140.8899732319556!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/NtzxpNeHpUUgQ2aN9'
     },
     //--------------------ここから山形
     {
@@ -320,6 +332,10 @@ const streetViews = [
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1svQdpOpNmUTf40n1KmILBIw!2m2!1d35.30125804884361!2d138.9459725284572!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/Y3W6yZ54g7Xe34Lu8'
     },
+    {//箱根町
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1svF7ECT7NVjYMKA9A2m4Cgg!2m2!1d35.20300282953561!2d139.0315645973979!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/EyRQmroL7ik4m1ob6'
+    },
     //--------------------ここから富山
     {
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sHNP7G0d48xhHFDzgLpjnDg!2m2!1d36.69861367477401!2d137.21103412974!3f0!4f0!5f0.4',
@@ -358,6 +374,10 @@ const streetViews = [
     {
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sugGjnWkzsy6IUfyftOq3zQ!2m2!1d36.06299945530241!2d136.2176745481386!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/QTL5C49xEaJCJLM16'
+    },
+    {//若狭町1
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sYnSRxRF5NrQpOjaiku1Efg!2m2!1d35.55283261552664!2d135.9102942247826!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/BXCJta3UE7QSxWcKA'
     },
     {//敦賀
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sDw54QzHhsjluQwcPD8L4-g!2m2!1d35.64788324829637!2d136.0721240739248!3f0!4f0!5f0.4',
@@ -447,6 +467,10 @@ const streetViews = [
     {//淀川区
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sNAsAfXB-1U0y9qFM3MPXYw!2m2!1d34.72513169162706!2d135.4987183443103!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/XepFXAedCEdK13xq6'
+    },
+    {//交野市
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s3rda5op28OCuAUdICr2Vyg!2m2!1d34.78097227983906!2d135.6751316808223!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/vUoJ5SvuQPUuVSgv9'
     },
     {//寝屋川市
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1so1l7smPP6r7i4qu725tQBw!2m2!1d34.7626676249788!2d135.6288678770735!3f0!4f0!5f0.4',
@@ -589,8 +613,12 @@ const streetViews = [
         answerUrl: 'https://maps.app.goo.gl/9vC4BbSqcVVfD48L6'
     },
     {//津山市
-        embedUrl: 'https://www.google.com/maps/embed?pb=!4v1733054347230!6m8!1m7!1s6q6vLsq7U3wHOpmy0sPFZA!2m2!1d35.05760369082778!2d134.0034954364505!3f0!4f0!5f0.4',
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s6q6vLsq7U3wHOpmy0sPFZA!2m2!1d35.05760369082778!2d134.0034954364505!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/nfD9ZXtRzLcTMZwK6'
+    },
+    {//新庄村
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1scL75d1cY0zzi2YpcE7UEYw!2m2!1d35.17910855534379!2d133.5679570903864!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/vMSShS97Z85miJqx8'
     },
     //--------------------ここから広島
     {
@@ -712,6 +740,14 @@ const streetViews = [
     {//松浦市
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1smWELWkA4XcK5JECxNh20QQ!2m2!1d33.3466409205445!2d129.7175652873712!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/gqoLBP5xLrh9ePd97'
+    },
+    {//対馬市
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sxnYN_mmYFz2JLDBjCqE6Pg!2m2!1d34.20405447095616!2d129.2898733809338!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/qo9rLycPCjHhGmpB6'
+    },
+    {//壱岐市
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sDTZMY5nC2G5yPVtLrklX1A!2m2!1d33.75613655847274!2d129.6994405073091!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/Go9e6auVbCEycNAq8'
     },
     //--------------------ここから大分
     {
