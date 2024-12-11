@@ -68,7 +68,7 @@ const streetViews = [
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sePu5QagbJM7xDQdUt7zu9Q!2m2!1d36.36608976653896!2d140.4752483639899!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/t6MfDPkAAiCScR9bA'
     },{
-        embedUrl: '"https://www.google.com/maps/embed?pb=!6m8!1m7!1s590FgmqG6uU10IcS3HhDmA!2m2!1d36.08521950863133!2d140.1167654746796!3f0!4f0!5f0.4',
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s590FgmqG6uU10IcS3HhDmA!2m2!1d36.08521950863133!2d140.1167654746796!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/kizU77nyxqkZzqZ17'
     },
     //-----ここから千葉-----
