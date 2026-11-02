@@ -1,0 +1,813 @@
+// =====================================================================
+// オンライン対戦
+// 部屋を作った人がホストになって、PeerJS(WebRTC)でみんなと直接つながる
+// 自分でサーバーを立てなくていい (つなぐときの仲介だけPeerJSの無料サーバー)
+// =====================================================================
+const PEER_PREFIX = 'geoppoi-poiyatu-'; // ほかのPeerJSユーザーとidが被らないように
+const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 0とOみたいな紛らわしい文字は抜いた
+const HURRY_SECONDS = 15; // 誰かがguessしたら残りをこの秒数に
+const TEAM_NAMES = { blue: 'BLUE', red: 'RED' };
+const TEAM_COLORS = { blue: '#00A2FE', red: '#E94560' };
+
+const $ = id => document.getElementById(id);
+
+let peer;
+let isHost = false;
+let partyCode = null;
+let myId = null;
+let myName = '';
+let hostConn = null; // ゲスト側: ホストとの接続
+const conns = {};    // ホスト側: peerId → 接続
+let hostRetry = 0;
+
+// ロビーの状態 (ホストが持っていて、変わるたびにゲストに配る)
+let state = {
+    players: [], // {id, name, team}
+    settings: { mode: 'duel', map: 'japan', time: 120, hp: 6000 },
+    phase: 'lobby'
+};
+
+let game = null; // ホスト側: 試合の進行
+
+// プレイ中の自分側の状態
+let currentRound = null;
+let lastResult = null;
+let myPin = null;
+let pinMarker = null;
+let hasGuessed = false;
+let roundLoaded = false;
+let timerEnd = null;
+let timerTotal = 0;
+let timerInterval = null;
+let playMap, resultMap, resultLayer;
+
+//================================================画面切り替え================================================
+function showView(name) {
+    document.querySelectorAll('.view').forEach(view => view.style.display = 'none');
+    $(name + 'View').style.display = name === 'play' ? 'block' : 'flex';
+}
+
+function showEntryError(text) {
+    $('entryError').textContent = text;
+    showView('entry');
+}
+
+//================================================部屋を作る・参加する================================================
+function readName() {
+    const name = $('nameInput').value.trim().slice(0, 12);
+    if (!name) {
+        showEntryError('なまえを入れてね');
+        return null;
+    }
+    localStorage.setItem('playerName', name);
+    return name;
+}
+
+function randomCode() {
+    let code = '';
+    for (let i = 0; i < 4; i++) {
+        code += CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)];
+    }
+    return code;
+}
+
+function createParty() {
+    myName = readName();
+    if (!myName) return;
+    hostParty(randomCode());
+}
+
+function joinFromInput() {
+    myName = readName();
+    if (!myName) return;
+    const code = $('codeInput').value.trim().toUpperCase();
+    if (!/^[A-Z0-9]{4}$/.test(code)) {
+        showEntryError('コードは4文字だよ');
+        return;
+    }
+    joinParty(code);
+}
+
+function hostParty(code) {
+    isHost = true;
+    partyCode = code;
+    myId = 'host';
+    $('entryError').textContent = '部屋を作ってるよ...';
+    if (peer) peer.destroy();
+    peer = new Peer(PEER_PREFIX + code);
+
+    peer.on('open', () => {
+        hostRetry = 0;
+        sessionStorage.setItem('hostCode', code);
+        history.replaceState(null, '', '?code=' + code);
+        state.players = [{ id: 'host', name: myName, team: 'blue' }];
+        state.phase = 'lobby';
+        broadcastLobby();
+    });
+    peer.on('connection', setupGuestConn);
+    peer.on('error', err => {
+        if (err.type === 'unavailable-id') {
+            // リロード直後は前の自分がまだ残ってることがあるので、少し待ってやり直す
+            if (sessionStorage.getItem('hostCode') === code && hostRetry < 5) {
+                hostRetry++;
+                setTimeout(() => hostParty(code), 3000);
+            } else {
+                hostParty(randomCode());
+            }
+        } else if (!peer.open) {
+            showEntryError('接続エラー: ' + err.type);
+        }
+    });
+}
+
+function joinParty(code) {
+    isHost = false;
+    partyCode = code;
+    $('entryError').textContent = '接続中...';
+    showView('entry');
+    if (peer) peer.destroy();
+    peer = new Peer();
+
+    peer.on('open', id => {
+        myId = id;
+        hostConn = peer.connect(PEER_PREFIX + code, { reliable: true });
+        hostConn.on('open', () => hostConn.send({ type: 'hello', name: myName }));
+        hostConn.on('data', handleHostMessage);
+        hostConn.on('close', () => showEntryError('ホストとの接続が切れたよ'));
+    });
+    peer.on('error', err => {
+        if (err.type === 'peer-unavailable') {
+            showEntryError('部屋 ' + code + ' が見つからないよ');
+        } else {
+            showEntryError('接続エラー: ' + err.type);
+        }
+    });
+}
+
+function leaveParty() {
+    sessionStorage.removeItem('hostCode');
+    if (peer) peer.destroy();
+    location.href = location.href.split('?')[0];
+}
+
+function copyInviteLink() {
+    const url = location.href.split('?')[0] + '?code=' + partyCode;
+    navigator.clipboard.writeText(url).then(() => {
+        $('copyButton').textContent = 'コピーした!';
+        setTimeout(() => $('copyButton').textContent = '招待リンクをコピー', 1500);
+    }).catch(() => {
+        window.prompt('このリンクを送ってね', url);
+    });
+}
+
+//================================================通信 (ホスト側)================================================
+function setupGuestConn(conn) {
+    conn.on('data', msg => handleGuestMessage(conn.peer, msg));
+    conn.on('close', () => removePlayer(conn.peer));
+    conn.on('error', () => removePlayer(conn.peer));
+    conns[conn.peer] = conn;
+}
+
+// ゲスト(とホスト自身)から届いたメッセージ
+function handleGuestMessage(id, msg) {
+    switch (msg.type) {
+        case 'hello':
+            if (state.phase !== 'lobby') {
+                conns[id].send({ type: 'rejected', reason: '試合中だから入れないよ' });
+                return;
+            }
+            if (state.players.some(p => p.id === id)) return;
+            state.players.push({ id: id, name: String(msg.name).slice(0, 12), team: smallerTeam() });
+            conns[id].send({ type: 'welcome', id: id });
+            broadcastLobby();
+            break;
+        case 'team':
+            setTeam(id, msg.team);
+            break;
+        case 'guess':
+            receiveGuess(id, msg.latlng);
+            break;
+    }
+}
+
+function removePlayer(id) {
+    if (!conns[id]) return;
+    delete conns[id];
+    state.players = state.players.filter(p => p.id !== id);
+    broadcastLobby();
+    if (game && !game.roundOver && allGuessed()) {
+        endRound();
+    }
+}
+
+// 全員に送る (ホスト自身にも同じ処理を通す)
+function broadcast(msg) {
+    Object.values(conns).forEach(conn => {
+        if (conn.open) conn.send(msg);
+    });
+    handleHostMessage(msg);
+}
+
+function broadcastLobby() {
+    broadcast({ type: 'lobby', state: state });
+}
+
+function sendToHost(msg) {
+    if (isHost) {
+        handleGuestMessage('host', msg);
+    } else if (hostConn && hostConn.open) {
+        hostConn.send(msg);
+    }
+}
+
+//================================================通信 (みんな)================================================
+// ホストから届いたメッセージ
+function handleHostMessage(msg) {
+    switch (msg.type) {
+        case 'welcome':
+            myId = msg.id;
+            history.replaceState(null, '', '?code=' + partyCode);
+            break;
+        case 'rejected':
+            showEntryError(msg.reason);
+            break;
+        case 'lobby':
+            state = msg.state;
+            renderLobby();
+            if (state.phase === 'lobby') showView('lobby');
+            break;
+        case 'round':
+            startRound(msg);
+            break;
+        case 'guessed':
+            onGuessed(msg);
+            break;
+        case 'roundResult':
+            showRoundResult(msg);
+            break;
+        case 'gameOver':
+            showGameOver(msg);
+            break;
+    }
+}
+
+//================================================ロビー================================================
+function smallerTeam() {
+    const blue = state.players.filter(p => p.team === 'blue').length;
+    const red = state.players.filter(p => p.team === 'red').length;
+    return blue <= red ? 'blue' : 'red';
+}
+
+function requestTeam(team) {
+    sendToHost({ type: 'team', team: team });
+}
+
+function setTeam(id, team) {
+    if (game || !TEAM_NAMES[team]) return;
+    const player = state.players.find(p => p.id === id);
+    if (!player || player.team === team) return;
+    player.team = team;
+    broadcastLobby();
+}
+
+function shuffleTeams() {
+    const shuffled = shuffle(state.players.slice());
+    shuffled.forEach((player, i) => player.team = i % 2 == 0 ? 'blue' : 'red');
+    broadcastLobby();
+}
+
+// 開始できない理由 (問題なければnull)
+function startProblem() {
+    const blue = state.players.filter(p => p.team === 'blue').length;
+    const red = state.players.filter(p => p.team === 'red').length;
+    if (state.settings.mode === 'duel' && (blue !== 1 || red !== 1)) {
+        return '1v1は青と赤に1人ずつにしてね';
+    }
+    if (blue < 1 || red < 1) {
+        return '両チームに1人以上必要だよ';
+    }
+    return null;
+}
+
+function createPlayerCard(player) {
+    const card = document.createElement('div');
+    card.className = 'player-card';
+
+    const badges = document.createElement('div');
+    badges.className = 'player-badges';
+    if (player.id === myId) badges.innerHTML += '<span class="player-badge you">YOU</span>';
+    if (player.id === 'host') badges.innerHTML += '<span class="player-badge">HOST</span>';
+
+    const avatar = document.createElement('div');
+    avatar.className = 'player-avatar';
+    avatar.textContent = player.name.charAt(0).toUpperCase();
+
+    const name = document.createElement('div');
+    name.className = 'player-name';
+    name.textContent = player.name;
+
+    card.append(badges, avatar, name);
+    return card;
+}
+
+function renderLobby() {
+    const host = state.players.find(p => p.id === 'host');
+    $('lobbyTitle').textContent = (host ? host.name : '') + ' のパーティ';
+    $('lobbyCode').textContent = partyCode;
+    $('lobbyCount').textContent = state.players.length + '人';
+
+    ['blue', 'red'].forEach(team => {
+        const column = $(team === 'blue' ? 'teamBlue' : 'teamRed');
+        column.innerHTML = '<div class="team-name">' + TEAM_NAMES[team] + '</div>';
+        state.players.filter(p => p.team === team).forEach(p => column.appendChild(createPlayerCard(p)));
+    });
+
+    $('modeSelect').value = state.settings.mode;
+    $('mapSelect').value = state.settings.map;
+    $('timeSelect').value = state.settings.time;
+    $('hpSelect').value = state.settings.hp;
+    document.querySelectorAll('.lobby-settings select').forEach(select => select.disabled = !isHost);
+    document.querySelectorAll('.host-only').forEach(el => el.style.display = isHost ? '' : 'none');
+    $('lobbyMessage').textContent = isHost ? (startProblem() || '') : 'ホストが始めるのを待ってるよ';
+}
+
+// マップの選択肢はmaps.jsから
+Object.keys(MAPS).forEach(id => {
+    const option = document.createElement('option');
+    option.value = id;
+    option.textContent = MAPS[id].name;
+    $('mapSelect').appendChild(option);
+});
+
+[['modeSelect', 'mode'], ['mapSelect', 'map'], ['timeSelect', 'time'], ['hpSelect', 'hp']].forEach(([id, key]) => {
+    $(id).addEventListener('change', () => {
+        const value = $(id).value;
+        state.settings[key] = (key === 'time' || key === 'hp') ? Number(value) : value;
+        broadcastLobby();
+    });
+});
+
+//================================================試合の進行 (ホスト側)================================================
+// maplinkの地点データを読み込む (各ファイルは var streetViews = [...] なので何回でも読める)
+function loadStreetViews(mapId, callback) {
+    const script = document.createElement('script');
+    script.src = '../maplink/' + MAPS[mapId].file;
+    script.onload = () => {
+        script.remove();
+        callback(streetViews);
+    };
+    script.onerror = () => $('lobbyMessage').textContent = 'マップの読み込みに失敗したよ';
+    document.head.appendChild(script);
+}
+
+function startGame() {
+    const problem = startProblem();
+    if (problem) {
+        $('lobbyMessage').textContent = problem;
+        return;
+    }
+    const mapId = state.settings.map;
+    loadStreetViews(mapId, list => {
+        game = {
+            mapId: mapId,
+            queue: shuffle(list.slice()),
+            round: 0,
+            hp: { blue: state.settings.hp, red: state.settings.hp },
+            guesses: {},
+            roundOver: true,
+            deadline: null,
+            gameOver: false
+        };
+        state.phase = 'playing';
+        broadcastLobby();
+        nextRound();
+    });
+}
+
+// 後半のラウンドほどダメージが大きくなる
+function getMultiplier(round) {
+    return 1 + Math.max(0, round - 4) * 0.5;
+}
+
+function nextRound() {
+    game.round++;
+    const spot = game.queue[(game.round - 1) % game.queue.length];
+    game.current = {
+        embedUrl: spot.embedUrl,
+        answerUrl: spot.answerUrl,
+        lat: parseFloat((spot.embedUrl.match(/1d([-+]?[0-9]*\.?[0-9]+)/))[1]),
+        lng: parseFloat((spot.embedUrl.match(/2d([-+]?[0-9]*\.?[0-9]+)/))[1])
+    };
+    game.guesses = {};
+    game.roundOver = false;
+    game.hurried = false;
+    broadcast({
+        type: 'round',
+        round: game.round,
+        location: game.current,
+        mapId: game.mapId,
+        time: state.settings.time,
+        multiplier: getMultiplier(game.round),
+        hp: game.hp
+    });
+    setRoundDeadline(state.settings.time);
+}
+
+// ゲストの時間切れが届かなかったとき用の保険 (読み込み時間ぶん余裕をもたせる)
+function setRoundDeadline(seconds) {
+    clearTimeout(game.deadline);
+    if (seconds > 0) {
+        game.deadline = setTimeout(endRound, (seconds + 10) * 1000);
+    }
+}
+
+function allGuessed() {
+    return state.players.every(p => p.id in game.guesses);
+}
+
+function receiveGuess(id, latlng) {
+    if (!game || game.roundOver || id in game.guesses) return;
+    const player = state.players.find(p => p.id === id);
+    if (!player) return;
+
+    game.guesses[id] = latlng;
+    let hurry = null;
+    if (latlng && !game.hurried) {
+        game.hurried = true;
+        hurry = HURRY_SECONDS;
+        setRoundDeadline(HURRY_SECONDS);
+    }
+    broadcast({ type: 'guessed', id: id, name: player.name, pinned: !!latlng, hurry: hurry });
+
+    if (allGuessed()) {
+        endRound();
+    }
+}
+
+function endRound() {
+    if (!game || game.roundOver) return;
+    game.roundOver = true;
+    clearTimeout(game.deadline);
+
+    const answer = L.latLng(game.current.lat, game.current.lng);
+    const mapSize = MAPS[game.mapId].mapSize;
+    const results = state.players.map(p => {
+        const guessLatLng = game.guesses[p.id];
+        if (!guessLatLng) {
+            return { id: p.id, name: p.name, team: p.team, guess: null, distance: null, point: 0 };
+        }
+        const distance = L.latLng(guessLatLng.lat, guessLatLng.lng).distanceTo(answer);
+        return { id: p.id, name: p.name, team: p.team, guess: guessLatLng, distance: distance, point: pointCul(distance, mapSize) };
+    });
+
+    // チームの点数は一番近かった人の点数
+    const best = {};
+    ['blue', 'red'].forEach(team => {
+        best[team] = results.filter(r => r.team === team)
+            .reduce((top, r) => (!top || r.point > top.point) ? r : top, null);
+    });
+    const blueScore = best.blue ? best.blue.point : 0;
+    const redScore = best.red ? best.red.point : 0;
+
+    const multiplier = getMultiplier(game.round);
+    const damage = Math.round(Math.abs(blueScore - redScore) * multiplier);
+    let loser = null;
+    if (blueScore > redScore) {
+        loser = 'red';
+    } else if (redScore > blueScore) {
+        loser = 'blue';
+    }
+    const previousHp = { blue: game.hp.blue, red: game.hp.red };
+    if (loser) {
+        game.hp[loser] = Math.max(0, game.hp[loser] - damage);
+    }
+    game.gameOver = game.hp.blue <= 0 || game.hp.red <= 0;
+
+    broadcast({
+        type: 'roundResult',
+        round: game.round,
+        answer: game.current,
+        results: results,
+        best: best,
+        damage: damage,
+        loser: loser,
+        multiplier: multiplier,
+        previousHp: previousHp,
+        hp: { blue: game.hp.blue, red: game.hp.red },
+        gameOver: game.gameOver
+    });
+}
+
+function hostNext() {
+    if (!isHost || !game || !game.roundOver) return;
+    if (game.gameOver) {
+        broadcast({ type: 'gameOver', winner: game.hp.blue <= 0 ? 'red' : 'blue' });
+    } else {
+        nextRound();
+    }
+}
+
+function backToLobby() {
+    game = null;
+    state.phase = 'lobby';
+    broadcastLobby();
+}
+
+//================================================プレイ画面================================================
+function ensurePlayMap() {
+    if (playMap) return;
+    playMap = L.map('map');
+    addTiles(playMap);
+    playMap.on('click', e => {
+        if (hasGuessed) return;
+        myPin = e.latlng;
+        if (pinMarker) playMap.removeLayer(pinMarker);
+        pinMarker = L.marker(e.latlng, { icon: createCustomIcon() }).addTo(playMap);
+        playSound('../pick.mp3');
+    });
+}
+
+function startRound(msg) {
+    currentRound = msg;
+    hasGuessed = false;
+    myPin = null;
+    roundLoaded = false;
+    stopTimer();
+    showView('play');
+
+    ensurePlayMap();
+    if (pinMarker) {
+        playMap.removeLayer(pinMarker);
+        pinMarker = null;
+    }
+    const config = MAPS[msg.mapId];
+    playMap.invalidateSize();
+    playMap.setView(config.view[0], config.view[1]);
+
+    $('loading').style.display = 'flex';
+    $('streetview').src = msg.location.embedUrl;
+    $('guess-button').textContent = 'guess';
+    $('guess-button').disabled = false;
+    $('guessStatus').textContent = '';
+    $('roundLabel').textContent = 'ラウンド ' + msg.round + (msg.multiplier > 1 ? '  ×' + msg.multiplier : '');
+    $('timer').style.display = 'none';
+    renderHp(msg.hp, 'play');
+}
+
+$('streetview').addEventListener('load', () => {
+    if (!currentRound || roundLoaded) return;
+    const round = currentRound;
+    setTimeout(() => {
+        if (round !== currentRound) return;
+        roundLoaded = true;
+        $('loading').style.display = 'none';
+        if (round.time > 0 && !timerEnd && !hasGuessed) {
+            startTimer(round.time);
+        }
+    }, 1000);
+});
+
+function submitGuess(timeUp) {
+    if (hasGuessed || !currentRound) return;
+    if (!myPin && !timeUp) return; // ピンが置かれてない
+    hasGuessed = true;
+    const latlng = myPin ? { lat: myPin.lat, lng: normalizeLongitude(myPin.lng) } : null;
+    sendToHost({ type: 'guess', latlng: latlng });
+    $('guess-button').textContent = '待機中...';
+    $('guess-button').disabled = true;
+}
+
+function onGuessed(msg) {
+    if (msg.id === myId) {
+        $('guessStatus').textContent = 'ほかの人を待ってるよ';
+    } else if (msg.pinned && !hasGuessed) {
+        $('guessStatus').textContent = msg.name + ' がguessしたよ!';
+    }
+    if (msg.hurry && !hasGuessed) {
+        hurryTimer(msg.hurry);
+    }
+}
+
+//================================================タイマー================================================
+function startTimer(seconds) {
+    timerTotal = seconds;
+    timerEnd = performance.now() + seconds * 1000;
+    $('timer').style.display = 'flex';
+    clearInterval(timerInterval);
+    timerInterval = setInterval(updateTimer, 100);
+    updateTimer();
+}
+
+// 残りがもっと長いときだけ縮める
+function hurryTimer(seconds) {
+    if (timerEnd && timerEnd <= performance.now() + seconds * 1000) return;
+    startTimer(seconds);
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timerEnd = null;
+}
+
+function updateTimer() {
+    const left = Math.max(0, (timerEnd - performance.now()) / 1000);
+    $('countdown').textContent = formatTime(Math.ceil(left));
+
+    const progressRing = document.querySelector('.timer');
+    const progress = (1 - left / timerTotal) * 100;
+    progressRing.style.setProperty('--progress', `${progress}%`);
+    const color = left < 11 ? '#E94560' : '#7950E5';
+    progressRing.style.background = `conic-gradient(rgba(0,0,0,0) var(--progress ,0%) ,${color} 0%)`;
+
+    if (left <= 0) {
+        stopTimer();
+        submitGuess(true);
+    }
+}
+
+//================================================結果画面================================================
+function teamLabel(team) {
+    if (state.settings.mode === 'duel') {
+        const player = state.players.find(p => p.team === team);
+        if (player) return player.name;
+    }
+    return TEAM_NAMES[team];
+}
+
+function renderHp(hp, prefix) {
+    ['blue', 'red'].forEach(team => {
+        const side = team === 'blue' ? 'Blue' : 'Red';
+        $(prefix + 'Hp' + side + 'Fill').style.width = Math.max(0, hp[team] / state.settings.hp * 100) + '%';
+        $(prefix + 'Hp' + side + 'Text').textContent = hp[team];
+        $(prefix + 'Hp' + side + 'Label').textContent = teamLabel(team);
+    });
+}
+
+function showRoundResult(msg) {
+    stopTimer();
+    lastResult = msg;
+    showView('result');
+    $('resultTitle').textContent = 'ラウンド ' + msg.round;
+
+    if (!resultMap) {
+        resultMap = L.map('partyResultMap');
+        addTiles(resultMap);
+        resultLayer = L.layerGroup().addTo(resultMap);
+    }
+    resultLayer.clearLayers();
+
+    const answer = L.latLng(msg.answer.lat, msg.answer.lng);
+    const answerMarker = L.marker(answer).addTo(resultLayer);
+    answerMarker.on('click', () => window.open(msg.answer.answerUrl, '_blank'));
+    const points = [answer];
+    msg.results.forEach(r => {
+        if (!r.guess) return;
+        const guessLatLng = L.latLng(r.guess.lat, r.guess.lng);
+        L.polyline([guessLatLng, answer], { color: TEAM_COLORS[r.team], weight: 2, opacity: 0.8, dashArray: '5 8' }).addTo(resultLayer);
+        L.circleMarker(guessLatLng, { radius: 8, color: 'white', weight: 2, fillColor: TEAM_COLORS[r.team], fillOpacity: 1 })
+            .bindTooltip(r.name, { permanent: true, direction: 'top', offset: [0, -8], className: 'party-tooltip' })
+            .addTo(resultLayer);
+        points.push(guessLatLng);
+    });
+    setTimeout(() => {
+        resultMap.invalidateSize();
+        if (points.length > 1) {
+            resultMap.fitBounds(L.latLngBounds(points), { padding: [50, 50], maxZoom: 15 });
+        } else {
+            resultMap.setView(answer, 6);
+        }
+    }, 100);
+
+    ['blue', 'red'].forEach(team => {
+        const side = team === 'blue' ? 'Blue' : 'Red';
+        const best = msg.best[team];
+        $('resultDistance' + side).textContent = best && best.distance != null ? formatDistance(best.distance) : 'N/A';
+        animateNumber($('resultScore' + side), best ? best.point : 0, 1000);
+        $('resultDamage' + side).textContent = msg.loser === team && msg.damage > 0 ? '-' + msg.damage : '';
+
+        // チーム戦のときはメンバーそれぞれの点数も出す
+        const list = $('resultMembers' + side);
+        list.innerHTML = '';
+        if (state.settings.mode === 'team') {
+            msg.results.filter(r => r.team === team).sort((a, b) => b.point - a.point).forEach(r => {
+                const row = document.createElement('div');
+                row.textContent = r.name + '  ' + r.point;
+                list.appendChild(row);
+            });
+        }
+    });
+
+    // HPバーは前の値から減らす
+    renderHp(msg.previousHp, 'result');
+    setTimeout(() => renderHp(msg.hp, 'result'), 600);
+
+    $('resultMultiplier').textContent = msg.multiplier > 1 ? 'ダメージ ×' + msg.multiplier : '';
+    $('nextButton').textContent = msg.gameOver ? '結果へ' : '次のラウンド';
+    $('resultWaiting').textContent = isHost ? '' : 'ホストが次に進むのを待ってるよ';
+    playSound('../ResultScore.mp3');
+}
+
+function showGameOver(msg) {
+    showView('gameOver');
+    const me = state.players.find(p => p.id === myId);
+    $('winnerSub').textContent = me ? (me.team === msg.winner ? 'WIN' : 'LOSE') : '';
+    $('winnerText').textContent = teamLabel(msg.winner) + ' の勝ち!';
+    $('winnerText').className = msg.winner;
+    $('gameOverWaiting').textContent = isHost ? '' : 'ホストがロビーに戻るのを待ってるよ';
+}
+
+//================================================キー操作================================================
+document.addEventListener('keydown', event => {
+    if (event.code !== 'Space' || event.target.tagName === 'INPUT') return;
+    if ($('playView').style.display === 'block') {
+        event.preventDefault();
+        submitGuess(false);
+    } else if ($('resultView').style.display === 'flex' && isHost) {
+        event.preventDefault();
+        hostNext();
+    }
+});
+
+//================================================小物 (SingleGamePlay.jsと同じ計算)================================================
+function pointCul(distance, mapSize) {
+    let points = Math.round(Math.pow(0.99933, (((Math.max(0, distance - (Math.sqrt(mapSize))) / 1000) * (mapSize)) - 12708)));
+    return Math.max(0, Math.min(5000, points));
+}
+
+function normalizeLongitude(lng) {
+    return ((lng + 180) % 360 + 360) % 360 - 180;
+}
+
+function formatDistance(distance) {
+    if (distance > 10000) {
+        return Math.round(distance / 1000) + "km";
+    } else if (distance > 1000) {
+        return ((Math.round(distance / 100)) / 10) + "km";
+    } else {
+        return Math.round(distance) + "m";
+    }
+}
+
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+function createCustomIcon() {
+    return L.icon({
+        iconUrl: '../images/pin.png',
+        iconSize: [20, 25],
+        iconAnchor: [10, 26],
+        popupAnchor: [0, -20]
+    });
+}
+
+function addTiles(targetMap) {
+    L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+        attribution: "<a href='https://developers.google.com/maps/documentation' target='_blank'>Google Map</a>",
+        maxZoom: 20
+    }).addTo(targetMap);
+}
+
+function animateNumber(element, target, duration) {
+    const startTime = performance.now();
+    function update() {
+        const progress = Math.min((performance.now() - startTime) / duration, 1);
+        element.textContent = Math.round(target * progress);
+        if (progress < 1) requestAnimationFrame(update);
+    }
+    update();
+}
+
+function playSound(src) {
+    const soundEffect = $('SoundEffect');
+    soundEffect.src = src;
+    soundEffect.currentTime = 0;
+    soundEffect.play().catch(() => {});
+}
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+//================================================最初の処理================================================
+$('nameInput').value = localStorage.getItem('playerName') || '';
+const urlCode = (new URLSearchParams(location.search).get('code') || '').toUpperCase();
+$('codeInput').value = urlCode;
+if (urlCode && $('nameInput').value) {
+    // リンクから来たらそのまま参加 (リロードしたホストは部屋を作り直す)
+    myName = $('nameInput').value;
+    if (sessionStorage.getItem('hostCode') === urlCode) {
+        hostParty(urlCode);
+    } else {
+        joinParty(urlCode);
+    }
+} else {
+    showView('entry');
+}

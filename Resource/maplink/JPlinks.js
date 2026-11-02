@@ -1,4 +1,4 @@
-const streetViews = [
+var streetViews = [
     /*
     {
         embedUrl: '',

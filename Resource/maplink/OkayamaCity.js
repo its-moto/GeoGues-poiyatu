@@ -1,4 +1,4 @@
-const streetViews = [
+var streetViews = [
     {
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1shd9T3r-7QD9EM3bL0Y-huw!2m2!1d34.64598911846403!2d133.8915447509938!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/GS2d9LnTT6VBsgix6'

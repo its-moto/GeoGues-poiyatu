@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="GamePlayStyles.css">
+    <link rel="stylesheet" type="text/css" href="party.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script src="../src/maps.js"></script>
+    <link rel="icon" href="../images/logo-pin.png"> <!-- ページアイコン -->
+    <title>GeoPpoi - オンライン対戦</title>
+</head>
+<body>
+    <audio id="SoundEffect" preload="auto"></audio>
+
+    <!-- 参加画面 -->
+    <div class="view" id="entryView">
+        <h1 class="party-title">オンライン対戦</h1>
+        <div class="entry-box">
+            <label for="nameInput">なまえ</label>
+            <input type="text" id="nameInput" maxlength="12" placeholder="なまえ">
+            <label for="codeInput">部屋コード</label>
+            <input type="text" id="codeInput" maxlength="4" placeholder="AB34" autocomplete="off">
+            <button class="party-btn green" onclick="joinFromInput()">参加</button>
+            <div class="entry-or">または</div>
+            <button class="party-btn outline" onclick="createParty()">部屋を作る</button>
+            <p id="entryError"></p>
+        </div>
+        <button class="goBack" onclick="location.href='../../index.html'">もどる</button>
+    </div>
+
+    <!-- ロビー -->
+    <div class="view" id="lobbyView">
+        <button class="goBack lobby-leave" onclick="leaveParty()">退出</button>
+        <div class="lobby-header">
+            <div class="lobby-title" id="lobbyTitle"></div>
+            <div class="lobby-code">コード<span id="lobbyCode"></span><button class="party-btn outline small" id="copyButton" onclick="copyInviteLink()">招待リンクをコピー</button></div>
+            <div id="lobbyCount"></div>
+        </div>
+        <div class="lobby-teams">
+            <div class="team-column blue" id="teamBlue" onclick="requestTeam('blue')"></div>
+            <div class="lobby-center">
+                <div class="vs-text">VS.</div>
+                <button class="party-btn outline host-only" onclick="shuffleTeams()">シャッフル</button>
+                <p class="lobby-hint">チームの枠をクリックで移動</p>
+            </div>
+            <div class="team-column red" id="teamRed" onclick="requestTeam('red')"></div>
+        </div>
+        <div class="lobby-settings">
+            <div class="setting-item">
+                <label for="modeSelect">モード</label>
+                <select id="modeSelect">
+                    <option value="duel">1v1 デュエル</option>
+                    <option value="team">チームデュエル</option>
+                </select>
+            </div>
+            <div class="setting-item">
+                <label for="mapSelect">マップ</label>
+                <select id="mapSelect"></select>
+            </div>
+            <div class="setting-item">
+                <label for="timeSelect">時間</label>
+                <select id="timeSelect">
+                    <option value="0">なし</option>
+                    <option value="30">30秒</option>
+                    <option value="60">1分</option>
+                    <option value="120">2分</option>
+                    <option value="180">3分</option>
+                </select>
+            </div>
+            <div class="setting-item">
+                <label for="hpSelect">HP</label>
+                <select id="hpSelect">
+                    <option value="3000">3000</option>
+                    <option value="6000">6000</option>
+                    <option value="10000">10000</option>
+                </select>
+            </div>
+        </div>
+        <button class="party-btn green host-only" id="startButton" onclick="startGame()">START GAME</button>
+        <p id="lobbyMessage"></p>
+    </div>
+
+    <!-- プレイ画面 -->
+    <div class="view" id="playView">
+        <div id="loading"><div id="loadingtext">Loading...</div></div>
+
+        <iframe id="streetview" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <div id="hpBar">
+            <div class="hp-box blue">
+                <div class="hp-label" id="playHpBlueLabel"></div>
+                <div class="hp-track"><div class="hp-fill" id="playHpBlueFill"></div><div class="hp-text" id="playHpBlueText"></div></div>
+            </div>
+            <div id="roundLabel"></div>
+            <div class="hp-box red">
+                <div class="hp-label" id="playHpRedLabel"></div>
+                <div class="hp-track"><div class="hp-fill" id="playHpRedFill"></div><div class="hp-text" id="playHpRedText"></div></div>
+            </div>
+        </div>
+
+        <div class="timer" id="timer">
+            <h1 id="countdown">00:00</h1>
+            <div class="progress-overlay"></div>
+        </div>
+        <div id="guessStatus"></div>
+
+        <div id="map-container">
+            <div id="map"></div> <!-- Leaflet地図の表示領域 -->
+        </div>
+        <button class="guess-button" id="guess-button" onclick="submitGuess(false)">guess</button>
+    </div>
+
+    <!-- ラウンド結果 -->
+    <div class="view" id="resultView">
+        <h2 id="resultTitle"></h2>
+        <div class="result-main">
+            <div class="result-side">
+                <div class="hp-box blue">
+                    <div class="hp-label" id="resultHpBlueLabel"></div>
+                    <div class="hp-track"><div class="hp-fill" id="resultHpBlueFill"></div><div class="hp-text" id="resultHpBlueText"></div></div>
+                </div>
+                <div class="result-damage" id="resultDamageBlue"></div>
+                <div class="result-members" id="resultMembersBlue"></div>
+            </div>
+            <div id="partyResultMap"></div>
+            <div class="result-side">
+                <div class="hp-box red">
+                    <div class="hp-label" id="resultHpRedLabel"></div>
+                    <div class="hp-track"><div class="hp-fill" id="resultHpRedFill"></div><div class="hp-text" id="resultHpRedText"></div></div>
+                </div>
+                <div class="result-damage" id="resultDamageRed"></div>
+                <div class="result-members" id="resultMembersRed"></div>
+            </div>
+        </div>
+        <div class="result-scores">
+            <div class="result-distance" id="resultDistanceBlue"></div>
+            <div class="result-label">場所からの距離</div>
+            <div class="result-distance" id="resultDistanceRed"></div>
+            <div class="result-score" id="resultScoreBlue">0</div>
+            <div class="result-label">ラウンド結果</div>
+            <div class="result-score" id="resultScoreRed">0</div>
+        </div>
+        <div id="resultMultiplier"></div>
+        <button class="party-btn green host-only" id="nextButton" onclick="hostNext()">次のラウンド</button>
+        <p id="resultWaiting"></p>
+    </div>
+
+    <!-- 試合終了 -->
+    <div class="view" id="gameOverView">
+        <div id="winnerSub"></div>
+        <div id="winnerText"></div>
+        <button class="party-btn green host-only" onclick="backToLobby()">ロビーに戻る</button>
+        <p id="gameOverWaiting"></p>
+    </div>
+
+    <script src="../src/party.js"></script>
+    <script src="../src/cssanimation.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-const streetViews = [
+var streetViews = [
     {//札幌
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sz2YdS45QrtnV89tAlF6CKw!2m2!1d43.06232274302776!2d141.3549400765327!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/vAKej8mxaHCBgvkV6'

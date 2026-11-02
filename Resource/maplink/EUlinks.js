@@ -1,4 +1,4 @@
-const streetViews = [
+var streetViews = [
     //--------ここからアルバニア.al--------
     {
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1swL11ujWiJ9LA1MeP9YU8sA!2m2!1d41.32748083370634!2d19.8088651762016!3f0!4f0!5f0.4',

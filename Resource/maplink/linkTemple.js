@@ -1,4 +1,4 @@
-export const streetViews = [
+var streetViews = [
     {
         embedUrl: '',
         answerUrl: ''

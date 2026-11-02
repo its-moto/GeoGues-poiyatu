@@ -1,4 +1,4 @@
-const streetViews = [
+var streetViews = [
     {//大湊
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1srQwCqSN-5Vv3JPCoO-sBlg!2m2!1d41.25602523350306!2d141.1441225270373!3f0!4f0!5f0.40',
         answerUrl: 'https://maps.app.goo.gl/5FmUMJHtVov7izwS9'
