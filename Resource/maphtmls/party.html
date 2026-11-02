@@ -13,7 +13,7 @@
     <title>GeoPpoi - オンライン対戦</title>
 </head>
 <body>
-    <audio id="SoundEffect" preload="auto"></audio>
+    <audio id="bgm" loop preload="auto"></audio>
 
     <!-- 参加画面 -->
     <div class="view" id="entryView">
@@ -153,6 +153,8 @@
             <div class="progress-overlay"></div>
         </div>
         <div id="guessStatus"></div>
+        <div id="timerLowLeft"></div> <!-- 画面の端が赤く光るやつ -->
+
 
         <div id="map-container">
             <div id="map"></div> <!-- Leaflet地図の表示領域 -->
@@ -194,6 +196,7 @@
         <p id="resultWaiting"></p>
         <!-- 相手にぶつかっていく数字 -->
         <div id="flyNumber"></div>
+        <div id="flyNumber2"></div>
     </div>
 
     <!-- 試合終了 -->
@@ -204,6 +207,7 @@
         <p id="gameOverWaiting"></p>
     </div>
 
+    <script src="../src/sound.js"></script>
     <script src="../src/party.js"></script>
     <script src="../src/cssanimation.js"></script>
 </body>

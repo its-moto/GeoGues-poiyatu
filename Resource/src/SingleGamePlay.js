@@ -47,6 +47,8 @@ function showRandomStreetView() {
     document.getElementById('loading').style.display = 'flex';
     clearInterval(timerInterval); // タイマー停止
     timerInterval = null;
+    stopSE(tickingClock);
+    document.querySelector('.timer').getAnimations().forEach(animation => animation.cancel()); // 小さくなったタイマーを戻す
     let totalRound = document.getElementById('totalRound');
     totalRound.textContent = parseFloat(totalRound.textContent)+1;
     
@@ -139,6 +141,7 @@ iframe.addEventListener("load", () => {
 let countdownTime; // 初期時間（秒単位）
 let timerInterval = null;
 let timerLeftAlertOp = 0;
+let tickingClock = null; // 残り15秒からのチクタク音
 const totalTime = localStorage.getItem('timer') || 120; // タイマーの総時間を保存
 
 if (totalTime == 0) {
@@ -175,6 +178,10 @@ function updateTimer() {
     const progress = ((totalTime - countdownTime) / totalTime) * 100; // 経過時間の割合（%）
     progressRing.style.setProperty('--progress', `${progress}%`);
     if (countdownTime > 0) {
+        // 残り15秒を切ったらチクタク
+        if (countdownTime > 15 && countdownTime - 0.05 <= 15) {
+            tickingClock = playSE('Ticking Clock');
+        }
         countdownTime -= 0.05;
         LowTimerAlert();
         if (countdownTime < 11){
@@ -184,7 +191,15 @@ function updateTimer() {
         }
         
     } else {
-        guess(); // タイマー終了時の処理
+        // 0:00になったら1秒かけてタイマーを小さくしてからリザルトへ
+        clearInterval(timerInterval); // timerIntervalは空にしない (読み込み直しでタイマーが再開しないように)
+        stopSE(tickingClock);
+        playSE('Round End');
+        progressRing.animate([
+            { transform: 'translate(-50%, 0) scale(1)' },
+            { transform: 'translate(-50%, 0) scale(0)' }
+        ], { duration: 1000, easing: 'ease-in', fill: 'forwards' });
+        setTimeout(guess, 1000);
     }
 }
 
@@ -227,11 +242,8 @@ map.on('click', function (e) {
     noPin = false;
     // 新しいピンを追加
     marker = L.marker([lat, lng], { icon: createCustomIcon() }).addTo(map);
-    
-    const soundEffect = document.getElementById("SoundEffect");
-    soundEffect.src ="../pick.mp3" 
-    soundEffect.currentTime = 0; // 再生位置を先頭に戻す
-    soundEffect.play(); // 効果音を再生
+
+    playPinSound(e.latlng, map.getZoom()); // 陸か水の上かで音が変わる (sound.js)
 });
 
 document.getElementById('locationCount').textContent = streetViews.length + " locations";
@@ -314,6 +326,7 @@ function guess() {
     clearInterval(timerInterval); // タイマー停止
     timerInterval = null;
 
+    stopSE(tickingClock);
     const roundSeconds = roundStartTime == null ? 0 : (performance.now() - roundStartTime) / 1000;
 
     openResult();
@@ -323,7 +336,7 @@ function guess() {
     bgm.play();
 
     const soundEffect = document.getElementById("SoundEffect");
-    soundEffect.src = "../ResultScore.mp3";
+    soundEffect.src = "../SE/ResultScore.mp3";
     soundEffect.currentTime = 0; // 再生位置を先頭に戻す
     soundEffect.play(); // 効果音を再生
 
@@ -461,7 +474,7 @@ function showFinalStats() {
     document.getElementById('statTime').textContent = formatDuration(totalSeconds);
 
     const soundEffect = document.getElementById("SoundEffect");
-    soundEffect.src = "../ResultScore.mp3";
+    soundEffect.src = "../SE/ResultScore.mp3";
     soundEffect.currentTime = 0;
     soundEffect.play();
 }

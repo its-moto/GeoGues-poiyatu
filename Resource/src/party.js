@@ -46,6 +46,10 @@ let introDone = false;
 let introInterval = null;
 let timerEnd = null;
 let timerTotal = 0;
+let timerLastLeft = Infinity; // 残り15秒・10秒を切った瞬間を見つける用
+let timeUpPending = false; // 0:00でタイマーが小さくなってる途中
+let opponentGuessed = false; // このラウンドで相手に先にguessされたか
+let countdownSound = null; // 残り15秒のカウントダウンの音
 let timerInterval = null;
 let playMap, resultMap, resultLayer;
 
@@ -565,7 +569,7 @@ function ensurePlayMap() {
         myPin = e.latlng;
         if (pinMarker) playMap.removeLayer(pinMarker);
         pinMarker = L.marker(e.latlng, { icon: createCustomIcon() }).addTo(playMap);
-        playSound('../pick.mp3');
+        playPinSound(e.latlng, playMap.getZoom()); // 陸か水の上かで音が変わる (sound.js)
     });
 }
 
@@ -576,7 +580,13 @@ function startRound(msg) {
     myPin = null;
     roundLoaded = false;
     introDone = false;
+    opponentGuessed = false;
+    timeUpPending = false;
+    timerLastLeft = Infinity;
     stopTimer();
+    stopSE(countdownSound);
+    countdownSound = null;
+    document.querySelector('.timer').getAnimations().forEach(animation => animation.cancel()); // 小さくなったタイマーを戻す
 
     ensurePlayMap();
     if (pinMarker) {
@@ -606,6 +616,7 @@ function showIntro(msg) {
     $('introMultiplier').textContent = msg.multiplier > 1 ? msg.multiplier + 'X ダメージ' : '';
     let left = INTRO_SECONDS;
     $('introCount').textContent = String(left).padStart(2, '0');
+    playSE('Effect Count Down Tick');
     clearInterval(introInterval);
     introInterval = setInterval(() => {
         left--;
@@ -614,6 +625,7 @@ function showIntro(msg) {
             beginPlay(msg);
         } else {
             $('introCount').textContent = String(left).padStart(2, '0');
+            playSE('Effect Count Down Tick');
         }
     }, 1000);
 }
@@ -622,6 +634,8 @@ function beginPlay(msg) {
     if (msg !== currentRound) return;
     introDone = true;
     showView('play');
+    playSE('New Round');
+    playRoundMusic();
     const config = MAPS[msg.mapId];
     playMap.invalidateSize();
     playMap.setView(config.view[0], config.view[1]);
@@ -654,6 +668,8 @@ function submitGuess(timeUp) {
     if (!myPin && !timeUp) return; // ピンが置かれてない
     hasGuessed = true;
     stopTimer();
+    stopSE(countdownSound);
+    countdownSound = null;
     const latlng = myPin ? { lat: myPin.lat, lng: normalizeLongitude(myPin.lng) } : null;
     // 先に待機画面を出す (ホストは送った瞬間にラウンドが終わって結果画面になることがあるので)
     showWaiting();
@@ -687,9 +703,20 @@ function onGuessed(msg) {
     } else if (msg.latlng && !hasGuessed) {
         $('guessStatus').textContent = msg.name + ' がguessしたよ!';
     }
+    // 相手チームに先にguessされたら画面の端が赤く光る (1ラウンド1回だけ)
+    if (msg.latlng && msg.team !== myTeam() && !hasGuessed && !opponentGuessed) {
+        opponentGuessed = true;
+        flashEdge();
+        playSE('Opponent Guessed');
+    }
     if (msg.hurry && !hasGuessed) {
         hurryTimer(msg.hurry);
     }
+}
+
+// 画面の端を赤く光らせてすっと消す (シングルの残り10秒のやつと同じ見た目)
+function flashEdge() {
+    $('timerLowLeft').animate([{ opacity: 1 }, { opacity: 0 }], { duration: 1000, easing: 'ease-out' });
 }
 
 //================================================タイマー================================================
@@ -704,6 +731,7 @@ function startTimer(seconds) {
 
 // 残りがもっと長いときだけ縮める
 function hurryTimer(seconds) {
+    if (timeUpPending) return;
     if (timerEnd && timerEnd <= performance.now() + seconds * 1000) return;
     startTimer(seconds);
 }
@@ -718,6 +746,16 @@ function updateTimer() {
     const left = Math.max(0, (timerEnd - performance.now()) / 1000);
     $('countdown').textContent = formatTime(Math.ceil(left));
 
+    // 残り15秒を切ったらカウントダウンの音
+    if (timerLastLeft > 15 && left <= 15 && !countdownSound) {
+        countdownSound = playSE('Timer Countdown');
+    }
+    // 残り10秒を切った瞬間に光る (相手にguessされて光ったラウンドは光らない)
+    if (timerLastLeft > 10 && left <= 10 && !opponentGuessed) {
+        flashEdge();
+    }
+    timerLastLeft = left;
+
     const progressRing = document.querySelector('.timer');
     const progress = (1 - left / timerTotal) * 100;
     progressRing.style.setProperty('--progress', `${progress}%`);
@@ -725,9 +763,43 @@ function updateTimer() {
     progressRing.style.background = `conic-gradient(rgba(0,0,0,0) var(--progress ,0%) ,${color} 0%)`;
 
     if (left <= 0) {
+        // 0:00になったら1秒かけてタイマーを小さくしてからリザルトへ
         stopTimer();
-        submitGuess(true);
+        timeUpPending = true;
+        playSE('Round End');
+        progressRing.animate([
+            { transform: 'translate(-50%, 0) scale(1)' },
+            { transform: 'translate(-50%, 0) scale(0)' }
+        ], { duration: 1000, easing: 'ease-in', fill: 'forwards' });
+        const round = currentRound;
+        setTimeout(() => {
+            if (round === currentRound) submitGuess(true);
+        }, 1000);
     }
+}
+
+//================================================BGM================================================
+const ROUND_MUSIC = ['Music Round 1', 'Music Round 2', 'Music Round 3', 'Music Round 4'];
+
+// 音量はシングルの設定 (bgmVolume) をそのまま使う
+function bgmVolume() {
+    try {
+        const saved = JSON.parse(localStorage.getItem('bgmVolume'));
+        if (saved !== null) return parseFloat(saved);
+    } catch (e) {}
+    return 0.3;
+}
+
+function playRoundMusic() {
+    const bgm = $('bgm');
+    bgm.src = '../bgm/' + ROUND_MUSIC[Math.floor(Math.random() * ROUND_MUSIC.length)] + '.mp3';
+    bgm.volume = bgmVolume();
+    bgm.currentTime = 0;
+    bgm.play().catch(() => {});
+}
+
+function stopMusic() {
+    $('bgm').pause();
 }
 
 //================================================結果画面================================================
@@ -797,6 +869,9 @@ function updateWaitingText() {
 
 function showRoundResult(msg) {
     stopTimer();
+    stopSE(countdownSound);
+    countdownSound = null;
+    stopMusic();
     lastResult = msg;
     showView('result');
     $('resultView').classList.remove('waiting');
@@ -836,9 +911,8 @@ function showRoundResult(msg) {
     $('resultMultiplier').textContent = msg.multiplier > 1 ? 'ダメージ ×' + msg.multiplier : '';
     $('nextButton').textContent = msg.gameOver ? '結果へ' : '次のラウンド';
     $('resultWaiting').textContent = isHost ? '' : 'ホストが次に進むのを待ってるよ';
-    playSound('../ResultScore.mp3');
 
-    // HPバーや表を下から順番にスライドイン (クラスを付け直してアニメーションをやり直す)
+    // HPバーは左右から、表は下から順番にスライドイン (クラスを付け直してアニメーションをやり直す)
     $('resultView').classList.remove('slide-in');
     void $('resultView').offsetWidth;
     $('resultView').classList.add('slide-in');
@@ -862,9 +936,10 @@ function flyFrame(point, scale, opacity) {
 }
 
 function resetScoreAnimation() {
-    const fly = $('flyNumber');
-    fly.getAnimations().forEach(animation => animation.cancel());
-    fly.style.display = 'none';
+    ['flyNumber', 'flyNumber2'].forEach(id => {
+        $(id).getAnimations().forEach(animation => animation.cancel());
+        $(id).style.display = 'none';
+    });
     ['Blue', 'Red'].forEach(side => {
         const scoreElement = $('resultScore' + side);
         scoreElement.style.transition = 'none';
@@ -885,14 +960,25 @@ async function playScoreAnimation(msg) {
         red: msg.best.red ? msg.best.red.point : 0
     };
 
-    // 1. 両方の点数が0から上がっていく (スライドインが終わってから)
-    await sleep(900);
+    // HPバーが左右から入ってくる → 1秒後に表が下から
+    playSE('Round Score Slide In');
+    await sleep(1000);
+    if (!alive()) return;
+    playSE('Round Score Slide In Rows');
+
+    // 1. 両方の点数が0から上がっていく (スコアの行が出てきてから)
+    await sleep(500);
     if (!alive()) return;
     animateNumber($('resultScoreBlue'), score.blue, 1000);
     animateNumber($('resultScoreRed'), score.red, 1000);
     await sleep(1200);
     if (!alive()) return;
-    if (!msg.loser) return; // 引き分けはダメージなし
+
+    if (!msg.loser) {
+        // 引き分け: 両方の数字が真ん中に飛んでいってぶつかって消える
+        if (score.blue > 0) await playTieAnimation(alive);
+        return;
+    }
 
     const winner = msg.loser === 'blue' ? 'red' : 'blue';
     const winElement = $('resultScore' + SIDES[winner]);
@@ -910,6 +996,7 @@ async function playScoreAnimation(msg) {
     const to = centerOf(loseElement);
     fly.textContent = score[winner];
     fly.style.display = 'block';
+    playSE('Round Score Damage Crash'); // 飛び始めと同時に鳴らす
     winElement.style.transform = 'scale(1)';
     winElement.style.opacity = 0.3;
     await fly.animate([flyFrame(from, 1.1, 1), flyFrame(to, 1.1, 1)],
@@ -933,15 +1020,55 @@ async function playScoreAnimation(msg) {
         { duration: 300, easing: 'cubic-bezier(0.5, 0, 1, 0.6)', fill: 'forwards' }).finished;
     if (!alive()) return;
     renderHp(msg.hp, 'result');
+    playSE('Round Score Damage Up');
     await fly.animate([flyFrame(hpTarget, 0.7, 1), flyFrame(hpTarget, 1.2, 0)],
         { duration: 300, easing: 'ease-out', fill: 'forwards' }).finished;
     if (!alive()) return;
     fly.style.display = 'none';
 }
 
+async function playTieAnimation(alive) {
+    const blueElement = $('resultScoreBlue');
+    const redElement = $('resultScoreRed');
+    const flyBlue = $('flyNumber');
+    const flyRed = $('flyNumber2');
+    const fromBlue = centerOf(blueElement);
+    const fromRed = centerOf(redElement);
+    const middle = { x: (fromBlue.x + fromRed.x) / 2, y: fromBlue.y };
+
+    flyBlue.textContent = blueElement.textContent;
+    flyRed.textContent = redElement.textContent;
+    flyBlue.style.display = 'block';
+    flyRed.style.display = 'block';
+    [blueElement, redElement].forEach(element => {
+        element.style.transition = 'opacity 0.2s ease';
+        element.style.opacity = 0.3;
+    });
+
+    const options = { duration: 300, easing: 'cubic-bezier(0.5, 0, 1, 0.6)', fill: 'forwards' };
+    await Promise.all([
+        flyBlue.animate([flyFrame(fromBlue, 1.1, 1), flyFrame(middle, 1.1, 1)], options).finished,
+        flyRed.animate([flyFrame(fromRed, 1.1, 1), flyFrame(middle, 1.1, 1)], options).finished
+    ]);
+    if (!alive()) return;
+
+    // ぶつかって消滅
+    playSE('Round Score Tie Up');
+    const vanish = { duration: 350, easing: 'ease-out', fill: 'forwards' };
+    await Promise.all([
+        flyBlue.animate([flyFrame(middle, 1.1, 1), flyFrame(middle, 1.8, 0)], vanish).finished,
+        flyRed.animate([flyFrame(middle, 1.1, 1), flyFrame(middle, 1.8, 0)], vanish).finished
+    ]);
+    if (!alive()) return;
+    flyBlue.style.display = 'none';
+    flyRed.style.display = 'none';
+}
+
 function showGameOver(msg) {
     showView('gameOver');
+    stopMusic();
     const me = state.players.find(p => p.id === myId);
+    if (me) playSE(me.team === msg.winner ? 'Effect Game Won' : 'Effect Disqualified 2');
     $('winnerSub').textContent = me ? (me.team === msg.winner ? 'WIN' : 'LOSE') : '';
     $('winnerText').textContent = teamLabel(msg.winner) + ' の勝ち!';
     $('winnerText').className = msg.winner;
@@ -1010,13 +1137,6 @@ function animateNumber(element, target, duration) {
         if (progress < 1) requestAnimationFrame(update);
     }
     update();
-}
-
-function playSound(src) {
-    const soundEffect = $('SoundEffect');
-    soundEffect.src = src;
-    soundEffect.currentTime = 0;
-    soundEffect.play().catch(() => {});
 }
 
 function shuffle(array) {

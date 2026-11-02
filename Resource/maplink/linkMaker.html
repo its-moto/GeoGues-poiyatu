@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/logo-pin.png">
+    <title>GeoPpoi - 地点データ作成</title>
+    <style>
+        @font-face {
+            font-family: 'NotoSansJP';
+            src: url('../../fonts/Noto\ Sans\ JP/NotoSansJP-VariableFont_wght.ttf') format('truetype');
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 20px;
+            min-height: 100vh;
+            font-family: "NotoSansJP", sans-serif;
+            color: white;
+            background: linear-gradient(155deg, #335c80 0%, #2a2a4e 45%, #1A1A2E 100%);
+        }
+
+        .wrap {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin: 0 0 4px;
+            font-size: 28px;
+        }
+
+        .sub {
+            color: #c7c7c7;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #c7c7c7;
+            margin: 12px 0 6px;
+        }
+        label:first-child {
+            margin-top: 0;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.35);
+            color: white;
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+        }
+        input:focus,
+        textarea:focus {
+            border-color: #7950E5;
+        }
+
+        textarea {
+            resize: vertical;
+            font-family: Consolas, monospace;
+        }
+
+        #iframeInput {
+            height: 90px;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 20px;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #c7c7c7;
+        }
+        .info b {
+            color: white;
+        }
+
+        #error {
+            color: #ff8fa3;
+            min-height: 20px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        pre {
+            margin: 0;
+            padding: 14px;
+            border-radius: 10px;
+            background-color: #12121f;
+            font-family: Consolas, monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            min-height: 60px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        button {
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: radial-gradient(ellipse at top, #97E851, #6CB928);
+            color: black;
+        }
+        button.outline {
+            background: none;
+            color: white;
+            border: 1.5px solid white;
+        }
+        button:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+
+        .card-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .card-title h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        #listCount {
+            color: #c7c7c7;
+            font-size: 14px;
+        }
+
+        #preview {
+            width: 100%;
+            height: 300px;
+            border: 0;
+            border-radius: 10px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background-color: #7950E5;
+            padding: 10px 24px;
+            border-radius: 30px;
+            opacity: 0;
+            transition: opacity 0.2s, transform 0.2s;
+            pointer-events: none;
+        }
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>地点データ作成</h1>
+        <div class="sub">Googleマップの「地図を埋め込む」をコピーして貼るだけで、maplinkの形にするよ</div>
+
+        <div class="card">
+            <label for="iframeInput">埋め込みコード (iframe) かストリートビューのURL</label>
+            <textarea id="iframeInput" placeholder='<iframe src="https://www.google.com/maps/embed?pb=!4v...!6m8!1m7!1s...'></textarea>
+            <div class="hint">ストリートビューを開いてるときのブラウザのURL (…/@34.6,133.9,3a,…!1sパノラマID!2e0…) でもOK</div>
+
+            <label for="answerInput">answer用のリンク (共有 → リンクをコピー)</label>
+            <input type="text" id="answerInput" placeholder="https://maps.app.goo.gl/...">
+            <div class="hint">空のままなら、パノラマIDから開けるリンクを自動で作るよ</div>
+
+            <label for="nameInput">コメント (市町村とか)</label>
+            <input type="text" id="nameInput" placeholder="網走">
+
+            <div class="info" id="info"></div>
+            <div id="error"></div>
+            <iframe id="preview" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><h2>できたやつ</h2></div>
+            <pre id="output"></pre>
+            <div class="buttons">
+                <button id="copyButton" onclick="copyOutput()" disabled>コピー</button>
+                <button id="addButton" class="outline" onclick="addToList()" disabled>リストに追加して次へ</button>
+                <button id="previewButton" class="outline" onclick="togglePreview()" disabled>プレビュー</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><h2>まとめてコピー用リスト</h2><span id="listCount"></span></div>
+            <pre id="listOutput"></pre>
+            <div class="buttons">
+                <button onclick="copyList()">全部コピー</button>
+                <button class="outline" onclick="clearList()">リストを空にする</button>
+            </div>
+            <div class="hint">リストはこのブラウザに保存されるから、閉じても消えないよ</div>
+        </div>
+    </div>
+    <div id="toast"></div>
+
+    <script>
+        const $ = id => document.getElementById(id);
+        let current = null; // 今作ってる地点 {embedUrl, answerUrl, name, lat, lng}
+        let list = [];
+
+        try {
+            list = JSON.parse(localStorage.getItem('linkMakerList') || '[]');
+        } catch (e) {
+            list = [];
+        }
+
+        // 小数の後ろの 0000000000002 みたいなのを消す (0.4000000000000002 → 0.4)
+        function tidyNumber(value) {
+            return String(Number(parseFloat(value).toFixed(6)));
+        }
+
+        // 埋め込みコード or URL から embedUrl を作る
+        function parseInput(text) {
+            text = text.trim();
+            if (!text) return null;
+
+            // <iframe src="..."> なら src だけ取り出す
+            const srcMatch = text.match(/src="([^"]+)"/);
+            if (srcMatch) text = srcMatch[1];
+            text = text.replace(/&amp;/g, '&');
+
+            // 埋め込みのURL
+            if (text.includes('/maps/embed')) {
+                const pbMatch = text.match(/[?&]pb=([^&"\s]+)/);
+                if (!pbMatch) throw new Error('pb= が見つからないよ');
+                let pb = pbMatch[1]
+                    .replace(/!4v\d+/, '') // 作った日時のタイムスタンプ (いらない)
+                    .replace(/!(3f|4f|5f)([-0-9.]+)/g, (all, key, value) => '!' + key + tidyNumber(value));
+                const pano = pb.match(/!1s([^!]+)/);
+                const lat = pb.match(/!1d([-0-9.]+)/);
+                const lng = pb.match(/!2d([-0-9.]+)/);
+                if (!pano || !lat || !lng) throw new Error('ストリートビューの埋め込みじゃないみたい (パノラマIDか座標がない)');
+                return {
+                    embedUrl: 'https://www.google.com/maps/embed?pb=' + pb,
+                    pano: pano[1],
+                    lat: lat[1],
+                    lng: lng[1]
+                };
+            }
+
+            // ストリートビューを開いてるときのURL
+            const at = text.match(/@(-?[0-9.]+),(-?[0-9.]+),/);
+            const pano = text.match(/!1s([^!]+)!2e(\d+)/);
+            if (at && pano) {
+                if (pano[2] !== '0') throw new Error('これは投稿された360°写真みたい (!2e0 の公式ストリートビューを使ってね)');
+                const heading = text.match(/,([0-9.]+)h/);
+                const pitch = text.match(/,([0-9.]+)t/);
+                return {
+                    embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s' + pano[1] + '!2m2!1d' + at[1] + '!2d' + at[2] +
+                        '!3f' + (heading ? tidyNumber(heading[1]) : 0) + '!4f' + (pitch ? tidyNumber(pitch[1] - 90) : 0) + '!5f0.4',
+                    pano: pano[1],
+                    lat: at[1],
+                    lng: at[2]
+                };
+            }
+
+            throw new Error('埋め込みコードかストリートビューのURLを貼ってね');
+        }
+
+        // maplinkのファイルと同じ書き方
+        function formatEntry(entry) {
+            return '    {' + (entry.name ? '//' + entry.name : '') + '\n' +
+                "        embedUrl: '" + entry.embedUrl + "',\n" +
+                "        answerUrl: '" + entry.answerUrl + "'\n" +
+                '    },';
+        }
+
+        function update() {
+            $('error').textContent = '';
+            $('info').innerHTML = '';
+            current = null;
+            try {
+                const parsed = parseInput($('iframeInput').value);
+                if (parsed) {
+                    const answer = $('answerInput').value.trim() ||
+                        'https://www.google.com/maps/@?api=1&map_action=pano&pano=' + parsed.pano;
+                    current = {
+                        embedUrl: parsed.embedUrl,
+                        answerUrl: answer,
+                        name: $('nameInput').value.trim(),
+                        lat: parsed.lat,
+                        lng: parsed.lng
+                    };
+                    $('info').innerHTML = '緯度 <b>' + parsed.lat + '</b> 経度 <b>' + parsed.lng + '</b>' +
+                        (list.some(e => e.embedUrl.includes(parsed.pano)) ? '<span style="color:#ffcf8f">⚠ リストにもう同じ地点があるよ</span>' : '');
+                }
+            } catch (e) {
+                $('error').textContent = e.message;
+            }
+
+            $('output').textContent = current ? formatEntry(current) : '';
+            ['copyButton', 'addButton', 'previewButton'].forEach(id => $(id).disabled = !current);
+            if ($('preview').style.display === 'block') {
+                $('preview').src = current ? current.embedUrl : '';
+            }
+        }
+
+        ['iframeInput', 'answerInput', 'nameInput'].forEach(id => $(id).addEventListener('input', update));
+
+        function showToast(text) {
+            $('toast').textContent = text;
+            $('toast').classList.add('show');
+            clearTimeout(showToast.timer);
+            showToast.timer = setTimeout(() => $('toast').classList.remove('show'), 1500);
+        }
+
+        function copyText(text) {
+            const done = () => showToast('コピーしたよ');
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+            } else {
+                fallbackCopy(text, done);
+            }
+        }
+
+        // clipboardが使えないとき用
+        function fallbackCopy(text, done) {
+            const area = document.createElement('textarea');
+            area.value = text;
+            document.body.appendChild(area);
+            area.select();
+            document.execCommand('copy');
+            area.remove();
+            done();
+        }
+
+        function copyOutput() {
+            if (current) copyText(formatEntry(current));
+        }
+
+        function addToList() {
+            if (!current) return;
+            list.push({ embedUrl: current.embedUrl, answerUrl: current.answerUrl, name: current.name });
+            saveList();
+            $('iframeInput').value = '';
+            $('answerInput').value = '';
+            $('nameInput').value = '';
+            update();
+            $('iframeInput').focus();
+            showToast('追加したよ (' + list.length + '件)');
+        }
+
+        function renderList() {
+            $('listOutput').textContent = list.map(formatEntry).join('\n');
+            $('listCount').textContent = list.length + '件';
+        }
+
+        function saveList() {
+            try {
+                localStorage.setItem('linkMakerList', JSON.stringify(list));
+            } catch (e) {}
+            renderList();
+        }
+
+        function copyList() {
+            if (list.length) copyText(list.map(formatEntry).join('\n'));
+        }
+
+        function clearList() {
+            if (list.length && confirm('リストの' + list.length + '件を消す？')) {
+                list = [];
+                saveList();
+            }
+        }
+
+        function togglePreview() {
+            const preview = $('preview');
+            const show = preview.style.display !== 'block';
+            preview.style.display = show ? 'block' : 'none';
+            preview.src = show && current ? current.embedUrl : '';
+        }
+
+        renderList();
+    </script>
+</body>
+</html>
