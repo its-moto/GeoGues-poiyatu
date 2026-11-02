@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="GamePlayStyles.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="icon" href="../images/logo-pin.png"> <!-- ページアイコン -->
 
-    <script src="../maplink/AUJlinks.js"></script>
-    <title>GeoPpoi - 日本都市部</title>
-    <div class="map-name">
-        日本都市部
-    </div>
+    <script src="../src/maps.js"></script>
+    <script>
+        // ?map=japan みたいに選ばれたマップの地点データを読み込む (file://でも動くようにscriptタグで)
+        const mapId = new URLSearchParams(location.search).get('map');
+        const mapConfig = MAPS[mapId] || MAPS.world;
+        document.title = 'GeoPpoi - ' + mapConfig.name;
+        document.write('<script src="../maplink/' + mapConfig.file + '"><\/script>');
+    </script>
+    <title>GeoPpoi</title>
 </head>
 <body>
+    <div class="map-name" id="mapNameLabel"></div>
+
     <div id="loading"><div id="loadingtext">Loading...</div></div>
 
     <audio loop id="bgm" preload="auto"></audio>
@@ -24,11 +30,11 @@
 
     <div id="NMPZ-overlay"></div>
 
-    <div id="total">Round <span id="totalRound">0</span> , pt <span id="totalPoint">0</span></div>
-    <button class="itemIcon" id="button" onclick="openSetting()" style="bottom: 90px;">⚙</button>
-    <button class="itemIcon" id="button" onclick="backToStart()">🏳️</button>
+    <div id="total">Round <span id="totalRound">0</span><span id="roundLimit"></span> , pt <span id="totalPoint">0</span></div>
+    <button class="itemIcon" onclick="openSetting()" style="bottom: 90px;">⚙</button>
+    <button class="itemIcon" onclick="backToStart()">🏳️</button>
 
-    
+
     <div class="timer" id="timer">
         <h1 id="countdown">00:00</h1>
         <div class="progress-overlay"></div>
@@ -38,6 +44,7 @@
     <div class="popup-overlay" id="popup">
         <div class="popup-content">
             <h2>設定</h2>
+            <p id="locationCount"></p>
             <center><div class="slider-container">
                 <label class="slider-label" for="volumeSlider">音量:</label>
                 <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.2">
@@ -53,6 +60,7 @@
             <button onclick="showAnswer()">show answer</button>
             <hr color="#c7c7c7" width="50%">
             <button class="close-popup-btn" onclick="closeSetting()">ゲームに戻る</button>
+            <button class="goBack" onclick="closeSetting();showFinalResult()">終了して結果を見る</button>
             <button class="goBack" onclick="goBack()">ゲームを出る</button> <!-- 戻るボタンを追加 -->
         </div>
     </div>
@@ -61,8 +69,36 @@
         <div id="distance"><span id="distance-value">0km</span>, <span id="point-value">0</span> <span id="point-5000">/5000 pt</span></div>
 
         <div id="remap"></div> <!-- Leaflet地図の表示領域 -->
-        
-        <div id="nextRound" onclick="showRandomStreetView()">次</div>
+
+        <div id="nextRound" onclick="nextRoundOrFinish()">次</div>
+    </div>
+
+    <!-- 全ラウンド終了後の結果画面 -->
+    <div id="finalResult">
+        <div id="finalMap"></div>
+        <div id="finalBar">
+            <div id="finalBarText"></div>
+            <button id="finalNext" onclick="showFinalStats()">次へ</button>
+        </div>
+        <div id="finalStats">
+            <div class="final-stats-box">
+                <h2>RESULT</h2>
+                <div class="final-stat">
+                    <span class="final-stat-label">合計ポイント</span>
+                    <span><span id="statPoint">0</span> <span id="statPointMax"></span></span>
+                </div>
+                <div class="final-stat">
+                    <span class="final-stat-label">合計距離</span>
+                    <span id="statDistance">0km</span>
+                </div>
+                <div class="final-stat">
+                    <span class="final-stat-label">かかった時間</span>
+                    <span id="statTime">0秒</span>
+                </div>
+                <button class="close-popup-btn" onclick="location.reload()">もう一度</button>
+                <button class="goBack" onclick="goBack()">マップ選択へ</button>
+            </div>
+        </div>
     </div>
 
     <div id="map-container">
@@ -78,8 +114,8 @@
 
         // 初期設定
         bgm.volume = volumeSlider.value;
-        
-        toggle.checked = !isMuted; 
+
+        toggle.checked = !isMuted;
         bgm.muted = isMuted;
         toggle.addEventListener("change", () => {
             isMuted = !toggle.checked; // トグルの状態からisMutedを反転

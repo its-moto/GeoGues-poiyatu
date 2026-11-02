@@ -28,49 +28,49 @@
 		<div class="card" data-keywords="a random picked world 世界">
 			<img src="Resource/mapimg/world.png" alt="world.png">
 			<h3>A Random picked world</h3>
-			<button onclick="location.href='Resource/maphtmls/A Random picked World.html';localStorage.setItem('mapName','A Random picked World' );">プレイ</button>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=world';">プレイ</button>
 		</div>
 
 		<div class="card" data-keywords="japan アジア 日本">
 			<img src="Resource/mapimg/japan.png" alt="japan.png">
 			<h3>日本</h3>
-			<button onclick="location.href='Resource/maphtmls/Japan.html';localStorage.setItem('mapName','日本' );">プレイ</button>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=japan';">プレイ</button>
 		</div>
 
 		<div class="card" data-keywords="an urban japan 日本 アジア urban 都会">
 			<img src="Resource/mapimg/japan.png" alt="AAJ.png">
 			<h3>日本都市部</h3>
-			<button onclick="location.href='Resource/maphtmls/An%20Urban%20Japan.html';localStorage.setItem('mapName','An Urban Japan' );">プレイ</button>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=urbanjapan';">プレイ</button>
 		</div>
 
 		<div class="card" data-keywords="madagascar マダガスカル madagasukaru">
 			<img src="Resource/mapimg/madagascar.png" alt="madagascar.png">
 			<h3>マダガスカル</h3>
-			<button onclick="location.href='Resource/maphtmls/Madagascar.html';localStorage.setItem('mapName','マダガスカル' );">プレイ</button>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=madagascar';">プレイ</button>
 		</div>
 
 		<div class="card" data-keywords="ヨーロッパ eu europe 欧州">
 			<img src="Resource/mapimg/europe.png" alt="europe.png">
 			<h3>ヨーロッパ</h3>
-			<button onclick="location.href='Resource/maphtmls/Europe.html';localStorage.setItem('mapName','ヨーロッパ' );">プレイ</button>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=europe';">プレイ</button>
 		</div>
 
 		<div class="card" data-keywords="sanmarino san marino ヨーロッパ eu">
 			<img src="Resource/mapimg/sanmarino.png" alt="sanmarino.png">
 			<h3>サン・マリノ(制作中)</h3>
-			<button onclick="location.href='Resource/maphtmls/San%20Marino.html';localStorage.setItem('mapName','サン・マリノ' );">プレイ</button>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=sanmarino';">プレイ</button>
 		</div>
 
 		<div class="card" data-keywords="岡山市 岡山県 日本 西日本 中国地方 okayama">
 			<img src="Resource/mapimg/okayamacity.png" alt="okayamacity.png">
 			<h3>岡山市(制作中)</h3>
-			<button onclick="location.href='Resource/maphtmls/OkayamaCity.html';localStorage.setItem('mapName','岡山市' );">プレイ</button>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=okayama';">プレイ</button>
 		</div>
 
 		<div class="card" data-keywords="航空自衛隊 SDF 日本">
 			<img src="Resource/mapimg/sdf.png" alt="SDF.png">
 			<h3>SDF(制作中)</h3>
-			<button onclick="location.href='Resource/maphtmls/SDF.html';localStorage.setItem('mapName','SDF' );">プレイ</button>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=sdf';">プレイ</button>
 		</div>
 	</div>
 	
@@ -109,6 +109,11 @@
                 <label class="slider-label" for="timerSlider">時間:</label>
                 <input type="range" class="gmp-slider" id="timerSlider" min="0" max="30" step="1" value="12">
 				<span id="timertxt">2分</span>
+            </div>
+            <div class="slider-container">
+                <label class="slider-label" for="roundSlider">ラウンド:</label>
+                <input type="range" class="gmp-slider" id="roundSlider" min="0" max="20" step="1" value="5">
+				<span id="roundtxt">5ラウンド</span>
             </div>
             <hr color="#c7c7c7" width="50%">
 			<button class="close-popup-btn" onclick="closePopup()">クローズ</button>
@@ -196,6 +201,25 @@
 			localStorage.setItem('timer',distime*10);
 		});
 		
+		// スライダーでラウンド数を調整 (0は無限)
+		const roundSlider = document.getElementById("roundSlider");
+		const roundtxt = document.getElementById("roundtxt");
+		const storedRounds = localStorage.getItem('rounds');
+		roundSlider.value = storedRounds === null ? 5 : storedRounds;
+
+		function roundSettingTextSet() {
+			if (roundSlider.value == 0) {
+				roundtxt.textContent = "無限";
+			} else {
+				roundtxt.textContent = roundSlider.value + "ラウンド";
+			}
+		}
+		roundSettingTextSet();
+		roundSlider.addEventListener("input", function() {
+			roundSettingTextSet();
+			localStorage.setItem('rounds', roundSlider.value);
+		});
+
         // スライダーで音量を調整
         volumeSlider.addEventListener("input", function() {
             bgm.volume = this.value;

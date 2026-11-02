@@ -10,6 +10,17 @@ let rmarker; // ピンを保持する変数
 let ranswermarker; // ピンを保持する変数
 let rline; //リザルトの点線
 let noPin = true; //ピンおいたかどうか(時間切れ用)
+let roundResults = []; //各ラウンドの結果 (最後の結果画面用)
+let roundStartTime = null; //ラウンド開始時刻 (かかった時間用)
+let usedIndexes = []; //同じ場所が出ないように使った地点を記録
+let finalMap; //最後の結果画面の地図
+
+const storedRounds = localStorage.getItem('rounds');
+const totalRounds = storedRounds === null ? 5 : parseInt(storedRounds); //0なら無限
+if (totalRounds > 0) {
+    document.getElementById('roundLimit').textContent = '/' + totalRounds;
+}
+document.getElementById('mapNameLabel').textContent = mapConfig.name;
 
 const RPZbool =localStorage.getItem('RPZbool') === 'true';
 const NMPZbool =localStorage.getItem('NMPZbool') === 'true';
@@ -46,8 +57,17 @@ function showRandomStreetView() {
     document.getElementById('distance-value').textContent = "0m";
     document.getElementById('point-value').textContent = 0;
 
-    const randomIndex = Math.floor(Math.random() * streetViews.length);
+    // まだ出てない地点から選ぶ (全部出たらリセット)
+    if (usedIndexes.length >= streetViews.length) {
+        usedIndexes = [];
+    }
+    let randomIndex;
+    do {
+        randomIndex = Math.floor(Math.random() * streetViews.length);
+    } while (usedIndexes.includes(randomIndex));
+    usedIndexes.push(randomIndex);
     currentStreetViewIndex = randomIndex;
+    roundStartTime = null;
     if (marker) {
         map.removeLayer(marker);
         marker = undefined;
@@ -104,6 +124,9 @@ iframe.addEventListener("load", () => {
     // iframeが完全に読み込まれた後に実行
     setTimeout(() => {
         document.getElementById('loading').style.display = 'none';
+        if (roundStartTime == null) {
+            roundStartTime = performance.now();
+        }
         if (totalTime != 0 && timerInterval == null) {
             countdownTime = totalTime;
             timerInterval = setInterval(updateTimer, 50);
@@ -166,51 +189,21 @@ function updateTimer() {
 }
 
 //================================================guessとかピンとか================================================
-const mapName = localStorage.getItem('mapName');
+let mapSize = mapConfig.mapSize;
 function setMapStage() {
-    // ファイル名ごとにステージの設定を分ける
-    if (mapName === "A Random picked World") {
-        map.setView([0,0], 1);
-        rfmap.setView([20,0], 2);
-        mapSize =1;
-    } else if (mapName === "日本" || mapName === "An Urban Japan" || mapName === "SDF") {
-        map.setView([37, 135], 4);
-        rfmap.setView([38,138], 5);
-        mapSize =7;
-    } else if (mapName === "マダガスカル") {
-        map.setView([-19, 46.7], 5);
-        rfmap.setView([-22, 48.3], 5);
-        mapSize =7.35;
-    } else if (mapName === "ヨーロッパ") {
-        map.setView([50,10], 3);
-        rfmap.setView([50,10], 3);
-        mapSize = 70;
-    } else if (mapName === "サン・マリノ") {
-        map.setView([43.94, 12.47], 12);
-        rfmap.setView([44,12.5], 12);
-        mapSize =1000;
-    } else if (mapName === "岡山市") {
-        map.setView([34.65,133.9], 13);
-        rfmap.setView([34.7,133.9], 13);
-        mapSize = 700;
-    } else if (mapName === "testMap") {
-        map.setView([34.65,133.9], 2);
-        rfmap.setView([34.7,133.9], 2);
-        mapSize = 10;
-    } else {
-        // デフォルトのビュー設定
-        map.setView([0, 0], 2);
-    }
+    // マップごとの設定はmaps.jsに書いてある
+    map.setView(mapConfig.view[0], mapConfig.view[1]);
+    rfmap.setView(mapConfig.resultView[0], mapConfig.resultView[1]);
 }
 
-L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
-	attribution: "<a href='https://developers.google.com/maps/documentation' target='_blank'>Google Map</a>",
-    maxZoom: 20
-}).addTo(map);
-L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
-	attribution: "<a href='https://developers.google.com/maps/documentation' target='_blank'>Google Map</a>",
-    maxZoom: 20
-}).addTo(rfmap);
+function addTiles(targetMap) {
+    L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+        attribution: "<a href='https://developers.google.com/maps/documentation' target='_blank'>Google Map</a>",
+        maxZoom: 20
+    }).addTo(targetMap);
+}
+addTiles(map);
+addTiles(rfmap);
 
 // カスタムアイコンの作成
 function createCustomIcon() {
@@ -241,13 +234,19 @@ map.on('click', function (e) {
     soundEffect.play(); // 効果音を再生
 });
 
-document.addEventListener("DOMContentLoaded", (event) => {
-    alert(streetViews.length +" locations.")
-});
+document.getElementById('locationCount').textContent = streetViews.length + " locations";
 
 document.addEventListener('DOMContentLoaded', function () {
     // スペースキーが押されたときのイベントリスナーを追加
     document.addEventListener('keydown', function (event) {
+        // 最後の結果画面ではspaceで次へだけ
+        if (nowDisplay == 'final' || nowDisplay == 'finalStats') {
+            if (event.code === 'Space') {
+                event.preventDefault();
+                showFinalStats();
+            }
+            return;
+        }
         if (event.key === 'Escape') {
             if (nowSteeing=='open'){
                 closeSetting();
@@ -261,8 +260,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (nowDisplay == 'play'){
                 guess(); // guess関数を呼び出す
             }else{
-                showRandomStreetView();
-                nowDisplay = 'play';
+                nextRoundOrFinish();
             }
         }
     });
@@ -282,13 +280,28 @@ function normalizeLongitude(lng) {
 }
 
 // 距離を計算して表示する関数
+function formatDistance(distance) {
+    if (distance > 10000) {
+        return Math.round(distance / 1000) + "km";
+    } else if (distance > 1000) {
+        return ((Math.round(distance / 100)) / 10) + "km";
+    } else {
+        return Math.round(distance) + "m";
+    }
+}
+
 function guess() {
+    if (nowDisplay != 'play') {
+        return; // 結果画面中に二重でguessしないように
+    }
     if (noPin && (countdownTime > 0 || countdownTime == undefined)) {
         return; // ピンが置かれていない場合は処理を中止
     }
 
     clearInterval(timerInterval); // タイマー停止
     timerInterval = null;
+
+    const roundSeconds = roundStartTime == null ? 0 : (performance.now() - roundStartTime) / 1000;
 
     openResult();
 
@@ -331,15 +344,10 @@ function guess() {
         }, 100); // 遅延の時間は調整可能です
     
         // 表示する数値を決定
-        let targetDistance;
-        if (distance > 10000) {
-            targetDistance = Math.round(distance / 1000) + "km";
-        } else if (distance > 1000) {
-            targetDistance = ((Math.round(distance / 100)) / 10) + "km";
-        } else {
-            targetDistance = Math.round(distance) + "m";
-        }
-        
+        const targetDistance = formatDistance(distance);
+
+        roundResults.push({ guess: latLng1, answer: latLng2, distance: distance, point: finalpoint, seconds: roundSeconds, index: currentStreetViewIndex });
+
         let totalPoint = document.getElementById('totalPoint');
         totalPoint.textContent = parseFloat(totalPoint.textContent) + finalpoint;
 
@@ -350,11 +358,110 @@ function guess() {
         document.getElementById('point-value').textContent = "0"
         document.getElementById('distance-value').textContent = "N/A"
         const latLng2 = L.latLng(currentLat, currentLng);
-        ranswermarker = L.marker([latLng2.lat, latLng2.lng]).addTo(rfmap); 
+        ranswermarker = L.marker([latLng2.lat, latLng2.lng]).addTo(rfmap);
+        roundResults.push({ guess: null, answer: latLng2, distance: null, point: 0, seconds: roundSeconds, index: currentStreetViewIndex });
     }
     ranswermarker.on('click', function () {
         window.open(streetViews[currentStreetViewIndex].answerUrl, '_blank');
     });
+
+    document.getElementById('nextRound').textContent = isLastRound() ? '結果を見る' : '次';
+}
+
+//================================================最後の結果画面================================================
+function isLastRound() {
+    return totalRounds > 0 && roundResults.length >= totalRounds;
+}
+
+function nextRoundOrFinish() {
+    if (isLastRound()) {
+        showFinalResult();
+    } else {
+        showRandomStreetView();
+    }
+}
+
+// 全ラウンドの正解とピンを1枚の地図に出す
+function showFinalResult() {
+    if (nowDisplay == 'final' || nowDisplay == 'finalStats') {
+        return;
+    }
+    clearInterval(timerInterval); // タイマー停止
+    timerInterval = null;
+    closeResult();
+    nowDisplay = 'final';
+
+    if (bgm.src.indexOf('Ambient') == -1) {
+        bgm.src = ambientBgm;
+        bgm.play();
+    }
+
+    document.getElementById('finalResult').style.display = 'block';
+    document.getElementById('finalBarText').textContent = roundResults.length + ' ラウンド終了 , ' + roundResults.reduce((sum, r) => sum + r.point, 0) + ' pt';
+
+    finalMap = L.map('finalMap').setView(mapConfig.resultView[0], mapConfig.resultView[1]);
+    addTiles(finalMap);
+
+    const points = [];
+    roundResults.forEach((r, i) => {
+        const answerMarker = L.marker(r.answer).addTo(finalMap);
+        answerMarker.bindTooltip((i + 1) + '', { permanent: true, direction: 'top', offset: [-15, -15], className: 'round-tooltip' });
+        answerMarker.on('click', function () {
+            window.open(streetViews[r.index].answerUrl, '_blank');
+        });
+        points.push(r.answer);
+
+        if (r.guess) {
+            L.marker(r.guess, { icon: createCustomIcon() }).addTo(finalMap);
+            L.polyline([r.guess, r.answer], { "color": "black", "weight": 2, "opacity": 0.8, "dashArray": "5 8" }).addTo(finalMap);
+            points.push(r.guess);
+        }
+    });
+
+    if (points.length > 0) {
+        setTimeout(() => {
+            finalMap.invalidateSize();
+            finalMap.fitBounds(L.latLngBounds(points), { padding: [50, 50], maxZoom: 15 });
+        }, 100);
+    }
+}
+
+function formatDuration(seconds) {
+    seconds = Math.round(seconds);
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    if (mins == 0) {
+        return `${secs}秒`;
+    }
+    return `${mins}分${secs}秒`;
+}
+
+// 地図の上にうす灰色のオーバーレイで合計を出す
+function showFinalStats() {
+    if (nowDisplay != 'final') {
+        return;
+    }
+    nowDisplay = 'finalStats';
+    document.getElementById('finalStats').style.display = 'flex';
+
+    const totalPointValue = roundResults.reduce((sum, r) => sum + r.point, 0);
+    const pinned = roundResults.filter(r => r.distance != null);
+    const totalDistance = pinned.reduce((sum, r) => sum + r.distance, 0);
+    const totalSeconds = roundResults.reduce((sum, r) => sum + r.seconds, 0);
+
+    document.getElementById('statPointMax').textContent = '/ ' + (roundResults.length * 5000) + ' pt';
+    animateValue('statPoint', totalPointValue.toString(), 1000);
+    if (pinned.length > 0) {
+        animateValue('statDistance', formatDistance(totalDistance), 1000);
+    } else {
+        document.getElementById('statDistance').textContent = 'N/A';
+    }
+    document.getElementById('statTime').textContent = formatDuration(totalSeconds);
+
+    const soundEffect = document.getElementById("SoundEffect");
+    soundEffect.src = "../ResultScore.mp3";
+    soundEffect.currentTime = 0;
+    soundEffect.play();
 }
 
 // 数値をアニメーションで変化させる関数

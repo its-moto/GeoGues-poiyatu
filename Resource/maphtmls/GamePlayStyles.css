@@ -464,3 +464,117 @@ input:checked + .slider:before {
     width: 80%;
     max-width: 300px;
 }
+
+/*======================================================================================*/
+/*最後の結果画面のスタイル*/
+#finalResult {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 90;
+    background-color: #1A1A2E;
+}
+
+#finalMap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90%;
+}
+
+#finalBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    box-sizing: border-box;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient( to bottom , #9589c9,  #563b9a);
+}
+
+#finalBarText {
+    font-size: 25px;
+    user-select: none;
+}
+
+#finalNext {
+    background: radial-gradient(ellipse at top, #97E851, #6CB928);
+    border: none;
+    border-radius: 30px;
+    height: auto;
+    margin: 0;
+    padding: 10px 40px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* 地図の上にかぶせる暗いオーバーレイ (地図は触れなくなる) */
+#finalStats {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: rgba(15, 15, 30, 0.75);
+    justify-content: center;
+    align-items: center;
+}
+
+.final-stats-box {
+    padding: 30px 60px;
+    min-width: 320px;
+    text-align: center;
+}
+
+.final-stats-box h2 {
+    font-size: 35px;
+    margin-top: 0;
+}
+
+.final-stat {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    font-size: 25px;
+    margin: 18px 0;
+}
+
+.final-stat-label {
+    color: #c7c7c7;
+}
+
+#statPoint, #statPointMax {
+    text-shadow:  0 0 20px #FFA43D , 0 0 5px #FFA43D, 0 3px 0 #FFA43D, 0 5px 10px #FFA43D;
+}
+
+#statDistance {
+    text-shadow:  0 0 20px #00A2FE , 0 0 5px #00A2FE, 0 3px 0 #00A2FE, 0 5px 10px #00A2FE;
+}
+
+/* 結果画面の地図のラウンド番号 */
+.round-tooltip {
+    background-color: #563b9a;
+    border: none;
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-size: 14px;
+    box-shadow: none;
+}
+.leaflet-tooltip-top.round-tooltip::before {
+    border-top-color: #563b9a;
+}
+
+/* 全体の白文字のせいでズームボタンの+-が見えなくなるのを直す */
+.leaflet-control-zoom a {
+    color: black;
+}
