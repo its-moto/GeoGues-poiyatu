@@ -15,9 +15,10 @@
 #entryView,
 #lobbyView,
 #gameOverView {
-    background: linear-gradient(135deg, #2f5d7c 0%, #2a2a4e 45%, #1A1A2E 100%);
+    background:
+        radial-gradient(ellipse 120% 80% at 30% 0%, rgba(60, 162, 98, 0.3) 0%, rgba(126, 210, 249, 0) 40%),
+        linear-gradient(155deg, #335c80 0%, #2a2a4e 45%, #1A1A2E 100%);
 }
-
 input,
 select {
     background-color: rgba(0, 0, 0, 0.35);
@@ -168,22 +169,13 @@ select:disabled {
     gap: 14px;
     padding: 16px;
     border-radius: 16px;
-    border: 2px dashed transparent;
-    cursor: pointer;
-    transition: border-color 0.2s;
 }
 
 .team-column.blue {
     background-color: rgba(0, 162, 254, 0.08);
 }
-.team-column.blue:hover {
-    border-color: #00A2FE;
-}
 .team-column.red {
     background-color: rgba(233, 69, 96, 0.08);
-}
-.team-column.red:hover {
-    border-color: #E94560;
 }
 
 .team-name {
@@ -276,11 +268,6 @@ select:disabled {
     text-shadow: 0 0 20px #00A2FE, 0 4px 0 #7950E5;
 }
 
-.lobby-hint {
-    color: #c7c7c7;
-    font-size: 13px;
-    text-align: center;
-}
 
 .lobby-settings {
     display: flex;
@@ -376,11 +363,9 @@ select:disabled {
     z-index: 45;
 }
 
-#roundLabel {
-    font-size: 18px;
-    background-color: #1A1A2E;
-    padding: 6px 16px;
-    border-radius: 20px;
+/* 左上のラウンド表示 (embedの場所表示を隠せる幅にしてある) */
+#playView #total {
+    min-width: 280px;
     white-space: nowrap;
 }
 

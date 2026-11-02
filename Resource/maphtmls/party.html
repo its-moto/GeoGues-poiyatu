@@ -40,13 +40,13 @@
             <div id="lobbyCount"></div>
         </div>
         <div class="lobby-teams">
-            <div class="team-column blue" id="teamBlue" onclick="requestTeam('blue')"></div>
+            <div class="team-column blue" id="teamBlue"></div>
             <div class="lobby-center">
                 <div class="vs-text">VS.</div>
+                <button class="party-btn outline" id="switchButton" onclick="switchTeam()">⇄ スイッチ</button>
                 <button class="party-btn outline host-only" onclick="shuffleTeams()">シャッフル</button>
-                <p class="lobby-hint">チームの枠をクリックで移動</p>
             </div>
-            <div class="team-column red" id="teamRed" onclick="requestTeam('red')"></div>
+            <div class="team-column red" id="teamRed"></div>
         </div>
         <div class="lobby-settings">
             <div class="setting-item">
@@ -89,12 +89,15 @@
 
         <iframe id="streetview" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
+        <!-- 左上: ストリートビューのembedに出る場所の表示を隠すためにも置いてる -->
+        <div id="total"><span id="roundLabel"></span></div>
+        <button class="itemIcon" onclick="backToStart()">🏳️</button>
+
         <div id="hpBar">
             <div class="hp-box blue">
                 <div class="hp-label" id="playHpBlueLabel"></div>
                 <div class="hp-track"><div class="hp-fill" id="playHpBlueFill"></div><div class="hp-text" id="playHpBlueText"></div></div>
             </div>
-            <div id="roundLabel"></div>
             <div class="hp-box red">
                 <div class="hp-label" id="playHpRedLabel"></div>
                 <div class="hp-track"><div class="hp-fill" id="playHpRedFill"></div><div class="hp-text" id="playHpRedText"></div></div>

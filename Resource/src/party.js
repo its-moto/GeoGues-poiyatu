@@ -36,6 +36,8 @@ let myPin = null;
 let pinMarker = null;
 let hasGuessed = false;
 let guessedIds = []; // このラウンドでguess済みの人
+let teammateGuesses = []; // このラウンドのチームメイトのピン
+let teammateLayer;
 let roundLoaded = false;
 let timerEnd = null;
 let timerTotal = 0;
@@ -259,8 +261,9 @@ function smallerTeam() {
     return blue <= red ? 'blue' : 'red';
 }
 
-function requestTeam(team) {
-    sendToHost({ type: 'team', team: team });
+// ⇄スイッチ: 自分のチームを入れ替える
+function switchTeam() {
+    sendToHost({ type: 'team', team: myTeam() === 'blue' ? 'red' : 'blue' });
 }
 
 function setTeam(id, team) {
@@ -438,7 +441,8 @@ function receiveGuess(id, latlng) {
         hurry = HURRY_SECONDS;
         setRoundDeadline(HURRY_SECONDS);
     }
-    broadcast({ type: 'guessed', id: id, name: player.name, pinned: !!latlng, hurry: hurry });
+    // チームメイトのピンを見せるために位置とチームも送る (表示するのは同じチームの人だけ)
+    broadcast({ type: 'guessed', id: id, name: player.name, team: player.team, latlng: latlng, hurry: hurry });
 
     if (allGuessed()) {
         endRound();
@@ -519,6 +523,7 @@ function ensurePlayMap() {
     if (playMap) return;
     playMap = L.map('map');
     addTiles(playMap);
+    teammateLayer = L.layerGroup().addTo(playMap);
     playMap.on('click', e => {
         if (hasGuessed) return;
         myPin = e.latlng;
@@ -542,6 +547,8 @@ function startRound(msg) {
         playMap.removeLayer(pinMarker);
         pinMarker = null;
     }
+    teammateLayer.clearLayers();
+    teammateGuesses = [];
     const config = MAPS[msg.mapId];
     playMap.invalidateSize();
     playMap.setView(config.view[0], config.view[1]);
@@ -569,6 +576,11 @@ $('streetview').addEventListener('load', () => {
     }, 1000);
 });
 
+// 🏳️ 最初の位置に戻る
+function backToStart() {
+    if (currentRound) $('streetview').src = currentRound.location.embedUrl;
+}
+
 function submitGuess(timeUp) {
     if (hasGuessed || !currentRound) return;
     if (!myPin && !timeUp) return; // ピンが置かれてない
@@ -580,11 +592,31 @@ function submitGuess(timeUp) {
     sendToHost({ type: 'guess', latlng: latlng });
 }
 
+function myTeam() {
+    const me = state.players.find(p => p.id === myId);
+    return me ? me.team : null;
+}
+
+// チームメイトのピン (チームの色の丸 + 名前)
+function addTeammateMarker(layer, guess) {
+    L.circleMarker([guess.latlng.lat, guess.latlng.lng], { radius: 7, color: 'white', weight: 2, fillColor: TEAM_COLORS[guess.team], fillOpacity: 1 })
+        .bindTooltip(guess.name, { permanent: true, direction: 'top', offset: [0, -7], className: 'party-tooltip' })
+        .addTo(layer);
+}
+
 function onGuessed(msg) {
     if (!guessedIds.includes(msg.id)) guessedIds.push(msg.id);
-    if (hasGuessed && $('resultView').classList.contains('waiting')) {
+
+    const waiting = hasGuessed && $('resultView').classList.contains('waiting');
+    if (msg.latlng && msg.id !== myId && msg.team === myTeam()) {
+        teammateGuesses.push(msg);
+        addTeammateMarker(teammateLayer, msg);
+        if (waiting) addTeammateMarker(resultLayer, msg);
+    }
+
+    if (waiting) {
         updateWaitingText();
-    } else if (msg.pinned && !hasGuessed) {
+    } else if (msg.latlng && !hasGuessed) {
         $('guessStatus').textContent = msg.name + ' がguessしたよ!';
     }
     if (msg.hurry && !hasGuessed) {
@@ -682,6 +714,7 @@ function showWaiting() {
     } else {
         fitResultMap([L.latLng(config.resultView[0])], config.resultView[1]);
     }
+    teammateGuesses.forEach(guess => addTeammateMarker(resultLayer, guess));
 
     renderHp(currentRound.hp, 'result');
     ['Blue', 'Red'].forEach(side => {
