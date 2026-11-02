@@ -35,6 +35,7 @@ let lastResult = null;
 let myPin = null;
 let pinMarker = null;
 let hasGuessed = false;
+let guessedIds = []; // このラウンドでguess済みの人
 let roundLoaded = false;
 let timerEnd = null;
 let timerTotal = 0;
@@ -529,6 +530,7 @@ function ensurePlayMap() {
 
 function startRound(msg) {
     currentRound = msg;
+    guessedIds = [];
     hasGuessed = false;
     myPin = null;
     roundLoaded = false;
@@ -571,15 +573,17 @@ function submitGuess(timeUp) {
     if (hasGuessed || !currentRound) return;
     if (!myPin && !timeUp) return; // ピンが置かれてない
     hasGuessed = true;
+    stopTimer();
     const latlng = myPin ? { lat: myPin.lat, lng: normalizeLongitude(myPin.lng) } : null;
+    // 先に待機画面を出す (ホストは送った瞬間にラウンドが終わって結果画面になることがあるので)
+    showWaiting();
     sendToHost({ type: 'guess', latlng: latlng });
-    $('guess-button').textContent = '待機中...';
-    $('guess-button').disabled = true;
 }
 
 function onGuessed(msg) {
-    if (msg.id === myId) {
-        $('guessStatus').textContent = 'ほかの人を待ってるよ';
+    if (!guessedIds.includes(msg.id)) guessedIds.push(msg.id);
+    if (hasGuessed && $('resultView').classList.contains('waiting')) {
+        updateWaitingText();
     } else if (msg.pinned && !hasGuessed) {
         $('guessStatus').textContent = msg.name + ' がguessしたよ!';
     }
@@ -644,23 +648,66 @@ function renderHp(hp, prefix) {
     });
 }
 
+function ensureResultMap() {
+    if (resultMap) return;
+    resultMap = L.map('partyResultMap');
+    addTiles(resultMap);
+    resultLayer = L.layerGroup().addTo(resultMap);
+}
+
+// 結果の地図を、渡した地点が全部入り切るズームにする (1か所だけならsingleZoomで中心に)
+function fitResultMap(latLngs, singleZoom) {
+    setTimeout(() => {
+        resultMap.invalidateSize({ pan: false });
+        if (latLngs.length == 1) {
+            resultMap.setView(latLngs[0], singleZoom);
+        } else {
+            resultMap.fitBounds(L.latLngBounds(latLngs), { padding: [60, 60], maxZoom: 15 });
+        }
+    }, 100);
+}
+
+// guessしたあと、みんなを待ってる間はリザルト画面に自分のピンだけ出す
+function showWaiting() {
+    showView('result');
+    $('resultView').classList.add('waiting');
+    $('resultTitle').textContent = 'ラウンド ' + currentRound.round;
+
+    ensureResultMap();
+    resultLayer.clearLayers();
+    const config = MAPS[currentRound.mapId];
+    if (myPin) {
+        L.marker(myPin, { icon: createCustomIcon() }).addTo(resultLayer);
+        fitResultMap([myPin], Math.max(config.resultView[1], 6));
+    } else {
+        fitResultMap([L.latLng(config.resultView[0])], config.resultView[1]);
+    }
+
+    renderHp(currentRound.hp, 'result');
+    ['Blue', 'Red'].forEach(side => {
+        $('resultDamage' + side).textContent = '';
+        $('resultMembers' + side).innerHTML = '';
+    });
+    updateWaitingText();
+}
+
+function updateWaitingText() {
+    $('resultWaiting').textContent = 'ほかの人を待ってるよ (' + guessedIds.length + '/' + state.players.length + '人)';
+}
+
 function showRoundResult(msg) {
     stopTimer();
     lastResult = msg;
     showView('result');
+    $('resultView').classList.remove('waiting');
     $('resultTitle').textContent = 'ラウンド ' + msg.round;
 
-    if (!resultMap) {
-        resultMap = L.map('partyResultMap');
-        addTiles(resultMap);
-        resultLayer = L.layerGroup().addTo(resultMap);
-    }
+    ensureResultMap();
     resultLayer.clearLayers();
 
     const answer = L.latLng(msg.answer.lat, msg.answer.lng);
     const answerMarker = L.marker(answer).addTo(resultLayer);
     answerMarker.on('click', () => window.open(msg.answer.answerUrl, '_blank'));
-    const points = [answer];
     msg.results.forEach(r => {
         if (!r.guess) return;
         const guessLatLng = L.latLng(r.guess.lat, r.guess.lng);
@@ -668,16 +715,15 @@ function showRoundResult(msg) {
         L.circleMarker(guessLatLng, { radius: 8, color: 'white', weight: 2, fillColor: TEAM_COLORS[r.team], fillOpacity: 1 })
             .bindTooltip(r.name, { permanent: true, direction: 'top', offset: [0, -8], className: 'party-tooltip' })
             .addTo(resultLayer);
-        points.push(guessLatLng);
     });
-    setTimeout(() => {
-        resultMap.invalidateSize();
-        if (points.length > 1) {
-            resultMap.fitBounds(L.latLngBounds(points), { padding: [50, 50], maxZoom: 15 });
-        } else {
-            resultMap.setView(answer, 6);
-        }
-    }, 100);
+
+    // ズームは正解と、各チームで一番近かった人が入り切るように
+    const points = [answer];
+    ['blue', 'red'].forEach(team => {
+        const best = msg.best[team];
+        if (best && best.guess) points.push(L.latLng(best.guess.lat, best.guess.lng));
+    });
+    fitResultMap(points, 6);
 
     ['blue', 'red'].forEach(team => {
         const side = team === 'blue' ? 'Blue' : 'Red';

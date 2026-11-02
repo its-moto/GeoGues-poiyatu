@@ -279,6 +279,19 @@ function normalizeLongitude(lng) {
     return ((lng + 180) % 360 + 360) % 360 - 180;
 }
 
+// 結果の地図を、渡した地点が全部入り切るズームにする
+// (表示した直後は地図のサイズが0のことがあるので、少し待ってサイズを測り直してから)
+function fitResultMap(targetMap, latLngs) {
+    setTimeout(() => {
+        targetMap.invalidateSize({ pan: false });
+        if (latLngs.length == 1) {
+            targetMap.setView(latLngs[0], Math.max(targetMap.getZoom(), 6));
+        } else {
+            targetMap.fitBounds(L.latLngBounds(latLngs), { padding: [60, 60], maxZoom: 15 });
+        }
+    }, 100);
+}
+
 // 距離を計算して表示する関数
 function formatDistance(distance) {
     if (distance > 10000) {
@@ -315,11 +328,10 @@ function guess() {
     soundEffect.play(); // 効果音を再生
 
     window.dispatchEvent(new Event('resize'));
-    if (rline) {
-        rfmap.removeLayer(rmarker);
-        rfmap.removeLayer(ranswermarker);
-        rfmap.removeLayer(rline);
-    }
+    // 前のラウンドのピンと線を消す (ピンなしのラウンドは正解だけなので別々に)
+    [rmarker, ranswermarker, rline].forEach(layer => {
+        if (layer) rfmap.removeLayer(layer);
+    });
     if (!noPin){
         const latLng1 = L.latLng((marker.getLatLng().lat), normalizeLongitude(marker.getLatLng().lng));
         const latLng2 = L.latLng(currentLat, currentLng);
@@ -332,17 +344,9 @@ function guess() {
         const distance = latLng1.distanceTo(latLng2);
         const finalpoint = pointCul(distance);
     
-        // ピン2つの位置から中央位置とズームレベルを調整
-        const bounds = L.latLngBounds([
-            [latLng1.lat, latLng1.lng],
-            [latLng2.lat, latLng2.lng]
-        ]);
-    
-        // 遅延を加えてfitBoundsを実行
-        setTimeout(() => {
-            rfmap.fitBounds(bounds, { padding: [50, 50] });
-        }, 100); // 遅延の時間は調整可能です
-    
+        // ピン2つが入り切るようにズーム
+        fitResultMap(rfmap, [latLng1, latLng2]);
+
         // 表示する数値を決定
         const targetDistance = formatDistance(distance);
 
@@ -359,6 +363,7 @@ function guess() {
         document.getElementById('distance-value').textContent = "N/A"
         const latLng2 = L.latLng(currentLat, currentLng);
         ranswermarker = L.marker([latLng2.lat, latLng2.lng]).addTo(rfmap);
+        fitResultMap(rfmap, [latLng2]);
         roundResults.push({ guess: null, answer: latLng2, distance: null, point: 0, seconds: roundSeconds, index: currentStreetViewIndex });
     }
     ranswermarker.on('click', function () {
@@ -419,10 +424,7 @@ function showFinalResult() {
     });
 
     if (points.length > 0) {
-        setTimeout(() => {
-            finalMap.invalidateSize();
-            finalMap.fitBounds(L.latLngBounds(points), { padding: [50, 50], maxZoom: 15 });
-        }, 100);
+        fitResultMap(finalMap, points);
     }
 }
 

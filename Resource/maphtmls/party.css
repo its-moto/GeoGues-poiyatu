@@ -492,6 +492,13 @@ select:disabled {
     margin-top: 6px;
 }
 
+/* みんなを待ってる間は点数とかを隠す */
+#resultView.waiting .result-scores,
+#resultView.waiting #resultMultiplier,
+#resultView.waiting #nextButton {
+    visibility: hidden;
+}
+
 #resultWaiting,
 #gameOverWaiting {
     color: #c7c7c7;
