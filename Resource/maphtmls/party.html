@@ -48,46 +48,90 @@
             </div>
             <div class="team-column red" id="teamRed"></div>
         </div>
-        <div class="lobby-settings">
-            <div class="setting-item">
-                <label for="modeSelect">モード</label>
-                <select id="modeSelect">
-                    <option value="duel">1v1 デュエル</option>
-                    <option value="team">チームデュエル</option>
-                </select>
+        <!-- 今の設定のカード (押すと設定のポップアップ) -->
+        <div class="lobby-cards">
+            <div class="lobby-card" onclick="openSettings()">
+                <div class="lobby-card-value" id="cardMode"></div>
+                <div class="lobby-card-label">モード</div>
             </div>
-            <div class="setting-item">
-                <label for="mapSelect">マップ</label>
-                <select id="mapSelect"></select>
+            <div class="lobby-card" onclick="openSettings()">
+                <div class="lobby-card-value" id="cardMap"></div>
+                <div class="lobby-card-label">マップ</div>
             </div>
-            <div class="setting-item">
-                <label for="timeSelect">時間</label>
-                <select id="timeSelect">
-                    <option value="0">なし</option>
-                    <option value="30">30秒</option>
-                    <option value="60">1分</option>
-                    <option value="120">2分</option>
-                    <option value="180">3分</option>
-                </select>
-            </div>
-            <div class="setting-item">
-                <label for="hpSelect">HP</label>
-                <select id="hpSelect">
-                    <option value="3000">3000</option>
-                    <option value="6000">6000</option>
-                    <option value="10000">10000</option>
-                </select>
+            <div class="lobby-card" onclick="openSettings()">
+                <div class="lobby-card-value" id="cardRule"></div>
+                <div class="lobby-card-label">⚙ 設定</div>
             </div>
         </div>
         <button class="party-btn green host-only" id="startButton" onclick="startGame()">START GAME</button>
         <p id="lobbyMessage"></p>
+
+        <!-- 設定のポップアップ -->
+        <div id="settingsModal" onclick="if (event.target === this) closeSettings()">
+            <div class="settings-panel">
+                <h2>ゲーム設定</h2>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="modeSelect">モード</label>
+                        <select id="modeSelect">
+                            <option value="duel">1v1 デュエル</option>
+                            <option value="team">チームデュエル</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="mapSelect">マップ</label>
+                        <select id="mapSelect"></select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="timeSelect">時間</label>
+                        <select id="timeSelect">
+                            <option value="0">なし</option>
+                            <option value="30">30秒</option>
+                            <option value="60">1分</option>
+                            <option value="120">2分</option>
+                            <option value="180">3分</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="hpSelect">HP</label>
+                        <select id="hpSelect">
+                            <option value="3000">3000</option>
+                            <option value="6000">6000</option>
+                            <option value="10000">10000</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="setting-slider">
+                    <label for="multiStartSlider">倍率がかかり始めるラウンド: <span id="multiStartText"></span></label>
+                    <input type="range" id="multiStartSlider" min="2" max="10" step="1">
+                </div>
+                <div class="setting-slider">
+                    <label for="multiStepSlider">1ラウンドごとの倍率の上がり幅: <span id="multiStepText"></span></label>
+                    <input type="range" id="multiStepSlider" min="0" max="1" step="0.1">
+                </div>
+                <p id="multiPreview"></p>
+                <p class="settings-note" id="settingsNote"></p>
+                <button class="party-btn green" onclick="closeSettings()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ラウンド開始前のカウントダウン -->
+    <div class="view" id="introView">
+        <div id="introRound"></div>
+        <div id="introMultiplier"></div>
+        <div class="intro-bottom">
+            <div>次のラウンドが始まる</div>
+            <div id="introCount"></div>
+        </div>
     </div>
 
     <!-- プレイ画面 -->
     <div class="view" id="playView">
         <div id="loading"><div id="loadingtext">Loading...</div></div>
 
-        <iframe id="streetview" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <!-- loading="lazy"だとカウントダウン中(非表示)に読み込まれないので付けない -->
+        <iframe id="streetview" src="" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
         <!-- 左上: ストリートビューのembedに出る場所の表示を隠すためにも置いてる -->
         <div id="total"><span id="roundLabel"></span></div>
@@ -118,37 +162,38 @@
 
     <!-- ラウンド結果 -->
     <div class="view" id="resultView">
+        <div id="resultMode"></div>
         <h2 id="resultTitle"></h2>
-        <div class="result-main">
-            <div class="result-side">
-                <div class="hp-box blue">
-                    <div class="hp-label" id="resultHpBlueLabel"></div>
-                    <div class="hp-track"><div class="hp-fill" id="resultHpBlueFill"></div><div class="hp-text" id="resultHpBlueText"></div></div>
-                </div>
-                <div class="result-damage" id="resultDamageBlue"></div>
-                <div class="result-members" id="resultMembersBlue"></div>
-            </div>
+        <div class="result-map-wrap">
             <div id="partyResultMap"></div>
-            <div class="result-side">
-                <div class="hp-box red">
-                    <div class="hp-label" id="resultHpRedLabel"></div>
-                    <div class="hp-track"><div class="hp-fill" id="resultHpRedFill"></div><div class="hp-text" id="resultHpRedText"></div></div>
-                </div>
-                <div class="result-damage" id="resultDamageRed"></div>
-                <div class="result-members" id="resultMembersRed"></div>
+            <!-- HPバーは地図の下の両端に -->
+            <div class="hp-box blue result-hp">
+                <div class="hp-label" id="resultHpBlueLabel"></div>
+                <div class="hp-track"><div class="hp-fill" id="resultHpBlueFill"></div><div class="hp-text" id="resultHpBlueText"></div></div>
+            </div>
+            <div class="hp-box red result-hp">
+                <div class="hp-label" id="resultHpRedLabel"></div>
+                <div class="hp-track"><div class="hp-fill" id="resultHpRedFill"></div><div class="hp-text" id="resultHpRedText"></div></div>
             </div>
         </div>
-        <div class="result-scores">
+        <div class="result-table">
             <div class="result-distance" id="resultDistanceBlue"></div>
             <div class="result-label">場所からの距離</div>
             <div class="result-distance" id="resultDistanceRed"></div>
-            <div class="result-score" id="resultScoreBlue">0</div>
+
+            <div class="result-nearest" id="resultNearestBlue"></div>
+            <div class="result-label">最も近い推測</div>
+            <div class="result-nearest" id="resultNearestRed"></div>
+
+            <div class="result-score-cell"><span class="result-score" id="resultScoreBlue">0</span></div>
             <div class="result-label">ラウンド結果</div>
-            <div class="result-score" id="resultScoreRed">0</div>
+            <div class="result-score-cell"><span class="result-score" id="resultScoreRed">0</span></div>
         </div>
         <div id="resultMultiplier"></div>
         <button class="party-btn green host-only" id="nextButton" onclick="hostNext()">次のラウンド</button>
         <p id="resultWaiting"></p>
+        <!-- 相手にぶつかっていく数字 -->
+        <div id="flyNumber"></div>
     </div>
 
     <!-- 試合終了 -->

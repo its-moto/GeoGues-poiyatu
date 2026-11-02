@@ -6,8 +6,10 @@
 const PEER_PREFIX = 'geoppoi-poiyatu-'; // ほかのPeerJSユーザーとidが被らないように
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 0とOみたいな紛らわしい文字は抜いた
 const HURRY_SECONDS = 15; // 誰かがguessしたら残りをこの秒数に
+const INTRO_SECONDS = 5;  // ラウンド前のカウントダウン
 const TEAM_NAMES = { blue: 'BLUE', red: 'RED' };
 const TEAM_COLORS = { blue: '#00A2FE', red: '#E94560' };
+const SIDES = { blue: 'Blue', red: 'Red' }; // idの後ろにつける名前 (resultScoreBlueとか)
 
 const $ = id => document.getElementById(id);
 
@@ -23,7 +25,8 @@ let hostRetry = 0;
 // ロビーの状態 (ホストが持っていて、変わるたびにゲストに配る)
 let state = {
     players: [], // {id, name, team}
-    settings: { mode: 'duel', map: 'japan', time: 120, hp: 6000 },
+    // multiStart: 倍率がかかり始めるラウンド, multiStep: 1ラウンドごとの倍率の上がり幅
+    settings: { mode: 'duel', map: 'japan', time: 120, hp: 6000, multiStart: 5, multiStep: 0.5 },
     phase: 'lobby'
 };
 
@@ -39,6 +42,8 @@ let guessedIds = []; // このラウンドでguess済みの人
 let teammateGuesses = []; // このラウンドのチームメイトのピン
 let teammateLayer;
 let roundLoaded = false;
+let introDone = false;
+let introInterval = null;
 let timerEnd = null;
 let timerTotal = 0;
 let timerInterval = null;
@@ -326,13 +331,42 @@ function renderLobby() {
         state.players.filter(p => p.team === team).forEach(p => column.appendChild(createPlayerCard(p)));
     });
 
-    $('modeSelect').value = state.settings.mode;
-    $('mapSelect').value = state.settings.map;
-    $('timeSelect').value = state.settings.time;
-    $('hpSelect').value = state.settings.hp;
-    document.querySelectorAll('.lobby-settings select').forEach(select => select.disabled = !isHost);
+    // 設定のポップアップ
+    const settings = state.settings;
+    $('modeSelect').value = settings.mode;
+    $('mapSelect').value = settings.map;
+    $('timeSelect').value = settings.time;
+    $('hpSelect').value = settings.hp;
+    $('multiStartSlider').value = settings.multiStart;
+    $('multiStepSlider').value = settings.multiStep;
+    $('multiStartText').textContent = 'ラウンド' + settings.multiStart + 'から';
+    $('multiStepText').textContent = settings.multiStep == 0 ? 'なし' : '+' + settings.multiStep.toFixed(1);
+    $('multiPreview').textContent = multiplierPreview();
+    $('settingsNote').textContent = isHost ? '' : '設定を変えられるのはホストだけだよ';
+    document.querySelectorAll('.settings-panel select, .settings-panel input').forEach(input => input.disabled = !isHost);
+
+    // ロビーのカード
+    $('cardMode').textContent = $('modeSelect').selectedOptions[0].textContent;
+    $('cardMap').textContent = MAPS[settings.map].name;
+    $('cardRule').textContent = $('timeSelect').selectedOptions[0].textContent + ' / HP ' + settings.hp;
+
     document.querySelectorAll('.host-only').forEach(el => el.style.display = isHost ? '' : 'none');
     $('lobbyMessage').textContent = isHost ? (startProblem() || '') : 'ホストが始めるのを待ってるよ';
+}
+
+function openSettings() {
+    $('settingsModal').classList.add('open');
+}
+
+function closeSettings() {
+    $('settingsModal').classList.remove('open');
+}
+
+// 例: "ラウンド5: ×1.5 → ラウンド6: ×2 → ラウンド7: ×2.5"
+function multiplierPreview() {
+    if (state.settings.multiStep == 0) return 'ダメージ倍率なし';
+    const start = state.settings.multiStart;
+    return [start, start + 1, start + 2].map(round => 'ラウンド' + round + ': ×' + getMultiplier(round)).join(' → ');
 }
 
 // マップの選択肢はmaps.jsから
@@ -343,10 +377,11 @@ Object.keys(MAPS).forEach(id => {
     $('mapSelect').appendChild(option);
 });
 
-[['modeSelect', 'mode'], ['mapSelect', 'map'], ['timeSelect', 'time'], ['hpSelect', 'hp']].forEach(([id, key]) => {
-    $(id).addEventListener('change', () => {
+[['modeSelect', 'mode'], ['mapSelect', 'map'], ['timeSelect', 'time'], ['hpSelect', 'hp'],
+ ['multiStartSlider', 'multiStart'], ['multiStepSlider', 'multiStep']].forEach(([id, key]) => {
+    $(id).addEventListener('input', () => {
         const value = $(id).value;
-        state.settings[key] = (key === 'time' || key === 'hp') ? Number(value) : value;
+        state.settings[key] = (key === 'mode' || key === 'map') ? value : Number(value);
         broadcastLobby();
     });
 });
@@ -388,9 +423,10 @@ function startGame() {
     });
 }
 
-// 後半のラウンドほどダメージが大きくなる
+// 後半のラウンドほどダメージが大きくなる (設定のmultiStartラウンドから、multiStepずつ上がる)
 function getMultiplier(round) {
-    return 1 + Math.max(0, round - 4) * 0.5;
+    const multiplier = 1 + Math.max(0, round - state.settings.multiStart + 1) * state.settings.multiStep;
+    return Math.round(multiplier * 10) / 10;
 }
 
 function nextRound() {
@@ -414,7 +450,7 @@ function nextRound() {
         multiplier: getMultiplier(game.round),
         hp: game.hp
     });
-    setRoundDeadline(state.settings.time);
+    setRoundDeadline(state.settings.time + INTRO_SECONDS);
 }
 
 // ゲストの時間切れが届かなかったとき用の保険 (読み込み時間ぶん余裕をもたせる)
@@ -539,8 +575,8 @@ function startRound(msg) {
     hasGuessed = false;
     myPin = null;
     roundLoaded = false;
+    introDone = false;
     stopTimer();
-    showView('play');
 
     ensurePlayMap();
     if (pinMarker) {
@@ -549,10 +585,8 @@ function startRound(msg) {
     }
     teammateLayer.clearLayers();
     teammateGuesses = [];
-    const config = MAPS[msg.mapId];
-    playMap.invalidateSize();
-    playMap.setView(config.view[0], config.view[1]);
 
+    // カウントダウンの裏でストリートビューを読み込んでおく
     $('loading').style.display = 'flex';
     $('streetview').src = msg.location.embedUrl;
     $('guess-button').textContent = 'guess';
@@ -561,6 +595,39 @@ function startRound(msg) {
     $('roundLabel').textContent = 'ラウンド ' + msg.round + (msg.multiplier > 1 ? '  ×' + msg.multiplier : '');
     $('timer').style.display = 'none';
     renderHp(msg.hp, 'play');
+
+    showIntro(msg);
+}
+
+// 「ラウンド3 / 1.5X ダメージ / 次のラウンドが始まる 05」
+function showIntro(msg) {
+    showView('intro');
+    $('introRound').textContent = 'ラウンド ' + msg.round;
+    $('introMultiplier').textContent = msg.multiplier > 1 ? msg.multiplier + 'X ダメージ' : '';
+    let left = INTRO_SECONDS;
+    $('introCount').textContent = String(left).padStart(2, '0');
+    clearInterval(introInterval);
+    introInterval = setInterval(() => {
+        left--;
+        if (left <= 0) {
+            clearInterval(introInterval);
+            beginPlay(msg);
+        } else {
+            $('introCount').textContent = String(left).padStart(2, '0');
+        }
+    }, 1000);
+}
+
+function beginPlay(msg) {
+    if (msg !== currentRound) return;
+    introDone = true;
+    showView('play');
+    const config = MAPS[msg.mapId];
+    playMap.invalidateSize();
+    playMap.setView(config.view[0], config.view[1]);
+    if (roundLoaded && msg.time > 0 && !timerEnd) {
+        startTimer(msg.time);
+    }
 }
 
 $('streetview').addEventListener('load', () => {
@@ -570,7 +637,8 @@ $('streetview').addEventListener('load', () => {
         if (round !== currentRound) return;
         roundLoaded = true;
         $('loading').style.display = 'none';
-        if (round.time > 0 && !timerEnd && !hasGuessed) {
+        // カウントダウン中に読み込み終わったら、タイマーはカウントダウンのあと
+        if (introDone && round.time > 0 && !timerEnd && !hasGuessed) {
             startTimer(round.time);
         }
     }, 1000);
@@ -716,11 +784,10 @@ function showWaiting() {
     }
     teammateGuesses.forEach(guess => addTeammateMarker(resultLayer, guess));
 
+    resultAnimId++; // 前のラウンドのアニメーションが残ってたら止める
+    resetScoreAnimation();
+    $('resultMode').textContent = $('modeSelect').selectedOptions[0].textContent;
     renderHp(currentRound.hp, 'result');
-    ['Blue', 'Red'].forEach(side => {
-        $('resultDamage' + side).textContent = '';
-        $('resultMembers' + side).innerHTML = '';
-    });
     updateWaitingText();
 }
 
@@ -745,8 +812,9 @@ function showRoundResult(msg) {
         if (!r.guess) return;
         const guessLatLng = L.latLng(r.guess.lat, r.guess.lng);
         L.polyline([guessLatLng, answer], { color: TEAM_COLORS[r.team], weight: 2, opacity: 0.8, dashArray: '5 8' }).addTo(resultLayer);
+        // 名前と点数 (チーム戦でメンバーそれぞれの点数がわかるように)
         L.circleMarker(guessLatLng, { radius: 8, color: 'white', weight: 2, fillColor: TEAM_COLORS[r.team], fillOpacity: 1 })
-            .bindTooltip(r.name, { permanent: true, direction: 'top', offset: [0, -8], className: 'party-tooltip' })
+            .bindTooltip(r.name + '  ' + r.point, { permanent: true, direction: 'top', offset: [0, -8], className: 'party-tooltip' })
             .addTo(resultLayer);
     });
 
@@ -758,33 +826,117 @@ function showRoundResult(msg) {
     });
     fitResultMap(points, 6);
 
+    $('resultMode').textContent = $('modeSelect').selectedOptions[0].textContent;
     ['blue', 'red'].forEach(team => {
-        const side = team === 'blue' ? 'Blue' : 'Red';
         const best = msg.best[team];
-        $('resultDistance' + side).textContent = best && best.distance != null ? formatDistance(best.distance) : 'N/A';
-        animateNumber($('resultScore' + side), best ? best.point : 0, 1000);
-        $('resultDamage' + side).textContent = msg.loser === team && msg.damage > 0 ? '-' + msg.damage : '';
-
-        // チーム戦のときはメンバーそれぞれの点数も出す
-        const list = $('resultMembers' + side);
-        list.innerHTML = '';
-        if (state.settings.mode === 'team') {
-            msg.results.filter(r => r.team === team).sort((a, b) => b.point - a.point).forEach(r => {
-                const row = document.createElement('div');
-                row.textContent = r.name + '  ' + r.point;
-                list.appendChild(row);
-            });
-        }
+        $('resultDistance' + SIDES[team]).textContent = best && best.distance != null ? formatDistance(best.distance) : 'N/A';
+        $('resultNearest' + SIDES[team]).textContent = best && best.guess ? best.name : '-';
     });
-
-    // HPバーは前の値から減らす
-    renderHp(msg.previousHp, 'result');
-    setTimeout(() => renderHp(msg.hp, 'result'), 600);
 
     $('resultMultiplier').textContent = msg.multiplier > 1 ? 'ダメージ ×' + msg.multiplier : '';
     $('nextButton').textContent = msg.gameOver ? '結果へ' : '次のラウンド';
     $('resultWaiting').textContent = isHost ? '' : 'ホストが次に進むのを待ってるよ';
     playSound('../ResultScore.mp3');
+
+    // HPバーや表を下から順番にスライドイン (クラスを付け直してアニメーションをやり直す)
+    $('resultView').classList.remove('slide-in');
+    void $('resultView').offsetWidth;
+    $('resultView').classList.add('slide-in');
+
+    playScoreAnimation(msg);
+}
+
+//================================================点数がぶつかってHPが削れるアニメーション================================================
+let resultAnimId = 0; // 新しいアニメーションが始まったら古いのは止まる
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+function centerOf(element) {
+    const rect = element.getBoundingClientRect();
+    return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+}
+
+// 飛んでいく数字の位置と大きさ
+function flyFrame(point, scale, opacity) {
+    return { transform: `translate(${point.x}px, ${point.y}px) translate(-50%, -50%) scale(${scale})`, opacity: opacity };
+}
+
+function resetScoreAnimation() {
+    const fly = $('flyNumber');
+    fly.getAnimations().forEach(animation => animation.cancel());
+    fly.style.display = 'none';
+    ['Blue', 'Red'].forEach(side => {
+        const scoreElement = $('resultScore' + side);
+        scoreElement.style.transition = 'none';
+        scoreElement.style.opacity = 1;
+        scoreElement.style.transform = 'none';
+        scoreElement.textContent = '0';
+    });
+}
+
+async function playScoreAnimation(msg) {
+    const animId = ++resultAnimId;
+    const alive = () => animId === resultAnimId;
+    resetScoreAnimation();
+    renderHp(msg.previousHp, 'result');
+
+    const score = {
+        blue: msg.best.blue ? msg.best.blue.point : 0,
+        red: msg.best.red ? msg.best.red.point : 0
+    };
+
+    // 1. 両方の点数が0から上がっていく (スライドインが終わってから)
+    await sleep(900);
+    if (!alive()) return;
+    animateNumber($('resultScoreBlue'), score.blue, 1000);
+    animateNumber($('resultScoreRed'), score.red, 1000);
+    await sleep(1200);
+    if (!alive()) return;
+    if (!msg.loser) return; // 引き分けはダメージなし
+
+    const winner = msg.loser === 'blue' ? 'red' : 'blue';
+    const winElement = $('resultScore' + SIDES[winner]);
+    const loseElement = $('resultScore' + SIDES[msg.loser]);
+    const fly = $('flyNumber');
+
+    // 2. 大きいほうがちょっと大きくなる
+    winElement.style.transition = 'transform 0.3s ease, opacity 0.2s ease';
+    winElement.style.transform = 'scale(1.1)';
+    await sleep(350);
+    if (!alive()) return;
+
+    // 3. 数字が相手にぶつかりに行く (元の位置には半透明で残す)
+    const from = centerOf(winElement);
+    const to = centerOf(loseElement);
+    fly.textContent = score[winner];
+    fly.style.display = 'block';
+    winElement.style.transform = 'scale(1)';
+    winElement.style.opacity = 0.3;
+    await fly.animate([flyFrame(from, 1.1, 1), flyFrame(to, 1.1, 1)],
+        { duration: 260, easing: 'cubic-bezier(0.5, 0, 1, 0.6)', fill: 'forwards' }).finished;
+    if (!alive()) return;
+
+    // 4. ぶつかったら引き算した値になる (相手の数字はいったん消える)
+    loseElement.style.transition = 'opacity 0.15s ease';
+    loseElement.style.opacity = 0;
+    fly.textContent = msg.damage;
+    await fly.animate([flyFrame(to, 1.4, 1), flyFrame(to, 1, 1)],
+        { duration: 220, easing: 'ease-out', fill: 'forwards' }).finished;
+    await sleep(350);
+    if (!alive()) return;
+
+    // 5. 引き算した値がまっすぐ上のHPバーにぶつかって削れる (相手の元の数字は半透明で戻ってくる)
+    const hpTarget = { x: to.x, y: centerOf($('resultHp' + SIDES[msg.loser] + 'Text')).y };
+    loseElement.style.transition = 'opacity 0.4s ease';
+    loseElement.style.opacity = 0.3;
+    await fly.animate([flyFrame(to, 1, 1), flyFrame(hpTarget, 0.7, 1)],
+        { duration: 300, easing: 'cubic-bezier(0.5, 0, 1, 0.6)', fill: 'forwards' }).finished;
+    if (!alive()) return;
+    renderHp(msg.hp, 'result');
+    await fly.animate([flyFrame(hpTarget, 0.7, 1), flyFrame(hpTarget, 1.2, 0)],
+        { duration: 300, easing: 'ease-out', fill: 'forwards' }).finished;
+    if (!alive()) return;
+    fly.style.display = 'none';
 }
 
 function showGameOver(msg) {
