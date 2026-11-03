@@ -1,5 +1,5 @@
 // 日本 (Claudeセレクト) の地点を自動で集めるスクリプト
-// 使い方: node tools/collect-cjp.js <集めたい件数> [同時タブ数]
+// 使い方: node tools/collect-cjp.js <集めたい件数> [同時タブ数] [msedge|chrome]
 // 結果は tools/cjp-found.json に少しずつ追記されるので、途中で止めても続きから再開できる
 // 画面には件数だけ出す (地名は出さない)
 const fs = require('fs');
@@ -10,6 +10,7 @@ const ROOT = path.join(__dirname, '..');
 const FOUND = path.join(__dirname, 'cjp-found.json');
 const TARGET = Number(process.argv[2] || 10);
 const TABS = Number(process.argv[3] || 3);
+const BROWSER = process.argv[4] || 'msedge';
 
 // 地方ごとの範囲 [南, 西, 北, 東] と、集める割合 (重み)
 // 範囲は大きめの四角なので海も含むが、海なら地点が見つからず次へ進むだけ
@@ -125,10 +126,12 @@ async function main() {
     found.forEach(f => seen.add(f.id));
     const stats = { tried: 0, ok: 0, none: 0, user: 0, dup: 0, near: 0 };
 
-    // インストール済みの Edge を使う (ブラウザのダウンロード不要)
-    // Edge がなければ Chrome を試す
-    const browser = await chromium.launch({ channel: 'msedge', headless: true })
-        .catch(() => chromium.launch({ channel: 'chrome', headless: true }));
+    // インストール済みのブラウザを使う (ダウンロード不要)
+    // 3つ目の引数で選べる: msedge (既定) か chrome。選んだ方がなければもう片方を試す
+    const first = BROWSER === 'chrome' ? 'chrome' : 'msedge';
+    const second = first === 'chrome' ? 'msedge' : 'chrome';
+    const browser = await chromium.launch({ channel: first, headless: true })
+        .catch(() => chromium.launch({ channel: second, headless: true }));
     const context = await browser.newContext({ locale: 'ja-JP' });
 
     // Ctrl+C で止めたら、ブラウザを閉じてきれいに終わる (集めた分は保存済み)
