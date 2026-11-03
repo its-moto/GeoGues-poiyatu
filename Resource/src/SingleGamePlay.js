@@ -100,7 +100,7 @@ function showRandomStreetView() {
 }
 
 function goBack() {
-    window.location.href = '../../index.html'; // ローカルファイルへのパス
+    window.location.href = '../../singleplayer.html'; // マップ選択に戻る
 }
 
 function backToStart() {

@@ -1,258 +1,109 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="index.css">
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<link rel="stylesheet" type="text/css" href="menu.css">
 	<title>GeoGuessr®っぽい何か</title>
 	<link rel="icon" href="Resource/images/icon.jpg"> <!-- ページアイコン -->
 </head>
 
-<body>
-	<audio muted loop id="bgm" preload="auto" src="Resource/bgm/Ambient.mp3"type="audio/mp3"></audio>
+<body class="menu-page">
+	<audio muted loop id="bgm" preload="auto" src="Resource/bgm/Ambient.mp3" type="audio/mp3"></audio>
 
 	<!-- タイトル -->
-	<div style="position: relative; display: inline-block; width: 100%;">
-		<span class="header"><b>GEOGUESSR®っぽい何か</b></span>
-		<span class="title"><b>GEOGUESSR®っぽい何か</b></span>
-	</div>
-	
-	<!-- 検索バー -->
-	<div class="search-container">
-		<input type="text" id="searchBar" placeholder="検索（例: アジア, 日本, 世界）" onkeyup="filterCards()">
-		<button id="partyButton" onclick="location.href='Resource/maphtmls/party.html'">オンライン対戦</button>
+	<div class="menu-logo">
+		<span class="menu-logo-stroke">GEOGUESSR®っぽい何か</span>
+		<span class="menu-logo-fill">GEOGUESSR®っぽい何か</span>
 	</div>
 
-	<!-- ブロックのグリッドコンテナ -->
-	<div class="grid-container">
-		<div class="card" data-keywords="a random picked world 世界">
-			<img src="Resource/mapimg/world.png" alt="world.png">
-			<h3>A Random picked world</h3>
-			<button onclick="location.href='Resource/maphtmls/game.html?map=world';">プレイ</button>
+	<!-- 左のメニュー -->
+	<nav class="menu-list">
+		<a class="menu-item big" href="singleplayer.html">シングルプレイヤー</a>
+		<a class="menu-item big" href="Resource/maphtmls/party.html">オンライン対戦</a>
+		<div class="menu-divider"></div>
+		<a class="menu-item" href="javascript:openPopup()">設定</a>
+		<a class="menu-item" href="README%20~私を読んで~.html">README</a>
+		<span class="menu-item disabled">フレンド <span class="menu-soon">準備中</span></span>
+		<a class="menu-item news" href="Resource/maphtmls/party.html">v2.1 オンライン対戦で遊べるよ!</a>
+	</nav>
+
+	<!-- 真ん中の地球 -->
+	<div class="menu-stage">
+		<div class="globe-glow"></div>
+		<div class="globe">
+			<div class="globe-strip" id="globeStrip"></div>
+			<div class="globe-shade"></div>
 		</div>
-
-		<div class="card" data-keywords="japan アジア 日本">
-			<img src="Resource/mapimg/japan.png" alt="japan.png">
-			<h3>日本</h3>
-			<button onclick="location.href='Resource/maphtmls/game.html?map=japan';">プレイ</button>
-		</div>
-
-		<div class="card" data-keywords="an urban japan 日本 アジア urban 都会">
-			<img src="Resource/mapimg/japan.png" alt="AAJ.png">
-			<h3>日本都市部</h3>
-			<button onclick="location.href='Resource/maphtmls/game.html?map=urbanjapan';">プレイ</button>
-		</div>
-
-		<div class="card" data-keywords="madagascar マダガスカル madagasukaru">
-			<img src="Resource/mapimg/madagascar.png" alt="madagascar.png">
-			<h3>マダガスカル</h3>
-			<button onclick="location.href='Resource/maphtmls/game.html?map=madagascar';">プレイ</button>
-		</div>
-
-		<div class="card" data-keywords="ヨーロッパ eu europe 欧州">
-			<img src="Resource/mapimg/europe.png" alt="europe.png">
-			<h3>ヨーロッパ</h3>
-			<button onclick="location.href='Resource/maphtmls/game.html?map=europe';">プレイ</button>
-		</div>
-
-		<div class="card" data-keywords="sanmarino san marino ヨーロッパ eu">
-			<img src="Resource/mapimg/sanmarino.png" alt="sanmarino.png">
-			<h3>サン・マリノ(制作中)</h3>
-			<button onclick="location.href='Resource/maphtmls/game.html?map=sanmarino';">プレイ</button>
-		</div>
-
-		<div class="card" data-keywords="岡山市 岡山県 日本 西日本 中国地方 okayama">
-			<img src="Resource/mapimg/okayamacity.png" alt="okayamacity.png">
-			<h3>岡山市(制作中)</h3>
-			<button onclick="location.href='Resource/maphtmls/game.html?map=okayama';">プレイ</button>
-		</div>
-
-		<div class="card" data-keywords="航空自衛隊 SDF 日本">
-			<img src="Resource/mapimg/sdf.png" alt="SDF.png">
-			<h3>SDF(制作中)</h3>
-			<button onclick="location.href='Resource/maphtmls/game.html?map=sdf';">プレイ</button>
-		</div>
-	</div>
-	
-	<p id="noResults" style="display: none; text-align: center; font-size: 1.2em; color:rgba(225, 225, 225, 0.63)">検索結果なし</p>
-
-	<button id="settingsButton" onclick="openPopup()">	⚙</button>
-
-	<!-- 設定のポップアップの中身-->
-	<div class="popup-overlay" id="popup">
-		<div class="popup-content">
-			<h2>設定</h2>
-            <center><div class="slider-container">
-                <label class="slider-label" for="volumeSlider">音量:</label>
-                <input type="range" class="gmp-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
-            </div>
-            </center>
-			BGM
-			<label class="toggle-switch">
-				<input type="checkbox" id="bgmToggle">
-				<span class="slider"></span>
-			</label>
-			<br>
-            <hr color="#c7c7c7" width="50%">
-			<h2>ゲーム設定</h2>
-			NMPZ : 
-			<label class="toggle-switch" >
-				<input type="checkbox" id="NMPZToggle">
-				<span class="slider"></span>
-			</label>
-			　　Random Pan Zoom : 
-			<label class="toggle-switch" >
-				<input type="checkbox" id="RPZToggle">
-				<span class="slider"></span>
-			</label><br>
-            <center><div class="slider-container">
-                <label class="slider-label" for="timerSlider">時間:</label>
-                <input type="range" class="gmp-slider" id="timerSlider" min="0" max="30" step="1" value="12">
-				<span id="timertxt">2分</span>
-            </div>
-            <div class="slider-container">
-                <label class="slider-label" for="roundSlider">ラウンド:</label>
-                <input type="range" class="gmp-slider" id="roundSlider" min="0" max="20" step="1" value="5">
-				<span id="roundtxt">5ラウンド</span>
-            </div>
-            <hr color="#c7c7c7" width="50%">
-			<button class="close-popup-btn" onclick="closePopup()">クローズ</button>
-		</div>
-	</div>
-    
-	<button onclick="location.href='README%20~私を読んで~.html'" id="button" style="background-color: rgba(225, 225, 225, 0.5);padding: 9px;font-size: 17px;border-radius: 15px;">readme</button><br>
-
-	<div style="z-index: 70;position: fixed;color: rgb(190, 190, 190);bottom: 0; user-select: none;">v2.1</div>
-	<div class="footer">
-		powered by: Google Map, Leaflet, Visual Studio Code<br>made by it_s_moto, Inspired by GEOGUESSR, for my friends
+		<img class="globe-pin" src="Resource/images/pin.png" alt="">
+		<button class="menu-play" onclick="location.href='singleplayer.html'">あそぶ</button>
 	</div>
 
+	<!-- 右下: コードで対戦に参加 -->
+	<div class="menu-join">
+		<div class="menu-join-title">部屋コードで参加</div>
+		<div class="menu-join-row">
+			<input type="text" id="joinCode" maxlength="4" placeholder="AB34" autocomplete="off">
+			<button onclick="joinParty()">参加</button>
+		</div>
+	</div>
+
+	<div class="menu-footer">
+		<span>v2.1</span>
+		powered by: Google Map, Leaflet, Visual Studio Code / made by it_s_moto, Inspired by GEOGUESSR, for my friends
+	</div>
+
+	<script src="Resource/src/settings.js"></script>
 	<script>
-		// ポップアップを表示する関数
-		function openPopup() {
-			isSettingOpen = true;
-			document.getElementById("popup").style.display = "flex";
-		}
+		//================================================回る地球================================================
+		// Googleの衛星写真のタイル(lyrs=s)を使って地球を作る
+		// ズーム1だと世界全体が 2x2=4枚 のタイルになる (左上が x=0,y=0)
+		//
+		//   [x0,y0][x1,y0] ← 北半球
+		//   [x0,y1][x1,y1] ← 南半球
+		//
+		// これを横に2セット並べた「帯」を作って、CSS(menu.cssのglobeSpin)で左に流し続ける
+		// 1セットぶん進んだらアニメーションが最初に戻るので、つなぎ目なしでずっと回って見える
+		const strip = document.getElementById('globeStrip'); // タイルを並べる帯
 
-		// ポップアップを閉じる関数
-		function closePopup() {
-			isSettingOpen = false;
-			document.getElementById("popup").style.display = "none";
-		}
+		for (let copy = 0; copy < 2; copy++) {     // 地球を2セット (1周目と2周目)
+			for (let x = 0; x < 2; x++) {          // 横2枚
+				for (let y = 0; y < 2; y++) {      // 縦2枚
+					const tile = document.createElement('img');
+					tile.src = `https://mt1.google.com/vt/lyrs=s&x=${x}&y=${y}&z=1`;
 
-		let isSettingOpen = false;
+					// 帯は地球2セットぶん = タイル横4枚ぶんの幅なので、1枚の幅は25%
+					// 左から copy*2+x 番目に置く (0,1 が1セット目、2,3 が2セット目)
+					tile.style.left = (copy * 2 + x) * 25 + '%';
+					// 縦は2枚なので1枚50%、y=1 なら下半分
+					tile.style.top = y * 50 + '%';
 
-		document.addEventListener('keydown', function (event) {
-			if (event.key ==='Escape') {
-				if(isSettingOpen) {	closePopup();} else {openPopup();}
-			}
-		});
-		
-		const bgm = document.getElementById("bgm");
-		const bgmtoggle = document.getElementById("bgmToggle");
-        let isMuted = false;
-
-		const NMPZToggle = document.getElementById("NMPZToggle");
-		const RPZToggle = document.getElementById("RPZToggle");
-		const timer = document.getElementById("timerSlider");
-		const timertxt = document.getElementById("timertxt");
-
-        bgm.volume = 0.5; // 初期ボリュームを0.2に設定
-		window.onload = () => {
-			bgm.play();
-		};
-
-		bgmtoggle.addEventListener("change", () => {
-			if (bgmtoggle.checked) {
-				bgm.play();
-				bgm.muted = false;
-				isMuted = false;
-			} else {
-				bgm.muted = true;
-				isMuted = true;
-			}
-		});
-
-		function formatTime(seconds) {
-			const mins = Math.floor((seconds % 3600) / 60);
-			const secs = seconds % 60;
-			if (secs == 0 ) {
-				return `${mins}分`;
-			} if (mins == 0){
-				return `${secs}秒`;
-			} else {
-				return `${mins}分${secs}秒`;
-			}
-		}
-		// スライダーでタイマーを調整
-		timer.value = (localStorage.getItem('timer') / 10);
-
-		function timerSettingTextSet() {
-			distime =timer.value;
-			if (distime == 0 ) {
-				timertxt.textContent = "タイマーなし";
-			} else {
-				timertxt.textContent = formatTime(distime*10);
-			}
-		}
-		timerSettingTextSet();
-		timer.addEventListener("input", function() {
-			timerSettingTextSet();
-			localStorage.setItem('timer',distime*10);
-		});
-		
-		// スライダーでラウンド数を調整 (0は無限)
-		const roundSlider = document.getElementById("roundSlider");
-		const roundtxt = document.getElementById("roundtxt");
-		const storedRounds = localStorage.getItem('rounds');
-		roundSlider.value = storedRounds === null ? 5 : storedRounds;
-
-		function roundSettingTextSet() {
-			if (roundSlider.value == 0) {
-				roundtxt.textContent = "無限";
-			} else {
-				roundtxt.textContent = roundSlider.value + "ラウンド";
-			}
-		}
-		roundSettingTextSet();
-		roundSlider.addEventListener("input", function() {
-			roundSettingTextSet();
-			localStorage.setItem('rounds', roundSlider.value);
-		});
-
-        // スライダーで音量を調整
-        volumeSlider.addEventListener("input", function() {
-            bgm.volume = this.value;
-
-            localStorage.setItem("bgmVolume", JSON.stringify(this.value));
-        });
-
-		function filterCards() {
-			const searchInput = document.getElementById('searchBar').value.toLowerCase();
-			const cards = document.querySelectorAll('.card');
-			let anyVisible = false;
-
-			cards.forEach(card => {
-				const keywords = card.getAttribute('data-keywords');
-				if (keywords.includes(searchInput)) {
-					card.style.display = '';
-					anyVisible = true;
-				} else {
-					card.style.display = 'none';
+					tile.alt = ''; // 飾りなので読み上げ不要
+					strip.appendChild(tile);
 				}
-			});
-
-			document.getElementById('noResults').style.display = anyVisible ? 'none' : 'block';
+			}
 		}
 
-		NMPZToggle.checked = (localStorage.getItem('NMPZbool') === 'true');
-		RPZToggle.checked = (localStorage.getItem('RPZbool')=== 'true');
-		NMPZToggle.addEventListener("change", () => {
-			localStorage.setItem('NMPZbool',NMPZToggle.checked);
-		});
-		RPZToggle.addEventListener("change", () => {
-			localStorage.setItem('RPZbool',RPZToggle.checked);
+		//================================================部屋コードで参加================================================
+		// 右下の入力欄にコードを入れて「参加」かEnterで、対戦ページに直接入る
+		// party.html?code=AB34 で開くと、名前が保存されてればそのまま部屋に入れる (party.jsの最後のほう)
+		function joinParty() {
+			// 前後の空白を消して大文字にそろえる (ab34 → AB34)
+			const code = document.getElementById('joinCode').value.trim().toUpperCase();
+
+			// 英数字4文字じゃなかったら何もしないで入力欄に戻す
+			if (!/^[A-Z0-9]{4}$/.test(code)) {
+				document.getElementById('joinCode').focus();
+				return;
+			}
+			location.href = 'Resource/maphtmls/party.html?code=' + code;
+		}
+
+		// 入力欄でEnterを押しても参加できるように
+		document.getElementById('joinCode').addEventListener('keydown', event => {
+			if (event.key === 'Enter') joinParty();
 		});
 	</script>
 </body>

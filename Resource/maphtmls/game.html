@@ -111,16 +111,30 @@
     <script src="../src/cssanimation.js"></script>
 
     <script>//settingのbgmとか
-        let isMuted = true;
+        // BGMのオンオフはメニューの設定と共通 ('bgmOn' 保存がなければオン)
+        let isMuted = localStorage.getItem('bgmOn') === 'false';
+
+        // 音量も保存してあればそれを使う
+        try {
+            const savedVolume = JSON.parse(localStorage.getItem("bgmVolume"));
+            if (savedVolume !== null) volumeSlider.value = savedVolume;
+        } catch (e) {}
 
         // 初期設定
         bgm.volume = volumeSlider.value;
 
         toggle.checked = !isMuted;
         bgm.muted = isMuted;
+
+        // まだクリックしてないと音が止められることがあるので、最初のクリックで鳴らし直す
+        document.addEventListener('pointerdown', () => {
+            if (!isMuted && bgm.paused) bgm.play().catch(() => {});
+        }, { once: true });
+
         toggle.addEventListener("change", () => {
             isMuted = !toggle.checked; // トグルの状態からisMutedを反転
             bgm.muted = isMuted;
+            localStorage.setItem('bgmOn', toggle.checked); // ほかのページにも効くように保存
 
             if (!isMuted) {
                 bgm.play();

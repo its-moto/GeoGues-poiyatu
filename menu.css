@@ -1,0 +1,340 @@
+/* メインメニュー (index.cssの後に読む) */
+/* index.cssはマップ選択(singleplayer.html)と共通。メニューだけの見た目はこっちに書く */
+
+/* 背景: ロビーと同じグラデーション + 地球のうしろに青い光 + 左上に緑の光 */
+body.menu-page {
+    height: 100vh;
+    overflow: hidden; /* スクロールしないように */
+    background:
+        /* 地球のうしろの青い光 (地球の位置 62% 45% に合わせてる) */
+        radial-gradient(ellipse 60% 50% at 62% 45%, rgba(92, 196, 255, 0.18) 0%, rgba(92, 196, 255, 0) 70%),
+        /* 左上の緑の光 (ロビーと同じ) */
+        radial-gradient(ellipse 120% 80% at 30% 0%, rgba(60, 162, 98, 0.25) 0%, rgba(126, 210, 249, 0) 40%),
+        linear-gradient(155deg, #335c80 0%, #2a2a4e 45%, #1A1A2E 100%);
+}
+
+/* うっすら星
+   1つ1つが小さい radial-gradient (1〜1.5pxの白い点)。at の後ろが星の位置 */
+body.menu-page::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none; /* 星がクリックのじゃまをしないように */
+    background-image:
+        radial-gradient(1.5px 1.5px at 12% 18%, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(1px 1px at 28% 72%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(1.5px 1.5px at 47% 12%, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(1px 1px at 66% 82%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(1.5px 1.5px at 82% 22%, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(1px 1px at 91% 60%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(1px 1px at 38% 40%, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1.5px 1.5px at 75% 48%, rgba(255, 255, 255, 0.5), transparent);
+    animation: twinkle 4s ease-in-out infinite alternate; /* 4秒かけて明るくなったり暗くなったり */
+}
+
+/* 星のまたたき */
+@keyframes twinkle {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+}
+
+/*======================================================================================*/
+/*タイトル*/
+/* 同じ文字を2枚重ねてる: 下が赤いふち取り(stroke)、上が白い文字(fill) */
+.menu-logo {
+    position: absolute;
+    top: 24px;
+    left: 40px;
+    font-size: 34px;
+    user-select: none;
+}
+
+.menu-logo span {
+    font-family: 'Neo Sans', 'NotoSansJP';
+}
+
+/* ふち取りだけの文字 (文字の中は透明) */
+.menu-logo-stroke {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: rgba(207, 20, 43, 0);
+    -webkit-text-stroke: 5px rgb(207, 20, 43);
+}
+
+/* 白い文字 (赤いふち取りの上に重なるので、白文字に赤い縁取りに見える) */
+.menu-logo-fill {
+    position: relative;
+    color: white;
+}
+
+/*======================================================================================*/
+/*左のメニュー*/
+/* 縦に並べて、画面の上下まんなかに置く */
+.menu-list {
+    position: absolute;
+    top: 50%;
+    left: 7%;                     /* 画面の左から7% */
+    transform: translateY(-50%);  /* top:50% + これで上下まんなか */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    z-index: 2;
+}
+
+/* メニューの1項目 (普通の大きさ: 設定・READMEなど) */
+.menu-item {
+    font-size: 22px;
+    text-decoration: none;
+    padding: 2px 0;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    transition: translate 0.15s ease, color 0.15s ease;
+    animation: menuSlideIn 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+/* 大きい項目: シングルプレイヤー・オンライン対戦 */
+.menu-item.big {
+    font-size: 36px;
+}
+
+/* transformは入ってくるアニメーションが使ってるので、ホバーはtranslateで */
+.menu-item:hover {
+    translate: 10px 0;
+    color: #FFCF3D;
+}
+
+/* まだ使えない項目 (フレンド) はうすく */
+.menu-item.disabled {
+    color: rgba(255, 255, 255, 0.4);
+    cursor: default;
+}
+.menu-item.disabled:hover {
+    translate: 0 0;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* 「準備中」の小さいラベル */
+.menu-soon {
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.6);
+    vertical-align: middle;
+}
+
+/* 黄色いお知らせの一行 */
+.menu-item.news {
+    font-size: 16px;
+    color: #FFCF3D;
+    margin-top: 6px;
+}
+
+/* 大きい項目と小さい項目のあいだの線 (右に行くほど消える) */
+.menu-divider {
+    width: 260px;
+    height: 1px;
+    margin: 8px 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    animation: menuSlideIn 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+/* 上から順番に左から入ってくる */
+.menu-list > *:nth-child(1) { animation-delay: 0.05s; }
+.menu-list > *:nth-child(2) { animation-delay: 0.1s; }
+.menu-list > *:nth-child(3) { animation-delay: 0.15s; }
+.menu-list > *:nth-child(4) { animation-delay: 0.2s; }
+.menu-list > *:nth-child(5) { animation-delay: 0.25s; }
+.menu-list > *:nth-child(6) { animation-delay: 0.3s; }
+.menu-list > *:nth-child(7) { animation-delay: 0.35s; }
+
+/* 左から40pxスライドしながら出てくる */
+@keyframes menuSlideIn {
+    from { transform: translateX(-40px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/*======================================================================================*/
+/*真ん中の地球*/
+/* 地球・光・ピン・あそぶボタンをまとめた箱 */
+.menu-stage {
+    position: absolute;
+    top: 50%;
+    left: 62%;
+    transform: translate(-50%, -50%);
+    width: min(420px, 40vw, 60vh); /* 420px、画面幅の40%、画面の高さの60% のいちばん小さいもの */
+    aspect-ratio: 1;               /* 正方形 */
+    animation: stageIn 0.8s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+/* 開いたときにふわっと大きくなりながら出てくる */
+@keyframes stageIn {
+    from { opacity: 0; scale: 0.85; }
+    to { opacity: 1; scale: 1; }
+}
+
+/* 地球のまわりのぼんやりした青い光 (地球より12%ずつ大きい) */
+.globe-glow {
+    position: absolute;
+    inset: -12%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(92, 196, 255, 0.35) 45%, rgba(92, 196, 255, 0) 70%);
+}
+
+/* 地球の丸 (はみ出たタイルは丸く切り取られる) */
+.globe {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    overflow: hidden;           /* 丸の外は見せない */
+    background-color: #0b3d6b;  /* タイルが読み込まれるまでの海の色 */
+}
+
+/* 地球2周ぶんの帯を左に流して、1周ぶん進んだら最初に戻る
+   (1.3倍に拡大して上下を切って、南極と北極の白いところを減らしてる) */
+.globe-strip {
+    position: absolute;
+    top: -15%;
+    left: 0;
+    width: 260%;
+    height: 130%;
+    animation: globeSpin 40s linear infinite; /* 40秒で1周 (数字を小さくすると速く回る) */
+}
+
+/* タイル1枚 (位置はindex.htmlのJSで決めてる) */
+.globe-strip img {
+    position: absolute;
+    width: 25%;
+    height: 50%;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* 帯の半分 (=地球1周ぶん) 左に動いたら最初に戻る → つなぎ目なしでずっと回る */
+@keyframes globeSpin {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* 球っぽく見せる影とハイライト */
+.globe-shade {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background:
+        /* 左上のテカり */
+        radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 35%),
+        /* ふちに行くほど暗く → 丸く見える */
+        radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0) 55%, rgba(5, 10, 40, 0.75) 100%);
+    /* 右下に影、左上に青っぽい光 */
+    box-shadow: inset -25px -20px 60px rgba(0, 0, 0, 0.55), inset 10px 8px 30px rgba(140, 210, 255, 0.25);
+}
+
+/* 地球の上でぴょこぴょこするピン */
+.globe-pin {
+    position: absolute;
+    top: -16%;
+    left: 50%;
+    width: 13%;
+    translate: -50% 0;  /* 左右まんなか (transformはぴょこぴょこに使うのでtranslateで) */
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.45)); /* ピンの形にそった影 */
+    animation: pinBob 2.2s ease-in-out infinite;
+}
+
+/* 12px 上がって戻る */
+@keyframes pinBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+/* 緑の「あそぶ」ボタン (地球の下) */
+.menu-play {
+    position: absolute;
+    left: 50%;
+    bottom: -18%;
+    translate: -50% 0;
+    height: auto;
+    padding: 12px 54px;
+    border: none;
+    border-radius: 40px;
+    font-size: 28px;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    background: radial-gradient(ellipse at top, #97E851, #6CB928);
+    /* 下の濃い緑の影でボタンに厚みを出してる + ぼんやりした影 */
+    box-shadow: 0 6px 0 #4f8d1b, 0 10px 25px rgba(0, 0, 0, 0.4);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+/* マウスを乗せると少し浮く */
+.menu-play:hover {
+    transform: translateY(-2px);
+}
+/* 押してる間は沈む (厚みの影も小さく) */
+.menu-play:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #4f8d1b, 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+/*======================================================================================*/
+/*右下: 部屋コードで参加*/
+/* 半透明の黒い箱 */
+.menu-join {
+    position: absolute;
+    right: 30px;
+    bottom: 50px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.menu-join-title {
+    font-size: 13px;
+    color: #c7c7c7;
+    margin-bottom: 6px;
+}
+
+.menu-join-row {
+    display: flex;
+    gap: 8px;
+}
+
+/* コードの入力欄 (小文字で打っても大文字で表示) */
+.menu-join input {
+    width: 100px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.35);
+    font-size: 18px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    outline: none;
+}
+
+.menu-join button {
+    padding: 6px 16px;
+    border: none;
+    border-radius: 20px;
+    font-size: 15px;
+    color: black;
+    cursor: pointer;
+    background: radial-gradient(ellipse at top, #97E851, #6CB928);
+}
+
+/* 左下のバージョンとクレジット */
+.menu-footer {
+    position: absolute;
+    left: 40px;
+    bottom: 12px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.45);
+    user-select: none;
+}
+
+.menu-footer span {
+    color: rgba(255, 255, 255, 0.7);
+    margin-right: 10px;
+}

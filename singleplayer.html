@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css">
+	<title>GeoGuessr®っぽい何か - シングルプレイヤー</title>
+	<link rel="icon" href="Resource/images/icon.jpg"> <!-- ページアイコン -->
+</head>
+
+<body>
+	<audio muted loop id="bgm" preload="auto" src="Resource/bgm/Ambient.mp3"type="audio/mp3"></audio>
+
+	<!-- タイトル -->
+	<div style="position: relative; display: inline-block; width: 100%;">
+		<span class="header"><b>GEOGUESSR®っぽい何か</b></span>
+		<span class="title"><b>GEOGUESSR®っぽい何か</b></span>
+	</div>
+	
+	<!-- 検索バー -->
+	<div class="search-container">
+		<input type="text" id="searchBar" placeholder="検索（例: アジア, 日本, 世界）" onkeyup="filterCards()">
+	</div>
+
+	<!-- ブロックのグリッドコンテナ -->
+	<div class="grid-container">
+		<div class="card" data-keywords="a random picked world 世界">
+			<img src="Resource/mapimg/world.png" alt="world.png">
+			<h3>A Random picked world</h3>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=world';">プレイ</button>
+		</div>
+
+		<div class="card" data-keywords="japan アジア 日本">
+			<img src="Resource/mapimg/japan.png" alt="japan.png">
+			<h3>日本</h3>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=japan';">プレイ</button>
+		</div>
+
+		<div class="card" data-keywords="an urban japan 日本 アジア urban 都会">
+			<img src="Resource/mapimg/japan.png" alt="AAJ.png">
+			<h3>日本都市部</h3>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=urbanjapan';">プレイ</button>
+		</div>
+
+		<div class="card" data-keywords="madagascar マダガスカル madagasukaru">
+			<img src="Resource/mapimg/madagascar.png" alt="madagascar.png">
+			<h3>マダガスカル</h3>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=madagascar';">プレイ</button>
+		</div>
+
+		<div class="card" data-keywords="ヨーロッパ eu europe 欧州">
+			<img src="Resource/mapimg/europe.png" alt="europe.png">
+			<h3>ヨーロッパ</h3>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=europe';">プレイ</button>
+		</div>
+
+		<div class="card" data-keywords="sanmarino san marino ヨーロッパ eu">
+			<img src="Resource/mapimg/sanmarino.png" alt="sanmarino.png">
+			<h3>サン・マリノ(制作中)</h3>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=sanmarino';">プレイ</button>
+		</div>
+
+		<div class="card" data-keywords="岡山市 岡山県 日本 西日本 中国地方 okayama">
+			<img src="Resource/mapimg/okayamacity.png" alt="okayamacity.png">
+			<h3>岡山市(制作中)</h3>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=okayama';">プレイ</button>
+		</div>
+
+		<div class="card" data-keywords="航空自衛隊 SDF 日本">
+			<img src="Resource/mapimg/sdf.png" alt="SDF.png">
+			<h3>SDF(制作中)</h3>
+			<button onclick="location.href='Resource/maphtmls/game.html?map=sdf';">プレイ</button>
+		</div>
+	</div>
+	
+	<p id="noResults" style="display: none; text-align: center; font-size: 1.2em; color:rgba(225, 225, 225, 0.63)">検索結果なし</p>
+
+	<button id="settingsButton" onclick="openPopup()">	⚙</button>
+
+	<button id="menuBackButton" onclick="location.href='index.html'">← メニュー</button>
+
+	<div style="z-index: 70;position: fixed;color: rgb(190, 190, 190);bottom: 0; user-select: none;">v2.1</div>
+	<div class="footer">
+		powered by: Google Map, Leaflet, Visual Studio Code<br>made by it_s_moto, Inspired by GEOGUESSR, for my friends
+	</div>
+
+	<script src="Resource/src/settings.js"></script>
+	<script>
+		function filterCards() {
+			const searchInput = document.getElementById('searchBar').value.toLowerCase();
+			const cards = document.querySelectorAll('.card');
+			let anyVisible = false;
+
+			cards.forEach(card => {
+				const keywords = card.getAttribute('data-keywords');
+				if (keywords.includes(searchInput)) {
+					card.style.display = '';
+					anyVisible = true;
+				} else {
+					card.style.display = 'none';
+				}
+			});
+
+			document.getElementById('noResults').style.display = anyVisible ? 'none' : 'block';
+		}
+	</script>
+</body>
+
+</html>

@@ -790,12 +790,18 @@ function bgmVolume() {
     return 0.3;
 }
 
+// ラウンドが始まったらランダムに1曲
+// オンオフはメニューの設定と共通 ('bgmOn' が 'false' ならミュート、保存がなければオン)
 function playRoundMusic() {
     const bgm = $('bgm');
     bgm.src = '../bgm/' + ROUND_MUSIC[Math.floor(Math.random() * ROUND_MUSIC.length)] + '.mp3';
     bgm.volume = bgmVolume();
+    bgm.muted = localStorage.getItem('bgmOn') === 'false';
     bgm.currentTime = 0;
-    bgm.play().catch(() => {});
+    bgm.play().catch(() => {
+        // リンクから直接入ってまだ一度もクリックしてないと止められるので、最初のクリックで鳴らす
+        document.addEventListener('pointerdown', () => bgm.play().catch(() => {}), { once: true });
+    });
 }
 
 function stopMusic() {
