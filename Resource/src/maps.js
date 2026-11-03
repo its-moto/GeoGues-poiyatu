@@ -56,5 +56,13 @@ const MAPS = {
         view: [[37, 135], 4],
         resultView: [[38, 138], 5],
         mapSize: 7
+    },
+    // Claudeが公式ストリートビューから選んだ日本の地点 (設定は日本マップと同じ)
+    claudejapan: {
+        name: '日本 (Claudeセレクト)',
+        file: 'CJPlinks.js',
+        view: [[37, 135], 4],
+        resultView: [[38, 138], 5],
+        mapSize: 7
     }
 };
