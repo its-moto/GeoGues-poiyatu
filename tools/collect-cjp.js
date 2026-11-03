@@ -78,14 +78,19 @@ function existingIds() {
 
 // 1か所を調べる: 新しいページで開き、URLにパノラマIDが出るまで待つ
 // 失敗の理由を数える (原因を調べるため)
-const fails = { err: 0, consent: 0, other: 0 };
+const fails = { err: 0, aborted: 0, consent: 0, other: 0 };
 let lastErr = '';
 
 async function probe(context, lat, lng) {
     let page;
     try {
         page = await context.newPage();
-        await page.goto(`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat.toFixed(5)},${lng.toFixed(5)}&hl=ja`, { timeout: 30000 });
+        // ページ側が読み込み途中で自分のURLを書き換えると ERR_ABORTED になることがあるが、
+        // そのままページは開き続けるので無視して下のURLチェックへ進む
+        await page.goto(`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat.toFixed(5)},${lng.toFixed(5)}&hl=ja`, { timeout: 30000, waitUntil: 'commit' })
+            .catch(e => { if (!/ERR_ABORTED/.test(e.message)) throw e; fails.aborted++; });
+        // 同意画面かどうか判定できるよう、HTMLが読み込まれるまでは待つ
+        await page.waitForLoadState('domcontentloaded', { timeout: 15000 }).catch(() => {});
         // Cookieの同意画面が出たら「すべて拒否」を押して先へ進む
         if (page.url().includes('consent.google')) {
             fails.consent++;
@@ -102,11 +107,12 @@ async function probe(context, lat, lng) {
             await page.waitForTimeout(500);
         }
         // マップ以外のページで止まっていたら、そのURLの先頭だけ覚えておく (地名は含まれない)
-        if (!/google\.[a-z.]+\/maps\/@/.test(page.url())) { fails.other++; lastErr = 'url: ' + page.url().slice(0, 60); }
+        if (!/google\.[a-z.]+\/maps\/@/.test(page.url())) { fails.other++; lastErr = 'url: ' + page.url().slice(0, 40); }
         return null;
     } catch (e) {
         fails.err++;
-        lastErr = String(e.message).split('\n')[0].slice(0, 120);
+        // 座標を含むURLは出さず、エラーの種類だけ残す
+        lastErr = String(e.message).split('\n')[0].replace(/ at https?:\S+/, '').slice(0, 120);
         return null;
     } finally {
         if (page) await page.close().catch(() => {});
