@@ -35,6 +35,9 @@ const CITIES = [
     [31.596, 130.557], [33.239, 131.609], [26.212, 127.681], [40.822, 140.747], [39.702, 141.154],
 ];
 
+// Ctrl+C が押されたら true になる
+let stopping = false;
+
 const rand = (a, b) => a + Math.random() * (b - a);
 
 // 重みに従って地方を1つ選ぶ
@@ -74,10 +77,21 @@ function existingIds() {
 }
 
 // 1か所を調べる: 新しいページで開き、URLにパノラマIDが出るまで待つ
+// 失敗の理由を数える (原因を調べるため)
+const fails = { err: 0, consent: 0, other: 0 };
+let lastErr = '';
+
 async function probe(context, lat, lng) {
-    const page = await context.newPage();
+    let page;
     try {
+        page = await context.newPage();
         await page.goto(`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat.toFixed(5)},${lng.toFixed(5)}&hl=ja`, { timeout: 30000 });
+        // Cookieの同意画面が出たら「すべて拒否」を押して先へ進む
+        if (page.url().includes('consent.google')) {
+            fails.consent++;
+            await page.locator('button:has-text("すべて拒否"), button:has-text("Reject all")').first().click({ timeout: 10000 });
+            await page.waitForURL(/google\.[a-z.]+\/maps/, { timeout: 20000 });
+        }
         // 最大12秒、URLに "!1s<ID>!2e<種類>" が出るのを待つ
         for (let i = 0; i < 24; i++) {
             const m = page.url().match(/@(-?[\d.]+),(-?[\d.]+).*?!1s([^!]+)!2e(\d+)/);
@@ -87,11 +101,15 @@ async function probe(context, lat, lng) {
             }
             await page.waitForTimeout(500);
         }
+        // マップ以外のページで止まっていたら、そのURLの先頭だけ覚えておく (地名は含まれない)
+        if (!/google\.[a-z.]+\/maps\/@/.test(page.url())) { fails.other++; lastErr = 'url: ' + page.url().slice(0, 60); }
         return null;
-    } catch {
+    } catch (e) {
+        fails.err++;
+        lastErr = String(e.message).split('\n')[0].slice(0, 120);
         return null;
     } finally {
-        await page.close();
+        if (page) await page.close().catch(() => {});
     }
 }
 
@@ -107,12 +125,26 @@ async function main() {
         .catch(() => chromium.launch({ channel: 'chrome', headless: true }));
     const context = await browser.newContext({ locale: 'ja-JP' });
 
+    // Ctrl+C で止めたら、ブラウザを閉じてきれいに終わる (集めた分は保存済み)
+    process.on('SIGINT', async () => {
+        stopping = true;
+        console.log(`\n停止しました。採用 ${found.length} 件は保存済み`);
+        await browser.close().catch(() => {});
+        process.exit(0);
+    });
+
     // 同時に TABS 本ずつ調べる
     const worker = async () => {
         while (found.length < TARGET) {
             const [lat, lng] = nextPoint();
             stats.tried++;
             const r = await probe(context, lat, lng);
+            if (stopping) break;
+            // 20回ごとに途中経過を出す (件数だけ、地名は出さない)
+            if (stats.tried % 20 === 0) {
+                console.log(`試行 ${stats.tried} / 採用 ${found.length} / 内訳 ${JSON.stringify({ ...stats, ...fails })}`);
+                if (lastErr) console.log('  直近の失敗:', lastErr);
+            }
             if (!r) { stats.none++; continue; }
             // 公式 (!2e0) かつIDが22文字のものだけ採用 (投稿写真は除外)
             if (r.type !== '0' || r.id.length !== 22) { stats.user++; continue; }
