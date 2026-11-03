@@ -262,6 +262,7 @@ body.menu-page::before {
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
     cursor: pointer;
+    white-space: nowrap; /* 狭い画面でも「あそぶ」が折り返さないように */
     background: radial-gradient(ellipse at top, #97E851, #6CB928);
     /* 下の濃い緑の影でボタンに厚みを出してる + ぼんやりした影 */
     box-shadow: 0 6px 0 #4f8d1b, 0 10px 25px rgba(0, 0, 0, 0.4);
@@ -337,4 +338,152 @@ body.menu-page::before {
 .menu-footer span {
     color: rgba(255, 255, 255, 0.7);
     margin-right: 10px;
+}
+
+/*======================================================================================*/
+/*スマホ対応*/
+
+/* ---- スマホ縦向き (幅が狭い): 上から ロゴ → 地球 → あそぶ → メニュー → 部屋コード と縦に並べる ---- */
+@media (max-width: 600px) {
+    body.menu-page {
+        height: auto;            /* 中身の分だけ縦に伸びる */
+        min-height: 100vh;
+        overflow-y: auto;        /* 入りきらなければスクロール */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 16px 30px;
+        box-sizing: border-box;
+        /* 地球のうしろの光を上のほうに */
+        background:
+            radial-gradient(ellipse 90% 35% at 50% 30%, rgba(92, 196, 255, 0.2) 0%, rgba(92, 196, 255, 0) 70%),
+            radial-gradient(ellipse 120% 80% at 30% 0%, rgba(60, 162, 98, 0.25) 0%, rgba(126, 210, 249, 0) 40%),
+            linear-gradient(155deg, #335c80 0%, #2a2a4e 45%, #1A1A2E 100%);
+    }
+
+    /* 絶対配置をやめて、上から順番に並べる */
+    .menu-logo,
+    .menu-list,
+    .menu-stage,
+    .menu-join,
+    .menu-footer {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        transform: none;
+    }
+
+    /* HTMLの順番 (ロゴ→メニュー→地球) じゃなくて、ロゴ→地球→メニューの順に見せる */
+    .menu-logo { order: 0; }
+    .menu-stage { order: 1; }
+    .menu-list { order: 2; }
+    .menu-join { order: 3; }
+    .menu-footer { order: 4; }
+
+    .menu-logo {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    /* 地球: 画面幅の6割くらい。上にピン、下にボタンがはみ出すので上下に余白 */
+    .menu-stage {
+        width: min(62vw, 300px);
+        margin: 60px 0 80px;
+    }
+
+    .menu-play {
+        font-size: 24px;
+        padding: 10px 46px;
+        bottom: -26%;
+    }
+
+    /* メニューは真ん中そろえ */
+    .menu-list {
+        align-items: center;
+        gap: 4px;
+    }
+    .menu-item.big {
+        font-size: 28px;
+    }
+    .menu-item {
+        font-size: 19px;
+    }
+    .menu-item.news {
+        font-size: 14px;
+        text-align: center;
+    }
+    .menu-divider {
+        width: 200px;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    }
+    /* 指でさわるのでホバーで右にずれないように */
+    .menu-item:hover {
+        translate: 0 0;
+    }
+
+    .menu-join {
+        margin-top: 24px;
+    }
+
+    .menu-footer {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 10px;
+    }
+}
+
+/* ---- スマホ横向き (高さが低い): パソコンと同じ並びのまま全部小さく ---- */
+@media (max-height: 500px) and (min-width: 601px) {
+    .menu-logo {
+        top: 10px;
+        left: 20px;
+        font-size: 20px;
+    }
+
+    .menu-list {
+        left: 4%;
+        gap: 2px;
+    }
+    .menu-item.big {
+        font-size: 24px;
+    }
+    .menu-item {
+        font-size: 16px;
+    }
+    .menu-item.news {
+        font-size: 12px;
+        margin-top: 2px;
+    }
+    .menu-divider {
+        width: 200px;
+        margin: 4px 0;
+    }
+
+    /* 地球は高さに合わせる (下にボタンが出るぶん小さめ) */
+    .menu-stage {
+        width: min(55vh, 36vw);
+        top: 46%;
+        left: 58%;
+    }
+    .menu-play {
+        font-size: 18px;
+        padding: 7px 34px;
+        bottom: -24%;
+    }
+
+    .menu-join {
+        right: 14px;
+        bottom: 30px;
+        padding: 8px 10px;
+    }
+    .menu-join input {
+        width: 80px;
+        font-size: 15px;
+    }
+
+    .menu-footer {
+        display: none; /* 狭いのでクレジットは隠す (READMEに書いてある) */
+    }
 }

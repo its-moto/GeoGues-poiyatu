@@ -587,6 +587,7 @@ function startRound(msg) {
     stopSE(countdownSound);
     countdownSound = null;
     document.querySelector('.timer').getAnimations().forEach(animation => animation.cancel()); // 小さくなったタイマーを戻す
+    closeMiniMap(); // スマホで大きくした地図を小さく戻す (cssanimation.js)
 
     ensurePlayMap();
     if (pinMarker) {
@@ -834,7 +835,9 @@ function ensureResultMap() {
 }
 
 // 結果の地図を、渡した地点が全部入り切るズームにする (1か所だけならsingleZoomで中心に)
+let lastFit = null; // スマホを横にしたときにやり直す用
 function fitResultMap(latLngs, singleZoom) {
+    lastFit = { latLngs: latLngs, singleZoom: singleZoom };
     setTimeout(() => {
         resultMap.invalidateSize({ pan: false });
         if (latLngs.length == 1) {
@@ -844,6 +847,16 @@ function fitResultMap(latLngs, singleZoom) {
         }
     }, 100);
 }
+
+// スマホを縦⇔横にして画面の大きさが変わったら、結果の地図のズームをやり直す
+window.addEventListener('resize', () => {
+    clearTimeout(window.refitTimer);
+    window.refitTimer = setTimeout(() => {
+        if (lastFit && $('resultView').style.display === 'flex') {
+            fitResultMap(lastFit.latLngs, lastFit.singleZoom);
+        }
+    }, 300); // 回転中に何回も呼ばれるので、落ち着いてから1回だけ
+});
 
 // guessしたあと、みんなを待ってる間はリザルト画面に自分のピンだけ出す
 function showWaiting() {

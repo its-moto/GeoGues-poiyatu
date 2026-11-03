@@ -236,3 +236,74 @@ input:checked + .slider:before {
     cursor: pointer;
     background-color: rgba(225, 225, 225, 0.25);
 }
+
+/*======================================================================================*/
+/*スマホ対応 (マップ選択と設定のポップアップ)*/
+
+/* 画面が狭いとき (スマホ縦向き・タブレット) */
+@media (max-width: 900px) {
+    /* タイトルを小さく、左の余白も小さく */
+    .header,
+    .title {
+        font-size: 24px;
+        padding-left: 16px;
+    }
+    .header {
+        -webkit-text-stroke: 4px rgb(207, 20, 43);
+    }
+
+    .search-container {
+        margin: 24px 16px 16px;
+    }
+    .search-container input {
+        width: 100%;
+        max-width: 300px;
+        box-sizing: border-box;
+    }
+
+    /* カードは入るだけ横に並べる (1枚最低150px) */
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 16px;
+        margin: 16px;
+    }
+    .card {
+        width: 100%;
+    }
+    .card img {
+        height: 110px;
+    }
+    .card h3 {
+        font-size: 15px;
+    }
+
+    /* 設定のポップアップ */
+    .popup-content {
+        width: 92%;
+        padding: 10px;
+        line-height: 32px;
+        font-size: 14px;
+    }
+    .popup-content h2 {
+        margin: 6px 0;
+        font-size: 20px;
+    }
+    .gmp-slider {
+        width: 130px;
+    }
+}
+
+/* スマホ横向き (高さが低い): ポップアップが入りきらないときはスクロール */
+@media (max-height: 500px) {
+    .popup-overlay {
+        align-items: flex-start;
+        overflow-y: auto;
+    }
+    .popup-content {
+        line-height: 28px;
+    }
+    .popup-content h2 {
+        margin: 4px 0;
+        font-size: 18px;
+    }
+}

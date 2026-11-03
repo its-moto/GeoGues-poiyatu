@@ -714,3 +714,355 @@ select:disabled {
 #winnerText.red {
     text-shadow: 0 0 20px #E94560, 0 0 5px #E94560, 0 3px 0 #E94560;
 }
+
+/*======================================================================================*/
+/*スマホ対応*/
+
+/* ---- スマホ縦向き (幅が狭い) ---- */
+@media (max-width: 600px) {
+    /* 参加画面 */
+    .party-title {
+        font-size: 30px;
+    }
+
+    /* ---- ロビー ---- */
+    #lobbyView {
+        padding: 14px 12px;
+    }
+    .lobby-leave {
+        top: 10px;
+        right: 10px;
+        height: 40px;
+        padding: 4px 12px;
+        font-size: 15px;
+    }
+    .lobby-header {
+        margin-top: 40px; /* 右上の退出ボタンとかぶらないように */
+    }
+    .lobby-title {
+        font-size: 17px;
+        padding: 6px 22px;
+    }
+    #lobbyCode {
+        font-size: 24px;
+    }
+
+    /* チームは 「VS.とボタン」を上に横並び、その下に青と赤を左右に */
+    .lobby-teams {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "center center"
+            "blue red";
+        gap: 10px;
+        margin: 14px 0;
+    }
+    .lobby-center {
+        grid-area: center;
+        flex-direction: row;
+        width: auto;
+        gap: 10px;
+    }
+    .lobby-center .party-btn {
+        padding: 6px 14px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+    .vs-text {
+        font-size: 34px;
+    }
+    #teamBlue { grid-area: blue; }
+    #teamRed { grid-area: red; }
+
+    .team-column {
+        min-height: 140px;
+        padding: 10px 6px;
+        gap: 8px;
+    }
+    .team-name {
+        font-size: 16px;
+    }
+
+    /* プレイヤーのカードを小さく */
+    .player-card {
+        width: 72px;
+        height: 90px;
+        gap: 4px;
+    }
+    .player-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    .player-name {
+        font-size: 11px;
+        max-width: 66px;
+    }
+    .player-badge {
+        font-size: 8px;
+        padding: 0 3px;
+    }
+
+    /* 下の設定カードは3つ横に並べる */
+    .lobby-cards {
+        flex-wrap: nowrap;
+        gap: 6px;
+        width: 100%;
+    }
+    .lobby-card {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+        padding: 8px 8px;
+    }
+    .lobby-card-value {
+        font-size: 12px;
+    }
+    .lobby-card-label {
+        font-size: 10px;
+    }
+    #startButton {
+        margin-top: 12px;
+        font-size: 19px;
+    }
+
+    /* 設定のポップアップは1列に */
+    .settings-grid {
+        grid-template-columns: 1fr;
+    }
+    .settings-panel {
+        padding: 18px 16px;
+    }
+
+    /* ---- プレイ画面 ---- */
+    /* 左上のラウンド表示は小さく (かわりにembedのリンクは透明な板でふさいでる) */
+    #playView #total {
+        min-width: 0;
+    }
+    /* HPバーは左上の表示の下に、画面の横いっぱいで */
+    #hpBar {
+        top: 58px;
+        width: calc(100% - 20px);
+        gap: 10px;
+    }
+    #hpBar .hp-box {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+    }
+    .hp-label {
+        font-size: 12px;
+    }
+    #playView .timer {
+        top: 112px;
+    }
+    #guessStatus {
+        top: 154px;
+        font-size: 15px;
+    }
+
+    /* ---- カウントダウン ---- */
+    #introRound {
+        font-size: 22px;
+    }
+    #introMultiplier {
+        font-size: 44px;
+    }
+    #introCount {
+        font-size: 48px;
+    }
+    .intro-bottom {
+        bottom: 40px;
+        font-size: 15px;
+    }
+
+    /* ---- ラウンド結果 ---- */
+    #resultView {
+        padding: 10px;
+        overflow-y: auto;
+    }
+    #resultMode {
+        font-size: 13px;
+    }
+    #resultTitle {
+        font-size: 20px;
+        width: 90%;
+        margin-bottom: 10px;
+        padding-bottom: 6px;
+    }
+    .result-map-wrap {
+        width: 100%;
+        min-height: 220px;
+    }
+    .result-hp {
+        width: 42%;
+    }
+    .result-hp.blue {
+        left: 6px;
+    }
+    .result-hp.red {
+        right: 6px;
+    }
+    .result-table {
+        width: 100%;
+    }
+    .result-table > .result-label {
+        padding: 6px 4px;
+        font-size: 10px;
+    }
+    .result-distance,
+    .result-nearest {
+        font-size: 15px;
+    }
+    .result-score,
+    #flyNumber,
+    #flyNumber2 {
+        font-size: 34px;
+    }
+
+    /* ---- 試合終了 ---- */
+    #winnerSub {
+        font-size: 20px;
+    }
+    #winnerText {
+        font-size: 36px;
+        text-align: center;
+    }
+}
+
+/* ---- スマホ横向き (高さが低い) ---- */
+@media (max-height: 500px) {
+    /* 参加画面: 入りきらなければスクロール */
+    #entryView {
+        justify-content: flex-start;
+        overflow-y: auto;
+        padding: 10px;
+    }
+    .party-title {
+        font-size: 26px;
+        margin: 6px 0 10px;
+    }
+
+    /* ロビー: 全体を少しずつ小さく */
+    #lobbyView {
+        padding: 10px 16px;
+    }
+    .lobby-title {
+        font-size: 16px;
+        padding: 4px 22px;
+    }
+    .lobby-code {
+        margin-top: 4px;
+    }
+    #lobbyCode {
+        font-size: 22px;
+    }
+    .lobby-teams {
+        margin: 10px 0;
+    }
+    .team-column {
+        min-height: 120px;
+        padding: 8px;
+        gap: 8px;
+    }
+    .player-card {
+        width: 80px;
+        height: 96px;
+        gap: 4px;
+    }
+    .player-avatar {
+        width: 42px;
+        height: 42px;
+        font-size: 22px;
+    }
+    .vs-text {
+        font-size: 40px;
+    }
+    .lobby-center {
+        width: 130px;
+        gap: 8px;
+    }
+    .lobby-center .party-btn {
+        padding: 6px 14px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+    .lobby-card {
+        padding: 8px 12px;
+    }
+    #startButton {
+        margin-top: 10px;
+        padding: 8px 32px;
+        font-size: 18px;
+    }
+
+    /* プレイ画面: HPバーを少し細く (左上のラウンド表示とかぶらないように) */
+    #hpBar .hp-box {
+        width: 170px;
+    }
+    .hp-label {
+        font-size: 12px;
+    }
+    #playView .timer {
+        top: 56px;
+    }
+    #guessStatus {
+        top: 96px;
+        font-size: 15px;
+    }
+
+    /* カウントダウン */
+    #introMultiplier {
+        font-size: 50px;
+    }
+    #introCount {
+        font-size: 40px;
+    }
+    .intro-bottom {
+        bottom: 16px;
+    }
+
+    /* ラウンド結果: 縦が足りないのでスクロールできるように、地図は低め */
+    #resultView {
+        padding: 8px 16px;
+        overflow-y: auto;
+    }
+    #resultMode {
+        display: none;
+    }
+    #resultTitle {
+        font-size: 18px;
+        margin: 0 0 8px;
+        padding-bottom: 4px;
+    }
+    .result-map-wrap {
+        flex: none;
+        height: 46vh;
+        min-height: 140px;
+        margin-bottom: 24px;
+    }
+    .result-hp {
+        width: 200px;
+    }
+    .result-table > div {
+        padding: 3px 0;
+    }
+    .result-distance,
+    .result-nearest {
+        font-size: 15px;
+    }
+    .result-score,
+    #flyNumber,
+    #flyNumber2 {
+        font-size: 32px;
+    }
+    #nextButton {
+        padding: 6px 22px;
+        font-size: 16px;
+    }
+
+    /* 試合終了 */
+    #winnerText {
+        font-size: 40px;
+    }
+}

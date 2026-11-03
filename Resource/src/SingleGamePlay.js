@@ -49,6 +49,7 @@ function showRandomStreetView() {
     timerInterval = null;
     stopSE(tickingClock);
     document.querySelector('.timer').getAnimations().forEach(animation => animation.cancel()); // 小さくなったタイマーを戻す
+    if (typeof closeMiniMap === 'function') closeMiniMap(); // スマホで大きくした地図を小さく戻す (cssanimation.js)
     let totalRound = document.getElementById('totalRound');
     totalRound.textContent = parseFloat(totalRound.textContent)+1;
     
@@ -293,7 +294,9 @@ function normalizeLongitude(lng) {
 
 // 結果の地図を、渡した地点が全部入り切るズームにする
 // (表示した直後は地図のサイズが0のことがあるので、少し待ってサイズを測り直してから)
+let lastFit = null; // スマホを横にしたときにやり直す用
 function fitResultMap(targetMap, latLngs) {
+    lastFit = { targetMap: targetMap, latLngs: latLngs };
     setTimeout(() => {
         targetMap.invalidateSize({ pan: false });
         if (latLngs.length == 1) {
@@ -303,6 +306,16 @@ function fitResultMap(targetMap, latLngs) {
         }
     }, 100);
 }
+
+// スマホを縦⇔横にして画面の大きさが変わったら、結果の地図のズームをやり直す
+window.addEventListener('resize', () => {
+    clearTimeout(window.refitTimer);
+    window.refitTimer = setTimeout(() => {
+        if (lastFit && nowDisplay != 'play') {
+            fitResultMap(lastFit.targetMap, lastFit.latLngs);
+        }
+    }, 300); // 回転中に何回も呼ばれるので、落ち着いてから1回だけ
+});
 
 // 距離を計算して表示する関数
 function formatDistance(distance) {

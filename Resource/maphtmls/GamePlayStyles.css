@@ -578,3 +578,191 @@ input:checked + .slider:before {
 .leaflet-control-zoom a {
     color: black;
 }
+
+/*======================================================================================*/
+/*スマホ対応 (シングルのゲーム画面と対戦のプレイ画面で共通)*/
+
+/* ---- スマホ (マウスがない端末): 地図はタップで大きく、✕で小さく (cssanimation.jsでbodyにtouchが付く) ---- */
+/* 小さいとき (タップしても:hoverで勝手に大きくならないように、:hoverのときも同じ大きさにしておく) */
+body.touch #map-container,
+body.touch #map-container:hover {
+    width: 160px;
+    height: 120px;
+    right: 10px;
+    bottom: 58px;
+    opacity: 0.85;
+    transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+}
+
+/* 大きくしたとき (縦向き): 画面の横いっぱい、高さは半分 */
+body.touch #map-container.open,
+body.touch #map-container.open:hover {
+    width: calc(100vw - 20px);
+    height: 55vh;
+    opacity: 1;
+    z-index: 35; /* 左下の⚙と🏳️(z-index 30)より前に */
+}
+
+/* 小さいときはズームボタンとかを隠してスッキリ (大きくしたら出てくる) */
+body.touch #map-container:not(.open) .leaflet-control-container {
+    display: none;
+}
+
+/* スマホの埋め込みは左上に「Googleマップで見る」が出て、押すと答えがわかっちゃうので
+   その辺を透明な板でふさいで押せないようにする (左上のラウンド表示の下あたり)
+   対戦はロビーとかの画面もあるので、プレイ画面(#playView)の中だけ */
+body.touch:not(.party-page)::after,
+body.touch #playView::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100px;
+    z-index: 7; /* ストリートビューより前、ラウンド表示(z-index 8)よりうしろ */
+}
+
+/* 大きくしたとき (横向き): 右側に、高さいっぱい */
+@media (orientation: landscape) {
+    body.touch #map-container.open,
+    body.touch #map-container.open:hover {
+        width: 60vw;
+        height: calc(100vh - 80px);
+    }
+}
+
+/* 中の地図は箱の大きさに合わせる (パソコンは600x400で固定) */
+body.touch #map {
+    width: 100%;
+    height: 100%;
+}
+
+/* guessボタンも地図の下にそろえて、いつもはっきり見せる */
+body.touch .guess-button {
+    right: 10px;
+    opacity: 1;
+}
+
+/* 大きくしたときだけ出る ✕ ボタン */
+#mapCloseButton {
+    display: none;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 1000; /* Leafletの地図より前に */
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    font-style: normal;
+    color: white;
+    background-color: rgba(26, 26, 46, 0.85);
+}
+body.touch #map-container.open #mapCloseButton {
+    display: block;
+}
+
+/* ---- 画面が小さいとき (スマホの縦向き・横向き): 上の表示や文字を小さく ---- */
+@media (max-width: 600px), (max-height: 500px) {
+    /* 左上のラウンドと点数 */
+    #total {
+        top: 8px;
+        font-size: 17px;
+        padding: 8px 18px;
+    }
+
+    /* 右上のマップ名 */
+    .map-name {
+        top: 8px;
+        font-size: 14px;
+        padding: 8px 12px 8px 26px;
+    }
+
+    /* タイマーは左上の表示の下に */
+    .timer {
+        top: 56px;
+        width: 86px;
+        height: 34px;
+    }
+    #countdown {
+        font-size: 17px;
+    }
+
+    /* 左下の⚙と🏳️ */
+    .itemIcon {
+        left: 12px;
+        bottom: 14px;
+        width: 44px;
+        height: 44px;
+    }
+
+    /* リザルトの距離と点数 */
+    #distance {
+        font-size: 18px;
+        bottom: 70px;
+    }
+    #nextRound {
+        font-size: 20px;
+    }
+
+    /* 設定のポップアップ */
+    .popup-content {
+        width: 92%;
+        padding: 10px;
+    }
+
+    /* 最後の結果画面 */
+    #finalBar {
+        padding: 0 12px;
+    }
+    #finalBarText {
+        font-size: 15px;
+    }
+    #finalNext {
+        padding: 8px 22px;
+        font-size: 17px;
+    }
+    .final-stats-box {
+        min-width: 0;
+        width: 90%;
+        padding: 16px;
+        box-sizing: border-box;
+    }
+    .final-stats-box h2 {
+        font-size: 26px;
+    }
+    .final-stat {
+        font-size: 17px;
+        gap: 12px;
+        margin: 12px 0;
+    }
+}
+
+/* 横向きで高さがないときは、リザルトの地図を少し小さくして下の表示とかぶらないように */
+@media (max-height: 500px) {
+    /* マウスで大きくしたときも画面からはみ出さないように (スマホ以外の低い画面用) */
+    #map-container:hover {
+        width: min(600px, 60vw);
+        height: calc(100vh - 80px);
+    }
+    #remap {
+        height: 70%;
+    }
+    #distance {
+        bottom: 56px;
+        padding: 6px 10px;
+    }
+    #nextRound {
+        bottom: 8px;
+        padding: 6px 24px;
+    }
+    #finalBar {
+        height: 14%;
+    }
+    #finalMap {
+        height: 86%;
+    }
+}
