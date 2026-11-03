@@ -65,6 +65,8 @@ let playMap, resultMap, resultLayer;
 function showView(name) {
     document.querySelectorAll('.view').forEach(view => view.style.display = 'none');
     $(name + 'View').style.display = name === 'play' ? 'block' : 'flex';
+    document.body.dataset.view = name; // <body data-view="result"> みたいになる
+    closeReactionWheel();
 }
 
 function showEntryError(text) {
@@ -233,7 +235,22 @@ function handleGuestMessage(id, msg) {
         case 'pin':
             relayPin(id, msg.latlng);
             break;
+        case 'reaction':
+            relayReaction(id, msg.emoji);
+            break;
     }
+}
+
+// リアクションを全員に配る (決まった絵文字だけ、1人0.4秒に1回まで)
+const lastReactionAt = {};
+function relayReaction(id, emoji) {
+    if (!REACTIONS.includes(emoji)) return;
+    const player = state.players.find(p => p.id === id);
+    if (!player) return;
+    const now = performance.now();
+    if (now - (lastReactionAt[id] || 0) < 400) return;
+    lastReactionAt[id] = now;
+    broadcast({ type: 'reaction', id: id, name: player.name, team: player.team, emoji: emoji });
 }
 
 // guess前にピンを置いた/動かしたのを、同じチームの人にだけ伝える
@@ -352,6 +369,9 @@ function handleHostMessage(msg) {
             break;
         case 'pin':
             onTeammatePin(msg);
+            break;
+        case 'reaction':
+            showReaction(msg);
             break;
         case 'hostTransfer':
             startHostTransfer(msg);
@@ -639,7 +659,8 @@ function nextRound() {
         multiplier: getMultiplier(game.round),
         hp: game.hp
     });
-    setRoundDeadline(state.settings.time + INTRO_SECONDS);
+    // 時間なし(0)のときは保険もなし (前は0+カウントダウン5秒で15秒後に勝手に終わってた)
+    setRoundDeadline(state.settings.time > 0 ? state.settings.time + INTRO_SECONDS : 0);
 }
 
 // ゲストの時間切れが届かなかったとき用の保険 (読み込み時間ぶん余裕をもたせる)
@@ -861,7 +882,7 @@ function submitGuess(timeUp) {
     if (hasGuessed || !currentRound) return;
     if (!myPin && !timeUp) return; // ピンが置かれてない
     hasGuessed = true;
-    stopTimer();
+    // タイマーは止めない (待機画面で残り時間を見せるため)。カウントダウンの音だけ止める
     stopSE(countdownSound);
     countdownSound = null;
     const latlng = myPin ? { lat: myPin.lat, lng: normalizeLongitude(myPin.lng) } : null;
@@ -942,7 +963,8 @@ function onGuessed(msg) {
         flashEdge();
         playSE('Opponent Guessed');
     }
-    if (msg.hurry && !hasGuessed) {
+    // guess済みでも、待機画面の残り時間のためにタイマーは縮める
+    if (msg.hurry) {
         hurryTimer(msg.hurry);
     }
 }
@@ -973,11 +995,19 @@ function stopTimer() {
     clearInterval(timerInterval);
     timerInterval = null;
     timerEnd = null;
+    $('waitingTimer').textContent = ''; // 待機画面の残り時間も消す
 }
 
 function updateTimer() {
     const left = Math.max(0, (timerEnd - performance.now()) / 1000);
     $('countdown').textContent = formatTime(Math.ceil(left));
+    $('waitingTimer').textContent = '残り ' + formatTime(Math.ceil(left)); // 待機画面の残り時間
+
+    // もうguessしたあとは、残り時間を見せるだけ (音・赤い画面・時間切れの処理はなし)
+    if (hasGuessed) {
+        if (left <= 0) stopTimer();
+        return;
+    }
 
     // 残り15秒を切ったらカウントダウンの音
     if (timerLastLeft > 15 && left <= 15 && !countdownSound) {
@@ -1326,8 +1356,82 @@ function showGameOver(msg) {
     $('gameOverWaiting').textContent = isHost ? '' : 'ホストがロビーに戻るのを待ってるよ';
 }
 
+//================================================リアクションホイール================================================
+// 画面の右の真ん中の😀を押すと、まわりに絵文字が丸く並ぶ → 押すとみんなの画面に絵文字が飛ぶ
+// ロビーでもプレイ中でもいつでも使える。キーボードの 1〜8 でも送れる
+// 'GG' みたいに文字のものは、黄色い文字で表示する (isTextReaction)
+const REACTIONS = ['👏', '😂', '😱', 'GG', '😭', '👍', '🤔', '🎉'];
+
+// 絵文字じゃなくて文字のリアクションか (英字だけならtrue)
+function isTextReaction(reaction) {
+    return /^[A-Za-z!]+$/.test(reaction);
+}
+
+// ホイールの絵文字ボタンを丸く並べる (最初に1回だけ作る)
+(function buildReactionWheel() {
+    const wheel = $('reactionWheel');
+    REACTIONS.forEach((emoji, i) => {
+        const button = document.createElement('button');
+        button.className = 'reaction-item' + (isTextReaction(emoji) ? ' text' : '');
+        button.textContent = emoji;
+        // 上(-90度)から時計回りに、同じ間隔で円の上に置く
+        const angle = -90 + i * (360 / REACTIONS.length);
+        button.style.setProperty('--angle', angle + 'deg');
+        button.style.setProperty('--delay', (i * 0.02) + 's'); // ちょっとずつずらして開く
+        button.addEventListener('click', () => {
+            sendReaction(emoji);
+            closeReactionWheel();
+        });
+        wheel.appendChild(button);
+    });
+})();
+
+function toggleReactionWheel() {
+    $('reactionWheel').classList.toggle('open');
+}
+
+function closeReactionWheel() {
+    $('reactionWheel').classList.remove('open');
+}
+
+function sendReaction(emoji) {
+    sendToHost({ type: 'reaction', emoji: emoji });
+}
+
+// 届いたリアクションを画面の下からふわっと浮かせて消す
+function showReaction(msg) {
+    const bubble = document.createElement('div');
+    bubble.className = 'reaction-bubble ' + msg.team;
+    bubble.style.left = (10 + Math.random() * 80) + '%'; // 横の位置はランダム
+
+    const emoji = document.createElement('div');
+    emoji.className = 'reaction-emoji' + (isTextReaction(msg.emoji) ? ' text' : '');
+    emoji.textContent = msg.emoji;
+    const name = document.createElement('div');
+    name.className = 'reaction-name';
+    name.textContent = msg.name; // 名前はtextContentで (HTMLとして読まないように)
+
+    bubble.append(emoji, name);
+    $('reactionLayer').appendChild(bubble);
+    // 浮き上がるアニメーション (party.cssのreactionFloat) が終わったら消す
+    bubble.addEventListener('animationend', () => bubble.remove());
+}
+
+// ホイールの外を押したら閉じる
+document.addEventListener('pointerdown', event => {
+    if (!event.target.closest('#reactionWheel') && !event.target.closest('#reactionButton')) {
+        closeReactionWheel();
+    }
+});
+
 //================================================キー操作================================================
 document.addEventListener('keydown', event => {
+    // 1〜8 のキーでリアクション (参加画面以外ならいつでも)
+    const view = document.body.dataset.view;
+    if (/^Digit[1-8]$/.test(event.code) && event.target.tagName !== 'INPUT' && view && view !== 'entry') {
+        sendReaction(REACTIONS[Number(event.code.slice(5)) - 1]);
+        return;
+    }
     if (event.code !== 'Space' || event.target.tagName === 'INPUT') return;
     if ($('playView').style.display === 'block') {
         event.preventDefault();

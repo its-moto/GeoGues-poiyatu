@@ -207,6 +207,7 @@
         <div id="resultMultiplier"></div>
         <button class="party-btn green host-only" id="nextButton" onclick="hostNext()">次のラウンド</button>
         <p id="resultWaiting"></p>
+        <div id="waitingTimer"></div> <!-- 待機中の残り時間 (タイマーが動いてるときだけ) -->
         <!-- 相手にぶつかっていく数字 -->
         <div id="flyNumber"></div>
         <div id="flyNumber2"></div>
@@ -219,6 +220,14 @@
         <button class="party-btn green host-only" onclick="backToLobby()">ロビーに戻る</button>
         <p id="gameOverWaiting"></p>
     </div>
+
+    <!-- リアクションホイール (画面の右の真ん中、参加画面以外ならいつでも) -->
+    <div id="reactionArea">
+        <div id="reactionWheel"></div>
+        <button id="reactionButton" onclick="toggleReactionWheel()" title="リアクション (1〜8キーでも)">😀</button>
+    </div>
+    <!-- 飛んできたリアクションを表示するところ -->
+    <div id="reactionLayer"></div>
 
     <!-- サウンドのポップアップ (ロビーとプレイ中の⚙から) -->
     <div id="soundModal" onclick="if (event.target === this) closeSound()">

@@ -813,6 +813,17 @@ select:disabled {
     visibility: hidden;
 }
 
+/* 待機中の残り時間 (待機画面のときだけ見せる) */
+#waitingTimer {
+    display: none;
+    font-size: 26px;
+    margin-top: 4px;
+    color: #FFCF3D;
+}
+#resultView.waiting #waitingTimer {
+    display: block;
+}
+
 #resultWaiting,
 #gameOverWaiting {
     color: #c7c7c7;
@@ -1213,5 +1224,188 @@ select:disabled {
         width: 40px;
         height: 40px;
         font-size: 18px;
+    }
+}
+
+/*======================================================================================*/
+/*リアクションホイール*/
+
+/* 右の真ん中の😀とホイール。参加画面以外ならいつでも出す (party.jsのshowViewがbodyにdata-viewを書く) */
+#reactionArea {
+    display: none;
+    position: fixed;
+    right: 16px;
+    top: 50%;
+    width: 56px;
+    height: 56px;
+    margin-top: -28px; /* 上下の真ん中 */
+    z-index: 1500;
+}
+body[data-view="lobby"] #reactionArea,
+body[data-view="intro"] #reactionArea,
+body[data-view="play"] #reactionArea,
+body[data-view="result"] #reactionArea,
+body[data-view="gameOver"] #reactionArea {
+    display: block;
+}
+
+#reactionButton {
+    position: relative;
+    z-index: 2;
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    margin: 0;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    font-size: 28px;
+    font-style: normal;
+    cursor: pointer;
+    background-color: rgba(26, 26, 46, 0.85);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    transition: transform 0.15s ease;
+}
+#reactionButton:hover {
+    transform: scale(1.08);
+}
+
+/* 絵文字のボタン: ふだんは真ん中に小さく隠れてて、開くと円の上に飛び出す */
+.reaction-item {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    margin: -23px 0 0 -23px; /* まんなか合わせ */
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    font-style: normal;
+    cursor: pointer;
+    background-color: rgba(26, 26, 46, 0.92);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    /* --angle の方向に回して、そっちに 0px 進む (= 真ん中) */
+    transform: rotate(var(--angle)) translate(0) rotate(calc(-1 * var(--angle))) scale(0.3);
+    transition: transform 0.25s cubic-bezier(0.2, 1.4, 0.4, 1), opacity 0.15s ease;
+    transition-delay: var(--delay);
+}
+#reactionWheel.open .reaction-item {
+    opacity: 1;
+    pointer-events: auto;
+    /* --angle の方向に 78px 進んだところ (最後に逆回転して絵文字はまっすぐのまま) */
+    transform: rotate(var(--angle)) translate(78px) rotate(calc(-1 * var(--angle))) scale(1);
+}
+.reaction-item:hover {
+    background-color: #7950E5;
+}
+/* GG みたいな文字のリアクションは黄色い文字 */
+.reaction-item.text {
+    font-size: 17px;
+    color: #FFCF3D;
+}
+
+/* 開いたときのうしろの丸い影 */
+#reactionWheel::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 210px;
+    height: 210px;
+    margin: -105px 0 0 -105px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26, 26, 46, 0.6) 40%, rgba(26, 26, 46, 0) 70%);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+#reactionWheel.open::before {
+    opacity: 1;
+    transform: scale(1);
+}
+/* ホイールの真ん中は😀の左 (画面の右はしで円が画面の外にはみ出さないように) */
+#reactionWheel {
+    position: absolute;
+    left: -110px;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* 飛んできたリアクション */
+#reactionLayer {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    pointer-events: none; /* 下の画面を押すじゃまをしない */
+    overflow: hidden;
+}
+
+.reaction-bubble {
+    position: absolute;
+    bottom: -80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    translate: -50% 0;
+    animation: reactionFloat 2.6s cubic-bezier(0.2, 0.7, 0.4, 1) forwards;
+}
+
+.reaction-emoji {
+    font-size: 54px;
+    font-style: normal;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+}
+/* 飛んでくる GG は黄色い文字で光らせる */
+.reaction-emoji.text {
+    font-size: 46px;
+    font-style: italic;
+    color: #FFCF3D;
+    text-shadow: 0 0 14px rgba(255, 207, 61, 0.8), 0 3px 0 #c98a00;
+}
+
+/* 送った人の名前 (チームの色) */
+.reaction-name {
+    font-size: 13px;
+    padding: 1px 8px;
+    border-radius: 10px;
+    background-color: rgba(26, 26, 46, 0.85);
+}
+.reaction-bubble.blue .reaction-name {
+    color: #5cc4ff;
+}
+.reaction-bubble.red .reaction-name {
+    color: #ff7a90;
+}
+
+/* 下からポンっと出て、ゆらゆら上がりながら消える */
+@keyframes reactionFloat {
+    0%   { transform: translateY(0) scale(0.4); opacity: 0; }
+    12%  { transform: translateY(-140px) scale(1.15); opacity: 1; }
+    20%  { transform: translateY(-170px) scale(1); }
+    50%  { transform: translateY(-300px) translateX(14px); }
+    80%  { transform: translateY(-420px) translateX(-10px); opacity: 1; }
+    100% { transform: translateY(-500px); opacity: 0; }
+}
+
+/* スマホ: 少し小さく */
+@media (max-width: 600px), (max-height: 500px) {
+    #reactionArea {
+        right: 8px;
+        width: 48px;
+        height: 48px;
+        margin-top: -24px;
+    }
+    #reactionButton {
+        width: 48px;
+        height: 48px;
+        font-size: 24px;
+    }
+    .reaction-emoji {
+        font-size: 42px;
     }
 }
