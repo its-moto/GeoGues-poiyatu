@@ -5,7 +5,6 @@
 // =====================================================================
 const PEER_PREFIX = 'geoppoi-poiyatu-'; // ほかのPeerJSユーザーとidが被らないように
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 0とOみたいな紛らわしい文字は抜いた
-const HURRY_SECONDS = 15; // 誰かがguessしたら残りをこの秒数に
 const INTRO_SECONDS = 5;  // ラウンド前のカウントダウン
 const TEAM_NAMES = { blue: 'BLUE', red: 'RED' };
 const TEAM_COLORS = { blue: '#00A2FE', red: '#E94560' };
@@ -26,7 +25,8 @@ let hostRetry = 0;
 let state = {
     players: [], // {id, name, team}
     // multiStart: 倍率がかかり始めるラウンド, multiStep: 1ラウンドごとの倍率の上がり幅
-    settings: { mode: 'duel', map: 'japan', time: 120, hp: 6000, multiStart: 5, multiStep: 0.5 },
+    // hurry: だれかがguessしたら残りをこの秒数に
+    settings: { mode: 'duel', map: 'japan', time: 120, hp: 6000, hurry: 15, multiStart: 5, multiStep: 0.5 },
     phase: 'lobby'
 };
 
@@ -40,6 +40,14 @@ let pinMarker = null;
 let hasGuessed = false;
 let guessedIds = []; // このラウンドでguess済みの人
 let teammateGuesses = []; // このラウンドのチームメイトのピン
+let livePins = {};        // チームメイトがguess前に置いてるピン (id → マーカー)
+let playerIcons = {};     // HPバーの下のプレイヤーアイコン (id → 要素)
+let lastPinSent = 0;      // ピンの位置を最後にホストに送った時間 (送りすぎないように)
+
+// ホスト交代用
+let transferring = false; // ホスト交代中 (接続が切れてもエラーにしない)
+let joinRetry = 0;        // 交代中に新しいホストにつなぎ直した回数
+let pendingTeams = {};    // 新しいホストが引き継いだ「名前 → チーム」 (つなぎ直してきた人を元のチームに戻す用)
 let teammateLayer;
 let roundLoaded = false;
 let introDone = false;
@@ -100,7 +108,8 @@ function joinFromInput() {
     joinParty(code);
 }
 
-function hostParty(code) {
+// carry: ホストを引き継いだときの設定とチーム ({settings, teams})。普通に部屋を作るときはなし
+function hostParty(code, carry) {
     isHost = true;
     partyCode = code;
     myId = 'host';
@@ -110,9 +119,18 @@ function hostParty(code) {
 
     peer.on('open', () => {
         hostRetry = 0;
+        transferring = false;
         sessionStorage.setItem('hostCode', code);
         history.replaceState(null, '', '?code=' + code);
-        state.players = [{ id: 'host', name: myName, team: 'blue' }];
+
+        // 引き継ぎなら設定とチームをそのまま使う
+        if (carry) {
+            state.settings = carry.settings;
+            pendingTeams = Object.assign({}, carry.teams);
+        }
+        const myTeamNow = pendingTeams[myName] || 'blue';
+        delete pendingTeams[myName];
+        state.players = [{ id: 'host', name: myName, team: myTeamNow }];
         state.phase = 'lobby';
         broadcastLobby();
     });
@@ -120,9 +138,10 @@ function hostParty(code) {
     peer.on('error', err => {
         if (err.type === 'unavailable-id') {
             // リロード直後は前の自分がまだ残ってることがあるので、少し待ってやり直す
+            // ホスト交代のときも、前のホストがコードを手放すまで少しかかるので同じようにやり直す
             if (sessionStorage.getItem('hostCode') === code && hostRetry < 5) {
                 hostRetry++;
-                setTimeout(() => hostParty(code), 3000);
+                setTimeout(() => hostParty(code, carry), 3000);
             } else {
                 hostParty(randomCode());
             }
@@ -145,10 +164,18 @@ function joinParty(code) {
         hostConn = peer.connect(PEER_PREFIX + code, { reliable: true });
         hostConn.on('open', () => hostConn.send({ type: 'hello', name: myName }));
         hostConn.on('data', handleHostMessage);
-        hostConn.on('close', () => showEntryError('ホストとの接続が切れたよ'));
+        hostConn.on('close', () => {
+            if (!transferring) showEntryError('ホストとの接続が切れたよ'); // ホスト交代中に切れるのは普通
+        });
     });
     peer.on('error', err => {
         if (err.type === 'peer-unavailable') {
+            // ホスト交代中は新しいホストの部屋ができるまで何回かやり直す
+            if (transferring && joinRetry < 10) {
+                joinRetry++;
+                setTimeout(() => joinParty(code), 1500);
+                return;
+            }
             showEntryError('部屋 ' + code + ' が見つからないよ');
         } else {
             showEntryError('接続エラー: ' + err.type);
@@ -189,7 +216,11 @@ function handleGuestMessage(id, msg) {
                 return;
             }
             if (state.players.some(p => p.id === id)) return;
-            state.players.push({ id: id, name: String(msg.name).slice(0, 12), team: smallerTeam() });
+            const name = String(msg.name).slice(0, 12);
+            // ホスト交代でつなぎ直してきた人は元のチームに
+            const team = pendingTeams[name] || smallerTeam();
+            delete pendingTeams[name];
+            state.players.push({ id: id, name: name, team: team });
             conns[id].send({ type: 'welcome', id: id });
             broadcastLobby();
             break;
@@ -199,7 +230,71 @@ function handleGuestMessage(id, msg) {
         case 'guess':
             receiveGuess(id, msg.latlng);
             break;
+        case 'pin':
+            relayPin(id, msg.latlng);
+            break;
     }
+}
+
+// guess前にピンを置いた/動かしたのを、同じチームの人にだけ伝える
+function relayPin(id, latlng) {
+    if (!game || game.roundOver || id in game.guesses) return;
+    const player = state.players.find(p => p.id === id);
+    if (!player) return;
+    sendToTeam(player.team, { type: 'pin', id: id, name: player.name, team: player.team, latlng: latlng });
+}
+
+// そのチームの人にだけ送る (ホスト自身がそのチームなら自分にも)
+function sendToTeam(team, msg) {
+    state.players.filter(p => p.team === team).forEach(p => {
+        if (p.id === 'host') {
+            handleHostMessage(msg);
+        } else if (conns[p.id] && conns[p.id].open) {
+            conns[p.id].send(msg);
+        }
+    });
+}
+
+// 👑 ホストを渡す (ロビーでホストだけ)
+function transferHost(id) {
+    if (!isHost || game || id === 'host') return;
+    const target = state.players.find(p => p.id === id);
+    if (!target) return;
+    if (!confirm(target.name + ' にホストを渡す？')) return;
+
+    // 新しいホストに引き継ぐもの: 設定と、みんなのチーム (名前 → チーム)
+    const teams = {};
+    state.players.forEach(p => teams[p.name] = p.team);
+    broadcast({ type: 'hostTransfer', newHostId: id, newHostName: target.name, settings: state.settings, teams: teams });
+}
+
+// ホスト交代のメッセージが来たら (全員)
+//   新しいホスト → 前のホストがコードを手放すのを待って、同じコードで部屋を作り直す
+//   前のホスト   → コードを手放して、ゲストとして入り直す
+//   ほかの人     → 新しい部屋ができたらつなぎ直す
+function startHostTransfer(msg) {
+    transferring = true;
+    joinRetry = 0;
+    $('entryError').textContent = msg.newHostName + ' にホストを交代中...';
+    showView('entry');
+    closeSettings();
+
+    if (msg.newHostId === myId) {
+        sessionStorage.setItem('hostCode', partyCode); // 作り直しに失敗しても同じコードでやり直すように
+        setTimeout(() => hostParty(partyCode, { settings: msg.settings, teams: msg.teams }), 1500);
+        return;
+    }
+
+    if (isHost) {
+        // 前のホスト: メッセージが届くのを少し待ってからコードを手放す
+        sessionStorage.removeItem('hostCode');
+        isHost = false;
+        setTimeout(() => {
+            Object.keys(conns).forEach(key => delete conns[key]);
+            if (peer) peer.destroy();
+        }, 500);
+    }
+    setTimeout(() => joinParty(partyCode), 3000);
 }
 
 function removePlayer(id) {
@@ -238,6 +333,7 @@ function handleHostMessage(msg) {
     switch (msg.type) {
         case 'welcome':
             myId = msg.id;
+            transferring = false;
             history.replaceState(null, '', '?code=' + partyCode);
             break;
         case 'rejected':
@@ -253,6 +349,12 @@ function handleHostMessage(msg) {
             break;
         case 'guessed':
             onGuessed(msg);
+            break;
+        case 'pin':
+            onTeammatePin(msg);
+            break;
+        case 'hostTransfer':
+            startHostTransfer(msg);
             break;
         case 'roundResult':
             showRoundResult(msg);
@@ -320,6 +422,16 @@ function createPlayerCard(player) {
     name.textContent = player.name;
 
     card.append(badges, avatar, name);
+
+    // ホストだけ: ほかの人のカードの右上に👑 (押すとその人にホストを渡す)
+    if (isHost && player.id !== 'host') {
+        const crown = document.createElement('button');
+        crown.className = 'player-crown';
+        crown.textContent = '👑';
+        crown.title = 'ホストを渡す';
+        crown.addEventListener('click', () => transferHost(player.id));
+        card.appendChild(crown);
+    }
     return card;
 }
 
@@ -340,19 +452,22 @@ function renderLobby() {
     $('modeSelect').value = settings.mode;
     $('mapSelect').value = settings.map;
     $('timeSelect').value = settings.time;
-    $('hpSelect').value = settings.hp;
+    $('hpValue').textContent = settings.hp;
+    $('hurryValue').textContent = (settings.hurry || 15) + '秒';
     $('multiStartSlider').value = settings.multiStart;
     $('multiStepSlider').value = settings.multiStep;
     $('multiStartText').textContent = 'ラウンド' + settings.multiStart + 'から';
     $('multiStepText').textContent = settings.multiStep == 0 ? 'なし' : '+' + settings.multiStep.toFixed(1);
     $('multiPreview').textContent = multiplierPreview();
     $('settingsNote').textContent = isHost ? '' : '設定を変えられるのはホストだけだよ';
-    document.querySelectorAll('.settings-panel select, .settings-panel input').forEach(input => input.disabled = !isHost);
+    document.querySelectorAll('#settingsModal select, #settingsModal input, #settingsModal .stepper button').forEach(input => input.disabled = !isHost);
 
     // ロビーのカード
     $('cardMode').textContent = $('modeSelect').selectedOptions[0].textContent;
     $('cardMap').textContent = MAPS[settings.map].name;
-    $('cardRule').textContent = $('timeSelect').selectedOptions[0].textContent + ' / HP ' + settings.hp;
+    // 「なし (guessされたら開始)」は長いのでカードでは「なし」だけ
+    const timeText = settings.time == 0 ? 'なし' : $('timeSelect').selectedOptions[0].textContent;
+    $('cardRule').textContent = timeText + ' / HP ' + settings.hp;
 
     document.querySelectorAll('.host-only').forEach(el => el.style.display = isHost ? '' : 'none');
     $('lobbyMessage').textContent = isHost ? (startProblem() || '') : 'ホストが始めるのを待ってるよ';
@@ -381,7 +496,7 @@ Object.keys(MAPS).forEach(id => {
     $('mapSelect').appendChild(option);
 });
 
-[['modeSelect', 'mode'], ['mapSelect', 'map'], ['timeSelect', 'time'], ['hpSelect', 'hp'],
+[['modeSelect', 'mode'], ['mapSelect', 'map'], ['timeSelect', 'time'],
  ['multiStartSlider', 'multiStart'], ['multiStepSlider', 'multiStep']].forEach(([id, key]) => {
     $(id).addEventListener('input', () => {
         const value = $(id).value;
@@ -389,6 +504,76 @@ Object.keys(MAPS).forEach(id => {
         broadcastLobby();
     });
 });
+
+// ◀ 数値 ▶ の設定 (HPと、guessされたあとの秒数)
+// data-key: state.settingsのどれを変えるか, data-min/max: 範囲, data-step: 1回でどれだけ変わるか
+document.querySelectorAll('.stepper').forEach(stepper => {
+    const key = stepper.dataset.key;
+    const min = Number(stepper.dataset.min);
+    const max = Number(stepper.dataset.max);
+    const step = Number(stepper.dataset.step);
+    let repeatTimer = null;
+
+    // 1回ぶん変える (はしまで行ったら止まる)
+    function change(dir) {
+        if (!isHost) return;
+        const now = state.settings[key] || min;
+        const next = Math.max(min, Math.min(max, now + dir * step));
+        if (next === now) return;
+        state.settings[key] = next;
+        broadcastLobby();
+    }
+
+    stepper.querySelectorAll('button').forEach(button => {
+        const dir = Number(button.dataset.dir);
+        // 押した瞬間に1回、押しっぱなしなら0.4秒後から速く連続で
+        button.addEventListener('pointerdown', () => {
+            change(dir);
+            clearTimeout(repeatTimer);
+            repeatTimer = setTimeout(function repeat() {
+                change(dir);
+                repeatTimer = setTimeout(repeat, 80);
+            }, 400);
+        });
+        // 指やマウスを離したら止める
+        ['pointerup', 'pointerleave', 'pointercancel'].forEach(type => {
+            button.addEventListener(type, () => clearTimeout(repeatTimer));
+        });
+    });
+});
+
+//================================================サウンドの⚙ (ロビーとプレイ中)================================================
+// BGMのオンオフ・音量はメニューやシングルと同じ保存先 (bgmOn / bgmVolume)
+// 効果音の音量は seVolume (sound.jsが鳴らすときに読む)
+function openSound() {
+    $('bgmOnToggle').checked = localStorage.getItem('bgmOn') !== 'false';
+    $('bgmVolumeSlider').value = bgmVolume();
+    $('seVolumeSlider').value = seVolume();
+    $('soundModal').classList.add('open');
+}
+
+function closeSound() {
+    $('soundModal').classList.remove('open');
+}
+
+// BGMのオンオフ: すぐに今の曲に反映して保存
+$('bgmOnToggle').addEventListener('change', () => {
+    localStorage.setItem('bgmOn', $('bgmOnToggle').checked);
+    $('bgm').muted = !$('bgmOnToggle').checked;
+    if ($('bgmOnToggle').checked && $('bgm').src) $('bgm').play().catch(() => {});
+});
+
+// BGMの音量 (シングルと同じで '"0.5"' みたいにJSONで保存)
+$('bgmVolumeSlider').addEventListener('input', () => {
+    $('bgm').volume = $('bgmVolumeSlider').value;
+    localStorage.setItem('bgmVolume', JSON.stringify($('bgmVolumeSlider').value));
+});
+
+// 効果音の音量: 変えたらピンの音を鳴らして大きさを確かめられるように
+$('seVolumeSlider').addEventListener('input', () => {
+    localStorage.setItem('seVolume', $('seVolumeSlider').value);
+});
+$('seVolumeSlider').addEventListener('change', () => playSE('Place Guess Land'));
 
 //================================================試合の進行 (ホスト側)================================================
 // maplinkの地点データを読み込む (各ファイルは var streetViews = [...] なので何回でも読める)
@@ -478,8 +663,8 @@ function receiveGuess(id, latlng) {
     let hurry = null;
     if (latlng && !game.hurried) {
         game.hurried = true;
-        hurry = HURRY_SECONDS;
-        setRoundDeadline(HURRY_SECONDS);
+        hurry = state.settings.hurry || 15;
+        setRoundDeadline(hurry);
     }
     // チームメイトのピンを見せるために位置とチームも送る (表示するのは同じチームの人だけ)
     broadcast({ type: 'guessed', id: id, name: player.name, team: player.team, latlng: latlng, hurry: hurry });
@@ -570,6 +755,12 @@ function ensurePlayMap() {
         if (pinMarker) playMap.removeLayer(pinMarker);
         pinMarker = L.marker(e.latlng, { icon: createCustomIcon() }).addTo(playMap);
         playPinSound(e.latlng, playMap.getZoom()); // 陸か水の上かで音が変わる (sound.js)
+
+        // チーム戦なら、guess前でもピンの位置をチームメイトに見せる (連打で送りすぎないように0.2秒あける)
+        if (state.settings.mode === 'team' && performance.now() - lastPinSent > 200) {
+            lastPinSent = performance.now();
+            sendToHost({ type: 'pin', latlng: { lat: e.latlng.lat, lng: normalizeLongitude(e.latlng.lng) } });
+        }
     });
 }
 
@@ -596,6 +787,7 @@ function startRound(msg) {
     }
     teammateLayer.clearLayers();
     teammateGuesses = [];
+    livePins = {};
 
     // カウントダウンの裏でストリートビューを読み込んでおく
     $('loading').style.display = 'flex';
@@ -606,6 +798,7 @@ function startRound(msg) {
     $('roundLabel').textContent = 'ラウンド ' + msg.round + (msg.multiplier > 1 ? '  ×' + msg.multiplier : '');
     $('timer').style.display = 'none';
     renderHp(msg.hp, 'play');
+    renderPlayerIcons();
 
     showIntro(msg);
 }
@@ -689,8 +882,47 @@ function addTeammateMarker(layer, guess) {
         .addTo(layer);
 }
 
+// HPバーの下に、そのチームのプレイヤーのアイコンを並べる (guessしたら半透明になる)
+function renderPlayerIcons() {
+    playerIcons = {};
+    ['blue', 'red'].forEach(team => {
+        const row = $('playPlayers' + SIDES[team]);
+        row.innerHTML = '';
+        state.players.filter(p => p.team === team).forEach(p => {
+            const icon = document.createElement('div');
+            icon.className = 'hp-player';
+            icon.textContent = p.name.charAt(0).toUpperCase(); // ロビーと同じで名前の1文字目
+            icon.title = p.name;
+            if (p.id === myId) icon.classList.add('me'); // 自分は黄色い枠
+            row.appendChild(icon);
+            playerIcons[p.id] = icon;
+        });
+    });
+}
+
+// チームメイトがguess前に置いたピン (うすい丸で表示して、動かしたら追いかける)
+function onTeammatePin(msg) {
+    if (msg.id === myId || guessedIds.includes(msg.id) || msg.team !== myTeam()) return;
+    if (livePins[msg.id]) {
+        livePins[msg.id].setLatLng([msg.latlng.lat, msg.latlng.lng]);
+        return;
+    }
+    livePins[msg.id] = L.circleMarker([msg.latlng.lat, msg.latlng.lng], { radius: 7, color: 'white', weight: 2, fillColor: TEAM_COLORS[msg.team], fillOpacity: 0.4, opacity: 0.6, dashArray: '3 3' })
+        .bindTooltip(msg.name + ' (考え中)', { permanent: true, direction: 'top', offset: [0, -7], className: 'party-tooltip' })
+        .addTo(teammateLayer);
+}
+
 function onGuessed(msg) {
     if (!guessedIds.includes(msg.id)) guessedIds.push(msg.id);
+
+    // HPバーの下のアイコンを半透明に
+    if (playerIcons[msg.id]) playerIcons[msg.id].classList.add('guessed');
+
+    // 考え中のピンは消す (このあとguessしたピンに置きかわる)
+    if (livePins[msg.id]) {
+        teammateLayer.removeLayer(livePins[msg.id]);
+        delete livePins[msg.id];
+    }
 
     const waiting = hasGuessed && $('resultView').classList.contains('waiting');
     if (msg.latlng && msg.id !== myId && msg.team === myTeam()) {

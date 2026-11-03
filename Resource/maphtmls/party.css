@@ -256,6 +256,29 @@ select:disabled {
     background-color: #FFA43D;
 }
 
+/* ホストだけに見える、カード右上の👑 (押すとその人にホストを渡す) */
+.player-crown {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 50%;
+    font-size: 14px;
+    font-style: normal;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.35);
+    opacity: 0.6;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.player-crown:hover {
+    opacity: 1;
+    transform: scale(1.15);
+}
+
 .lobby-center {
     display: flex;
     flex-direction: column;
@@ -307,7 +330,8 @@ select:disabled {
 }
 
 /* 設定のポップアップ (前に飛び出てくる) */
-#settingsModal {
+#settingsModal,
+#soundModal {
     display: none;
     position: fixed;
     top: 0;
@@ -319,11 +343,13 @@ select:disabled {
     justify-content: center;
     align-items: center;
 }
-#settingsModal.open {
+#settingsModal.open,
+#soundModal.open {
     display: flex;
     animation: modalFade 0.2s ease;
 }
-#settingsModal.open .settings-panel {
+#settingsModal.open .settings-panel,
+#soundModal.open .settings-panel {
     animation: modalPop 0.3s cubic-bezier(0.2, 1.4, 0.4, 1);
 }
 
@@ -354,7 +380,7 @@ select:disabled {
 
 .settings-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* minmax(0, …) で中身が長くても枠からはみ出さない */
     gap: 14px;
     text-align: left;
 }
@@ -383,10 +409,84 @@ select:disabled {
     font-size: 13px;
 }
 
+/* ◀ 数値 ▶ */
+.stepper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 4px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.35);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    user-select: none;
+}
+.stepper button {
+    width: 38px;
+    height: 34px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-style: normal;
+    color: white;
+    cursor: pointer;
+    background-color: rgba(121, 80, 229, 0.6);
+    touch-action: manipulation; /* スマホで連打してもズームしないように */
+}
+.stepper button:active {
+    background-color: #7950E5;
+}
+.stepper button:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+.stepper-value {
+    flex: 1;
+    text-align: center;
+    font-size: 18px;
+}
+
+/* サウンドの⚙ (ロビーの右上、退出の左) */
+.sound-button {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    margin: 0;
+    border: 1.5px solid white;
+    border-radius: 50%;
+    font-size: 20px;
+    font-style: normal;
+    color: white;
+    background: none;
+    cursor: pointer;
+}
+.lobby-sound {
+    position: absolute;
+    top: 20px;
+    right: 110px;
+}
+
+/* サウンドのポップアップの「BGM [スイッチ]」の行 */
+.sound-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
 .setting-item {
     display: flex;
     flex-direction: column;
     gap: 4px;
+}
+
+/* セレクトは枠の幅いっぱいに (長い選択肢で横にはみ出さないように) */
+.setting-item select {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .setting-item label {
@@ -455,6 +555,44 @@ select:disabled {
     justify-content: center;
     font-size: 15px;
     text-shadow: 0 1px 2px black;
+}
+
+/* HPバーの下のプレイヤーアイコン (プレイ画面) */
+.hp-players {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+}
+.hp-box.red .hp-players {
+    justify-content: flex-end; /* 赤は右寄せ */
+}
+
+.hp-player {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease;
+}
+.hp-box.blue .hp-player {
+    background: radial-gradient(circle at 30% 30%, #5cc4ff, #0068a8);
+}
+.hp-box.red .hp-player {
+    background: radial-gradient(circle at 30% 30%, #ff8fa3, #a8203a);
+}
+/* 自分のアイコンは黄色い枠 */
+.hp-player.me {
+    border-color: #FFCF3D;
+}
+/* guessしたら半透明に */
+.hp-player.guessed {
+    opacity: 0.35;
 }
 
 /*======================================================================================*/
@@ -1064,5 +1202,16 @@ select:disabled {
     /* 試合終了 */
     #winnerText {
         font-size: 40px;
+    }
+}
+
+/* スマホ縦向き: ロビーの音の⚙を退出ボタンの左に (退出ボタンが小さくなるぶん寄せる) */
+@media (max-width: 600px) {
+    .lobby-sound {
+        top: 8px;
+        right: 78px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
     }
 }

@@ -3,7 +3,11 @@
 // 音のファイルは Resource/SE/ に入ってる (ファイル名から .mp3 を取ったものを playSE に渡す)
 
 const SE_PATH = '../SE/'; // maphtmls/ から見た SE フォルダの場所
-const SE_VOLUME = 0.7;    // 効果音の音量 (0〜1)
+// 効果音の音量 (0〜1)。対戦の⚙で変えられる (保存がなければ0.7)
+function seVolume() {
+    const saved = parseFloat(localStorage.getItem('seVolume'));
+    return isNaN(saved) ? 0.7 : saved;
+}
 
 // 陸にピンを置いたときの音 (この中からランダム)
 const LAND_SOUNDS = ['Place Guess Land', 'Place Guess Land 2', 'Place Guess Land 3', 'Place Guess Land 4', 'Place Guess Land 5', 'Place Guess Land 6'];
@@ -14,7 +18,7 @@ const LAND_SOUNDS = ['Place Guess Land', 'Place Guess Land 2', 'Place Guess Land
 // 鳴らしたAudioを返すので、長い音 (Timer Countdown とか) は stopSE() で途中で止められる
 function playSE(name) {
     const audio = new Audio(SE_PATH + name + '.mp3');
-    audio.volume = SE_VOLUME;
+    audio.volume = seVolume();
     audio.play().catch(() => {}); // 自動再生がブロックされても止まらないように無視
     return audio;
 }

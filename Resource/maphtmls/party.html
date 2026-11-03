@@ -34,6 +34,7 @@
     <!-- ロビー -->
     <div class="view" id="lobbyView">
         <button class="goBack lobby-leave" onclick="leaveParty()">退出</button>
+        <button class="sound-button lobby-sound" onclick="openSound()" title="サウンド">⚙</button>
         <div class="lobby-header">
             <div class="lobby-title" id="lobbyTitle"></div>
             <div class="lobby-code">コード<span id="lobbyCode"></span><button class="party-btn outline small" id="copyButton" onclick="copyInviteLink()">招待リンクをコピー</button></div>
@@ -85,20 +86,29 @@
                     <div class="setting-item">
                         <label for="timeSelect">時間</label>
                         <select id="timeSelect">
-                            <option value="0">なし</option>
+                            <option value="0">なし (guessされたら開始)</option>
                             <option value="30">30秒</option>
                             <option value="60">1分</option>
                             <option value="120">2分</option>
                             <option value="180">3分</option>
                         </select>
                     </div>
+                    <!-- ◀ 数値 ▶ (押しっぱなしで連続で変わる) -->
                     <div class="setting-item">
-                        <label for="hpSelect">HP</label>
-                        <select id="hpSelect">
-                            <option value="3000">3000</option>
-                            <option value="6000">6000</option>
-                            <option value="10000">10000</option>
-                        </select>
+                        <label>HP</label>
+                        <div class="stepper" data-key="hp" data-min="1000" data-max="30000" data-step="1000">
+                            <button type="button" data-dir="-1">◀</button>
+                            <span class="stepper-value" id="hpValue"></span>
+                            <button type="button" data-dir="1">▶</button>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label>だれかがguessしたら残り</label>
+                        <div class="stepper" data-key="hurry" data-min="15" data-max="60" data-step="5">
+                            <button type="button" data-dir="-1">◀</button>
+                            <span class="stepper-value" id="hurryValue"></span>
+                            <button type="button" data-dir="1">▶</button>
+                        </div>
                     </div>
                 </div>
                 <div class="setting-slider">
@@ -136,15 +146,18 @@
         <!-- 左上: ストリートビューのembedに出る場所の表示を隠すためにも置いてる -->
         <div id="total"><span id="roundLabel"></span></div>
         <button class="itemIcon" onclick="backToStart()">🏳️</button>
+        <button class="itemIcon" onclick="openSound()" style="bottom: 90px;">⚙</button>
 
         <div id="hpBar">
             <div class="hp-box blue">
                 <div class="hp-label" id="playHpBlueLabel"></div>
                 <div class="hp-track"><div class="hp-fill" id="playHpBlueFill"></div><div class="hp-text" id="playHpBlueText"></div></div>
+                <div class="hp-players" id="playPlayersBlue"></div> <!-- プレイヤーのアイコン (guessしたら半透明) -->
             </div>
             <div class="hp-box red">
                 <div class="hp-label" id="playHpRedLabel"></div>
                 <div class="hp-track"><div class="hp-fill" id="playHpRedFill"></div><div class="hp-text" id="playHpRedText"></div></div>
+                <div class="hp-players" id="playPlayersRed"></div> <!-- プレイヤーのアイコン (guessしたら半透明) -->
             </div>
         </div>
 
@@ -205,6 +218,30 @@
         <div id="winnerText"></div>
         <button class="party-btn green host-only" onclick="backToLobby()">ロビーに戻る</button>
         <p id="gameOverWaiting"></p>
+    </div>
+
+    <!-- サウンドのポップアップ (ロビーとプレイ中の⚙から) -->
+    <div id="soundModal" onclick="if (event.target === this) closeSound()">
+        <div class="settings-panel">
+            <h2>サウンド</h2>
+            <div class="sound-row">
+                <span>BGM</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="bgmOnToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting-slider">
+                <label for="bgmVolumeSlider">BGMの音量</label>
+                <input type="range" id="bgmVolumeSlider" min="0" max="1" step="0.01">
+            </div>
+            <div class="setting-slider">
+                <label for="seVolumeSlider">効果音の音量</label>
+                <input type="range" id="seVolumeSlider" min="0" max="1" step="0.01">
+            </div>
+            <p class="settings-note">メニューやシングルのBGMの設定と共通だよ</p>
+            <button class="party-btn green" onclick="closeSound()">OK</button>
+        </div>
     </div>
 
     <script src="../src/sound.js"></script>
