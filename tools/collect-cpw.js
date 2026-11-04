@@ -1,5 +1,6 @@
 // 世界CPW (Claude Picked World) の地点を自動で集めるスクリプト
 // 使い方: node tools/collect-cpw.js <集めたい件数> [同時タブ数] [msedge|chrome] [show] [--only=..|--except=..]
+// オプション: --km=20 (地点どうしの最低距離) / --town=0.6 (町の近くを狙う割合) / --nocells (青いマスを使わない) / --snap=0 (青い線に吸い付けない) / --snapz=13 (吸い付けのズーム)
 // 仕組みは日本版 (collect-cjp.js) と同じ。範囲の四角は tools/cpw-regions.js にある
 // 結果は tools/cpw-found.json に少しずつ追記されるので、途中で止めても続きから再開できる
 // 画面には件数と地域ごとの割合だけ出す (地名は出さない)
@@ -49,8 +50,30 @@ const TOWNS = fs.existsSync(TOWNS_FILE) ? JSON.parse(fs.readFileSync(TOWNS_FILE,
 // 町の近くを狙う割合 (--town=0.5 のように変えられる)
 const TOWN_RATE = Number(OPT.town ?? 0.6);
 
+// 四角ごとの「青いマス」の一覧 (tools/cpw-coverage.js で作る。なければ四角全体を使う)
+// 1つのマスは [南, 西, 大きさ(度), 青の割合]。--nocells を付けると使わない
+const CELLS_FILE = path.join(__dirname, 'cpw-cells.json');
+const CELLS = fs.existsSync(CELLS_FILE) && !('nocells' in OPT) ? JSON.parse(fs.readFileSync(CELLS_FILE, 'utf8')) : {};
+// 座標がその四角の青いマスに入っているか (マスがない四角は全部OK)
+const inCell = (lat, lng, cells) => !cells?.length || cells.some(([s, w, z]) => lat >= s && lat < s + z && lng >= w && lng < w + z);
+// 町も青いマスの中にあるものだけ使う (カバレッジのない町に行って外れるのを防ぐ)
+let townDrop = 0;
+for (const sub in TOWNS) {
+    const before = TOWNS[sub].length;
+    TOWNS[sub] = TOWNS[sub].filter(([la, lo]) => inCell(la, lo, CELLS[sub]));
+    townDrop += before - TOWNS[sub].length;
+}
+// マスを青の割合の重みで1つ選ぶ
+function pickCell(cells) {
+    const total = cells.reduce((s, c) => s + c[3], 0);
+    let x = Math.random() * total;
+    for (const c of cells) { if ((x -= c[3]) < 0) return c; }
+    return cells[0];
+}
+
 // 次に試す座標を作る
-// 四角を重みで選んでから、TOWN_RATE の割合でその四角の中の町の近く (約±2km)、残りは四角の中のどこか
+// 四角を重みで選んでから、TOWN_RATE の割合でその四角の中の町の近く (約±2km)、
+// 残りはその四角の青いマスの中のどこか (青が多いマスほど選ばれやすい)
 // 町の近くは道が多いので当たりやすく、残りのランダムな点で田舎や山道も混ざる
 function nextPoint() {
     const r = pickRegion();
@@ -59,8 +82,61 @@ function nextPoint() {
         const [lat, lng] = t[Math.floor(Math.random() * t.length)];
         return { lat: lat + rand(-0.02, 0.02), lng: lng + rand(-0.02, 0.02), region: r, town: true };
     }
+    const cells = CELLS[r.sub];
+    if (cells?.length) {
+        const [s, w, z] = pickCell(cells);
+        // 四角の端で切れたマスもあるので、四角の外に出ないようにする
+        const [bs, bw, bn, be] = r.box;
+        return { lat: rand(s, Math.min(s + z, bn)), lng: rand(w, Math.min(w + z, be)), region: r, town: false };
+    }
     const [s, w, n, e] = r.box;
     return { lat: rand(s, n), lng: rand(w, e), region: r, town: false };
+}
+
+// ---------- 青い線に吸い付ける (--snap=0 で使わない) ----------
+// 決めた点のあたりの「ズーム SNAP_Z のカバレッジタイル」(1枚 数KB) を読んで、
+// その中の青い線の上のピクセルを1つ選び、そこを試す。青がないタイルなら Googleマップを開かずに次へ進む
+// (Googleマップを開くより、タイル1枚読むほうがずっと軽いので、外れの時間がほぼなくなる)
+const SNAP = OPT.snap !== '0';
+const SNAP_Z = Number(OPT.snapz || 13);
+// 投稿写真の丸い点が出ない形のカバレッジタイル (線だけ)
+const tileUrl = (x, y, z) => `https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i${z}!2i${x}!3i${y}!4i256!2m8!1e2!2ssvv!4m2!1scb_client!2sapiv3!4m2!1scc!2s*211m3*211e2*212b1*213e2!3m3!3sUS!12m1!1e68!4e0`;
+// 緯度経度 ⇔ ズームzの世界ピクセル座標 (Webメルカトル)
+const toPx = (lat, lng, z) => {
+    const n = 256 * 2 ** z, r = lat * Math.PI / 180;
+    return [(lng + 180) / 360 * n, (1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * n];
+};
+const fromPx = (X, Y, z) => {
+    const n = 256 * 2 ** z;
+    return [Math.atan(Math.sinh(Math.PI * (1 - 2 * Y / n))) * 180 / Math.PI, X / n * 360 - 180];
+};
+// タイル読み込み用のページ (画像を止めている context とは別にする)
+let tilePage = null;
+// 吸い付けの成績 (タイルを読んだ数 / 青があった数)
+const snapStat = { tiles: 0, hit: 0 };
+// 点 p を青い線の上に動かす。青がなければ null
+async function snap(p) {
+    const [X, Y] = toPx(p.lat, p.lng, SNAP_Z);
+    const tx = Math.floor(X / 256), ty = Math.floor(Y / 256);
+    snapStat.tiles++;
+    // ブラウザの中でタイルを読んで、青いピクセルを1つランダムに選ぶ (タイルは CORS OK なので canvas で読める)
+    const pick = await tilePage.evaluate(url => new Promise(res => {
+        const img = new Image(); img.crossOrigin = 'anonymous';
+        img.onload = () => {
+            const cv = document.createElement('canvas'); cv.width = cv.height = 256;
+            const ctx = cv.getContext('2d'); ctx.drawImage(img, 0, 0);
+            const d = ctx.getImageData(0, 0, 256, 256).data;
+            const blue = [];
+            for (let i = 0; i < 65536; i++) if (d[i * 4 + 3] > 60) blue.push(i);
+            res(blue.length ? blue[Math.floor(Math.random() * blue.length)] : null);
+        };
+        img.onerror = () => res(null);
+        img.src = url;
+    }), tileUrl(tx, ty, SNAP_Z)).catch(() => null);
+    if (pick === null) return null;
+    snapStat.hit++;
+    const [lat, lng] = fromPx(tx * 256 + (pick % 256) + 0.5, ty * 256 + Math.floor(pick / 256) + 0.5, SNAP_Z);
+    return { ...p, lat, lng };
 }
 
 // 2点間のおおよその距離 (km)
@@ -189,6 +265,13 @@ async function main() {
     const gl = await check.evaluate(() => !!document.createElement('canvas').getContext('webgl'));
     await check.close();
     console.log(`ブラウザ: ${browser.browserType().name()} ${browser.version()} / WebGL: ${gl ? 'OK' : 'NG'}`);
+    // 青いマスの数と、青いマスの外にあって使わない町の数
+    console.log(`青いマス ${Object.values(CELLS).flat().length} 個 / 青いマスの外の町 ${townDrop} 件は使わない`);
+    // 吸い付け用に、画像を止めていない別の context でページを1つ開いておく
+    if (SNAP) {
+        tilePage = await (await browser.newContext()).newPage();
+        console.log(`青い線に吸い付け: ON (ズーム ${SNAP_Z})`);
+    }
 
     // Ctrl+C で止めたら、ブラウザを閉じてきれいに終わる (集めた分は保存済み)
     process.on('SIGINT', async () => {
@@ -202,12 +285,21 @@ async function main() {
     const startAt = Date.now();
     const pct = (a, b) => b ? (a / b * 100).toFixed(1) + '%' : '-';
     const effLine = () => `町の近く ${pct(eff.townOk, eff.townTry)} (${eff.townOk}/${eff.townTry}) / ランダム ${pct(eff.randOk, eff.randTry)} (${eff.randOk}/${eff.randTry})`
-        + ` / 1件あたり ${stats.ok ? ((Date.now() - startAt) / 1000 / stats.ok).toFixed(1) : '-'}秒`;
+        + ` / 1件あたり ${stats.ok ? ((Date.now() - startAt) / 1000 / stats.ok).toFixed(1) : '-'}秒`
+        + (SNAP ? ` / タイルに青 ${pct(snapStat.hit, snapStat.tiles)} (${snapStat.hit}/${snapStat.tiles})` : '');
 
     // 同時に TABS 本ずつ調べる
     const worker = async () => {
         while (found.length < TARGET) {
-            const p = nextPoint();
+            let p = nextPoint();
+            // 吸い付けがONなら、青い線が見つかるまで (最大30回) 点を作り直す。見つからなければ元の点のまま試す
+            if (SNAP) {
+                for (let k = 0; k < 30 && !stopping; k++) {
+                    const s = await snap(p);
+                    if (s) { p = s; break; }
+                    p = nextPoint();
+                }
+            }
             stats.tried++;
             if (p.town) eff.townTry++; else eff.randTry++;
             const r = await probe(context, p.lat, p.lng);
