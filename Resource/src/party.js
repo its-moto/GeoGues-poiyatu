@@ -55,9 +55,9 @@ let introInterval = null;
 let timerEnd = null;
 let timerTotal = 0;
 let timerLastLeft = Infinity; // 残り15秒・10秒を切った瞬間を見つける用
-let timeUpPending = false; // 0:00でタイマーが小さくなってる途中
+let timeUpPending = false;   // 0:00でタイマーが小さくなってる途中
 let opponentGuessed = false; // このラウンドで相手に先にguessされたか
-let countdownSound = null; // 残り15秒のカウントダウンの音
+let countdownSound = null;   // 残り15秒のカウントダウンの音
 let timerInterval = null;
 let playMap, resultMap, resultLayer;
 
@@ -644,8 +644,8 @@ function nextRound() {
     game.current = {
         embedUrl: spot.embedUrl,
         answerUrl: spot.answerUrl,
-        lat: parseFloat((spot.embedUrl.match(/1d([-+]?[0-9]*\.?[0-9]+)/))[1]),
-        lng: parseFloat((spot.embedUrl.match(/2d([-+]?[0-9]*\.?[0-9]+)/))[1])
+        lat: parseFloat((spot.embedUrl.match(/!1d([-+]?[0-9]*\.?[0-9]+)/))[1]),
+        lng: parseFloat((spot.embedUrl.match(/!2d([-+]?[0-9]*\.?[0-9]+)/))[1])
     };
     game.guesses = {};
     game.roundOver = false;

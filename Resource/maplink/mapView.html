@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoPpoi - 地点の分布</title>
+    <link rel="icon" href="../images/logo-pin.png">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script src="../src/maps.js"></script>
+    <script>
+        // ?map=claudejapan みたいに選ばれたマップの地点データを読み込む (game.htmlと同じやり方、file://でも動く)
+        const mapId = new URLSearchParams(location.search).get('map') || 'japan';
+        const mapConfig = MAPS[mapId] || MAPS.japan;
+        document.write('<script src="' + mapConfig.file + '"><\/script>');
+    </script>
+
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+            font-family: sans-serif;
+            background-color: #1A1A2E;
+        }
+        #map {
+            position: absolute;
+            inset: 0;
+        }
+        /* 左上のパネル (マップ選び・件数) */
+        #panel {
+            position: absolute;
+            top: 12px;
+            left: 56px;
+            z-index: 1000;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: white;
+            background-color: rgba(26, 26, 46, 0.88);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+        }
+        #panel select {
+            font-size: 15px;
+            padding: 4px;
+        }
+        #count {
+            margin-top: 6px;
+            font-size: 14px;
+        }
+        #panel label {
+            display: block;
+            margin-top: 6px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <div id="panel">
+        <select id="mapSelect"></select>
+        <div id="count"></div>
+        <label><input type="checkbox" id="satellite"> 航空写真</label>
+    </div>
+
+    <script>
+        //================================================マップを選ぶ================================================
+        // maps.js のマップを全部プルダウンに並べる。選んだらそのマップで読み直す
+        const select = document.getElementById('mapSelect');
+        Object.keys(MAPS).forEach(id => {
+            const option = document.createElement('option');
+            option.value = id;
+            option.textContent = MAPS[id].name;
+            select.appendChild(option);
+        });
+        select.value = mapId;
+        select.addEventListener('change', () => {
+            location.search = '?map=' + select.value;
+        });
+
+        //================================================地図================================================
+        // 点がたくさんあっても軽いように、canvasで描く (preferCanvas)
+        const map = L.map('map', { preferCanvas: true, worldCopyJump: true })
+            .setView(mapConfig.resultView[0], mapConfig.resultView[1]);
+
+        const roadLayer = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', { maxZoom: 20 }).addTo(map);
+        const satelliteLayer = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', { maxZoom: 20 });
+
+        // 航空写真の切り替え
+        document.getElementById('satellite').addEventListener('change', event => {
+            if (event.target.checked) {
+                map.removeLayer(roadLayer);
+                satelliteLayer.addTo(map);
+            } else {
+                map.removeLayer(satelliteLayer);
+                roadLayer.addTo(map);
+            }
+        });
+
+        //================================================地点をピンにする================================================
+        // embedUrl の !1d(緯度)!2d(経度) から場所を取り出す (ゲームと同じ読み方)
+        const latLngs = [];
+        streetViews.forEach((streetView, i) => {
+            const lat = streetView.embedUrl.match(/!1d(-?[\d.]+)/);
+            const lng = streetView.embedUrl.match(/!2d(-?[\d.]+)/);
+            if (!lat || !lng) return; // 読めない地点はとばす
+            const latLng = [parseFloat(lat[1]), parseFloat(lng[1])];
+            latLngs.push(latLng);
+
+            // 小さい丸。押すとストリートビューへのリンクが出る
+            L.circleMarker(latLng, {
+                radius: 5,
+                weight: 1,
+                color: 'white',
+                fillColor: '#7950E5',
+                fillOpacity: 0.85
+            }).bindPopup('#' + (i + 1) + '<br><a href="' + streetView.answerUrl + '" target="_blank">ストリートビューで見る</a>')
+              .addTo(map);
+        });
+
+        document.getElementById('count').textContent = latLngs.length + ' 地点';
+
+        // 全部の点が入るようにズーム
+        function fitAll() {
+            if (latLngs.length > 0) map.fitBounds(latLngs, { padding: [30, 30] });
+        }
+        fitAll();
+        // 開いたときに画面の大きさがまだ0だったら、大きさが決まったときにもう一回
+        if (map.getSize().x === 0) map.once('resize', fitAll);
+    </script>
+</body>
+</html>

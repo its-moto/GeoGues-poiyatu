@@ -79,8 +79,9 @@ function showRandomStreetView() {
     noPin = true;
     let embedUrl = streetViews[randomIndex].embedUrl;
 
-    currentLat = parseFloat((embedUrl.match(/1d([-+]?[0-9]*\.?[0-9]+)/))[1]);
-    currentLng = parseFloat((embedUrl.match(/2d([-+]?[0-9]*\.?[0-9]+)/))[1]);
+    // パノラマIDの中に "1d" や "2d" が入っていることがあるので、"!1d" / "!2d" で探す (ずれ防止)
+    currentLat = parseFloat((embedUrl.match(/!1d([-+]?[0-9]*\.?[0-9]+)/))[1]);
+    currentLng = parseFloat((embedUrl.match(/!2d([-+]?[0-9]*\.?[0-9]+)/))[1]);
 
     if (RPZbool){
         // ランダムなパン（横角度）、チルト（上下角度）、ズームを生成
