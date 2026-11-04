@@ -1,5 +1,6 @@
 // 日本 (Claudeセレクト) の地点を自動で集めるスクリプト
-// 使い方: node tools/collect-cjp.js <集めたい件数> [同時タブ数] [msedge|chrome] [show]
+// 使い方: node tools/collect-cjp.js <集めたい件数> [同時タブ数] [msedge|chrome] [show] [--only=..|--except=..] [--town=0.5]
+// 範囲の四角は tools/cjp-regions.js、町の一覧は tools/cjp-towns.json (tools/build-cjp-towns.js で作る)
 // 結果は tools/cjp-found.json に少しずつ追記されるので、途中で止めても続きから再開できる
 // 画面には件数だけ出す (地名は出さない)
 const fs = require('fs');
@@ -19,89 +20,23 @@ const SHOW = POS[3] === 'show';
 const ONLY = OPT.only ? OPT.only.split(',') : null;
 const EXCEPT = OPT.except ? OPT.except.split(',') : [];
 
-// 範囲の四角 [南, 西, 北, 東] と、集める割合 (重み)
-// 海を狙う外れを減らすため、地方をさらに小さい四角に分けて陸地に合わせている
-// name: 地方 (--only / --except で使う)、sub: 四角の呼び名
-// 地方ごとの重みの合計: 北海道17 東北13 関東12 中部15 近畿13 中国11 四国8 九州18 沖縄5
-const ALL_REGIONS = [
-    // 北海道
-    { name: '北海道', sub: '道南', box: [41.4, 139.9, 42.6, 141.2], w: 3 },
-    { name: '北海道', sub: '道央', box: [42.5, 140.9, 43.4, 142.3], w: 5 },
-    { name: '北海道', sub: '日高', box: [41.95, 142.3, 42.6, 143.4], w: 1 },
-    { name: '北海道', sub: '道北', box: [43.4, 141.6, 45.5, 142.9], w: 4 },
-    { name: '北海道', sub: '道東', box: [42.6, 142.9, 44.4, 145.6], w: 4 },
-    // 東北
-    { name: '東北', sub: '青森', box: [40.2, 139.9, 41.6, 141.7], w: 2 },
-    { name: '東北', sub: '秋田', box: [38.9, 139.8, 40.2, 140.8], w: 2 },
-    { name: '東北', sub: '岩手', box: [38.9, 140.8, 40.2, 142.0], w: 3 },
-    { name: '東北', sub: '山形', box: [37.7, 139.6, 38.9, 140.5], w: 2 },
-    { name: '東北', sub: '宮城', box: [37.8, 140.5, 38.9, 141.6], w: 2 },
-    { name: '東北', sub: '福島', box: [36.8, 139.7, 37.8, 141.0], w: 2 },
-    // 関東
-    { name: '関東', sub: '東京・神奈川', box: [35.2, 139.0, 35.9, 139.9], w: 5 },
-    { name: '関東', sub: '北関東・埼玉', box: [35.9, 138.8, 37.0, 140.6], w: 4 },
-    { name: '関東', sub: '千葉', box: [34.9, 139.9, 35.95, 140.85], w: 3 },
-    // 中部
-    { name: '中部', sub: '新潟', box: [36.8, 137.6, 38.3, 139.7], w: 3 },
-    { name: '中部', sub: '富山・石川', box: [36.0, 136.2, 37.0, 137.6], w: 2 },
-    { name: '中部', sub: '能登', box: [37.0, 136.6, 37.5, 137.3], w: 1 },
-    { name: '中部', sub: '福井', box: [35.4, 135.5, 36.3, 136.5], w: 1 },
-    { name: '中部', sub: '長野', box: [35.2, 137.6, 36.8, 138.5], w: 3 },
-    { name: '中部', sub: '山梨', box: [35.2, 138.5, 35.9, 139.0], w: 1 },
-    { name: '中部', sub: '静岡', box: [34.6, 137.5, 35.2, 139.0], w: 2 },
-    { name: '中部', sub: '愛知・岐阜', box: [34.6, 136.5, 36.0, 137.6], w: 2 },
-    // 近畿
-    { name: '近畿', sub: '大阪・京都・奈良', box: [34.3, 135.0, 35.1, 136.0], w: 4 },
-    { name: '近畿', sub: '兵庫西部', box: [34.6, 134.3, 35.1, 135.0], w: 1 },
-    { name: '近畿', sub: '兵庫北部・京都北部', box: [35.1, 134.3, 35.7, 135.5], w: 2 },
-    { name: '近畿', sub: '三重', box: [33.7, 136.0, 35.2, 136.5], w: 2 },
-    { name: '近畿', sub: '和歌山', box: [33.4, 135.0, 34.3, 136.0], w: 2 },
-    { name: '近畿', sub: '滋賀', box: [35.1, 135.9, 35.6, 136.45], w: 1 },
-    { name: '近畿', sub: '淡路島', box: [34.2, 134.75, 34.65, 135.05], w: 1 },
-    // 中国
-    { name: '中国', sub: '岡山・広島', box: [34.1, 132.0, 34.65, 134.3], w: 4 },
-    { name: '中国', sub: '中国山地', box: [34.65, 132.0, 35.0, 134.3], w: 2 },
-    { name: '中国', sub: '山陰', box: [35.0, 131.8, 35.6, 134.3], w: 2 },
-    { name: '中国', sub: '山口', box: [33.9, 130.9, 34.6, 132.0], w: 2 },
-    { name: '中国', sub: '隠岐', box: [36.0, 133.0, 36.35, 133.4], w: 1 },
-    // 四国
-    { name: '四国', sub: '香川・徳島', box: [33.8, 133.3, 34.4, 134.8], w: 3 },
-    { name: '四国', sub: '愛媛', box: [33.3, 132.3, 34.1, 133.3], w: 3 },
-    { name: '四国', sub: '高知東部', box: [33.2, 133.3, 33.8, 134.3], w: 1 },
-    { name: '四国', sub: '高知西部', box: [32.7, 132.5, 33.3, 133.3], w: 1 },
-    // 九州
-    { name: '九州', sub: '福岡', box: [33.3, 130.3, 34.0, 131.2], w: 4 },
-    { name: '九州', sub: '佐賀・長崎', box: [32.6, 129.6, 33.6, 130.3], w: 2 },
-    { name: '九州', sub: '熊本', box: [32.2, 130.3, 33.2, 131.2], w: 2 },
-    { name: '九州', sub: '大分・宮崎', box: [31.4, 131.2, 33.6, 131.9], w: 3 },
-    { name: '九州', sub: '鹿児島', box: [31.0, 130.1, 32.0, 131.2], w: 2 },
-    { name: '九州', sub: '天草', box: [32.1, 129.9, 32.6, 130.3], w: 1 },
-    { name: '九州', sub: '対馬', box: [34.1, 129.15, 34.7, 129.5], w: 1 },
-    { name: '九州', sub: '壱岐', box: [33.7, 129.65, 33.85, 129.8], w: 1 },
-    { name: '九州', sub: '五島', box: [32.55, 128.6, 33.1, 129.2], w: 1 },
-    { name: '九州', sub: '種子島', box: [30.35, 130.85, 30.85, 131.1], w: 1 },
-    // 沖縄
-    { name: '沖縄', sub: '沖縄本島', box: [26.05, 127.6, 26.9, 128.35], w: 3 },
-    { name: '沖縄', sub: '宮古', box: [24.7, 125.2, 24.95, 125.5], w: 1 },
-    { name: '沖縄', sub: '八重山', box: [24.2, 123.7, 24.6, 124.35], w: 1 },
-];
+// 範囲の四角 (name: 地方、sub: 四角の呼び名、box: [南, 西, 北, 東]、w: 重み、tag: 離島など) は tools/cjp-regions.js にある
+const ALL_REGIONS = require('./cjp-regions.js');
 
-// 都会っぽい地点用の中心座標 (ここからランダムに少しずらす)
 // --only / --except で地方を絞り込む
-const REGIONS = ALL_REGIONS.filter(r => (!ONLY || ONLY.includes(r.name)) && !EXCEPT.includes(r.name));
-if (!REGIONS.length) { console.log('地方の指定が正しくありません:', ALL_REGIONS.map(r => r.name).join(',')); process.exit(1); }
-const inRegions = ([lat, lng]) => REGIONS.some(({ box: [s, w, n, e] }) => lat >= s && lat <= n && lng >= w && lng <= e);
+// 地方名・四角の呼び名・tag (離島) のどれかが指定に合うかどうか
+const matches = (list, r) => list.includes(r.name) || list.includes(r.sub) || (r.tag && list.includes(r.tag));
+const REGIONS = ALL_REGIONS.filter(r => (!ONLY || matches(ONLY, r)) && !matches(EXCEPT, r));
+if (!REGIONS.length) { console.log('地方の指定が正しくありません:', [...new Set(ALL_REGIONS.map(r => r.name))].join(','), '/ 離島'); process.exit(1); }
+// 座標が入っている四角を探す (見つからなければ undefined)
+const boxOf = ([lat, lng], list = REGIONS) => list.find(({ box: [s, w, n, e] }) => lat >= s && lat <= n && lng >= w && lng <= e);
+const inRegions = p => !!boxOf(p);
 
-const ALL_CITIES = [
-    [43.062, 141.354], [38.268, 140.870], [35.690, 139.700], [35.659, 139.701], [35.466, 139.622],
-    [35.861, 139.646], [35.607, 140.106], [35.170, 136.882], [34.976, 138.383], [36.561, 136.656],
-    [37.916, 139.036], [36.651, 138.181], [35.011, 135.768], [34.702, 135.496], [34.690, 135.196],
-    [34.685, 135.805], [34.396, 132.459], [34.662, 133.935], [35.468, 133.049], [34.340, 134.043],
-    [33.839, 132.765], [33.559, 133.531], [33.590, 130.401], [32.790, 129.873], [32.803, 130.708],
-    [31.596, 130.557], [33.239, 131.609], [26.212, 127.681], [40.822, 140.747], [39.702, 141.154],
-];
-// 選んだ地方の中にある都市だけ使う
-const CITIES = ALL_CITIES.filter(inRegions);
+// 四角ごとの町の一覧 (tools/build-cjp-towns.js で作る。なければ町は使わない)
+const TOWNS_FILE = path.join(__dirname, 'cjp-towns.json');
+const TOWNS = fs.existsSync(TOWNS_FILE) ? JSON.parse(fs.readFileSync(TOWNS_FILE, 'utf8')) : {};
+// 町の近くを狙う割合 (--town=0.4 のように変えられる)。世界版より少し低めにして、田舎や山道も残す
+const TOWN_RATE = Number(OPT.town ?? 0.5);
 
 // Ctrl+C が押されたら true になる
 let stopping = false;
@@ -116,14 +51,26 @@ function pickRegion() {
     return REGIONS[0];
 }
 
-// 次に試す座標を作る (3割は都市の近く、7割は地方のどこか)
+// 次に試す座標を作る
+// 四角を重みで選んでから、TOWN_RATE の割合でその四角の中の町の近く (約±2km)、残りは四角の中のどこか
 function nextPoint() {
-    if (CITIES.length && Math.random() < 0.3) {
-        const c = CITIES[Math.floor(Math.random() * CITIES.length)];
-        return [c[0] + rand(-0.03, 0.03), c[1] + rand(-0.03, 0.03)];
+    const r = pickRegion();
+    const t = TOWNS[r.sub] || [];
+    if (t.length && Math.random() < TOWN_RATE) {
+        const [lat, lng] = t[Math.floor(Math.random() * t.length)];
+        return { lat: lat + rand(-0.02, 0.02), lng: lng + rand(-0.02, 0.02), region: r, town: true };
     }
-    const [s, w, n, e] = pickRegion().box;
-    return [rand(s, n), rand(w, e)];
+    const [s, w, n, e] = r.box;
+    return { lat: rand(s, n), lng: rand(w, e), region: r, town: false };
+}
+
+// 地方ごとの件数と割合を1行にする (地名は出さない、地方の名前だけ。地方が記録されていない古い地点は数えない)
+function distribution(found) {
+    const c = {};
+    const f2 = found.filter(f => f.name);
+    f2.forEach(f => c[f.name] = (c[f.name] || 0) + 1);
+    return Object.entries(c).sort((a, b) => b[1] - a[1])
+        .map(([k, v]) => `${k} ${v}`).join(' / ') + ` (地方の記録あり ${f2.length} 件)`;
 }
 
 // 2点間のおおよその距離 (km)
@@ -216,6 +163,12 @@ async function main() {
     const seen = existingIds();
     found.forEach(f => seen.add(f.id));
     const stats = { tried: 0, ok: 0, none: 0, user: 0, dup: 0, near: 0 };
+    // 町の近く / ランダム それぞれの試行数と採用数 (効率を比べるため)
+    const eff = { townTry: 0, townOk: 0, randTry: 0, randOk: 0 };
+    const startAt = Date.now();
+    const pct = (a, b) => b ? (a / b * 100).toFixed(1) + '%' : '-';
+    const effLine = () => `町の近く ${pct(eff.townOk, eff.townTry)} (${eff.townOk}/${eff.townTry}) / ランダム ${pct(eff.randOk, eff.randTry)} (${eff.randOk}/${eff.randTry})`
+        + ` / 1件あたり ${stats.ok ? ((Date.now() - startAt) / 1000 / stats.ok).toFixed(1) : '-'}秒`;
 
     // インストール済みのブラウザを使う (ダウンロード不要)
     // 3つ目の引数で選べる: msedge (既定) か chrome。選んだ方がなければもう片方を試す
@@ -248,9 +201,10 @@ async function main() {
     // 同時に TABS 本ずつ調べる
     const worker = async () => {
         while (found.length < TARGET) {
-            const [lat, lng] = nextPoint();
+            const p = nextPoint();
             stats.tried++;
-            const r = await probe(context, lat, lng);
+            if (p.town) eff.townTry++; else eff.randTry++;
+            const r = await probe(context, p.lat, p.lng);
             if (stopping) break;
             // 20回ごとに途中経過を出す (件数だけ、地名は出さない)
             if (stats.tried % 20 === 0) {
@@ -267,10 +221,14 @@ async function main() {
             if (found.some(f => distKm([f.lat, f.lng], [r.lat, r.lng]) < 2)) { stats.near++; continue; }
             if (found.length >= TARGET) break;
             seen.add(r.id);
-            found.push(r);
+            // どの地方・四角の地点かも記録する (四角の外なら、点を落とした四角とみなす)
+            const box = boxOf([r.lat, r.lng]) || p.region;
+            found.push({ ...r, name: box.name, sub: box.sub });
             stats.ok++;
+            if (p.town) eff.townOk++; else eff.randOk++;
             save(found);
-            if (stats.ok % 10 === 0) console.log(`採用 ${found.length}/${TARGET} (試行 ${stats.tried})`);
+            // 10件ごとに件数・地方ごとの数・効率を出す (地名は出さない)
+            if (stats.ok % 10 === 0) console.log(`採用 ${found.length}/${TARGET} (試行 ${stats.tried})\n  分布: ${distribution(found)}\n  効率: ${effLine()}`);
             // Googleに負荷をかけすぎないよう少し待つ
             await new Promise(r => setTimeout(r, 1000 + Math.random() * 1000));
         }
@@ -280,6 +238,7 @@ async function main() {
     save(found);
     await browser.close();
     console.log('結果', JSON.stringify({ ...stats, total: found.length }));
+    console.log('効率', effLine());
 }
 
 main();
