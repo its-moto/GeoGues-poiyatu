@@ -42,6 +42,10 @@ var streetViews = [
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sRoxgevxKYdIxuSPixLe0gw!2m2!1d45.29850332692595!2d141.0470517492345!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/8cFiaHja5cQFFdfy9'
     },
+    {//稚内
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sv37xBaC6APSf-2d5_1o-pQ!2m2!1d45.41656105611965!2d141.676052188704!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/YM5jytiBP4FJPfDN9'
+    },
     //--------------------ここから青森
     {//青森市
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1shmDM4Ae3akdPDZ2vdxQakA!2m2!1d40.8248419560808!2d140.7394198938251!3f0!4f0!5f0.4',
@@ -184,6 +188,10 @@ var streetViews = [
     {//長岡市
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sntolC2Ujxh-eJ5PZvLMxyg!2m2!1d37.45310339226299!2d138.8213099401752!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/WSgK59GoDEhDawHw8'
+    },
+    {//南魚沼
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sEv9sD9M6Q_hB_0nEWOCh9g!2m2!1d37.06585611377395!2d138.8777164980119!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/VBhXzuA76kyyqwWw5'
     },
     //--------------------ここから群馬
     {//高崎
@@ -455,6 +463,10 @@ var streetViews = [
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sugGjnWkzsy6IUfyftOq3zQ!2m2!1d36.06299945530241!2d136.2176745481386!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/QTL5C49xEaJCJLM16'
     },
+    {//大野市
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1squiaawk-0iLmMALKJboNqQ!2m2!1d35.9804991980496!2d136.4989774460194!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/VevSPvkKQqDLbMo99'
+    },
     {//若狭町1
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sYnSRxRF5NrQpOjaiku1Efg!2m2!1d35.55283261552664!2d135.9102942247826!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/BXCJta3UE7QSxWcKA'
@@ -500,6 +512,10 @@ var streetViews = [
     {//高山市
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sTs2cnzdJbzeTb59wiiTKWA!2m2!1d36.14433624609278!2d137.251613384372!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/p1dmSTQtEGqmLy1KA'
+    },
+    {//中津川公園
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sdFZUFF1gbeXjj9dPCjQOYg!2m2!1d35.45693675234475!2d137.4639036893535!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/GGVhvMcdS2WBiS9R8'
     },
     //--------------------ここから愛知
     {//西尾市
@@ -792,6 +808,10 @@ var streetViews = [
     {//尾道市しまなみ海道生口島
         embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s2J7S0wgjG4PYhhaMTZukkQ!2m2!1d34.30165394113825!2d133.147995167777!3f0!4f0!5f0.4',
         answerUrl: 'https://maps.app.goo.gl/AYtdhKf5YQ52gGm37'
+    },
+    {//三次市
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1szIftufuVKOfB_cLid4PFhw!2m2!1d34.80489360644868!2d132.8560054033718!3f0!4f0!5f0.4',
+        answerUrl: 'https://maps.app.goo.gl/GNGM4BoohHNrc6299'
     },
     //--------------------ここから山口
     {
