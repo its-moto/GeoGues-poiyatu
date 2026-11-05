@@ -9,6 +9,8 @@ const regions = require('./cjp-regions.js');
 const towns = {};
 regions.forEach(r => towns[r.sub] = []);
 let total = 0;
+// 都会の一覧 (人口5万人以上)。収集の --city で使う。[緯度, 経度, 人口] の形で cjp-cities.json に書き出す
+const cities = [];
 // 1行に1つの町 (タブ区切り)。5列目が緯度、6列目が経度、9列目が国コード
 for (const line of fs.readFileSync(process.argv[2], 'utf8').split('\n')) {
     const c = line.split('\t');
@@ -21,8 +23,13 @@ for (const line of fs.readFileSync(process.argv[2], 'utf8').split('\n')) {
     // 小数3桁 (約100m) で十分なので短くして保存する
     towns[r.sub].push([Math.round(lat * 1000) / 1000, Math.round(lng * 1000) / 1000]);
     total++;
+    // 15列目が人口
+    const pop = Number(c[14]);
+    if (pop >= 50000) cities.push([Math.round(lat * 1000) / 1000, Math.round(lng * 1000) / 1000, pop]);
 }
 fs.writeFileSync(path.join(__dirname, 'cjp-towns.json'), JSON.stringify(towns));
+fs.writeFileSync(path.join(__dirname, 'cjp-cities.json'), JSON.stringify(cities));
+console.log(`都会 (人口5万人以上) ${cities.length} 件`);
 // 町が1つもない四角 (小さい島など) はランダムな点だけで探す
 const empty = regions.filter(r => !towns[r.sub].length).map(r => r.sub);
 console.log(`町 ${total} 件 / 四角 ${regions.length} 個 (町なし ${empty.length} 個)`);

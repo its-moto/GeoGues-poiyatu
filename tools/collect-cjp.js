@@ -51,9 +51,39 @@ function pickRegion() {
     return REGIONS[0];
 }
 
+// 都会の一覧 [緯度, 経度, 人口] (tools/build-cjp-towns.js で作る。人口5万人以上)
+// --city=0.7 のように指定すると、その割合で都会の近くを狙う (山道や島が出すぎるのを防ぐ)
+const CITIES_FILE = path.join(__dirname, 'cjp-cities.json');
+const CITIES = (fs.existsSync(CITIES_FILE) ? JSON.parse(fs.readFileSync(CITIES_FILE, 'utf8')) : []).filter(c => inRegions(c));
+const CITY_RATE = Number(OPT.city ?? 0);
+// 人口の平方根を重みにする (人口そのままだと東京ばかりになるので、少しならす)
+const CITY_TOTAL = CITIES.reduce((s, c) => s + Math.sqrt(c[2]), 0);
+function pickCity() {
+    let x = Math.random() * CITY_TOTAL;
+    for (const c of CITIES) { if ((x -= Math.sqrt(c[2])) < 0) return c; }
+    return CITIES[0];
+}
+
+// 地点どうしの最低距離 (km)。--km=1 のように変えられる (都会は2kmだとすぐ埋まって入らなくなる)
+const MIN_KM = Number(OPT.km || 2);
+
+// 収集を止める時刻 (--until=11:30 のように指定)。件数に届いていなくても、この時刻で終わる
+let DEADLINE = Infinity;
+if (OPT.until) {
+    const [h, m] = OPT.until.split(':').map(Number);
+    const d = new Date(); d.setHours(h, m, 0, 0);
+    DEADLINE = d.getTime();
+}
+
 // 次に試す座標を作る
-// 四角を重みで選んでから、TOWN_RATE の割合でその四角の中の町の近く (約±2km)、残りは四角の中のどこか
+// CITY_RATE の割合で都会の近く (約±4km)
+// それ以外は四角を重みで選んでから、TOWN_RATE の割合でその四角の中の町の近く (約±2km)、残りは四角の中のどこか
 function nextPoint() {
+    if (CITIES.length && Math.random() < CITY_RATE) {
+        const [lat, lng] = pickCity();
+        const p = [lat + rand(-0.04, 0.04), lng + rand(-0.04, 0.04)];
+        return { lat: p[0], lng: p[1], region: boxOf([lat, lng]), town: true };
+    }
     const r = pickRegion();
     const t = TOWNS[r.sub] || [];
     if (t.length && Math.random() < TOWN_RATE) {
@@ -62,6 +92,51 @@ function nextPoint() {
     }
     const [s, w, n, e] = r.box;
     return { lat: rand(s, n), lng: rand(w, e), region: r, town: false };
+}
+
+// ---------- 青い線に吸い付ける (--snap=0 で使わない。世界版 collect-cpw.js と同じ仕組み) ----------
+// 決めた点のあたりの「ズーム SNAP_Z のカバレッジタイル」を読んで、青い線の上のピクセルを1つ選び、そこを試す
+// 青がないタイルなら Googleマップを開かずに次へ進むので、外れの時間がほぼなくなる
+const SNAP = OPT.snap !== '0';
+const SNAP_Z = Number(OPT.snapz || 14);
+// 投稿写真の丸い点が出ない形のカバレッジタイル (線だけ)
+const tileUrl = (x, y, z) => `https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i${z}!2i${x}!3i${y}!4i256!2m8!1e2!2ssvv!4m2!1scb_client!2sapiv3!4m2!1scc!2s*211m3*211e2*212b1*213e2!3m3!3sUS!12m1!1e68!4e0`;
+// 緯度経度 ⇔ ズームzの世界ピクセル座標 (Webメルカトル)
+const toPx = (lat, lng, z) => {
+    const n = 256 * 2 ** z, r = lat * Math.PI / 180;
+    return [(lng + 180) / 360 * n, (1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * n];
+};
+const fromPx = (X, Y, z) => {
+    const n = 256 * 2 ** z;
+    return [Math.atan(Math.sinh(Math.PI * (1 - 2 * Y / n))) * 180 / Math.PI, X / n * 360 - 180];
+};
+// タイル読み込み用のページ (画像を止めている context とは別にする)
+let tilePage = null;
+// 吸い付けの成績 (タイルを読んだ数 / 青があった数)
+const snapStat = { tiles: 0, hit: 0 };
+// 点 p を青い線の上に動かす。青がなければ null
+async function snap(p) {
+    const [X, Y] = toPx(p.lat, p.lng, SNAP_Z);
+    const tx = Math.floor(X / 256), ty = Math.floor(Y / 256);
+    snapStat.tiles++;
+    // ブラウザの中でタイルを読んで、青いピクセルを1つランダムに選ぶ
+    const pick = await tilePage.evaluate(url => new Promise(res => {
+        const img = new Image(); img.crossOrigin = 'anonymous';
+        img.onload = () => {
+            const cv = document.createElement('canvas'); cv.width = cv.height = 256;
+            const ctx = cv.getContext('2d'); ctx.drawImage(img, 0, 0);
+            const d = ctx.getImageData(0, 0, 256, 256).data;
+            const blue = [];
+            for (let i = 0; i < 65536; i++) if (d[i * 4 + 3] > 60) blue.push(i);
+            res(blue.length ? blue[Math.floor(Math.random() * blue.length)] : null);
+        };
+        img.onerror = () => res(null);
+        img.src = url;
+    }), tileUrl(tx, ty, SNAP_Z)).catch(() => null);
+    if (pick === null) return null;
+    snapStat.hit++;
+    const [lat, lng] = fromPx(tx * 256 + (pick % 256) + 0.5, ty * 256 + Math.floor(pick / 256) + 0.5, SNAP_Z);
+    return { ...p, lat, lng };
 }
 
 // 地方ごとの件数と割合を1行にする (地名は出さない、地方の名前だけ。地方が記録されていない古い地点は数えない)
@@ -183,12 +258,22 @@ async function main() {
     const browser = await chromium.launch({ channel: first, ...opts })
         .catch(() => chromium.launch({ channel: second, ...opts }));
     const context = await browser.newContext({ locale: 'ja-JP' });
+    // 速くするため、画像・フォント・動画は読み込まない (パノラマIDはURLに出るので景色の画像は要らない)
+    await context.route('**/*', route => {
+        const t = route.request().resourceType();
+        return (t === 'image' || t === 'font' || t === 'media') ? route.abort() : route.continue();
+    });
 
     // 最初に WebGL が使えるか確認して表示する (使えないと公式の地点が見つからない)
     const check = await context.newPage();
     const gl = await check.evaluate(() => !!document.createElement('canvas').getContext('webgl'));
     await check.close();
     console.log(`ブラウザ: ${browser.browserType().name()} ${browser.version()} / WebGL: ${gl ? 'OK' : 'NG'}`);
+    // 吸い付け用に、画像を止めていない別の context でページを1つ開いておく
+    if (SNAP) {
+        tilePage = await (await browser.newContext()).newPage();
+        console.log(`青い線に吸い付け: ON (ズーム ${SNAP_Z}) / 都会 ${CITIES.length} 件 (割合 ${CITY_RATE})`);
+    }
 
     // Ctrl+C で止めたら、ブラウザを閉じてきれいに終わる (集めた分は保存済み)
     process.on('SIGINT', async () => {
@@ -200,8 +285,16 @@ async function main() {
 
     // 同時に TABS 本ずつ調べる
     const worker = async () => {
-        while (found.length < TARGET) {
-            const p = nextPoint();
+        while (found.length < TARGET && Date.now() < DEADLINE) {
+            let p = nextPoint();
+            // 吸い付けがONなら、青い線が見つかるまで (最大30回) 点を作り直す。見つからなければ最後の点のまま試す
+            if (SNAP) {
+                for (let k = 0; k < 30 && !stopping; k++) {
+                    const s = await snap(p);
+                    if (s) { p = s; break; }
+                    p = nextPoint();
+                }
+            }
             stats.tried++;
             if (p.town) eff.townTry++; else eff.randTry++;
             const r = await probe(context, p.lat, p.lng);
@@ -217,8 +310,8 @@ async function main() {
             if (seen.has(r.id)) { stats.dup++; continue; }
             // 地方を絞っているときは、見つかった地点もその範囲内のものだけ採用
             if ((ONLY || EXCEPT.length) && !inRegions([r.lat, r.lng])) { stats.near++; continue; }
-            // 近すぎる地点 (2km以内) は似た景色になるので除外
-            if (found.some(f => distKm([f.lat, f.lng], [r.lat, r.lng]) < 2)) { stats.near++; continue; }
+            // 近すぎる地点 (MIN_KM 以内) は似た景色になるので除外
+            if (found.some(f => distKm([f.lat, f.lng], [r.lat, r.lng]) < MIN_KM)) { stats.near++; continue; }
             if (found.length >= TARGET) break;
             seen.add(r.id);
             // どの地方・四角の地点かも記録する (四角の外なら、点を落とした四角とみなす)
