@@ -766,3 +766,15 @@ body.touch #map-container.open #mapCloseButton {
         height: 86%;
     }
 }
+
+/*======================================================================================*/
+/*デイリーチャレンジ: bodyにdailyがついてるときだけボタンを切り替える (SingleGamePlay.js)*/
+.show-in-daily {
+    display: none;
+}
+body.daily .show-in-daily {
+    display: inline-block;
+}
+body.daily .hide-in-daily {
+    display: none;
+}

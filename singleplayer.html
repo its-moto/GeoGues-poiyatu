@@ -25,6 +25,14 @@
 
 	<!-- ブロックのグリッドコンテナ -->
 	<div class="grid-container">
+		<!-- デイリーチャレンジ (今日の結果はしたのscriptで書く) -->
+		<div class="card daily-card" data-keywords="daily デイリー チャレンジ 世界 cpw">
+			<img src="Resource/mapimg/world.png" alt="world.png">
+			<h3>デイリーチャレンジ</h3>
+			<p class="daily-status" id="dailyStatus"></p>
+			<button id="dailyButton" onclick="location.href='Resource/maphtmls/game.html?daily=1';">プレイ</button>
+		</div>
+
 		<div class="card" data-keywords="a random picked world 世界">
 			<img src="Resource/mapimg/world.png" alt="world.png">
 			<h3>A Random picked world</h3>
@@ -80,6 +88,13 @@
 			<button onclick="location.href='Resource/maphtmls/game.html?map=claudejapan';">プレイ</button>
 		</div>
 
+		<!-- Claudeセレクトの都道府県・地方マップ (押すと選ぶ画面が開く) -->
+		<div class="card" data-keywords="claude select japan 都道府県 地方 県 アジア 日本 クロード セレクト">
+			<img src="Resource/mapimg/japan.png" alt="japan.png">
+			<h3>都道府県・地方 (Claudeセレクト)</h3>
+			<button onclick="openAreaPopup()">えらぶ</button>
+		</div>
+
 		<!-- Claudeセレクトの世界マップ (CPWlinks.js) -->
 		<div class="card" data-keywords="cpw claude picked world 世界 クロード セレクト">
 			<img src="Resource/mapimg/world.png" alt="world.png">
@@ -99,8 +114,67 @@
 		powered by: Google Map, Leaflet, Visual Studio Code<br>made by it_s_moto, Inspired by GEOGUESSR, for my friends
 	</div>
 
+	<!-- 都道府県・地方を選ぶポップアップ (中身はしたのscriptで作る) -->
+	<div class="popup-overlay" id="areaPopup" onclick="if (event.target === this) closeAreaPopup()">
+		<div class="area-panel">
+			<h2>都道府県・地方</h2>
+			<div id="areaList"></div>
+			<button class="close-popup-btn" onclick="closeAreaPopup()">閉じる</button>
+		</div>
+	</div>
+
 	<script src="Resource/src/settings.js"></script>
+	<script src="Resource/src/daily.js"></script>
+	<script src="Resource/src/maps.js"></script>
+	<script src="Resource/src/cjpareas.js"></script>
 	<script>
+		//================================================都道府県・地方を選ぶ================================================
+		// 地方ごとに1行: [九州ぜんぶ] [福岡県] [佐賀県] ...
+		(function buildAreaList() {
+			const rows = {}; // 地方の名前 → 行
+
+			// ボタンを1つ作る
+			function addButton(row, label, id, isRegion) {
+				const button = document.createElement('button');
+				button.className = 'area-button' + (isRegion ? ' region' : '');
+				button.textContent = label;
+				button.onclick = () => location.href = 'Resource/maphtmls/game.html?map=' + encodeURIComponent(id);
+				row.appendChild(button);
+			}
+
+			CJP_AREAS.forEach(area => {
+				const isRegion = area.group === '地方';
+				// 地方のマップは自分の行を、都道府県は入ってる地方の行を使う
+				const rowName = isRegion ? area.filter.value : area.group;
+				if (!rows[rowName]) {
+					rows[rowName] = document.createElement('div');
+					rows[rowName].className = 'area-row';
+					document.getElementById('areaList').appendChild(rows[rowName]);
+				}
+				addButton(rows[rowName], isRegion ? area.filter.value + 'ぜんぶ' : area.filter.value, area.id, isRegion);
+			});
+		})();
+
+		function openAreaPopup() {
+			document.getElementById('areaPopup').style.display = 'flex';
+		}
+
+		function closeAreaPopup() {
+			document.getElementById('areaPopup').style.display = 'none';
+		}
+
+		// デイリーのカードに今日の状態を書く (まだ / 途中 / 終わった)
+		const dailyResults = dailyLoad(dailyToday());
+		if (dailyResults.length >= DAILY_ROUNDS) {
+			document.getElementById('dailyStatus').textContent = '今日のスコア: ' + dailyTotal(dailyResults) + ' pt';
+			document.getElementById('dailyButton').textContent = '結果を見る';
+		} else if (dailyResults.length > 0) {
+			document.getElementById('dailyStatus').textContent = dailyResults.length + ' / ' + DAILY_ROUNDS + ' ラウンドまで終わったよ';
+			document.getElementById('dailyButton').textContent = '続きから';
+		} else {
+			document.getElementById('dailyStatus').textContent = '全員同じ' + DAILY_ROUNDS + '地点・2分・1日1回';
+		}
+
 		function filterCards() {
 			const searchInput = document.getElementById('searchBar').value.toLowerCase();
 			const cards = document.querySelectorAll('.card');

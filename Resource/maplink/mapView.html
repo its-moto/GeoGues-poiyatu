@@ -9,6 +9,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script src="../src/maps.js"></script>
+    <script src="../src/cjpareas.js"></script>
     <script>
         // ?map=claudejapan みたいに選ばれたマップの地点データを読み込む (game.htmlと同じやり方、file://でも動く)
         const mapId = new URLSearchParams(location.search).get('map') || 'japan';
@@ -67,15 +68,10 @@
         //================================================マップを選ぶ================================================
         // maps.js のマップを全部プルダウンに並べる。選んだらそのマップで読み直す
         const select = document.getElementById('mapSelect');
-        Object.keys(MAPS).forEach(id => {
-            const option = document.createElement('option');
-            option.value = id;
-            option.textContent = MAPS[id].name;
-            select.appendChild(option);
-        });
+        fillMapSelect(select);
         select.value = mapId;
         select.addEventListener('change', () => {
-            location.search = '?map=' + select.value;
+            location.search = '?map=' + encodeURIComponent(select.value);
         });
 
         //================================================地図================================================
@@ -100,7 +96,7 @@
         //================================================地点をピンにする================================================
         // embedUrl の !1d(緯度)!2d(経度) から場所を取り出す (ゲームと同じ読み方)
         const latLngs = [];
-        streetViews.forEach((streetView, i) => {
+        mapLocations(mapConfig, streetViews).forEach((streetView, i) => {
             const lat = streetView.embedUrl.match(/!1d(-?[\d.]+)/);
             const lng = streetView.embedUrl.match(/!2d(-?[\d.]+)/);
             if (!lat || !lng) return; // 読めない地点はとばす

@@ -15,15 +15,23 @@ let roundStartTime = null; //ラウンド開始時刻 (かかった時間用)
 let usedIndexes = []; //同じ場所が出ないように使った地点を記録
 let finalMap; //最後の結果画面の地図
 
+// 都道府県マップなら、その県の地点だけにする (maps.js)
+streetViews = mapLocations(mapConfig, streetViews);
+
+// デイリーチャレンジ用 (daily.js)。全員同じ条件にするので、設定のラウンド数や時間は使わない
+const dailyDate = dailyToday(); // 遊んでる途中で0時をまたいでも、開いた日の問題のまま
+let dailyOrder = []; // 今日の地点の番号
+
 const storedRounds = localStorage.getItem('rounds');
-const totalRounds = storedRounds === null ? 5 : parseInt(storedRounds); //0なら無限
+const totalRounds = isDaily ? DAILY_ROUNDS : storedRounds === null ? 5 : parseInt(storedRounds); //0なら無限
 if (totalRounds > 0) {
     document.getElementById('roundLimit').textContent = '/' + totalRounds;
 }
-document.getElementById('mapNameLabel').textContent = mapConfig.name;
+document.getElementById('mapNameLabel').textContent = isDaily ? 'デイリー ' + dailyDate : mapConfig.name;
+document.body.classList.toggle('daily', isDaily); // 出すボタンの切り替えはCSSで
 
-const RPZbool =localStorage.getItem('RPZbool') === 'true';
-const NMPZbool =localStorage.getItem('NMPZbool') === 'true';
+const RPZbool = !isDaily && localStorage.getItem('RPZbool') === 'true';
+const NMPZbool = !isDaily && localStorage.getItem('NMPZbool') === 'true';
 
 var map = L.map('map').setView([0, 0], 1);
 var rfmap = L.map('remap').setView([0, 0], 1);
@@ -60,15 +68,20 @@ function showRandomStreetView() {
     document.getElementById('distance-value').textContent = "0m";
     document.getElementById('point-value').textContent = 0;
 
-    // まだ出てない地点から選ぶ (全部出たらリセット)
-    if (usedIndexes.length >= streetViews.length) {
-        usedIndexes = [];
-    }
     let randomIndex;
-    do {
-        randomIndex = Math.floor(Math.random() * streetViews.length);
-    } while (usedIndexes.includes(randomIndex));
-    usedIndexes.push(randomIndex);
+    if (isDaily) {
+        // デイリーは日付で決まった地点を順番に
+        randomIndex = dailyOrder[roundResults.length];
+    } else {
+        // まだ出てない地点から選ぶ (全部出たらリセット)
+        if (usedIndexes.length >= streetViews.length) {
+            usedIndexes = [];
+        }
+        do {
+            randomIndex = Math.floor(Math.random() * streetViews.length);
+        } while (usedIndexes.includes(randomIndex));
+        usedIndexes.push(randomIndex);
+    }
     currentStreetViewIndex = randomIndex;
     roundStartTime = null;
     if (marker) {
@@ -128,6 +141,7 @@ iframe.addEventListener("load", () => {
     // iframeが完全に読み込まれた後に実行
     setTimeout(() => {
         document.getElementById('loading').style.display = 'none';
+        if (nowDisplay == 'final' || nowDisplay == 'finalStats') return; // 結果画面ならタイマーは動かさない
         if (roundStartTime == null) {
             roundStartTime = performance.now();
         }
@@ -144,7 +158,7 @@ let countdownTime; // 初期時間（秒単位）
 let timerInterval = null;
 let timerLeftAlertOp = 0;
 let tickingClock = null; // 残り15秒からのチクタク音
-const totalTime = localStorage.getItem('timer') || 120; // タイマーの総時間を保存
+const totalTime = isDaily ? DAILY_TIME : localStorage.getItem('timer') || 120; // タイマーの総時間を保存
 
 if (totalTime == 0) {
     document.getElementById("timer").style.display = "none";
@@ -158,7 +172,7 @@ function formatTime(seconds) {
 
 function LowTimerAlert() {
     const timerOLay = document.getElementById('timerLowLeft').style;
-    if (localStorage.getItem('timer') > 10 ){
+    if (totalTime > 10 ){
         if (countdownTime < 11 && countdownTime >10.5){
             timerLeftAlertOp = 1;
         } else if (countdownTime < 10.5 && timerLeftAlertOp > 0){
@@ -398,6 +412,7 @@ function guess() {
     });
 
     document.getElementById('nextRound').textContent = isLastRound() ? '結果を見る' : '次';
+    if (isDaily) dailySave(dailyDate, roundResults); // 読み込み直しでやり直せないように毎ラウンド保存
 }
 
 //================================================最後の結果画面================================================
@@ -549,6 +564,33 @@ function closeResult() {
     nowDisplay = 'play';
 }
 
+//================================================デイリーチャレンジ================================================
+// ゲームを始める。途中まで遊んでたら続きから、もう終わってたら結果を出す
+function startDaily() {
+    dailyOrder = dailyIndexes(dailyDate, streetViews.length);
+    roundResults = dailyLoad(dailyDate);
+    // 左上のラウンド数と合計ポイントを、保存してあった分まで進めておく
+    document.getElementById('totalRound').textContent = roundResults.length;
+    document.getElementById('totalPoint').textContent = dailyTotal(roundResults);
+
+    if (isLastRound()) {
+        document.getElementById('loading').style.display = 'none'; // ストリートビューを読まないので自分で消す
+        showFinalResult();
+    } else {
+        showRandomStreetView();
+    }
+}
+
+// 友達に送る文章をコピー
+function copyDailyResult() {
+    const text = dailyShareText(dailyDate, roundResults);
+    const done = () => document.getElementById('dailyShare').textContent = 'コピーしたよ!';
+    navigator.clipboard.writeText(text).then(done).catch(() => {
+        // コピーできない環境なら、手でコピーしてもらう
+        prompt('これをコピーしてね', text);
+    });
+}
+
 function randomBgms() {
     const randomTrack = bgmTracks[Math.floor(Math.random() * bgmTracks.length)];
     bgm.src = randomTrack;
@@ -556,4 +598,9 @@ function randomBgms() {
     bgm.play();
 }
 
-showRandomStreetView();// ページの読み込み後に初期化
+// ページの読み込み後に初期化
+if (isDaily) {
+    startDaily();
+} else {
+    showRandomStreetView();
+}

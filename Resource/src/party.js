@@ -509,12 +509,7 @@ function multiplierPreview() {
 }
 
 // マップの選択肢はmaps.jsから
-Object.keys(MAPS).forEach(id => {
-    const option = document.createElement('option');
-    option.value = id;
-    option.textContent = MAPS[id].name;
-    $('mapSelect').appendChild(option);
-});
+fillMapSelect($('mapSelect'));
 
 [['modeSelect', 'mode'], ['mapSelect', 'map'], ['timeSelect', 'time'],
  ['multiStartSlider', 'multiStart'], ['multiStepSlider', 'multiStep']].forEach(([id, key]) => {
@@ -602,7 +597,7 @@ function loadStreetViews(mapId, callback) {
     script.src = '../maplink/' + MAPS[mapId].file;
     script.onload = () => {
         script.remove();
-        callback(streetViews);
+        callback(mapLocations(MAPS[mapId], streetViews)); // 都道府県マップならその県の地点だけ
     };
     script.onerror = () => $('lobbyMessage').textContent = 'マップの読み込みに失敗したよ';
     document.head.appendChild(script);

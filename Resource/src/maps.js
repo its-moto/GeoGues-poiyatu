@@ -74,3 +74,33 @@ const MAPS = {
         mapSize: 1
     }
 };
+
+// 都道府県・地方マップは cjpareas.js がこの MAPS に足す
+
+// そのマップで使う地点だけにする (filterがなければ全部)
+function mapLocations(config, list) {
+    if (!config.filter) return list;
+    return list.filter(location => location[config.filter.key] === config.filter.value);
+}
+
+// <select> にマップの選択肢を並べる (groupがあるものはまとめて、長いリストでも探しやすく)
+function fillMapSelect(select) {
+    const groups = {};
+    Object.keys(MAPS).forEach(id => {
+        const option = document.createElement('option');
+        option.value = id;
+        option.textContent = MAPS[id].name;
+
+        const group = MAPS[id].group;
+        if (!group) {
+            select.appendChild(option);
+            return;
+        }
+        if (!groups[group]) {
+            groups[group] = document.createElement('optgroup');
+            groups[group].label = group;
+            select.appendChild(groups[group]);
+        }
+        groups[group].appendChild(option);
+    });
+}

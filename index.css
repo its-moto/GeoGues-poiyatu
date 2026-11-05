@@ -307,3 +307,48 @@ input:checked + .slider:before {
         font-size: 18px;
     }
 }
+
+/* デイリーチャレンジのカード */
+.daily-card {
+    outline: 2px solid #FFCF3D;
+}
+.daily-status {
+    margin: 0 0 8px;
+    font-size: 13px;
+    color: #FFCF3D;
+}
+
+/* 都道府県・地方を選ぶポップアップ */
+.area-panel {
+    box-sizing: border-box;
+    width: min(760px, 94%);
+    max-height: 90vh;
+    overflow-y: auto; /* 小さい画面ではスクロール */
+    padding: 16px;
+    color: white;
+    text-align: center;
+}
+.area-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+.area-button {
+    padding: 7px 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    background-color: rgba(121, 80, 229, 0.55);
+}
+.area-button:hover {
+    background-color: #7950E5;
+}
+/* 「九州ぜんぶ」は金色で区別 */
+.area-button.region {
+    color: #1A1A2E;
+    background-color: #FFCF3D;
+}

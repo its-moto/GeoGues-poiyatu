@@ -9,9 +9,13 @@
     <link rel="icon" href="../images/logo-pin.png"> <!-- ページアイコン -->
 
     <script src="../src/maps.js"></script>
+    <script src="../src/cjpareas.js"></script>
+    <script src="../src/daily.js"></script>
     <script>
+        // ?daily=1 ならデイリーチャレンジ (マップはdaily.jsで固定)
+        const isDaily = new URLSearchParams(location.search).has('daily');
         // ?map=japan みたいに選ばれたマップの地点データを読み込む (file://でも動くようにscriptタグで)
-        const mapId = new URLSearchParams(location.search).get('map');
+        const mapId = isDaily ? DAILY_MAP : new URLSearchParams(location.search).get('map');
         const mapConfig = MAPS[mapId] || MAPS.world;
         document.title = 'GeoPpoi - ' + mapConfig.name;
         document.write('<script src="../maplink/' + mapConfig.file + '"><\/script>');
@@ -57,10 +61,10 @@
             </label>
             <br>
             <br>
-            <button onclick="showAnswer()">show answer</button>
+            <button class="hide-in-daily" onclick="showAnswer()">show answer</button>
             <hr color="#c7c7c7" width="50%">
             <button class="close-popup-btn" onclick="closeSetting()">ゲームに戻る</button>
-            <button class="goBack" onclick="closeSetting();showFinalResult()">終了して結果を見る</button>
+            <button class="goBack hide-in-daily" onclick="closeSetting();showFinalResult()">終了して結果を見る</button>
             <button class="goBack" onclick="goBack()">ゲームを出る</button> <!-- 戻るボタンを追加 -->
         </div>
     </div>
@@ -95,7 +99,8 @@
                     <span class="final-stat-label">かかった時間</span>
                     <span id="statTime">0秒</span>
                 </div>
-                <button class="close-popup-btn" onclick="location.reload()">もう一度</button>
+                <button class="close-popup-btn hide-in-daily" onclick="location.reload()">もう一度</button>
+                <button class="close-popup-btn show-in-daily" id="dailyShare" onclick="copyDailyResult()">結果をコピー</button>
                 <button class="goBack" onclick="goBack()">マップ選択へ</button>
             </div>
         </div>
