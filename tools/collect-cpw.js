@@ -1,6 +1,6 @@
 // 世界CPW (Claude Picked World) の地点を自動で集めるスクリプト
 // 使い方: node tools/collect-cpw.js <集めたい件数> [同時タブ数] [msedge|chrome] [show] [--only=..|--except=..]
-// オプション: --km=20 (地点どうしの最低距離) / --town=0.6 (町の近くを狙う割合) / --nocells (青いマスを使わない) / --snap=0 (青い線に吸い付けない) / --snapz=13 (吸い付けのズーム)
+// オプション: --km=20 (地点どうしの最低距離) / --town=0.6 (町の近くを狙う割合) / --nocells (青いマスを使わない) / --snap=0 (青い線に吸い付けない) / --snapz=13 (吸い付けのズーム) / --until=10:15 (止める時刻)
 // 仕組みは日本版 (collect-cjp.js) と同じ。範囲の四角は tools/cpw-regions.js にある
 // 結果は tools/cpw-found.json に少しずつ追記されるので、途中で止めても続きから再開できる
 // 画面には件数と地域ごとの割合だけ出す (地名は出さない)
@@ -22,6 +22,13 @@ const ONLY = OPT.only ? OPT.only.split(',') : null;
 const EXCEPT = OPT.except ? OPT.except.split(',') : [];
 // 地点どうしの最低距離 (km)。世界は広いので日本版 (2km) より大きくして、同じ街ばかりになるのを防ぐ
 const MIN_KM = Number(OPT.km || 20);
+// 収集を止める時刻 (--until=10:15 のように指定)。件数に届いていなくても、この時刻で終わる
+let DEADLINE = Infinity;
+if (OPT.until) {
+    const [h, m] = OPT.until.split(':').map(Number);
+    const d = new Date(); d.setHours(h, m, 0, 0);
+    DEADLINE = d.getTime();
+}
 
 // 範囲の四角 (name: 地域、sub: 国や地方、box: [南, 西, 北, 東]、w: 重み)
 const ALL_REGIONS = require('./cpw-regions.js');
@@ -290,7 +297,7 @@ async function main() {
 
     // 同時に TABS 本ずつ調べる
     const worker = async () => {
-        while (found.length < TARGET) {
+        while (found.length < TARGET && Date.now() < DEADLINE) {
             let p = nextPoint();
             // 吸い付けがONなら、青い線が見つかるまで (最大30回) 点を作り直す。見つからなければ元の点のまま試す
             if (SNAP) {
