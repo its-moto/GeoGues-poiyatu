@@ -32,6 +32,7 @@ document.body.classList.toggle('daily', isDaily); // 出すボタンの切り替
 
 const RPZbool = !isDaily && localStorage.getItem('RPZbool') === 'true';
 const NMPZbool = !isDaily && localStorage.getItem('NMPZbool') === 'true';
+if (NMPZbool) document.getElementById('lookDownButton').style.display = 'none'; // NMPZは動けないルールなので真下も見せない
 
 var map = L.map('map').setView([0, 0], 1);
 var rfmap = L.map('remap').setView([0, 0], 1);
@@ -120,6 +121,11 @@ function goBack() {
 
 function backToStart() {
     document.getElementById('streetview').src = currentBackToViewIndex;
+}
+
+// ⬇️ 最初の位置に戻って、真北のまま真下を向く (RPZのときも元のURLから作る)
+function lookDown() {
+    document.getElementById('streetview').src = lookDownUrl(streetViews[currentStreetViewIndex].embedUrl);
 }
 
 function showAnswer() {

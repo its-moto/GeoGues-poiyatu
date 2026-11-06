@@ -873,6 +873,11 @@ function backToStart() {
     if (currentRound) $('streetview').src = currentRound.location.embedUrl;
 }
 
+// ⬇️ 最初の位置に戻って、真北のまま真下を向く
+function lookDown() {
+    if (currentRound) $('streetview').src = lookDownUrl(currentRound.location.embedUrl);
+}
+
 function submitGuess(timeUp) {
     if (hasGuessed || !currentRound) return;
     if (!myPin && !timeUp) return; // ピンが置かれてない

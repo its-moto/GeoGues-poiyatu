@@ -83,6 +83,12 @@ function mapLocations(config, list) {
     return list.filter(location => location[config.filter.key] === config.filter.value);
 }
 
+// 真下を向く: 埋め込みURLの !3f(横の向き) を0(真北)に、!4f(上下の向き) を-90(真下)に変えて読み直す
+// iframeの中は別サイトで動かせないので、URLを変えて最初の位置から開き直すしかない
+function lookDownUrl(embedUrl) {
+    return embedUrl.replace(/!3f[-\d.]+/, '!3f0').replace(/!4f[-\d.]+/, '!4f-90');
+}
+
 // <select> にマップの選択肢を並べる (groupがあるものはまとめて、長いリストでも探しやすく)
 function fillMapSelect(select) {
     const groups = {};
