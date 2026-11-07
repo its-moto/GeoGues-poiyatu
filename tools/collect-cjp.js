@@ -1,5 +1,6 @@
 // 日本 (Claudeセレクト) の地点を自動で集めるスクリプト
 // 使い方: node tools/collect-cjp.js <集めたい件数> [同時タブ数] [msedge|chrome] [show] [--only=..|--except=..] [--town=0.5]
+// 主なオプション: --city=0.5 (都会の割合) --town=1 (町の割合) --km=1 (最低距離) --until=11:30 (止める時刻) --balance (少ない県を多めに) --except=離島
 // 範囲の四角は tools/cjp-regions.js、町の一覧は tools/cjp-towns.json (tools/build-cjp-towns.js で作る)
 // 結果は tools/cjp-found.json に少しずつ追記されるので、途中で止めても続きから再開できる
 // 画面には件数だけ出す (地名は出さない)
@@ -56,11 +57,43 @@ function pickRegion() {
 const CITIES_FILE = path.join(__dirname, 'cjp-cities.json');
 const CITIES = (fs.existsSync(CITIES_FILE) ? JSON.parse(fs.readFileSync(CITIES_FILE, 'utf8')) : []).filter(c => inRegions(c));
 const CITY_RATE = Number(OPT.city ?? 0);
-// 人口の平方根を重みにする (人口そのままだと東京ばかりになるので、少しならす)
-const CITY_TOTAL = CITIES.reduce((s, c) => s + Math.sqrt(c[2]), 0);
+// 都会の中心からどれだけ離れた点まで狙うか (度)。--spread=0.02 で約±2km。小さくすると街中に絞れる
+const CITY_SPREAD = Number(OPT.spread ?? 0.04);
+
+// --balance を付けると、地点が少ない都道府県を多めに狙う
+// CJPlinks.js の pref を数えて、四角ごとに「中で一番多い県」の件数から倍率を決める (中央値の県が1倍、少ない県ほど大きい)
+// 倍率は 0.3〜3倍 にとどめて、ほかの県が出なくなるのを防ぐ
+const boxRate = new Map();
+if ('balance' in OPT) {
+    const ctx = {};
+    require('vm').runInNewContext(fs.readFileSync(path.join(ROOT, 'Resource/maplink/CJPlinks.js'), 'utf8'), ctx);
+    const spots = ctx.streetViews.filter(s => s.pref).map(s => ({
+        pref: s.pref,
+        lat: Number(s.embedUrl.match(/!1d(-?[\d.]+)/)[1]),
+        lng: Number(s.embedUrl.match(/!2d(-?[\d.]+)/)[1]),
+    }));
+    const prefCount = {};
+    spots.forEach(s => prefCount[s.pref] = (prefCount[s.pref] || 0) + 1);
+    const sorted = Object.values(prefCount).sort((a, b) => a - b);
+    const median = sorted[sorted.length >> 1];
+    for (const r of ALL_REGIONS) {
+        const [s, w, n, e] = r.box;
+        const c = {};
+        spots.filter(p => p.lat >= s && p.lat <= n && p.lng >= w && p.lng <= e).forEach(p => c[p.pref] = (c[p.pref] || 0) + 1);
+        const top = Object.entries(c).sort((a, b) => b[1] - a[1])[0];
+        // 地点がまだない四角は倍率1のままにする
+        const rate = top ? Math.min(3, Math.max(0.3, median / prefCount[top[0]])) : 1;
+        boxRate.set(r, rate);
+        r.w *= rate;
+    }
+}
+
+// 人口の平方根を重みにする (人口そのままだと東京ばかりになるので、少しならす)。--balance の倍率もかける
+const cityWeight = c => Math.sqrt(c[2]) * (boxRate.get(boxOf(c)) ?? 1);
+const CITY_TOTAL = CITIES.reduce((s, c) => s + cityWeight(c), 0);
 function pickCity() {
     let x = Math.random() * CITY_TOTAL;
-    for (const c of CITIES) { if ((x -= Math.sqrt(c[2])) < 0) return c; }
+    for (const c of CITIES) { if ((x -= cityWeight(c)) < 0) return c; }
     return CITIES[0];
 }
 
@@ -81,7 +114,7 @@ if (OPT.until) {
 function nextPoint() {
     if (CITIES.length && Math.random() < CITY_RATE) {
         const [lat, lng] = pickCity();
-        const p = [lat + rand(-0.04, 0.04), lng + rand(-0.04, 0.04)];
+        const p = [lat + rand(-CITY_SPREAD, CITY_SPREAD), lng + rand(-CITY_SPREAD, CITY_SPREAD)];
         return { lat: p[0], lng: p[1], region: boxOf([lat, lng]), town: true };
     }
     const r = pickRegion();
