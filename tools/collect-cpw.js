@@ -33,7 +33,9 @@ if (OPT.until) {
 // 範囲の四角 (name: 地域、sub: 国や地方、box: [南, 西, 北, 東]、w: 重み)
 const ALL_REGIONS = require('./cpw-regions.js');
 // --only / --except で地域を絞り込む
-const REGIONS = ALL_REGIONS.filter(r => (!ONLY || ONLY.includes(r.name)) && !EXCEPT.includes(r.name));
+// 地域名・四角の名前 (sub)・tag (レア) のどれかが指定に合うかどうか
+const matches = (list, r) => list.includes(r.name) || list.includes(r.sub) || (r.tag && list.includes(r.tag));
+const REGIONS = ALL_REGIONS.filter(r => (!ONLY || matches(ONLY, r)) && !matches(EXCEPT, r));
 if (!REGIONS.length) { console.log('地域の指定が正しくありません:', [...new Set(ALL_REGIONS.map(r => r.name))].join(',')); process.exit(1); }
 // 座標が入っている四角を探す (見つからなければ undefined)
 const boxOf = ([lat, lng], list = ALL_REGIONS) => list.find(({ box: [s, w, n, e] }) => lat >= s && lat <= n && lng >= w && lng <= e);
@@ -104,6 +106,8 @@ function nextPoint() {
 // 決めた点のあたりの「ズーム SNAP_Z のカバレッジタイル」(1枚 数KB) を読んで、
 // その中の青い線の上のピクセルを1つ選び、そこを試す。青がないタイルなら Googleマップを開かずに次へ進む
 // (Googleマップを開くより、タイル1枚読むほうがずっと軽いので、外れの時間がほぼなくなる)
+// --layerc を付けると、ストリートビューを開くURLを maps?layer=c の形にする (韓国で使う)
+const LAYERC = 'layerc' in OPT;
 const SNAP = OPT.snap !== '0';
 const SNAP_Z = Number(OPT.snapz || 13);
 // 投稿写真の丸い点が出ない形のカバレッジタイル (線だけ)
@@ -199,7 +203,7 @@ async function probe(context, lat, lng) {
         page = await context.newPage();
         // ページ側が読み込み途中で自分のURLを書き換えると ERR_ABORTED になることがあるが、
         // そのままページは開き続けるので無視して下のURLチェックへ進む
-        await page.goto(`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat.toFixed(5)},${lng.toFixed(5)}&hl=ja`, { timeout: 30000, waitUntil: 'commit' })
+        await page.goto(LAYERC ? `https://www.google.com/maps?layer=c&cbll=${lat.toFixed(5)},${lng.toFixed(5)}&hl=ja` : `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat.toFixed(5)},${lng.toFixed(5)}&hl=ja`, { timeout: 30000, waitUntil: 'commit' })
             .catch(e => { if (!/ERR_ABORTED/.test(e.message)) throw e; fails.aborted++; });
         // 同意画面かどうか判定できるよう、HTMLが読み込まれるまでは待つ
         await page.waitForLoadState('domcontentloaded', { timeout: 15000 }).catch(() => {});
@@ -215,7 +219,7 @@ async function probe(context, lat, lng) {
         let emptyCount = 0;
         for (let i = 0; i < 24; i++) {
             if (/panoid%26yaw/.test(page.url())) {
-                if (++emptyCount >= 8) return null;
+                if (++emptyCount >= (LAYERC ? 16 : 8)) return null;
             } else {
                 emptyCount = 0;
             }
@@ -223,6 +227,13 @@ async function probe(context, lat, lng) {
             if (m) {
                 const title = (await page.title()).replace(/\s*-\s*Google マップ$/, '');
                 return { lat: Number(m[1]), lng: Number(m[2]), id: m[3], type: m[4], title };
+            }
+            // 韓国などでは URL に座標が出ない (maps/@/data=...)。そのときは試した点の座標を使う
+            // 青い線の上の点なのでパノラマのすぐ近くだが、本当の座標とは少しずれることがある (approx: true で印を付ける)
+            const k = page.url().match(/\/maps\/@\/data=.*?!1s([^!]+)!2e(\d+)/);
+            if (k) {
+                const title = (await page.title()).replace(/\s*-\s*Google マップ$/, '');
+                return { lat: Number(lat.toFixed(6)), lng: Number(lng.toFixed(6)), id: k[1], type: k[2], title, approx: true };
             }
             await page.waitForTimeout(500);
         }

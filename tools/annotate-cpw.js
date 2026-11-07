@@ -132,6 +132,22 @@ const regionOf = c => Object.entries(votes[c]).sort((a, b) => b[1] - a[1])[0][0]
 for (const r of raw) {
     admin[r.f.id] = { country: r.country, code: r.code, state: r.state, region: regionOf(r.country), townKm: r.townKm, cityKm: r.cityKm };
 }
+// Natural Earth ではオーストラリアの一部になっている島を、別の場所として扱う
+const OVERRIDES = [
+    { sub: 'クリスマス島', country: 'クリスマス島', code: 'CX' },
+    { sub: 'ココス諸島', country: 'ココス諸島', code: 'CC' },
+];
+const ALL_REGIONS = require('./cpw-regions.js');
+for (const o of OVERRIDES) {
+    const r = ALL_REGIONS.find(x => x.sub === o.sub);
+    if (!r) continue;
+    const [s, w, n, e] = r.box;
+    for (const f of found) {
+        if (admin[f.id] && f.lat >= s && f.lat <= n && f.lng >= w && f.lng <= e) {
+            admin[f.id] = { ...admin[f.id], country: o.country, code: o.code, state: o.country, region: r.name };
+        }
+    }
+}
 fs.writeFileSync(OUT, JSON.stringify(admin));
 console.log(`計算 ${raw.length} 件 / 合計 ${Object.keys(admin).length} 件`);
 console.log(JSON.stringify(stat));

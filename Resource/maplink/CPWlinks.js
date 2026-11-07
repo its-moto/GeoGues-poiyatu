@@ -22453,4 +22453,1904 @@ var streetViews = [
         answerUrl: 'https://www.google.com/maps/@29.09285,-107.54628,3a,75y,90t/data=!3m4!1e1!3m2!1si6473FCe2VtnP8szm8a4yQ!2e0',
         country: 'メキシコ', code: 'MX', state: 'チワワ州', region: '中米・カリブ', townKm: 0.5, cityKm: 100.8
     },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sDjR1bJ3wHqzS10wHUFFWwg!2m2!1d35.779873!2d128.65325!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.779873,128.65325,3a,75y,90t/data=!3m4!1e1!3m2!1sDjR1bJ3wHqzS10wHUFFWwg!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 9, cityKm: 9
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sWfoXh2gnpLX26ECJcly-lA!2m2!1d36.442897!2d129.034681!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.442897,129.034681,3a,75y,90t/data=!3m4!1e1!3m2!1sWfoXh2gnpLX26ECJcly-lA!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 2.2, cityKm: 30.6
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sLE-LiUbojcwRmaEirV_TdQ!2m2!1d37.368452!2d128.403139!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.368452,128.403139,3a,75y,90t/data=!3m4!1e1!3m2!1sLE-LiUbojcwRmaEirV_TdQ!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 0.9, cityKm: 40.4
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sjNQy8tUEZI4z0hQaoKE43g!2m2!1d37.31195!2d126.844797!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.31195,126.844797,3a,75y,90t/data=!3m4!1e1!3m2!1sjNQy8tUEZI4z0hQaoKE43g!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 2.4, cityKm: 2.4
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s_UmcgeXwNFwIu50ffOPbzQ!2m2!1d38.21303!2d128.442965!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@38.21303,128.442965,3a,75y,90t/data=!3m4!1e1!3m2!1s_UmcgeXwNFwIu50ffOPbzQ!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 11.3, cityKm: 13
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sJoT-jfRKO_R0A58hVbSszg!2m2!1d34.799215!2d126.732016!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.799215,126.732016,3a,75y,90t/data=!3m4!1e1!3m2!1sJoT-jfRKO_R0A58hVbSszg!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅南道', region: 'アジア', townKm: 3.2, cityKm: 3.2
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1si5TkKpL17wgxnlC5mc8r7w!2m2!1d37.792219!2d127.351198!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.792219,127.351198,3a,75y,90t/data=!3m4!1e1!3m2!1si5TkKpL17wgxnlC5mc8r7w!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 8.6, cityKm: 14.6
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sAOoIBd_VIf2fdPrvU8PD0Q!2m2!1d36.757659!2d126.824713!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.757659,126.824713,3a,75y,90t/data=!3m4!1e1!3m2!1sAOoIBd_VIf2fdPrvU8PD0Q!2e0',
+        country: '大韓民国', code: 'KR', state: '忠清南道', region: 'アジア', townKm: 9, cityKm: 16.2
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s2iB1zU77xxsRWjL3c1dc_A!2m2!1d35.671731!2d129.001379!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.671731,129.001379,3a,75y,90t/data=!3m4!1e1!3m2!1s2iB1zU77xxsRWjL3c1dc_A!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 26.8, cityKm: 26.8
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sr2FFnmZ03tQV2P7uxOdOJw!2m2!1d35.494989!2d128.758993!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.494989,128.758993,3a,75y,90t/data=!3m4!1e1!3m2!1sr2FFnmZ03tQV2P7uxOdOJw!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚南道', region: 'アジア', townKm: 0.9, cityKm: 0.9
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sIDwd17NHU6oBY5MoVSQogg!2m2!1d36.149311!2d128.11904!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.149311,128.11904,3a,75y,90t/data=!3m4!1e1!3m2!1sIDwd17NHU6oBY5MoVSQogg!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 3.1, cityKm: 3.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s-Aj_kb1B_5GR358oC03cYg!2m2!1d34.981698!2d127.711515!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.981698,127.711515,3a,75y,90t/data=!3m4!1e1!3m2!1s-Aj_kb1B_5GR358oC03cYg!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅南道', region: 'アジア', townKm: 1.5, cityKm: 4.7
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sZLO_H1eZmZTpgy_AyVPDrA!2m2!1d35.351466!2d129.151926!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.351466,129.151926,3a,75y,90t/data=!3m4!1e1!3m2!1sZLO_H1eZmZTpgy_AyVPDrA!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚南道', region: 'アジア', townKm: 6.3, cityKm: 6.3
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s-hL-OIItV2kXUr654WFW_g!2m2!1d37.34894!2d127.926264!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.34894,127.926264,3a,75y,90t/data=!3m4!1e1!3m2!1s-hL-OIItV2kXUr654WFW_g!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 1.7, cityKm: 1.7
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sFM-V2yjr1KxFpkDoBA4qcg!2m2!1d36.880788!2d126.893892!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.880788,126.893892,3a,75y,90t/data=!3m4!1e1!3m2!1sFM-V2yjr1KxFpkDoBA4qcg!2e0',
+        country: '大韓民国', code: 'KR', state: '忠清南道', region: 'アジア', townKm: 14.6, cityKm: 14.6
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sgypdfd-lPrb8ynruPQ_TBA!2m2!1d36.1281!2d128.566217!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.1281,128.566217,3a,75y,90t/data=!3m4!1e1!3m2!1sgypdfd-lPrb8ynruPQ_TBA!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 11.8, cityKm: 20.7
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s5ZUFf3gGDaspqcmUBMnJbQ!2m2!1d37.824362!2d127.046671!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.824362,127.046671,3a,75y,90t/data=!3m4!1e1!3m2!1s5ZUFf3gGDaspqcmUBMnJbQ!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 1.6, cityKm: 1.6
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sL5nfmHFpTjAuZr_0N1zVtw!2m2!1d36.179385!2d128.747663!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.179385,128.747663,3a,75y,90t/data=!3m4!1e1!3m2!1sL5nfmHFpTjAuZr_0N1zVtw!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 16.8, cityKm: 28.7
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sh4u13Rh07Hsj1iFNG4T7GQ!2m2!1d37.251032!2d127.034998!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.251032,127.034998,3a,75y,90t/data=!3m4!1e1!3m2!1sh4u13Rh07Hsj1iFNG4T7GQ!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 3, cityKm: 3
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sMdTFgaI4VvLwrrGYM8YPUg!2m2!1d35.692925!2d128.580465!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.692925,128.580465,3a,75y,90t/data=!3m4!1e1!3m2!1sMdTFgaI4VvLwrrGYM8YPUg!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 12.1, cityKm: 14
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sPskWaEWbOpXg2EVcl10g1w!2m2!1d36.208477!2d127.339354!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.208477,127.339354,3a,75y,90t/data=!3m4!1e1!3m2!1sPskWaEWbOpXg2EVcl10g1w!2e0',
+        country: '大韓民国', code: 'KR', state: '忠清南道', region: 'アジア', townKm: 10.4, cityKm: 16.3
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s_7lhZ3NsWwoxIMEd69wbtQ!2m2!1d35.273162!2d129.236383!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.273162,129.236383,3a,75y,90t/data=!3m4!1e1!3m2!1s_7lhZ3NsWwoxIMEd69wbtQ!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚南道', region: 'アジア', townKm: 1.1, cityKm: 3.8
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s4a5fIx54mj-cKFMmqMDeFg!2m2!1d37.370089!2d126.947107!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.370089,126.947107,3a,75y,90t/data=!3m4!1e1!3m2!1s4a5fIx54mj-cKFMmqMDeFg!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 0.3, cityKm: 0.3
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sb5fvHkfyjueP9Dz9D8zM1g!2m2!1d37.194578!2d127.372656!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.194578,127.372656,3a,75y,90t/data=!3m4!1e1!3m2!1sb5fvHkfyjueP9Dz9D8zM1g!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 11.2, cityKm: 11.2
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sWX8JJRXoOj1XwDEl4M0loA!2m2!1d37.614163!2d126.972685!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.614163,126.972685,3a,75y,90t/data=!3m4!1e1!3m2!1sWX8JJRXoOj1XwDEl4M0loA!2e0',
+        country: '大韓民国', code: 'KR', state: 'ソウル特別市', region: 'アジア', townKm: 5.4, cityKm: 5.4
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1srFG4wHfUhhzwq_uQYZG9vQ!2m2!1d37.504347!2d126.71073!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.504347,126.71073,3a,75y,90t/data=!3m4!1e1!3m2!1srFG4wHfUhhzwq_uQYZG9vQ!2e0',
+        country: '大韓民国', code: 'KR', state: '仁川広域市', region: 'アジア', townKm: 1, cityKm: 5.3
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sB9KLem8K1dhu8epVQEs9zw!2m2!1d35.005745!2d126.440363!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.005745,126.440363,3a,75y,90t/data=!3m4!1e1!3m2!1sB9KLem8K1dhu8epVQEs9zw!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅南道', region: 'アジア', townKm: 3.9, cityKm: 3.9
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sqcji7BmbAtRF7cpXrC6KPg!2m2!1d37.651956!2d127.267427!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.651956,127.267427,3a,75y,90t/data=!3m4!1e1!3m2!1sqcji7BmbAtRF7cpXrC6KPg!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 3.5, cityKm: 3.5
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sx7O2PuMoSw3EC2P-T0y51w!2m2!1d35.094139!2d127.773829!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.094139,127.773829,3a,75y,90t/data=!3m4!1e1!3m2!1sx7O2PuMoSw3EC2P-T0y51w!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚南道', region: 'アジア', townKm: 1.2, cityKm: 18.4
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sWf9wg8V4oXMZ6a9YfOvJHA!2m2!1d37.850391!2d126.800165!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.850391,126.800165,3a,75y,90t/data=!3m4!1e1!3m2!1sWf9wg8V4oXMZ6a9YfOvJHA!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 1.7, cityKm: 10.2
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1syrXpO4y6Rk3X0LOpuggTMw!2m2!1d34.849805!2d126.827631!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.849805,126.827631,3a,75y,90t/data=!3m4!1e1!3m2!1syrXpO4y6Rk3X0LOpuggTMw!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅南道', region: 'アジア', townKm: 5.4, cityKm: 13.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sBrllLTgCLrqdSzrTYy7jLg!2m2!1d36.221219!2d128.28126!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.221219,128.28126,3a,75y,90t/data=!3m4!1e1!3m2!1sBrllLTgCLrqdSzrTYy7jLg!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 2.6, cityKm: 12.9
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sXSzrj2F1JWxJME9JFX3l1Q!2m2!1d34.604884!2d127.788935!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.604884,127.788935,3a,75y,90t/data=!3m4!1e1!3m2!1sXSzrj2F1JWxJME9JFX3l1Q!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅南道', region: 'アジア', townKm: 13.2, cityKm: 20.8
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sEoz7NNf1wQ10AIy70qkQOw!2m2!1d35.450392!2d126.678801!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.450392,126.678801,3a,75y,90t/data=!3m4!1e1!3m2!1sEoz7NNf1wQ10AIy70qkQOw!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅北道', region: 'アジア', townKm: 2.7, cityKm: 2.7
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sfTOElfxpm4ukRg_o8yLyOw!2m2!1d37.876005!2d128.818045!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.876005,128.818045,3a,75y,90t/data=!3m4!1e1!3m2!1sfTOElfxpm4ukRg_o8yLyOw!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 1.8, cityKm: 14.5
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sFhxAIv1XGDcacTM0koyW7Q!2m2!1d36.787773!2d127.005816!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.787773,127.005816,3a,75y,90t/data=!3m4!1e1!3m2!1sFhxAIv1XGDcacTM0koyW7Q!2e0',
+        country: '大韓民国', code: 'KR', state: '忠清南道', region: 'アジア', townKm: 0.5, cityKm: 0.5
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sZ41_kLC24qsSTqdDcFl0LA!2m2!1d35.824703!2d128.517637!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.824703,128.517637,3a,75y,90t/data=!3m4!1e1!3m2!1sZ41_kLC24qsSTqdDcFl0LA!2e0',
+        country: '大韓民国', code: 'KR', state: '大邱広域市', region: 'アジア', townKm: 3, cityKm: 3
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sBmC0JVH-ickEtnuXXXdm9g!2m2!1d36.235204!2d128.900785!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.235204,128.900785,3a,75y,90t/data=!3m4!1e1!3m2!1sBmC0JVH-ickEtnuXXXdm9g!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 26.1, cityKm: 29.8
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sq4yQePEAGkx5IDRHg2lQcQ!2m2!1d36.119781!2d128.282804!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.119781,128.282804,3a,75y,90t/data=!3m4!1e1!3m2!1sq4yQePEAGkx5IDRHg2lQcQ!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 4.8, cityKm: 4.8
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sSTvbDhxb5SptvEL1lLWjKg!2m2!1d37.196219!2d126.856813!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.196219,126.856813,3a,75y,90t/data=!3m4!1e1!3m2!1sSTvbDhxb5SptvEL1lLWjKg!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 3.7, cityKm: 3.7
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sTzffpxfOGAkRulwdr0LbWg!2m2!1d37.38373!2d128.527937!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.38373,128.527937,3a,75y,90t/data=!3m4!1e1!3m2!1sTzffpxfOGAkRulwdr0LbWg!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 12, cityKm: 51
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s1phCDnQl1df_twDwqBrmhg!2m2!1d35.545845!2d128.503904!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.545845,128.503904,3a,75y,90t/data=!3m4!1e1!3m2!1s1phCDnQl1df_twDwqBrmhg!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚南道', region: 'アジア', townKm: 0.9, cityKm: 0.9
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sccQuqWUH1Raylzj3Fs6tFQ!2m2!1d35.024022!2d126.731844!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.024022,126.731844,3a,75y,90t/data=!3m4!1e1!3m2!1sccQuqWUH1Raylzj3Fs6tFQ!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅南道', region: 'アジア', townKm: 1.4, cityKm: 14.6
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1ssDSymKV8KuKOsU1KQ4NFHQ!2m2!1d37.601924!2d127.113619!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.601924,127.113619,3a,75y,90t/data=!3m4!1e1!3m2!1ssDSymKV8KuKOsU1KQ4NFHQ!2e0',
+        country: '大韓民国', code: 'KR', state: 'ソウル特別市', region: 'アジア', townKm: 2.3, cityKm: 2.3
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sTJ4hlQUXekYvBw3O10SuzA!2m2!1d35.347406!2d129.03863!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.347406,129.03863,3a,75y,90t/data=!3m4!1e1!3m2!1sTJ4hlQUXekYvBw3O10SuzA!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚南道', region: 'アジア', townKm: 0.8, cityKm: 0.8
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s2R358oJ4xjupBC8hDv0t-A!2m2!1d35.90233!2d128.828688!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.90233,128.828688,3a,75y,90t/data=!3m4!1e1!3m2!1s2R358oJ4xjupBC8hDv0t-A!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 1.4, cityKm: 11.7
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sWgWNO3TEOq4AGcF4n0Xjbg!2m2!1d36.253618!2d129.08824!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.253618,129.08824,3a,75y,90t/data=!3m4!1e1!3m2!1sWgWNO3TEOq4AGcF4n0Xjbg!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 20.2, cityKm: 34.7
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1smWN-THdmnQoOGC_TqG6C_g!2m2!1d37.19075!2d128.479357!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.19075,128.479357,3a,75y,90t/data=!3m4!1e1!3m2!1smWN-THdmnQoOGC_TqG6C_g!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 1.2, cityKm: 43.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sl80fW_Z-A68B-fUsWMQKeg!2m2!1d36.337322!2d127.412996!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.337322,127.412996,3a,75y,90t/data=!3m4!1e1!3m2!1sl80fW_Z-A68B-fUsWMQKeg!2e0',
+        country: '大韓民国', code: 'KR', state: '大田広域市', region: 'アジア', townKm: 2.9, cityKm: 2.9
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s5k2qGitv5cwEChKltG3eeA!2m2!1d35.866169!2d129.03348!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.866169,129.03348,3a,75y,90t/data=!3m4!1e1!3m2!1s5k2qGitv5cwEChKltG3eeA!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 14.6, cityKm: 14.6
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s3wx03kFThrEW6vLv7SMPTg!2m2!1d37.653315!2d128.161612!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.653315,128.161612,3a,75y,90t/data=!3m4!1e1!3m2!1s3wx03kFThrEW6vLv7SMPTg!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 6.9, cityKm: 24.6
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sLFTZEInhnNCWPvaFYy_Vew!2m2!1d35.99891!2d128.407602!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.99891,128.407602,3a,75y,90t/data=!3m4!1e1!3m2!1sLFTZEInhnNCWPvaFYy_Vew!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 1.1, cityKm: 14.3
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s9jZbAQWvd0O0alE1vlBrzg!2m2!1d35.590109!2d129.136133!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.590109,129.136133,3a,75y,90t/data=!3m4!1e1!3m2!1s9jZbAQWvd0O0alE1vlBrzg!2e0',
+        country: '大韓民国', code: 'KR', state: '蔚山広域市', region: 'アジア', townKm: 16.9, cityKm: 16.9
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sqJP0-wuhGNAAAAQvxgR4-A!2m2!1d37.884135!2d127.716322!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.884135,127.716322,3a,75y,90t/data=!3m4!1e1!3m2!1sqJP0-wuhGNAAAAQvxgR4-A!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 1.1, cityKm: 1.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sK4jSBJiXh3R4eIKNTCUGRQ!2m2!1d37.559207!2d127.235498!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.559207,127.235498,3a,75y,90t/data=!3m4!1e1!3m2!1sK4jSBJiXh3R4eIKNTCUGRQ!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 3.4, cityKm: 3.4
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sevAgH8mAwo4TKcnl6-_aKQ!2m2!1d35.168687!2d126.907969!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.168687,126.907969,3a,75y,90t/data=!3m4!1e1!3m2!1sevAgH8mAwo4TKcnl6-_aKQ!2e0',
+        country: '大韓民国', code: 'KR', state: '光州広域市', region: 'アジア', townKm: 1.7, cityKm: 1.7
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sgR_ETChi5iGEijeOn41UNA!2m2!1d37.60206!2d126.715879!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.60206,126.715879,3a,75y,90t/data=!3m4!1e1!3m2!1sgR_ETChi5iGEijeOn41UNA!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 2.4, cityKm: 2.4
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sLuIWNf0aWIYbCdtOa0QCRQ!2m2!1d36.833401!2d129.394312!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.833401,129.394312,3a,75y,90t/data=!3m4!1e1!3m2!1sLuIWNf0aWIYbCdtOa0QCRQ!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 46.6, cityKm: 66
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sEpVkV1v9r5m6XEYbA4ox8g!2m2!1d35.793798!2d127.136621!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.793798,127.136621,3a,75y,90t/data=!3m4!1e1!3m2!1sEpVkV1v9r5m6XEYbA4ox8g!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅北道', region: 'アジア', townKm: 3.6, cityKm: 3.6
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sNYUzajuurBwSGxKnizUUEw!2m2!1d37.939798!2d127.213869!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.939798,127.213869,3a,75y,90t/data=!3m4!1e1!3m2!1sNYUzajuurBwSGxKnizUUEw!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 15.8, cityKm: 17.8
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sL5u_caOW2FpfWNDSolLHIA!2m2!1d36.133924!2d129.335432!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.133924,129.335432,3a,75y,90t/data=!3m4!1e1!3m2!1sL5u_caOW2FpfWNDSolLHIA!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 2.9, cityKm: 11.9
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sTJvMIFQEosTsFLM-SO4Fqw!2m2!1d36.240189!2d128.564501!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.240189,128.564501,3a,75y,90t/data=!3m4!1e1!3m2!1sTJvMIFQEosTsFLM-SO4Fqw!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 1, cityKm: 24.8
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sX3cc3-zJm5_HHlaRfayR_g!2m2!1d34.970867!2d127.56423!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.970867,127.56423,3a,75y,90t/data=!3m4!1e1!3m2!1sX3cc3-zJm5_HHlaRfayR_g!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅南道', region: 'アジア', townKm: 2.3, cityKm: 2.3
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1srUqYuFh3HSmDfq50CaLRpg!2m2!1d35.851144!2d128.729124!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.851144,128.729124,3a,75y,90t/data=!3m4!1e1!3m2!1srUqYuFh3HSmDfq50CaLRpg!2e0',
+        country: '大韓民国', code: 'KR', state: '大邱広域市', region: 'アジア', townKm: 3.2, cityKm: 3.2
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sCP1X5ZD1nQuxnj9WST-cLw!2m2!1d36.01724!2d129.355173!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.01724,129.355173,3a,75y,90t/data=!3m4!1e1!3m2!1sCP1X5ZD1nQuxnj9WST-cLw!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 1.6, cityKm: 1.6
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sClVchaDA-yamh9rPaIyqqw!2m2!1d38.086946!2d127.390337!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@38.086946,127.390337,3a,75y,90t/data=!3m4!1e1!3m2!1sClVchaDA-yamh9rPaIyqqw!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 14.7, cityKm: 30.3
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sXHA5vyGVRLHq-Lnw5P7t9w!2m2!1d36.435992!2d127.424498!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.435992,127.424498,3a,75y,90t/data=!3m4!1e1!3m2!1sXHA5vyGVRLHq-Lnw5P7t9w!2e0',
+        country: '大韓民国', code: 'KR', state: '忠清北道', region: 'アジア', townKm: 2, cityKm: 10.2
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1shGzSDtJmGCNcUhFzt77srw!2m2!1d35.803544!2d129.373026!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.803544,129.373026,3a,75y,90t/data=!3m4!1e1!3m2!1shGzSDtJmGCNcUhFzt77srw!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 11.5, cityKm: 15.2
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sxOzjZ-JabAKNPR2wAlV3ug!2m2!1d37.646655!2d128.43215!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.646655,128.43215,3a,75y,90t/data=!3m4!1e1!3m2!1sxOzjZ-JabAKNPR2wAlV3ug!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 22.7, cityKm: 40.4
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s0Bv6tQ4mBkM-bN7qtCA8vQ!2m2!1d34.975228!2d126.171026!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.975228,126.171026,3a,75y,90t/data=!3m4!1e1!3m2!1s0Bv6tQ4mBkM-bN7qtCA8vQ!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅南道', region: 'アジア', townKm: 10.1, cityKm: 17.5
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1se38Lkv_Nap2vPvn9HSg0Ew!2m2!1d37.930185!2d126.999464!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.930185,126.999464,3a,75y,90t/data=!3m4!1e1!3m2!1se38Lkv_Nap2vPvn9HSg0Ew!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 11.7, cityKm: 12.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sYSp4Vd1YsMBqPgUrWs6Q4w!2m2!1d38.376317!2d128.503046!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@38.376317,128.503046,3a,75y,90t/data=!3m4!1e1!3m2!1sYSp4Vd1YsMBqPgUrWs6Q4w!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 3.1, cityKm: 3.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s8LjT-xPHW54rILkDQEdA2Q!2m2!1d37.474654!2d126.919813!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.474654,126.919813,3a,75y,90t/data=!3m4!1e1!3m2!1s8LjT-xPHW54rILkDQEdA2Q!2e0',
+        country: '大韓民国', code: 'KR', state: 'ソウル特別市', region: 'アジア', townKm: 2.7, cityKm: 2.7
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sVuAuZUB9c-lhXIUp1ylaig!2m2!1d37.390686!2d127.257643!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.390686,127.257643,3a,75y,90t/data=!3m4!1e1!3m2!1sVuAuZUB9c-lhXIUp1ylaig!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 2.1, cityKm: 2.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sn6sHpeWkhumBRQyfvVhx1Q!2m2!1d37.905403!2d127.448702!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.905403,127.448702,3a,75y,90t/data=!3m4!1e1!3m2!1sn6sHpeWkhumBRQyfvVhx1Q!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 9.9, cityKm: 9.9
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sO_EXHlNqZc8RirIZ2qZndg!2m2!1d37.239417!2d127.855024!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.239417,127.855024,3a,75y,90t/data=!3m4!1e1!3m2!1sO_EXHlNqZc8RirIZ2qZndg!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 14.8, cityKm: 14.8
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sDcepAaA5AhRhx1HVNifpeQ!2m2!1d37.152176!2d127.644396!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.152176,127.644396,3a,75y,90t/data=!3m4!1e1!3m2!1sDcepAaA5AhRhx1HVNifpeQ!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 16, cityKm: 16
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sXwK7BnYCApypJRLsfGzWvQ!2m2!1d35.126297!2d129.08206!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.126297,129.08206,3a,75y,90t/data=!3m4!1e1!3m2!1sXwK7BnYCApypJRLsfGzWvQ!2e0',
+        country: '大韓民国', code: 'KR', state: '釜山広域市', region: 'アジア', townKm: 5.5, cityKm: 5.5
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sLY38E8Zfj1G48XBjYAddsA!2m2!1d36.573147!2d128.148909!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.573147,128.148909,3a,75y,90t/data=!3m4!1e1!3m2!1sLY38E8Zfj1G48XBjYAddsA!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 5.1, cityKm: 5.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sC79IXZ4-sbaRu-10f_IX8Q!2m2!1d35.707841!2d128.323317!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.707841,128.323317,3a,75y,90t/data=!3m4!1e1!3m2!1sC79IXZ4-sbaRu-10f_IX8Q!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 11.1, cityKm: 19.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1ss7aVcYx84D1buFIT2Lr9Rw!2m2!1d35.531737!2d128.942156!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.531737,128.942156,3a,75y,90t/data=!3m4!1e1!3m2!1ss7aVcYx84D1buFIT2Lr9Rw!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚南道', region: 'アジア', townKm: 18, cityKm: 18
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sve_n6u9Zrv3tNfzzcBCcWw!2m2!1d35.814124!2d126.875181!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.814124,126.875181,3a,75y,90t/data=!3m4!1e1!3m2!1sve_n6u9Zrv3tNfzzcBCcWw!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅北道', region: 'アジア', townKm: 1.9, cityKm: 16.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1shHj_oIVdue8Fv609j1MOjA!2m2!1d34.800343!2d126.412897!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.800343,126.412897,3a,75y,90t/data=!3m4!1e1!3m2!1shHj_oIVdue8Fv609j1MOjA!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅南道', region: 'アジア', townKm: 2.4, cityKm: 2.4
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sZk3XC_FzfQ5vFu-DXXG08Q!2m2!1d36.33829!2d129.367189!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.33829,129.367189,3a,75y,90t/data=!3m4!1e1!3m2!1sZk3XC_FzfQ5vFu-DXXG08Q!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 8.4, cityKm: 34.3
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1shLLP_drQKUUcJeFb6pveaA!2m2!1d37.771461!2d128.87435!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.771461,128.87435,3a,75y,90t/data=!3m4!1e1!3m2!1shLLP_drQKUUcJeFb6pveaA!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 2.1, cityKm: 2.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sVYVg8lqc_XSpX3v9ClrM3g!2m2!1d35.230547!2d127.45574!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.230547,127.45574,3a,75y,90t/data=!3m4!1e1!3m2!1sVYVg8lqc_XSpX3v9ClrM3g!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅南道', region: 'アジア', townKm: 2.5, cityKm: 20.9
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1skBkLfrRrRMdkVxgvIWOEDw!2m2!1d35.92249!2d127.109499!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.92249,127.109499,3a,75y,90t/data=!3m4!1e1!3m2!1skBkLfrRrRMdkVxgvIWOEDw!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅北道', region: 'アジア', townKm: 5.5, cityKm: 9.2
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1shGZZRmBga2S8M7b4rQVkkw!2m2!1d34.772992!2d127.693148!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.772992,127.693148,3a,75y,90t/data=!3m4!1e1!3m2!1shGZZRmBga2S8M7b4rQVkkw!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅南道', region: 'アジア', townKm: 3.1, cityKm: 3.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sqPGQ8kSFztlsRTzktx4rnA!2m2!1d35.570564!2d128.659086!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.570564,128.659086,3a,75y,90t/data=!3m4!1e1!3m2!1sqPGQ8kSFztlsRTzktx4rnA!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 11.8, cityKm: 11.8
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sAYntcYeExp_Uz9igyg7MSw!2m2!1d37.403096!2d126.733046!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.403096,126.733046,3a,75y,90t/data=!3m4!1e1!3m2!1sAYntcYeExp_Uz9igyg7MSw!2e0',
+        country: '大韓民国', code: 'KR', state: '仁川広域市', region: 'アジア', townKm: 6.4, cityKm: 6.4
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sjJlMB2Psv6opFLSSOT5xsQ!2m2!1d35.916651!2d128.208818!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.916651,128.208818,3a,75y,90t/data=!3m4!1e1!3m2!1sjJlMB2Psv6opFLSSOT5xsQ!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 19, cityKm: 24.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1smCkHJwNy5jHqJpTMDSBwvw!2m2!1d38.336203!2d128.378077!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@38.336203,128.378077,3a,75y,90t/data=!3m4!1e1!3m2!1smCkHJwNy5jHqJpTMDSBwvw!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 9.1, cityKm: 9.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sHJqYo6QHMfOv63oovPgKLg!2m2!1d36.103833!2d127.261591!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.103833,127.261591,3a,75y,90t/data=!3m4!1e1!3m2!1sHJqYo6QHMfOv63oovPgKLg!2e0',
+        country: '大韓民国', code: 'KR', state: '忠清南道', region: 'アジア', townKm: 14.8, cityKm: 29.5
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1spgIwTt2aUEeSrUCe8UCc9Q!2m2!1d37.501896!2d128.017931!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.501896,128.017931,3a,75y,90t/data=!3m4!1e1!3m2!1spgIwTt2aUEeSrUCe8UCc9Q!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 17.9, cityKm: 17.9
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1srKUKZ2nYgYQ7ZTkK1n-Z2Q!2m2!1d35.140757!2d126.604471!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.140757,126.604471,3a,75y,90t/data=!3m4!1e1!3m2!1srKUKZ2nYgYQ7ZTkK1n-Z2Q!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅南道', region: 'アジア', townKm: 2.9, cityKm: 17.4
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sPNZwvbfBliOgNlJE0qmxFw!2m2!1d36.698911!2d129.373541!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.698911,129.373541,3a,75y,90t/data=!3m4!1e1!3m2!1sPNZwvbfBliOgNlJE0qmxFw!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 31.7, cityKm: 59.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sJ9vdU5HVqT0z6NbjQ8N_kQ!2m2!1d36.506256!2d129.443407!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.506256,129.443407,3a,75y,90t/data=!3m4!1e1!3m2!1sJ9vdU5HVqT0z6NbjQ8N_kQ!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 12.2, cityKm: 53.4
+    },
+    {//서천 국립생태원 (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s6V5Edn3Bm-GRXy6_Eh19TA!2m2!1d36.027653!2d126.719656!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.027653,126.719656,3a,75y,90t/data=!3m4!1e1!3m2!1s6V5Edn3Bm-GRXy6_Eh19TA!2e0',
+        country: '大韓民国', code: 'KR', state: '忠清南道', region: 'アジア', townKm: 5.5, cityKm: 5.5
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1svweSnyTvnziO9513y8v_-A!2m2!1d35.393178!2d128.646898!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.393178,128.646898,3a,75y,90t/data=!3m4!1e1!3m2!1svweSnyTvnziO9513y8v_-A!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚南道', region: 'アジア', townKm: 14.4, cityKm: 14.4
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sk9n199IYWkXXMrS_ZGnKJA!2m2!1d35.855596!2d126.726694!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.855596,126.726694,3a,75y,90t/data=!3m4!1e1!3m2!1sk9n199IYWkXXMrS_ZGnKJA!2e0',
+        country: '大韓民国', code: 'KR', state: '全羅北道', region: 'アジア', townKm: 13.7, cityKm: 13.7
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sY0DmhNZsdTdFAeq5inJicw!2m2!1d37.145335!2d127.086668!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.145335,127.086668,3a,75y,90t/data=!3m4!1e1!3m2!1sY0DmhNZsdTdFAeq5inJicw!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 1.6, cityKm: 1.6
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1suZzlK80AtoMbd30e-hqQKA!2m2!1d37.560296!2d128.2792!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.560296,128.2792,3a,75y,90t/data=!3m4!1e1!3m2!1suZzlK80AtoMbd30e-hqQKA!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 18.7, cityKm: 37.4
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1skdDNWalOhmI8Z_xQzgcplg!2m2!1d37.31468!2d128.140841!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.31468,128.140841,3a,75y,90t/data=!3m4!1e1!3m2!1skdDNWalOhmI8Z_xQzgcplg!2e0',
+        country: '大韓民国', code: 'KR', state: '江原道', region: 'アジア', townKm: 17.7, cityKm: 17.7
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s3_RCTgo53LMpz7Oii28x6g!2m2!1d37.74934!2d126.69322!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.74934,126.69322,3a,75y,90t/data=!3m4!1e1!3m2!1s3_RCTgo53LMpz7Oii28x6g!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 6.2, cityKm: 7.1
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sNGeN0ZniY_zVMyRKVYxBWA!2m2!1d37.788556!2d127.5105!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.788556,127.5105,3a,75y,90t/data=!3m4!1e1!3m2!1sNGeN0ZniY_zVMyRKVYxBWA!2e0',
+        country: '大韓民国', code: 'KR', state: '京畿道', region: 'アジア', townKm: 4.7, cityKm: 4.7
+    },
+    {//Google マップ (韓国)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sX7QV6UT8c7DErTYUcaVgoA!2m2!1d36.282267!2d128.16659!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.282267,128.16659,3a,75y,90t/data=!3m4!1e1!3m2!1sX7QV6UT8c7DErTYUcaVgoA!2e0',
+        country: '大韓民国', code: 'KR', state: '慶尚北道', region: 'アジア', townKm: 12.6, cityKm: 14.8
+    },
+    {//ル・ヴァレ・ド・バ (ジャージー島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sMrCuTPIMjRli0VPTgKM0jg!2m2!1d49.22451!2d-2.17506!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@49.22451,-2.17506,3a,75y,90t/data=!3m4!1e1!3m2!1sMrCuTPIMjRli0VPTgKM0jg!2e0',
+        country: 'ジャージー', code: 'JE', state: 'ジャージー', region: 'ヨーロッパ', townKm: 2.6, cityKm: 65.2
+    },
+    {//Google マップ (ミッドウェー島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1skjGvn2bQznk6syEd2gfwwg!2m2!1d28.20502!2d-177.38364!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@28.20502,-177.38364,3a,75y,90t/data=!3m4!1e1!3m2!1skjGvn2bQznk6syEd2gfwwg!2e0',
+        country: '合衆国領有小離島', code: 'UM', state: 'ミッドウェー島', region: 'オセアニア', townKm: 1862.2, cityKm: 2057.7
+    },
+    {//42 Avderødvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sJxz89YidvBb8dDpdGeeyZw!2m2!1d55.91616!2d12.42388!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.91616,12.42388,3a,75y,90t/data=!3m4!1e1!3m2!1sJxz89YidvBb8dDpdGeeyZw!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 0.9, cityKm: 22.2
+    },
+    {//ラ・ルー・デ・ラ・フォージ (ジャージー島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sn0Xy9gB9W-MYJkLB5BA9jw!2m2!1d49.18295!2d-2.03614!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@49.18295,-2.03614,3a,75y,90t/data=!3m4!1e1!3m2!1sn0Xy9gB9W-MYJkLB5BA9jw!2e0',
+        country: 'ジャージー', code: 'JE', state: 'ジャージー', region: 'ヨーロッパ', townKm: 2.5, cityKm: 59.5
+    },
+    {//7 Hørløkkevej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sumfO2r3y5uyy_avlWeUPKQ!2m2!1d55.7094!2d11.44258!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.7094,11.44258,3a,75y,90t/data=!3m4!1e1!3m2!1sumfO2r3y5uyy_avlWeUPKQ!2e0',
+        country: 'デンマーク', code: 'DK', state: 'シェラン地域', region: 'ヨーロッパ', townKm: 1.9, cityKm: 40.6
+    },
+    {//ブルソス通り (アンドラ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1szdmngPvRuFcUyUVD4PLl5w!2m2!1d42.60994!2d1.53519!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@42.60994,1.53519,3a,75y,90t/data=!3m4!1e1!3m2!1szdmngPvRuFcUyUVD4PLl5w!2e0',
+        country: 'アンドラ', code: 'AD', state: 'オルディノ教区', region: 'ヨーロッパ', townKm: 5.9, cityKm: 100.7
+    },
+    {//50 ポンテ通り (サンマリノ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1svRp9gjKE1dAl4aPlrKHMlQ!2m2!1d43.90728!2d12.44714!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@43.90728,12.44714,3a,75y,90t/data=!3m4!1e1!3m2!1svRp9gjKE1dAl4aPlrKHMlQ!2e0',
+        country: 'サンマリノ', code: 'SM', state: 'フィオレンティーノ', region: 'ヨーロッパ', townKm: 0.9, cityKm: 19.2
+    },
+    {//Google マップ (クリスマス島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sb4mCVXBrLG5B9noDtwroWg!2m2!1d-10.47543!2d105.68202!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-10.47543,105.68202,3a,75y,90t/data=!3m4!1e1!3m2!1sb4mCVXBrLG5B9noDtwroWg!2e0',
+        country: 'クリスマス島', code: 'CX', state: 'クリスマス島', region: 'オセアニア', townKm: 6, cityKm: 398.6
+    },
+    {//50 Lee Nam Rd (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sow-z1kf6NHjEB-a8TdGH8A!2m2!1d22.23999!2d114.1487!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.23999,114.1487,3a,75y,90t/data=!3m4!1e1!3m2!1sow-z1kf6NHjEB-a8TdGH8A!2e0',
+        country: '香港', code: 'HK', state: 'サザン', region: 'アジア', townKm: 0.4, cityKm: 1
+    },
+    {//165 SP32 (サンマリノ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sGJyjLdXShFKWu6Gr4LKlKg!2m2!1d43.97829!2d12.44852!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@43.97829,12.44852,3a,75y,90t/data=!3m4!1e1!3m2!1sGJyjLdXShFKWu6Gr4LKlKg!2e0',
+        country: 'イタリア', code: 'IT', state: 'リミニ県', region: 'ヨーロッパ', townKm: 2.1, cityKm: 12.8
+    },
+    {//19 ラルヴォット通り (モナコ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sjzT8X9yQ-TW9ZKAaOAotpw!2m2!1d43.74681!2d7.43227!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@43.74681,7.43227,3a,75y,90t/data=!3m4!1e1!3m2!1sjzT8X9yQ-TW9ZKAaOAotpw!2e0',
+        country: 'モナコ', code: 'MC', state: 'モナコ・ヴィル', region: 'ヨーロッパ', townKm: 0.1, cityKm: 14.2
+    },
+    {//1 クィーンウェイ・ロード (ジブラルタル)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sSRvz3WuafMDv0FafgHDaqA!2m2!1d36.13997!2d-5.35568!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.13997,-5.35568,3a,75y,90t/data=!3m4!1e1!3m2!1sSRvz3WuafMDv0FafgHDaqA!2e0',
+        country: 'ジブラルタル', code: 'GI', state: 'ジブラルタル', region: 'ヨーロッパ', townKm: 0.1, cityKm: 3.2
+    },
+    {//ラ・リュ・ド・ラ・マール・デ・プレ (ジャージー島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sZndOdamO9o7N-Fg2wmLTbw!2m2!1d49.24611!2d-2.1142!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@49.24611,-2.1142,3a,75y,90t/data=!3m4!1e1!3m2!1sZndOdamO9o7N-Fg2wmLTbw!2e0',
+        country: 'ジャージー', code: 'JE', state: 'ジャージー', region: 'ヨーロッパ', townKm: 1.8, cityKm: 66.9
+    },
+    {//メンダール, ヴェストラ・イェータランド (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s3ukOWyzZ7vdzXyOCPRSJQA!2m2!1d57.63489!2d12.00331!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@57.63489,12.00331,3a,75y,90t/data=!3m4!1e1!3m2!1s3ukOWyzZ7vdzXyOCPRSJQA!2e0',
+        country: 'スウェーデン', code: 'SE', state: 'ヴェストラ・イェータランド県', region: 'ヨーロッパ', townKm: 2.4, cityKm: 2.4
+    },
+    {//8 Farupvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1su5_4tg2DvLmZ7gO3pvWhQg!2m2!1d55.342!2d8.76235!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.342,8.76235,3a,75y,90t/data=!3m4!1e1!3m2!1su5_4tg2DvLmZ7gO3pvWhQg!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 1.4, cityKm: 24.2
+    },
+    {//Google マップ (アンドラ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sF1Pdmmajo6UAUsADzHOVWQ!2m2!1d42.42984!2d1.53854!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@42.42984,1.53854,3a,75y,90t/data=!3m4!1e1!3m2!1sF1Pdmmajo6UAUsADzHOVWQ!2e0',
+        country: 'スペイン', code: 'ES', state: 'リェイダ県', region: 'ヨーロッパ', townKm: 4.7, cityKm: 81.3
+    },
+    {//ジャーマン (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s7LuvDFoODxb2Ik8mOW64-w!2m2!1d54.24857!2d-4.61467!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.24857,-4.61467,3a,75y,90t/data=!3m4!1e1!3m2!1s7LuvDFoODxb2Ik8mOW64-w!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 4.5, cityKm: 82.2
+    },
+    {//香港, 新界 (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s1_ROsT7_lBmK2koyq4mc_A!2m2!1d22.42819!2d114.26088!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.42819,114.26088,3a,75y,90t/data=!3m4!1e1!3m2!1s1_ROsT7_lBmK2koyq4mc_A!2e0',
+        country: '香港', code: 'HK', state: 'タイポー', region: 'アジア', townKm: 0.3, cityKm: 3.2
+    },
+    {//モント・ピネル (ジャージー島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sDMrr1BTAGyn8Qyg-gdNGAw!2m2!1d49.18155!2d-2.09515!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@49.18155,-2.09515,3a,75y,90t/data=!3m4!1e1!3m2!1sDMrr1BTAGyn8Qyg-gdNGAw!2e0',
+        country: 'ジャージー', code: 'JE', state: 'ジャージー', region: 'ヨーロッパ', townKm: 1, cityKm: 59.6
+    },
+    {//州道71線 (サンマリノ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sg5GJ84cWq1yGwfVFBKtmGA!2m2!1d43.90647!2d12.50135!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@43.90647,12.50135,3a,75y,90t/data=!3m4!1e1!3m2!1sg5GJ84cWq1yGwfVFBKtmGA!2e0',
+        country: 'イタリア', code: 'IT', state: 'ペーザロ・エ・ウルビーノ県', region: 'ヨーロッパ', townKm: 1.6, cityKm: 17.5
+    },
+    {//Google マップ (バミューダ諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1so6SrIJKp3ev1okf57E-H0Q!2m2!1d32.27514!2d-64.77408!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@32.27514,-64.77408,3a,75y,90t/data=!3m4!1e1!3m2!1so6SrIJKp3ev1okf57E-H0Q!2e0',
+        country: 'バミューダ諸島', code: 'BM', state: 'パジェット', region: '北米', townKm: 1, cityKm: 1188.7
+    },
+    {//36 Skullerupvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s_X0sANXlKDOGhhgDzkPpow!2m2!1d55.6164!2d11.90697!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.6164,11.90697,3a,75y,90t/data=!3m4!1e1!3m2!1s_X0sANXlKDOGhhgDzkPpow!2e0',
+        country: 'デンマーク', code: 'DK', state: 'シェラン地域', region: 'ヨーロッパ', townKm: 3.9, cityKm: 11.2
+    },
+    {//A36 (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1suz2ctyzAJxEdx2MIMyoryg!2m2!1d54.16541!2d-4.64694!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.16541,-4.64694,3a,75y,90t/data=!3m4!1e1!3m2!1suz2ctyzAJxEdx2MIMyoryg!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 5.3, cityKm: 86.2
+    },
+    {//Google マップ (ココス諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1su75l7op1fDvzylhPHx1HNQ!2m2!1d-12.13338!2d96.85562!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-12.13338,96.85562,3a,75y,90t/data=!3m4!1e1!3m2!1su75l7op1fDvzylhPHx1HNQ!2e0',
+        country: 'ココス諸島', code: 'CC', state: 'ココス諸島', region: 'オセアニア', townKm: 4.4, cityKm: 1095.5
+    },
+    {//Søhøj (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sqvLSPsKR7pFPO25WIkapdw!2m2!1d56.54859!2d8.32062!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.54859,8.32062,3a,75y,90t/data=!3m4!1e1!3m2!1sqvLSPsKR7pFPO25WIkapdw!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 0.6, cityKm: 60.9
+    },
+    {//マン通り (ジャージー島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1skGQAAFr2DoW_pqq--MZgow!2m2!1d49.19431!2d-2.18072!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@49.19431,-2.18072,3a,75y,90t/data=!3m4!1e1!3m2!1skGQAAFr2DoW_pqq--MZgow!2e0',
+        country: 'ジャージー', code: 'JE', state: 'ジャージー', region: 'ヨーロッパ', townKm: 3.7, cityKm: 62
+    },
+    {//ジブラルタル (ジブラルタル)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sJ6MiuDKV3PfO1aZNcdsJKA!2m2!1d36.11231!2d-5.34508!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.11231,-5.34508,3a,75y,90t/data=!3m4!1e1!3m2!1sJ6MiuDKV3PfO1aZNcdsJKA!2e0',
+        country: 'ジブラルタル', code: 'GI', state: 'ジブラルタル', region: 'ヨーロッパ', townKm: 0.2, cityKm: 6.2
+    },
+    {//Google マップ (ミッドウェー島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sUkqvisHGhbwNMwvnOeUrNQ!2m2!1d28.20933!2d-177.33142!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@28.20933,-177.33142,3a,75y,90t/data=!3m4!1e1!3m2!1sUkqvisHGhbwNMwvnOeUrNQ!2e0',
+        country: '合衆国領有小離島', code: 'UM', state: 'ミッドウェー島', region: 'オセアニア', townKm: 1857.6, cityKm: 2053.1
+    },
+    {//Google マップ (ピトケアン諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sKUlvMXxoGAB7FB_qCCMuzw!2m2!1d-25.06925!2d-130.10617!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-25.06925,-130.10617,3a,75y,90t/data=!3m4!1e1!3m2!1sKUlvMXxoGAB7FB_qCCMuzw!2e0',
+        country: 'ピトケアン諸島', code: 'PN', state: 'ピトケアン諸島', region: 'オセアニア', townKm: 0.6, cityKm: 5845.5
+    },
+    {//14 Västra Vägen (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1ssGCONRRcuGdSgYE3tmVvXQ!2m2!1d57.68028!2d11.64373!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@57.68028,11.64373,3a,75y,90t/data=!3m4!1e1!3m2!1ssGCONRRcuGdSgYE3tmVvXQ!2e0',
+        country: 'スウェーデン', code: 'SE', state: 'ヴェストラ・イェータランド県', region: 'ヨーロッパ', townKm: 1.1, cityKm: 19.4
+    },
+    {//9 モルチョネ通り (サンマリノ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s-353PvZfniFe-TSgSqnOHQ!2m2!1d43.9452!2d12.43431!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@43.9452,12.43431,3a,75y,90t/data=!3m4!1e1!3m2!1s-353PvZfniFe-TSgSqnOHQ!2e0',
+        country: 'サンマリノ', code: 'SM', state: 'ボルゴ・マッジョーレ', region: 'ヨーロッパ', townKm: 1.1, cityKm: 16.3
+    },
+    {//香港, 九龍 (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sAqJpS5KCKDRlnDJT4-Lrmg!2m2!1d22.32318!2d114.21509!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.32318,114.21509,3a,75y,90t/data=!3m4!1e1!3m2!1sAqJpS5KCKDRlnDJT4-Lrmg!2e0',
+        country: '香港', code: 'HK', state: '観塘', region: 'アジア', townKm: 0.8, cityKm: 2.1
+    },
+    {//コイ・ドゥルディヌ自動車道 (アンドラ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sRiehmBMBh-WGzpEjZWWQQg!2m2!1d42.55423!2d1.55072!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@42.55423,1.55072,3a,75y,90t/data=!3m4!1e1!3m2!1sRiehmBMBh-WGzpEjZWWQQg!2e0',
+        country: 'アンドラ', code: 'AD', state: 'ラ・マサナ教区', region: 'ヨーロッパ', townKm: 1.5, cityKm: 94.4
+    },
+    {//黑沙龍爪角海濱路 (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sWE6kVWgLwC_y0LL5I4uwDg!2m2!1d22.11608!2d113.56969!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.11608,113.56969,3a,75y,90t/data=!3m4!1e1!3m2!1sWE6kVWgLwC_y0LL5I4uwDg!2e0',
+        country: 'マカオ', code: 'MO', state: 'マカオ', region: 'アジア', townKm: 1.8, cityKm: 4.6
+    },
+    {//34 モンテルーポ通り (サンマリノ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sbuTnBDoLvevkjne0ItUKug!2m2!1d43.9461!2d12.511!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@43.9461,12.511,3a,75y,90t/data=!3m4!1e1!3m2!1sbuTnBDoLvevkjne0ItUKug!2e0',
+        country: 'イタリア', code: 'IT', state: 'リミニ県', region: 'ヨーロッパ', townKm: 2.2, cityKm: 13.1
+    },
+    {//香港 (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sztbD1HQxjJLvb-Koqj3dcA!2m2!1d22.28423!2d114.2138!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.28423,114.2138,3a,75y,90t/data=!3m4!1e1!3m2!1sztbD1HQxjJLvb-Koqj3dcA!2e0',
+        country: '香港', code: 'HK', state: 'イースタン', region: 'アジア', townKm: 0.2, cityKm: 3.8
+    },
+    {//Tate's Cairn Tunnel (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sTLYrE7iwgThG5CZjzTQvQw!2m2!1d22.34978!2d114.20835!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.34978,114.20835,3a,75y,90t/data=!3m4!1e1!3m2!1sTLYrE7iwgThG5CZjzTQvQw!2e0',
+        country: '香港', code: 'HK', state: '黄大仙', region: 'アジア', townKm: 0.6, cityKm: 2.6
+    },
+    {//シェミン・デ・ルージャー (ジャージー島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sy0lDlciMM5aMNfHsz00Pfg!2m2!1d49.22041!2d-2.22377!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@49.22041,-2.22377,3a,75y,90t/data=!3m4!1e1!3m2!1sy0lDlciMM5aMNfHsz00Pfg!2e0',
+        country: 'ジャージー', code: 'JE', state: 'ジャージー', region: 'ヨーロッパ', townKm: 6, cityKm: 65.5
+    },
+    {//155 Kunnerupvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s8ln5lTz7qd1E-0urc-Ymww!2m2!1d56.11476!2d10.07457!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.11476,10.07457,3a,75y,90t/data=!3m4!1e1!3m2!1s8ln5lTz7qd1E-0urc-Ymww!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 0.8, cityKm: 9.6
+    },
+    {//49 Bjørnstrupvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sC0qnL0wBpngZrRt_ptykfg!2m2!1d56.867!2d9.43715!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.867,9.43715,3a,75y,90t/data=!3m4!1e1!3m2!1sC0qnL0wBpngZrRt_ptykfg!2e0',
+        country: 'デンマーク', code: 'DK', state: '北ユラン地域', region: 'ヨーロッパ', townKm: 8.4, cityKm: 35.5
+    },
+    {//104 Farverhus (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s2j_AaWaDSo7bolxqmaAJ3w!2m2!1d55.02885!2d9.39629!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.02885,9.39629,3a,75y,90t/data=!3m4!1e1!3m2!1s2j_AaWaDSo7bolxqmaAJ3w!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 2.2, cityKm: 26.9
+    },
+    {//7 クープ通り (ジャージー島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sPlReqdWS0Uki5IpOPKOX8w!2m2!1d49.23235!2d-2.02528!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@49.23235,-2.02528,3a,75y,90t/data=!3m4!1e1!3m2!1sPlReqdWS0Uki5IpOPKOX8w!2e0',
+        country: 'ジャージー', code: 'JE', state: 'ジャージー', region: 'ヨーロッパ', townKm: 2.3, cityKm: 64.9
+    },
+    {//8 Frands Sørensens Vej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1szm02aldYW8_6LW-4XqalZQ!2m2!1d55.47454!2d9.46577!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.47454,9.46577,3a,75y,90t/data=!3m4!1e1!3m2!1szm02aldYW8_6LW-4XqalZQ!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 1.8, cityKm: 1.8
+    },
+    {//Google マップ (ココス諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sZTkflCR7A3Q9RAFrSw2gNA!2m2!1d-12.20462!2d96.84124!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-12.20462,96.84124,3a,75y,90t/data=!3m4!1e1!3m2!1sZTkflCR7A3Q9RAFrSw2gNA!2e0',
+        country: 'ココス諸島', code: 'CC', state: 'ココス諸島', region: 'オセアニア', townKm: 5.7, cityKm: 1103
+    },
+    {//65 ラ・ザネッタ通り (サンマリノ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1svidKlaS90KuY0jjALv8CZw!2m2!1d43.97489!2d12.50276!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@43.97489,12.50276,3a,75y,90t/data=!3m4!1e1!3m2!1svidKlaS90KuY0jjALv8CZw!2e0',
+        country: 'イタリア', code: 'IT', state: 'リミニ県', region: 'ヨーロッパ', townKm: 1.2, cityKm: 10.4
+    },
+    {//香港, 新界 (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1shShUjN_p5uWa5Qd3klnihQ!2m2!1d22.45357!2d114.00729!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.45357,114.00729,3a,75y,90t/data=!3m4!1e1!3m2!1shShUjN_p5uWa5Qd3klnihQ!2e0',
+        country: '香港', code: 'HK', state: '元朗', region: 'アジア', townKm: 0.6, cityKm: 0.6
+    },
+    {//Google マップ (クリスマス島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1svo5Sk_Kz_E56tXcdqozcCw!2m2!1d-10.46222!2d105.58185!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-10.46222,105.58185,3a,75y,90t/data=!3m4!1e1!3m2!1svo5Sk_Kz_E56tXcdqozcCw!2e0',
+        country: 'クリスマス島', code: 'CX', state: 'クリスマス島', region: 'オセアニア', townKm: 11.5, cityKm: 399.9
+    },
+    {//ビズオウア, デンマーク首都地域 (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sQOjnOBotozje5q5KsaASsg!2m2!1d55.65475!2d12.46873!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.65475,12.46873,3a,75y,90t/data=!3m4!1e1!3m2!1sQOjnOBotozje5q5KsaASsg!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 1.3, cityKm: 1.4
+    },
+    {//アルブル通り (ジャージー島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1smDqWOI2rX8nKe0rvznE99Q!2m2!1d49.21167!2d-2.10867!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@49.21167,-2.10867,3a,75y,90t/data=!3m4!1e1!3m2!1smDqWOI2rX8nKe0rvznE99Q!2e0',
+        country: 'ジャージー', code: 'JE', state: 'ジャージー', region: 'ヨーロッパ', townKm: 2.4, cityKm: 63.1
+    },
+    {//コペンハーゲン, デンマーク首都地域 (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sxHjzxw6o4mhNKPTMjNeumw!2m2!1d55.66145!2d12.57894!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.66145,12.57894,3a,75y,90t/data=!3m4!1e1!3m2!1sxHjzxw6o4mhNKPTMjNeumw!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 1.7, cityKm: 1.8
+    },
+    {//ボリン・ロード (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sJykeWWrn-HX-qr1TdsOMoQ!2m2!1d54.31115!2d-4.56347!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.31115,-4.56347,3a,75y,90t/data=!3m4!1e1!3m2!1sJykeWWrn-HX-qr1TdsOMoQ!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 1.2, cityKm: 81.4
+    },
+    {//354 コッスレ通り (サンマリノ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sYR_pOZUU2ACYBdoacGkh7A!2m2!1d43.90128!2d12.40389!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@43.90128,12.40389,3a,75y,90t/data=!3m4!1e1!3m2!1sYR_pOZUU2ACYBdoacGkh7A!2e0',
+        country: 'イタリア', code: 'IT', state: 'リミニ県', region: 'ヨーロッパ', townKm: 1.4, cityKm: 21.6
+    },
+    {//ファルガ・デ・モレス・サント・ホアン・フマト自動車道 (アンドラ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s20-zg5lH98yWxwrM-ttFLA!2m2!1d42.42769!2d1.42816!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@42.42769,1.42816,3a,75y,90t/data=!3m4!1e1!3m2!1s20-zg5lH98yWxwrM-ttFLA!2e0',
+        country: 'スペイン', code: 'ES', state: 'リェイダ県', region: 'ヨーロッパ', townKm: 6.5, cityKm: 84.1
+    },
+    {//香港, 新界 (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1snP2yt6aWXVNZhBAlDcw5MQ!2m2!1d22.39966!2d113.97004!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.39966,113.97004,3a,75y,90t/data=!3m4!1e1!3m2!1snP2yt6aWXVNZhBAlDcw5MQ!2e0',
+        country: '香港', code: 'HK', state: '屯門', region: 'アジア', townKm: 0.6, cityKm: 0.9
+    },
+    {//15 Ravnebjergvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sb0156y6g28UanB5y3-kdeA!2m2!1d55.89111!2d12.34441!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.89111,12.34441,3a,75y,90t/data=!3m4!1e1!3m2!1sb0156y6g28UanB5y3-kdeA!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 1.8, cityKm: 26.3
+    },
+    {//2285 Rte 10 (米領ヴァージン諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sF_RWKd2gf3vJUa8mdyVtkw!2m2!1d18.35198!2d-64.73314!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@18.35198,-64.73314,3a,75y,90t/data=!3m4!1e1!3m2!1sF_RWKd2gf3vJUa8mdyVtkw!2e0',
+        country: 'アメリカ領ヴァージン諸島', code: 'VI', state: 'セント・ジョン教区', region: '中米・カリブ', townKm: 6.8, cityKm: 69.3
+    },
+    {//ルート 001 (米領サモア)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sKbL6dGLKHQQTdnVzpXMjuw!2m2!1d-14.27122!2d-170.62066!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-14.27122,-170.62066,3a,75y,90t/data=!3m4!1e1!3m2!1sKbL6dGLKHQQTdnVzpXMjuw!2e0',
+        country: 'アメリカ領サモア', code: 'AS', state: 'イースタン', region: 'オセアニア', townKm: 4.8, cityKm: 4181
+    },
+    {//香港, 新界 (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s731oiZzlZHs_dIuVDuNR9Q!2m2!1d22.44009!2d114.07398!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.44009,114.07398,3a,75y,90t/data=!3m4!1e1!3m2!1s731oiZzlZHs_dIuVDuNR9Q!2e0',
+        country: '香港', code: 'HK', state: '元朗', region: 'アジア', townKm: 1.4, cityKm: 4.2
+    },
+    {//香港, 九龍 (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1svxaXWYYfm1U5jlMAxBcKig!2m2!1d22.33481!2d114.13969!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.33481,114.13969,3a,75y,90t/data=!3m4!1e1!3m2!1svxaXWYYfm1U5jlMAxBcKig!2e0',
+        country: '香港', code: 'HK', state: '葵青区', region: 'アジア', townKm: 0.2, cityKm: 1.6
+    },
+    {//10 Vandmøllevej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sy72qxNIm3bgxrLMWG0rxYQ!2m2!1d55.50345!2d9.15584!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.50345,9.15584,3a,75y,90t/data=!3m4!1e1!3m2!1sy72qxNIm3bgxrLMWG0rxYQ!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 2.7, cityKm: 19.9
+    },
+    {//Google マップ (ココス諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1soyM2jtZZ3_uobjSsfz7yOA!2m2!1d-12.17894!2d96.82657!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-12.17894,96.82657,3a,75y,90t/data=!3m4!1e1!3m2!1soyM2jtZZ3_uobjSsfz7yOA!2e0',
+        country: 'ココス諸島', code: 'CC', state: 'ココス諸島', region: 'オセアニア', townKm: 2.5, cityKm: 1101.4
+    },
+    {//香港, 九龍 (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s81oX7ArQts_TTeai5swiOw!2m2!1d22.31111!2d114.17278!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.31111,114.17278,3a,75y,90t/data=!3m4!1e1!3m2!1s81oX7ArQts_TTeai5swiOw!2e0',
+        country: '香港', code: 'HK', state: '油尖旺区', region: 'アジア', townKm: 0.5, cityKm: 0.9
+    },
+    {//6 Dagmarvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s-3aHEX2OTuLhF63MqaB5Tw!2m2!1d55.72642!2d12.40097!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.72642,12.40097,3a,75y,90t/data=!3m4!1e1!3m2!1s-3aHEX2OTuLhF63MqaB5Tw!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 1.2, cityKm: 9.9
+    },
+    {//Google マップ (米領サモア)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sJ5czRb93uPKzfenTqRMd3w!2m2!1d-14.24519!2d-170.67276!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-14.24519,-170.67276,3a,75y,90t/data=!3m4!1e1!3m2!1sJ5czRb93uPKzfenTqRMd3w!2e0',
+        country: 'アメリカ領サモア', code: 'AS', state: 'イースタン', region: 'オセアニア', townKm: 2.9, cityKm: 4180.2
+    },
+    {//35 (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sacyjksB2Gzu4X9A5XS7FDw!2m2!1d57.45517!2d10.35738!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@57.45517,10.35738,3a,75y,90t/data=!3m4!1e1!3m2!1sacyjksB2Gzu4X9A5XS7FDw!2e0',
+        country: 'デンマーク', code: 'DK', state: '北ユラン地域', region: 'ヨーロッパ', townKm: 7.7, cityKm: 52.2
+    },
+    {//23 Søndervigvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sl52HdGBtRGEz7xyCxzTi_A!2m2!1d55.6931!2d12.47234!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.6931,12.47234,3a,75y,90t/data=!3m4!1e1!3m2!1sl52HdGBtRGEz7xyCxzTi_A!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 1.4, cityKm: 4.2
+    },
+    {//Google マップ (米領サモア)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sFYvhFD2HctH49KwBDIM6LQ!2m2!1d-14.25733!2d-170.70936!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-14.25733,-170.70936,3a,75y,90t/data=!3m4!1e1!3m2!1sFYvhFD2HctH49KwBDIM6LQ!2e0',
+        country: 'アメリカ領サモア', code: 'AS', state: 'イースタン', region: 'オセアニア', townKm: 2.4, cityKm: 4182.7
+    },
+    {//バラコリス・ロード (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sNoOZXUJzG2aMmzCmTAWWkw!2m2!1d54.13744!2d-4.58926!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.13744,-4.58926,3a,75y,90t/data=!3m4!1e1!3m2!1sNoOZXUJzG2aMmzCmTAWWkw!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 2.3, cityKm: 88.6
+    },
+    {//Google マップ (クリスマス島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sAivm5rtv84ismPwpro0j9A!2m2!1d-10.44107!2d105.70845!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-10.44107,105.70845,3a,75y,90t/data=!3m4!1e1!3m2!1sAivm5rtv84ismPwpro0j9A!2e0',
+        country: 'クリスマス島', code: 'CX', state: 'クリスマス島', region: 'オセアニア', townKm: 3.9, cityKm: 394.2
+    },
+    {//セント・クロワ (米領ヴァージン諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sxNRwQdRm2RKep5UBAGwfZQ!2m2!1d17.73268!2d-64.75108!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@17.73268,-64.75108,3a,75y,90t/data=!3m4!1e1!3m2!1sxNRwQdRm2RKep5UBAGwfZQ!2e0',
+        country: 'アメリカ領ヴァージン諸島', code: 'VI', state: 'セント・クロイ', region: '中米・カリブ', townKm: 0.7, cityKm: 0.7
+    },
+    {//ルート 009 (米領サモア)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1suWI5tn1uZeRdRjXAu0_RSw!2m2!1d-14.30882!2d-170.82515!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-14.30882,-170.82515,3a,75y,90t/data=!3m4!1e1!3m2!1suWI5tn1uZeRdRjXAu0_RSw!2e0',
+        country: 'アメリカ領サモア', code: 'AS', state: 'ウェスタン', region: 'オセアニア', townKm: 5.8, cityKm: 4192.1
+    },
+    {//Google マップ (クリスマス島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sq4cYn25C9nQv8pdeNrwE7g!2m2!1d-10.44453!2d105.54559!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-10.44453,105.54559,3a,75y,90t/data=!3m4!1e1!3m2!1sq4cYn25C9nQv8pdeNrwE7g!2e0',
+        country: 'クリスマス島', code: 'CX', state: 'クリスマス島', region: 'オセアニア', townKm: 14.8, cityKm: 399.1
+    },
+    {//67 Gammeldam (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1smUcg3oq1zO2z0bfinzPNUg!2m2!1d55.05208!2d9.73704!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.05208,9.73704,3a,75y,90t/data=!3m4!1e1!3m2!1smUcg3oq1zO2z0bfinzPNUg!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 0.6, cityKm: 35
+    },
+    {//Google マップ (アンドラ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s1oZ2INCjwB2Vhmu-Oghjmw!2m2!1d42.52154!2d1.71367!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@42.52154,1.71367,3a,75y,90t/data=!3m4!1e1!3m2!1s1oZ2INCjwB2Vhmu-Oghjmw!2e0',
+        country: 'フランス', code: 'FR', state: 'ピレネー＝オリアンタル県', region: 'ヨーロッパ', townKm: 2.9, cityKm: 88.5
+    },
+    {//Lystrup, 中央ユラン地域 (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1smEM5qm_BTxs4shKRW3CI7w!2m2!1d56.22335!2d10.22846!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.22335,10.22846,3a,75y,90t/data=!3m4!1e1!3m2!1smEM5qm_BTxs4shKRW3CI7w!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 1.7, cityKm: 7.5
+    },
+    {//13 (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sXpdmU2EheE2UVmYEpfZe4Q!2m2!1d56.76374!2d9.56014!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.76374,9.56014,3a,75y,90t/data=!3m4!1e1!3m2!1sXpdmU2EheE2UVmYEpfZe4Q!2e0',
+        country: 'デンマーク', code: 'DK', state: '北ユラン地域', region: 'ヨーロッパ', townKm: 5.3, cityKm: 38.4
+    },
+    {//Google マップ (クリスマス島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sBFhuVTQdE0smpQkfzobplw!2m2!1d-10.56057!2d105.64138!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-10.56057,105.64138,3a,75y,90t/data=!3m4!1e1!3m2!1sBFhuVTQdE0smpQkfzobplw!2e0',
+        country: 'クリスマス島', code: 'CX', state: 'クリスマス島', region: 'オセアニア', townKm: 16, cityKm: 408.9
+    },
+    {//60 羅素街 (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1suwb5QlLRwgJ45nTxQlW87w!2m2!1d22.27919!2d114.18338!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.27919,114.18338,3a,75y,90t/data=!3m4!1e1!3m2!1suwb5QlLRwgJ45nTxQlW87w!2e0',
+        country: '香港', code: 'HK', state: 'イースタン', region: 'アジア', townKm: 0.3, cityKm: 0.9
+    },
+    {//グリーバ・ミル・ロード (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1stdRHskQ_a3yt6ec8SjHy9A!2m2!1d54.21051!2d-4.60252!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.21051,-4.60252,3a,75y,90t/data=!3m4!1e1!3m2!1stdRHskQ_a3yt6ec8SjHy9A!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 3.8, cityKm: 85.3
+    },
+    {//12 Ny Lifstrupvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1swyYm2MSeuHHlnEaL2hzz2Q!2m2!1d55.57338!2d8.50271!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.57338,8.50271,3a,75y,90t/data=!3m4!1e1!3m2!1swyYm2MSeuHHlnEaL2hzz2Q!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 5.5, cityKm: 11.9
+    },
+    {//Google マップ (米領サモア)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sh9xUR66g70UW-H4hdNYzFQ!2m2!1d-14.28595!2d-170.55036!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-14.28595,-170.55036,3a,75y,90t/data=!3m4!1e1!3m2!1sh9xUR66g70UW-H4hdNYzFQ!2e0',
+        country: 'アメリカ領サモア', code: 'AS', state: 'イースタン', region: 'オセアニア', townKm: 12.5, cityKm: 4180
+    },
+    {//ルー・デ・カバレット (ジャージー島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sPz2jd5Dvg_0O4W1caCzy6Q!2m2!1d49.21537!2d-2.06446!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@49.21537,-2.06446,3a,75y,90t/data=!3m4!1e1!3m2!1sPz2jd5Dvg_0O4W1caCzy6Q!2e0',
+        country: 'ジャージー', code: 'JE', state: 'ジャージー', region: 'ヨーロッパ', townKm: 1.1, cityKm: 63.2
+    },
+    {//オーフス, 中央ユラン地域 (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sl2NgrifXxIxU21twW0-YyA!2m2!1d56.13535!2d10.17276!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.13535,10.17276,3a,75y,90t/data=!3m4!1e1!3m2!1sl2NgrifXxIxU21twW0-YyA!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 1.9, cityKm: 3.3
+    },
+    {//10 アム・カンプ (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sf5hxTegnBETZY5wwiDnUhA!2m2!1d54.74891!2d8.96169!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.74891,8.96169,3a,75y,90t/data=!3m4!1e1!3m2!1sf5hxTegnBETZY5wwiDnUhA!2e0',
+        country: 'ドイツ', code: 'DE', state: 'シュレースヴィヒ＝ホルシュタイン州', region: 'ヨーロッパ', townKm: 2.4, cityKm: 30.8
+    },
+    {//Google マップ (北マリアナ諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s4xY5nq1Q6v4f7oNTuZQQ1g!2m2!1d15.1577!2d145.74212!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@15.1577,145.74212,3a,75y,90t/data=!3m4!1e1!3m2!1s4xY5nq1Q6v4f7oNTuZQQ1g!2e0',
+        country: '北マリアナ諸島', code: 'MP', state: 'サイパン', region: 'オセアニア', townKm: 4, cityKm: 2174.3
+    },
+    {//Bramming, 南デンマーク地域 (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sVJMEAAUIpKMWxDNDSi6fKw!2m2!1d55.4704!2d8.69999!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.4704,8.69999,3a,75y,90t/data=!3m4!1e1!3m2!1sVJMEAAUIpKMWxDNDSi6fKw!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 0.1, cityKm: 15.6
+    },
+    {//ルート 001 (米領サモア)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1seMozKQuxMGAjMp1wIofWlA!2m2!1d-14.3415!2d-170.7782!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-14.3415,-170.7782,3a,75y,90t/data=!3m4!1e1!3m2!1seMozKQuxMGAjMp1wIofWlA!2e0',
+        country: 'アメリカ領サモア', code: 'AS', state: 'ウェスタン', region: 'オセアニア', townKm: 0.8, cityKm: 4193.8
+    },
+    {//Google マップ (米領ヴァージン諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sRyKDuV8e7NkMEhvaCAXmaw!2m2!1d17.76264!2d-64.84446!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@17.76264,-64.84446,3a,75y,90t/data=!3m4!1e1!3m2!1sRyKDuV8e7NkMEhvaCAXmaw!2e0',
+        country: 'アメリカ領ヴァージン諸島', code: 'VI', state: 'セント・クロイ', region: '中米・カリブ', townKm: 11, cityKm: 11
+    },
+    {//A2 (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sngQN7VJkwZMmNj0RlvyAlA!2m2!1d54.27842!2d-4.37657!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.27842,-4.37657,3a,75y,90t/data=!3m4!1e1!3m2!1sngQN7VJkwZMmNj0RlvyAlA!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 4.4, cityKm: 76.7
+    },
+    {//6 Langdyssevej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sIKGE-PtDEFtoyfe9uGKE0A!2m2!1d55.81234!2d12.16802!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.81234,12.16802,3a,75y,90t/data=!3m4!1e1!3m2!1sIKGE-PtDEFtoyfe9uGKE0A!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 2, cityKm: 19.7
+    },
+    {//リュ・ド・ラ・メア (ジャージー島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sXrNCgo6LjUUfzR_vyr2GFQ!2m2!1d49.2493!2d-2.24261!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@49.2493,-2.24261,3a,75y,90t/data=!3m4!1e1!3m2!1sXrNCgo6LjUUfzR_vyr2GFQ!2e0',
+        country: 'ジャージー', code: 'JE', state: 'ジャージー', region: 'ヨーロッパ', townKm: 7.5, cityKm: 68.9
+    },
+    {//ビボー, 中央ユラン地域 (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sjCoNE_qyxPo_peTVUHfCQw!2m2!1d56.46525!2d9.4108!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.46525,9.4108,3a,75y,90t/data=!3m4!1e1!3m2!1sjCoNE_qyxPo_peTVUHfCQw!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 1.4, cityKm: 38.4
+    },
+    {//10 Audebovej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1suLVvk1jQyaa1xD-9xdmoYw!2m2!1d55.76258!2d11.63716!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.76258,11.63716,3a,75y,90t/data=!3m4!1e1!3m2!1suLVvk1jQyaa1xD-9xdmoYw!2e0',
+        country: 'デンマーク', code: 'DK', state: 'シェラン地域', region: 'ヨーロッパ', townKm: 6.9, cityKm: 30.8
+    },
+    {//Google マップ (フォークランド諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sxtfyn6FnCTV8FQNgTy-NNQ!2m2!1d-51.28918!2d-60.55748!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-51.28918,-60.55748,3a,75y,90t/data=!3m4!1e1!3m2!1sxtfyn6FnCTV8FQNgTy-NNQ!2e0',
+        country: 'フォークランド諸島', code: 'FK', state: 'フォークランド諸島', region: '南米', townKm: 192.8, cityKm: 568.7
+    },
+    {//926 D37 (モナコ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1shJSBWFRETyloELeTKi16Ug!2m2!1d43.72684!2d7.40017!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@43.72684,7.40017,3a,75y,90t/data=!3m4!1e1!3m2!1shJSBWFRETyloELeTKi16Ug!2e0',
+        country: 'モナコ', code: 'MC', state: 'モナコ・ヴィル', region: 'ヨーロッパ', townKm: 0.8, cityKm: 11.1
+    },
+    {//Bode Engvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sYQ6KZOdhilvUxaEw47e6KA!2m2!1d56.48426!2d10.28116!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.48426,10.28116,3a,75y,90t/data=!3m4!1e1!3m2!1sYQ6KZOdhilvUxaEw47e6KA!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 3.2, cityKm: 15.2
+    },
+    {//193 330 (オーランド諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sIX7ABzr6TsI2_KIttDQkxA!2m2!1d60.05288!2d20.09277!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@60.05288,20.09277,3a,75y,90t/data=!3m4!1e1!3m2!1sIX7ABzr6TsI2_KIttDQkxA!2e0',
+        country: 'オーランド諸島', code: 'AX', state: 'レムランド', region: 'ヨーロッパ', townKm: 2.1, cityKm: 128.4
+    },
+    {//コースト・ロード (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1ss_BP2k7NUrzF9XFHRAkEWA!2m2!1d54.38167!2d-4.38987!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.38167,-4.38987,3a,75y,90t/data=!3m4!1e1!3m2!1ss_BP2k7NUrzF9XFHRAkEWA!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 0.1, cityKm: 80.9
+    },
+    {//Google マップ (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sFVSFfzLXmkJ7kh_Kvu51mQ!2m2!1d22.41585!2d114.10424!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.41585,114.10424,3a,75y,90t/data=!3m4!1e1!3m2!1sFVSFfzLXmkJ7kh_Kvu51mQ!2e0',
+        country: '香港', code: 'HK', state: '元朗', region: 'アジア', townKm: 1.2, cityKm: 1.2
+    },
+    {//89 SP14 (サンマリノ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sTuWgF-bghP6ymqx9dOZRDA!2m2!1d43.9873!2d12.4111!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@43.9873,12.4111,3a,75y,90t/data=!3m4!1e1!3m2!1sTuWgF-bghP6ymqx9dOZRDA!2e0',
+        country: 'イタリア', code: 'IT', state: 'リミニ県', region: 'ヨーロッパ', townKm: 1.1, cityKm: 14.6
+    },
+    {//22 Kornvangen (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s9r7au4-d34icjatyctaNIQ!2m2!1d56.20347!2d10.6959!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.20347,10.6959,3a,75y,90t/data=!3m4!1e1!3m2!1s9r7au4-d34icjatyctaNIQ!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 1.3, cityKm: 30.4
+    },
+    {//26 Vestre Grænsevej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sOFadl6la6dXqk_5vNcE4Sw!2m2!1d55.52617!2d12.21205!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.52617,12.21205,3a,75y,90t/data=!3m4!1e1!3m2!1sOFadl6la6dXqk_5vNcE4Sw!2e0',
+        country: 'デンマーク', code: 'DK', state: 'シェラン地域', region: 'ヨーロッパ', townKm: 1, cityKm: 15.2
+    },
+    {//Smørumnedre, デンマーク首都地域 (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s1D1JxUEKLadflm1zX694dA!2m2!1d55.73831!2d12.31063!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.73831,12.31063,3a,75y,90t/data=!3m4!1e1!3m2!1s1D1JxUEKLadflm1zX694dA!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 0.7, cityKm: 14.8
+    },
+    {//41 Christian 8.s Vej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sOkPztg6rzw9-Otjb_0V3uA!2m2!1d56.17142!2d9.55268!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.17142,9.55268,3a,75y,90t/data=!3m4!1e1!3m2!1sOkPztg6rzw9-Otjb_0V3uA!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 0.5, cityKm: 35.8
+    },
+    {//3 Melvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sCtfy_RbC5jkqsp0HPIZ6xA!2m2!1d55.25974!2d9.8951!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.25974,9.8951,3a,75y,90t/data=!3m4!1e1!3m2!1sCtfy_RbC5jkqsp0HPIZ6xA!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 1.2, cityKm: 34.7
+    },
+    {//Google マップ (クリスマス島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1spcQGW8TkqJh07akboflZDg!2m2!1d-10.47606!2d105.63112!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-10.47606,105.63112,3a,75y,90t/data=!3m4!1e1!3m2!1spcQGW8TkqJh07akboflZDg!2e0',
+        country: 'クリスマス島', code: 'CX', state: 'クリスマス島', region: 'オセアニア', townKm: 8, cityKm: 400
+    },
+    {//82 Rybjergvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1smmgmTbaJTyrm8imL6Fv4lw!2m2!1d56.71658!2d9.0325!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.71658,9.0325,3a,75y,90t/data=!3m4!1e1!3m2!1smmgmTbaJTyrm8imL6Fv4lw!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 2.6, cityKm: 64.5
+    },
+    {//青沙公路 (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s_t0PJP6hKYAp7OS0zTrJhw!2m2!1d22.37038!2d114.17398!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.37038,114.17398,3a,75y,90t/data=!3m4!1e1!3m2!1s_t0PJP6hKYAp7OS0zTrJhw!2e0',
+        country: '香港', code: 'HK', state: '沙田', region: 'アジア', townKm: 0.6, cityKm: 1.7
+    },
+    {//ホルベック, シェラン地域 (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sEmIYuOwYVfuBoEDaMb1ubA!2m2!1d55.70295!2d11.64853!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.70295,11.64853,3a,75y,90t/data=!3m4!1e1!3m2!1sEmIYuOwYVfuBoEDaMb1ubA!2e0',
+        country: 'デンマーク', code: 'DK', state: 'シェラン地域', region: 'ヨーロッパ', townKm: 1.4, cityKm: 27.9
+    },
+    {//カタルーニャ (アンドラ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1skLfMxyCR4rdfwGGcZudSVg!2m2!1d42.46192!2d1.42073!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@42.46192,1.42073,3a,75y,90t/data=!3m4!1e1!3m2!1skLfMxyCR4rdfwGGcZudSVg!2e0',
+        country: 'スペイン', code: 'ES', state: 'リェイダ県', region: 'ヨーロッパ', townKm: 5.8, cityKm: 87.9
+    },
+    {//ボールドフン・ロード (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sxhiv4WMOMvkl-hHyKJCT8g!2m2!1d54.23154!2d-4.42039!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.23154,-4.42039,3a,75y,90t/data=!3m4!1e1!3m2!1sxhiv4WMOMvkl-hHyKJCT8g!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 1.3, cityKm: 78.5
+    },
+    {//ポート・ソデリック・グレン・ロード (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1scX63i67kFAJ82uGJPpVqDg!2m2!1d54.12844!2d-4.53819!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.12844,-4.53819,3a,75y,90t/data=!3m4!1e1!3m2!1scX63i67kFAJ82uGJPpVqDg!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 3.2, cityKm: 85.3
+    },
+    {//Google マップ (クリスマス島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sZqq5ztdRLpwmuU3Xpg-xcg!2m2!1d-10.47015!2d105.7127!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-10.47015,105.7127,3a,75y,90t/data=!3m4!1e1!3m2!1sZqq5ztdRLpwmuU3Xpg-xcg!2e0',
+        country: 'クリスマス島', code: 'CX', state: 'クリスマス島', region: 'オセアニア', townKm: 6.5, cityKm: 397.3
+    },
+    {//Google マップ (バミューダ諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sByTZNHNebmzH1c4g1hyoHA!2m2!1d32.25627!2d-64.81382!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@32.25627,-64.81382,3a,75y,90t/data=!3m4!1e1!3m2!1sByTZNHNebmzH1c4g1hyoHA!2e0',
+        country: 'バミューダ諸島', code: 'BM', state: 'ワーウィック', region: '北米', townKm: 1.1, cityKm: 1188.7
+    },
+    {//64 Sønder Blvd. (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sbM6YdO7bPeK19o8zaqWUZQ!2m2!1d56.79812!2d9.5165!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.79812,9.5165,3a,75y,90t/data=!3m4!1e1!3m2!1sbM6YdO7bPeK19o8zaqWUZQ!2e0',
+        country: 'デンマーク', code: 'DK', state: '北ユラン地域', region: 'ヨーロッパ', townKm: 0.7, cityKm: 37
+    },
+    {//ルート 008 (米領サモア)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1suid6kNkRU4kri0r64Af54g!2m2!1d-14.25459!2d-170.56483!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-14.25459,-170.56483,3a,75y,90t/data=!3m4!1e1!3m2!1suid6kNkRU4kri0r64Af54g!2e0',
+        country: 'アメリカ領サモア', code: 'AS', state: 'イースタン', region: 'オセアニア', townKm: 10.9, cityKm: 4177.3
+    },
+    {//Google マップ (クリスマス島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sRRKW-0m6n3i237qiLPbYTQ!2m2!1d-10.4818!2d105.55649!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-10.4818,105.55649,3a,75y,90t/data=!3m4!1e1!3m2!1sRRKW-0m6n3i237qiLPbYTQ!2e0',
+        country: 'クリスマス島', code: 'CX', state: 'クリスマス島', region: 'オセアニア', townKm: 15, cityKm: 402.8
+    },
+    {//Google マップ (ココス諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1szhKbcpGA3jlljFEwjJvnKw!2m2!1d-12.19111!2d96.86708!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-12.19111,96.86708,3a,75y,90t/data=!3m4!1e1!3m2!1szhKbcpGA3jlljFEwjJvnKw!2e0',
+        country: 'ココス諸島', code: 'CC', state: 'ココス諸島', region: 'オセアニア', townKm: 6.2, cityKm: 1100.2
+    },
+    {//3 Ribe-Vejle Landevej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1ss1wdskTh03-03FbykeeCmQ!2m2!1d55.53083!2d9.04889!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.53083,9.04889,3a,75y,90t/data=!3m4!1e1!3m2!1ss1wdskTh03-03FbykeeCmQ!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 5.8, cityKm: 27
+    },
+    {//バラオーツ・ロード (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1svJYQYQCppqKa_Yh4oC4N2g!2m2!1d54.18096!2d-4.50652!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.18096,-4.50652,3a,75y,90t/data=!3m4!1e1!3m2!1svJYQYQCppqKa_Yh4oC4N2g!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 1.7, cityKm: 83.4
+    },
+    {//香港, 新界 (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sZ6U5ZpeCnfAlLLMR0Kge6A!2m2!1d22.31056!2d114.2847!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.31056,114.2847,3a,75y,90t/data=!3m4!1e1!3m2!1sZ6U5ZpeCnfAlLLMR0Kge6A!2e0',
+        country: '香港', code: 'HK', state: '西貢', region: 'アジア', townKm: 1.5, cityKm: 2.3
+    },
+    {//B2 (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sf6ZyKPo-XTaiweViZjOQ1w!2m2!1d54.37932!2d-4.45652!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.37932,-4.45652,3a,75y,90t/data=!3m4!1e1!3m2!1sf6ZyKPo-XTaiweViZjOQ1w!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 2.1, cityKm: 84.3
+    },
+    {//Google マップ (バミューダ諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sp6u7HJltLxUGdun-HYt6-Q!2m2!1d32.38212!2d-64.66499!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@32.38212,-64.66499,3a,75y,90t/data=!3m4!1e1!3m2!1sp6u7HJltLxUGdun-HYt6-Q!2e0',
+        country: 'バミューダ諸島', code: 'BM', state: 'セント・ジョージ市', region: '北米', townKm: 1.2, cityKm: 1183
+    },
+    {//7 Rendebjergvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sm6EHr9Etcwxp9K-0GQmxfg!2m2!1d55.59909!2d12.16644!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.59909,12.16644,3a,75y,90t/data=!3m4!1e1!3m2!1sm6EHr9Etcwxp9K-0GQmxfg!2e0',
+        country: 'デンマーク', code: 'DK', state: 'シェラン地域', region: 'ヨーロッパ', townKm: 0.7, cityKm: 7.2
+    },
+    {//青嶼幹線 (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sIhtxAW29YJ6EMkQM2icN_A!2m2!1d22.3522!2d114.07776!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.3522,114.07776,3a,75y,90t/data=!3m4!1e1!3m2!1sIhtxAW29YJ6EMkQM2icN_A!2e0',
+        country: '香港', code: 'HK', state: '荃湾', region: 'アジア', townKm: 1.8, cityKm: 2.3
+    },
+    {//62 Nordmarksvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sSolVZutcDlQMZ5GUmM3ZhA!2m2!1d55.76613!2d12.09691!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.76613,12.09691,3a,75y,90t/data=!3m4!1e1!3m2!1sSolVZutcDlQMZ5GUmM3ZhA!2e0',
+        country: 'デンマーク', code: 'DK', state: 'シェラン地域', region: 'ヨーロッパ', townKm: 1.5, cityKm: 13.9
+    },
+    {//Google マップ (北マリアナ諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s5r6z98xZNebhA4Z1dl5cWQ!2m2!1d15.18346!2d145.75534!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@15.18346,145.75534,3a,75y,90t/data=!3m4!1e1!3m2!1s5r6z98xZNebhA4Z1dl5cWQ!2e0',
+        country: '北マリアナ諸島', code: 'MP', state: 'サイパン', region: 'オセアニア', townKm: 3.2, cityKm: 2177.4
+    },
+    {//Hellevadvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sUdAAVgcHQ6ymhBHl1db0_Q!2m2!1d55.07381!2d9.32278!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.07381,9.32278,3a,75y,90t/data=!3m4!1e1!3m2!1sUdAAVgcHQ6ymhBHl1db0_Q!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 0.9, cityKm: 32.5
+    },
+    {//13 クロ・ド・ラトランティック (ジャージー島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sZblUf5MnF3gd5lgSnuIaEA!2m2!1d49.18778!2d-2.2251!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@49.18778,-2.2251,3a,75y,90t/data=!3m4!1e1!3m2!1sZblUf5MnF3gd5lgSnuIaEA!2e0',
+        country: 'ジャージー', code: 'JE', state: 'ジャージー', region: 'ヨーロッパ', townKm: 6.8, cityKm: 62
+    },
+    {//20 Præstemarksvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sNQgRhBbInNnFEJCmpqdLRg!2m2!1d56.2498!2d9.86188!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.2498,9.86188,3a,75y,90t/data=!3m4!1e1!3m2!1sNQgRhBbInNnFEJCmpqdLRg!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 0.9, cityKm: 23.9
+    },
+    {//Google マップ (サンピエール島・ミクロン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sEpyHjSikEgqtclfAu8if5A!2m2!1d47.1368!2d-56.35512!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@47.1368,-56.35512,3a,75y,90t/data=!3m4!1e1!3m2!1sEpyHjSikEgqtclfAu8if5A!2e0',
+        country: 'サンピエール島・ミクロン島', code: 'PM', state: 'ミクロン＝ラングラード', region: '北米', townKm: 4.8, cityKm: 279.4
+    },
+    {//Google マップ (クリスマス島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s6uaUwwrkxj4iXoOj4O-Gew!2m2!1d-10.44546!2d105.66584!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-10.44546,105.66584,3a,75y,90t/data=!3m4!1e1!3m2!1s6uaUwwrkxj4iXoOj4O-Gew!2e0',
+        country: 'クリスマス島', code: 'CX', state: 'クリスマス島', region: 'オセアニア', townKm: 3, cityKm: 395.8
+    },
+    {//7 Ågade (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sRED0v6hJg1VeFzATJolh0A!2m2!1d55.50974!2d10.39549!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.50974,10.39549,3a,75y,90t/data=!3m4!1e1!3m2!1sRED0v6hJg1VeFzATJolh0A!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 0.6, cityKm: 12.6
+    },
+    {//12 Tornagervej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sCT5kwtMx92I1kcTijKXoSQ!2m2!1d55.75635!2d12.5834!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.75635,12.5834,3a,75y,90t/data=!3m4!1e1!3m2!1sCT5kwtMx92I1kcTijKXoSQ!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 0.7, cityKm: 9
+    },
+    {//Esplanaden (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s0y7nVEnhYyOWH4K3vtrzMQ!2m2!1d55.558!2d9.75931!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.558,9.75931,3a,75y,90t/data=!3m4!1e1!3m2!1s0y7nVEnhYyOWH4K3vtrzMQ!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 1, cityKm: 19.5
+    },
+    {//67 Primulavej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sSGCzyoRK9dh30NHn1Yhphg!2m2!1d55.23767!2d11.77436!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.23767,11.77436,3a,75y,90t/data=!3m4!1e1!3m2!1sSGCzyoRK9dh30NHn1Yhphg!2e0',
+        country: 'デンマーク', code: 'DK', state: 'シェラン地域', region: 'ヨーロッパ', townKm: 1.2, cityKm: 12.2
+    },
+    {//91 Teglgårdsvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sZXRzkO53tmwy2BQdvaRhMg!2m2!1d55.49506!2d9.7182!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.49506,9.7182,3a,75y,90t/data=!3m4!1e1!3m2!1sZXRzkO53tmwy2BQdvaRhMg!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 1.4, cityKm: 15.5
+    },
+    {//CG-2 (アンドラ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1smmYny5fV2Zu1GUZ5TgH_0g!2m2!1d42.5499!2d1.69801!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@42.5499,1.69801,3a,75y,90t/data=!3m4!1e1!3m2!1smmYny5fV2Zu1GUZ5TgH_0g!2e0',
+        country: 'アンドラ', code: 'AD', state: 'アンカム教区', region: 'ヨーロッパ', townKm: 3, cityKm: 91.8
+    },
+    {//1 Dolmer Have (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sMVeZNVtvZTV5g1ve6tcmPg!2m2!1d56.42818!2d10.85846!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.42818,10.85846,3a,75y,90t/data=!3m4!1e1!3m2!1sMVeZNVtvZTV5g1ve6tcmPg!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 1.8, cityKm: 49.9
+    },
+    {//Google マップ (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sbnvjxbATv3c8reojVTtq6w!2m2!1d22.46543!2d114.23775!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.46543,114.23775,3a,75y,90t/data=!3m4!1e1!3m2!1sbnvjxbATv3c8reojVTtq6w!2e0',
+        country: '香港', code: 'HK', state: 'タイポー', region: 'アジア', townKm: 1.1, cityKm: 6.6
+    },
+    {//23 ムンタウプ自動車道 (アンドラ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s2vYV17jj0MF8jFCW3q921g!2m2!1d42.57329!2d1.58686!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@42.57329,1.58686,3a,75y,90t/data=!3m4!1e1!3m2!1s2vYV17jj0MF8jFCW3q921g!2e0',
+        country: 'アンドラ', code: 'AD', state: 'カニーリョ教区', region: 'ヨーロッパ', townKm: 1.1, cityKm: 95.8
+    },
+    {//2014 CS-101 (アンドラ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sa_-o74_e14NLI2n2fRPNAQ!2m2!1d42.49965!2d1.53055!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@42.49965,1.53055,3a,75y,90t/data=!3m4!1e1!3m2!1sa_-o74_e14NLI2n2fRPNAQ!2e0',
+        country: 'アンドラ', code: 'AD', state: 'エスカルデス＝エンゴルダニ教区', region: 'ヨーロッパ', townKm: 0.9, cityKm: 88.9
+    },
+    {//Google マップ (米領ヴァージン諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sFVsK7MnZOLqx-QgT12SSpg!2m2!1d17.68682!2d-64.89746!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@17.68682,-64.89746,3a,75y,90t/data=!3m4!1e1!3m2!1sFVsK7MnZOLqx-QgT12SSpg!2e0',
+        country: 'アメリカ領ヴァージン諸島', code: 'VI', state: 'セント・クロイ', region: '中米・カリブ', townKm: 16.5, cityKm: 16.5
+    },
+    {//146 クインタ・グアルダリア通り (サンマリノ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s5cyItVXQG4SsQrF5LlkWQQ!2m2!1d43.93426!2d12.46877!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@43.93426,12.46877,3a,75y,90t/data=!3m4!1e1!3m2!1s5cyItVXQG4SsQrF5LlkWQQ!2e0',
+        country: 'サンマリノ', code: 'SM', state: 'ファエターノ', region: 'ヨーロッパ', townKm: 1.2, cityKm: 15.7
+    },
+    {//65 Snekkerstenvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s-blKunuCtClrADkiTXMXmQ!2m2!1d57.00725!2d10.06453!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@57.00725,10.06453,3a,75y,90t/data=!3m4!1e1!3m2!1s-blKunuCtClrADkiTXMXmQ!2e0',
+        country: 'デンマーク', code: 'DK', state: '北ユラン地域', region: 'ヨーロッパ', townKm: 0.7, cityKm: 9.9
+    },
+    {//Google マップ (北マリアナ諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sgnHU8dK-1P3OMtot-vL4Bw!2m2!1d15.16971!2d145.78872!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@15.16971,145.78872,3a,75y,90t/data=!3m4!1e1!3m2!1sgnHU8dK-1P3OMtot-vL4Bw!2e0',
+        country: '北マリアナ諸島', code: 'MP', state: 'サイパン', region: 'オセアニア', townKm: 6, cityKm: 2178.3
+    },
+    {//Google マップ (アンドラ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s1EPB1IsDc7b3Wkn8s1RzDg!2m2!1d42.56691!2d1.44588!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@42.56691,1.44588,3a,75y,90t/data=!3m4!1e1!3m2!1s1EPB1IsDc7b3Wkn8s1RzDg!2e0',
+        country: 'アンドラ', code: 'AD', state: 'ラ・マサナ教区', region: 'ヨーロッパ', townKm: 3.2, cityKm: 98.1
+    },
+    {//67 Trankærgårdsvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1szwjsvhhuuRLQHjq5njh2KQ!2m2!1d56.08816!2d10.13538!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.08816,10.13538,3a,75y,90t/data=!3m4!1e1!3m2!1szwjsvhhuuRLQHjq5njh2KQ!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 0.8, cityKm: 8.9
+    },
+    {//1021 Hammarlandsvägen (オーランド諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1smMeB3LNiAdwMQErkJqeQPA!2m2!1d60.15952!2d19.79133!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@60.15952,19.79133,3a,75y,90t/data=!3m4!1e1!3m2!1smMeB3LNiAdwMQErkJqeQPA!2e0',
+        country: 'オーランド諸島', code: 'AX', state: 'ヨマラ', region: 'ヨーロッパ', townKm: 6.7, cityKm: 123.5
+    },
+    {//6 Balticagade (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sGlcM3TuvDwmMufZuFtj6xg!2m2!1d56.15314!2d10.21774!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.15314,10.21774,3a,75y,90t/data=!3m4!1e1!3m2!1sGlcM3TuvDwmMufZuFtj6xg!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 0.6, cityKm: 0.6
+    },
+    {//34 Stallerupvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sNgjVK95k770Zy82qe8r5LQ!2m2!1d55.59119!2d9.68014!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.59119,9.68014,3a,75y,90t/data=!3m4!1e1!3m2!1sNgjVK95k770Zy82qe8r5LQ!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 5.4, cityKm: 15.9
+    },
+    {//Støvring Ådale (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1stIiwCW7wqrlWy-3AmZPP5w!2m2!1d56.90048!2d9.84433!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.90048,9.84433,3a,75y,90t/data=!3m4!1e1!3m2!1stIiwCW7wqrlWy-3AmZPP5w!2e0',
+        country: 'デンマーク', code: 'DK', state: '北ユラン地域', region: 'ヨーロッパ', townKm: 1.7, cityKm: 17
+    },
+    {//61 Gedingvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1syJCRqJhhWNLd2wPMzVPNgw!2m2!1d56.20053!2d10.10289!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.20053,10.10289,3a,75y,90t/data=!3m4!1e1!3m2!1syJCRqJhhWNLd2wPMzVPNgw!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 1, cityKm: 8.2
+    },
+    {//Google マップ (バミューダ諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1shpl197zaeJrD120DAle6gA!2m2!1d32.30612!2d-64.80554!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@32.30612,-64.80554,3a,75y,90t/data=!3m4!1e1!3m2!1shpl197zaeJrD120DAle6gA!2e0',
+        country: 'バミューダ諸島', code: 'BM', state: 'ペンブローク', region: '北米', townKm: 1.4, cityKm: 1184.1
+    },
+    {//1152 160 (オーランド諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sUEhrZGUXjzxxVv949z3Gnw!2m2!1d60.29714!2d19.77717!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@60.29714,19.77717,3a,75y,90t/data=!3m4!1e1!3m2!1sUEhrZGUXjzxxVv949z3Gnw!2e0',
+        country: 'オーランド諸島', code: 'AX', state: 'エッケロー', region: 'ヨーロッパ', townKm: 9.1, cityKm: 127.3
+    },
+    {//393 Hovedgaden (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sT4omGbqoidu9l56K1LoAJA!2m2!1d55.64998!2d12.2039!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.64998,12.2039,3a,75y,90t/data=!3m4!1e1!3m2!1sT4omGbqoidu9l56K1LoAJA!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 0.4, cityKm: 7.8
+    },
+    {//Google マップ (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1ssNGdCeeuwGbod6_j_-z6QA!2m2!1d22.22799!2d114.11124!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.22799,114.11124,3a,75y,90t/data=!3m4!1e1!3m2!1ssNGdCeeuwGbod6_j_-z6QA!2e0',
+        country: '香港', code: 'HK', state: 'アイランズ', region: 'アジア', townKm: 0.2, cityKm: 4.8
+    },
+    {//Google マップ (バミューダ諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s6qGVRb3d_OAAXaWkHerYYg!2m2!1d32.35069!2d-64.65328!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@32.35069,-64.65328,3a,75y,90t/data=!3m4!1e1!3m2!1s6qGVRb3d_OAAXaWkHerYYg!2e0',
+        country: 'バミューダ諸島', code: 'BM', state: 'セント・ジョージズ', region: '北米', townKm: 4.2, cityKm: 1186.7
+    },
+    {//282 Holstebrovej Hagebro (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sLu5HovMymaZ-Uo601blDvg!2m2!1d56.41173!2d9.02035!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.41173,9.02035,3a,75y,90t/data=!3m4!1e1!3m2!1sLu5HovMymaZ-Uo601blDvg!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 11.2, cityKm: 30.7
+    },
+    {//Hellebæk, デンマーク首都地域 (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sCYdvODlLXU430GLwVsbcIA!2m2!1d56.07641!2d12.52456!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.07641,12.52456,3a,75y,90t/data=!3m4!1e1!3m2!1sCYdvODlLXU430GLwVsbcIA!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 1, cityKm: 11
+    },
+    {//Google マップ (クリスマス島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sNsboY2duH9BS9AQkamLPZw!2m2!1d-10.4339!2d105.62494!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@-10.4339,105.62494,3a,75y,90t/data=!3m4!1e1!3m2!1sNsboY2duH9BS9AQkamLPZw!2e0',
+        country: 'クリスマス島', code: 'CX', state: 'クリスマス島', region: 'オセアニア', townKm: 6.1, cityKm: 395.7
+    },
+    {//25 Ternevej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1syvATtFBe1Mo4neFsHib6nw!2m2!1d55.54132!2d12.01885!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.54132,12.01885,3a,75y,90t/data=!3m4!1e1!3m2!1syvATtFBe1Mo4neFsHib6nw!2e0',
+        country: 'デンマーク', code: 'DK', state: 'シェラン地域', region: 'ヨーロッパ', townKm: 0.9, cityKm: 11.8
+    },
+    {//1 Ladebovej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sXXHWRebKdlVYO96woFW5CA!2m2!1d55.23973!2d11.29023!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.23973,11.29023,3a,75y,90t/data=!3m4!1e1!3m2!1sXXHWRebKdlVYO96woFW5CA!2e0',
+        country: 'デンマーク', code: 'DK', state: 'シェラン地域', region: 'ヨーロッパ', townKm: 1.2, cityKm: 19.9
+    },
+    {//メルンリュック, ヴェストラ・イェータランド (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s-IvO3FfBB__JKEg9eyFLGw!2m2!1d57.66895!2d12.09631!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@57.66895,12.09631,3a,75y,90t/data=!3m4!1e1!3m2!1s-IvO3FfBB__JKEg9eyFLGw!2e0',
+        country: 'スウェーデン', code: 'SE', state: 'ヴェストラ・イェータランド県', region: 'ヨーロッパ', townKm: 1.7, cityKm: 5.1
+    },
+    {//Kurrebrovej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1syRzaf_3KVtJqeiNl8Bu2UA!2m2!1d56.0437!2d12.18862!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.0437,12.18862,3a,75y,90t/data=!3m4!1e1!3m2!1syRzaf_3KVtJqeiNl8Bu2UA!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 2.4, cityKm: 31.4
+    },
+    {//Google マップ (北マリアナ諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s2EZggixkaSppHfzMxtU1hQ!2m2!1d15.12452!2d145.69839!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@15.12452,145.69839,3a,75y,90t/data=!3m4!1e1!3m2!1s2EZggixkaSppHfzMxtU1hQ!2e0',
+        country: '北マリアナ諸島', code: 'MP', state: 'サイパン', region: 'オセアニア', townKm: 1.9, cityKm: 2168.7
+    },
+    {//Arresødalsvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sMin6XNCzpJWKt4C0L_TwbA!2m2!1d55.97691!2d12.03108!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.97691,12.03108,3a,75y,90t/data=!3m4!1e1!3m2!1sMin6XNCzpJWKt4C0L_TwbA!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 0.9, cityKm: 37.4
+    },
+    {//Rosenholmvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1spEf-xqA_aca4xOMWDMFcag!2m2!1d56.32752!2d10.3288!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.32752,10.3288,3a,75y,90t/data=!3m4!1e1!3m2!1spEf-xqA_aca4xOMWDMFcag!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 1.4, cityKm: 20.3
+    },
+    {//Teglgården (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sGAfp4WgX46vWe8c2jyc6HA!2m2!1d55.33777!2d11.14059!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.33777,11.14059,3a,75y,90t/data=!3m4!1e1!3m2!1sGAfp4WgX46vWe8c2jyc6HA!2e0',
+        country: 'デンマーク', code: 'DK', state: 'シェラン地域', region: 'ヨーロッパ', townKm: 0.9, cityKm: 32.7
+    },
+    {//B42 (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1spLEF_kRazJ8midL8aQjGYQ!2m2!1d54.11091!2d-4.68187!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.11091,-4.68187,3a,75y,90t/data=!3m4!1e1!3m2!1spLEF_kRazJ8midL8aQjGYQ!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 1.2, cityKm: 88.6
+    },
+    {//53 Klausdalsbrovej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s5RBKlGoFh6EaolaLu7HPmA!2m2!1d55.7464!2d12.48873!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.7464,12.48873,3a,75y,90t/data=!3m4!1e1!3m2!1s5RBKlGoFh6EaolaLu7HPmA!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 0.5, cityKm: 8
+    },
+    {//Giber Ringvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1saJJlktZfzMcr-xW0nZJd-Q!2m2!1d56.05463!2d10.17392!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.05463,10.17392,3a,75y,90t/data=!3m4!1e1!3m2!1saJJlktZfzMcr-xW0nZJd-Q!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 1.6, cityKm: 11.6
+    },
+    {//140 Gl Strandvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sCpoCZ7Gc7KVQ29SuHUUQvQ!2m2!1d55.52267!2d9.76567!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.52267,9.76567,3a,75y,90t/data=!3m4!1e1!3m2!1sCpoCZ7Gc7KVQ29SuHUUQvQ!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 2, cityKm: 18.8
+    },
+    {//10 Ll Knabstrupvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sy28P9WPdniJ2HUuJLNwfVw!2m2!1d55.64288!2d11.62308!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.64288,11.62308,3a,75y,90t/data=!3m4!1e1!3m2!1sy28P9WPdniJ2HUuJLNwfVw!2e0',
+        country: 'デンマーク', code: 'DK', state: 'シェラン地域', region: 'ヨーロッパ', townKm: 4.8, cityKm: 28.6
+    },
+    {//Google マップ (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s4zlUyVrrP4Mcgjh16cF1JA!2m2!1d22.28121!2d114.11664!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.28121,114.11664,3a,75y,90t/data=!3m4!1e1!3m2!1s4zlUyVrrP4Mcgjh16cF1JA!2e0',
+        country: '香港', code: 'HK', state: '中西区', region: 'アジア', townKm: 0.3, cityKm: 1.9
+    },
+    {//ラ・ルート・デュ・ノール (ジャージー島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1skAOMpok6BG3MDJ7PHZuFRA!2m2!1d49.25659!2d-2.15381!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@49.25659,-2.15381,3a,75y,90t/data=!3m4!1e1!3m2!1skAOMpok6BG3MDJ7PHZuFRA!2e0',
+        country: 'ジャージー', code: 'JE', state: 'ジャージー', region: 'ヨーロッパ', townKm: 1.6, cityKm: 68.4
+    },
+    {//Odder, 中央ユラン地域 (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sdxwlhyDJm8r_J1aDLNH6Zw!2m2!1d55.9668!2d10.16349!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.9668,10.16349,3a,75y,90t/data=!3m4!1e1!3m2!1sdxwlhyDJm8r_J1aDLNH6Zw!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 1, cityKm: 21.3
+    },
+    {//1 CG-6 (アンドラ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sdDQRCBS0O6SW_q_I-qfNpw!2m2!1d42.50518!2d1.44219!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@42.50518,1.44219,3a,75y,90t/data=!3m4!1e1!3m2!1sdDQRCBS0O6SW_q_I-qfNpw!2e0',
+        country: 'スペイン', code: 'ES', state: 'リェイダ県', region: 'ヨーロッパ', townKm: 4.8, cityKm: 91.7
+    },
+    {//7 187 (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sLmMGsuruGb3Z35ZLLaNuZQ!2m2!1d56.97016!2d9.62246!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.97016,9.62246,3a,75y,90t/data=!3m4!1e1!3m2!1sLmMGsuruGb3Z35ZLLaNuZQ!2e0',
+        country: 'デンマーク', code: 'DK', state: '北ユラン地域', region: 'ヨーロッパ', townKm: 1.6, cityKm: 19.9
+    },
+    {//7 Søvangsparken (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1snHETpFFZr1ojYtS4h1I5DQ!2m2!1d55.43894!2d10.6523!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.43894,10.6523,3a,75y,90t/data=!3m4!1e1!3m2!1snHETpFFZr1ojYtS4h1I5DQ!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 1.2, cityKm: 17.3
+    },
+    {//ヴェストラ・イェータランド (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sBzv_Pwh31f492fVcFmoNLw!2m2!1d57.66167!2d12.021!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@57.66167,12.021,3a,75y,90t/data=!3m4!1e1!3m2!1sBzv_Pwh31f492fVcFmoNLw!2e0',
+        country: 'スウェーデン', code: 'SE', state: 'ヴェストラ・イェータランド県', region: 'ヨーロッパ', townKm: 0.8, cityKm: 0.8
+    },
+    {//8 Lundgårdsvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1soTugmmcq_asYGQA-fEQIwQ!2m2!1d56.48376!2d9.17498!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.48376,9.17498,3a,75y,90t/data=!3m4!1e1!3m2!1soTugmmcq_asYGQA-fEQIwQ!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 1.8, cityKm: 40.5
+    },
+    {//12 Borrisvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sghXn6memrcqbbjRpZqILLw!2m2!1d55.97187!2d8.72814!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.97187,8.72814,3a,75y,90t/data=!3m4!1e1!3m2!1sghXn6memrcqbbjRpZqILLw!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 10.4, cityKm: 23.9
+    },
+    {//2 Bregnerød Skovvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s_T3K5HQfhVIol_udS-pjDg!2m2!1d55.85098!2d12.3623!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.85098,12.3623,3a,75y,90t/data=!3m4!1e1!3m2!1s_T3K5HQfhVIol_udS-pjDg!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 2.2, cityKm: 21.9
+    },
+    {//A36 (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sVPU2TZ_xE44RNOk0xDJaIw!2m2!1d54.12235!2d-4.72732!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.12235,-4.72732,3a,75y,90t/data=!3m4!1e1!3m2!1sVPU2TZ_xE44RNOk0xDJaIw!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 3.8, cityKm: 85.5
+    },
+    {//Google マップ (北マリアナ諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1spUoOi6OZVtbaF4bPLBwUgw!2m2!1d15.25291!2d145.79327!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@15.25291,145.79327,3a,75y,90t/data=!3m4!1e1!3m2!1spUoOi6OZVtbaF4bPLBwUgw!2e0',
+        country: '北マリアナ諸島', code: 'MP', state: 'サイパン', region: 'オセアニア', townKm: 6.1, cityKm: 2185.8
+    },
+    {//Sound Road (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sifvhMlUntoZtY3z5SU-fqA!2m2!1d54.06366!2d-4.79006!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.06366,-4.79006,3a,75y,90t/data=!3m4!1e1!3m2!1sifvhMlUntoZtY3z5SU-fqA!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 3.5, cityKm: 87.5
+    },
+    {//B10 (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s03ggAK-oCtKRAcj1iM3U8g!2m2!1d54.24842!2d-4.49103!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.24842,-4.49103,3a,75y,90t/data=!3m4!1e1!3m2!1s03ggAK-oCtKRAcj1iM3U8g!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 6.3, cityKm: 83.3
+    },
+    {//232 134 (オーランド諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sY8UbP4Qz_rCLGFFlCUiTgw!2m2!1d60.18518!2d19.66576!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@60.18518,19.66576,3a,75y,90t/data=!3m4!1e1!3m2!1sY8UbP4Qz_rCLGFFlCUiTgw!2e0',
+        country: 'オーランド諸島', code: 'AX', state: 'エッケロー', region: 'ヨーロッパ', townKm: 4.1, cityKm: 117.6
+    },
+    {//Google マップ (アンドラ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sn0LDFf25OTs83AlrwudHwA!2m2!1d42.55585!2d1.65325!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@42.55585,1.65325,3a,75y,90t/data=!3m4!1e1!3m2!1sn0LDFf25OTs83AlrwudHwA!2e0',
+        country: 'アンドラ', code: 'AD', state: 'アンカム教区', region: 'ヨーロッパ', townKm: 2.6, cityKm: 92.9
+    },
+    {//9 Mintebjergvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sCFEMMTMQO3fM_4ZlHBCh7Q!2m2!1d54.91055!2d9.942!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.91055,9.942,3a,75y,90t/data=!3m4!1e1!3m2!1sCFEMMTMQO3fM_4ZlHBCh7Q!2e0',
+        country: 'デンマーク', code: 'DK', state: '南デンマーク地域', region: 'ヨーロッパ', townKm: 2.8, cityKm: 35
+    },
+    {//Google マップ (バミューダ諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1swHtTLwHIsEt6yLARoNpt-g!2m2!1d32.25642!2d-64.86438!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@32.25642,-64.86438,3a,75y,90t/data=!3m4!1e1!3m2!1swHtTLwHIsEt6yLARoNpt-g!2e0',
+        country: 'バミューダ諸島', code: 'BM', state: 'サウサンプトン', region: '北米', townKm: 1, cityKm: 1186.4
+    },
+    {//31 Brunmosevej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1srqKirik2Dadm8C1X8I-9rg!2m2!1d56.40867!2d10.42519!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.40867,10.42519,3a,75y,90t/data=!3m4!1e1!3m2!1srqKirik2Dadm8C1X8I-9rg!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 3.8, cityKm: 24.6
+    },
+    {//Galgebjergevej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sPpuEW_i6Ib-QaD47k9Juug!2m2!1d55.83151!2d8.37864!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.83151,8.37864,3a,75y,90t/data=!3m4!1e1!3m2!1sPpuEW_i6Ib-QaD47k9Juug!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 7.7, cityKm: 40.4
+    },
+    {//Google マップ (香港・マカオ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s_bAbfrK2NYY0Wj4Oj91dvQ!2m2!1d22.41886!2d114.18724!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@22.41886,114.18724,3a,75y,90t/data=!3m4!1e1!3m2!1s_bAbfrK2NYY0Wj4Oj91dvQ!2e0',
+        country: '香港', code: 'HK', state: '沙田', region: 'アジア', townKm: 1.9, cityKm: 3.9
+    },
+    {//5 Pilegårdsparken (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sYSz9oPei4PDblTsnYSRGMA!2m2!1d55.84023!2d12.40989!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.84023,12.40989,3a,75y,90t/data=!3m4!1e1!3m2!1sYSz9oPei4PDblTsnYSRGMA!2e0',
+        country: 'デンマーク', code: 'DK', state: 'デンマーク首都地域', region: 'ヨーロッパ', townKm: 1.4, cityKm: 19.5
+    },
+    {//8 CG-6 (アンドラ)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sbaIbq4McZwwM0AFGHGJl2Q!2m2!1d42.47711!2d1.48056!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@42.47711,1.48056,3a,75y,90t/data=!3m4!1e1!3m2!1sbaIbq4McZwwM0AFGHGJl2Q!2e0',
+        country: 'アンドラ', code: 'AD', state: 'サン・ジュリア・デ・ロリア教区', region: 'ヨーロッパ', townKm: 1.7, cityKm: 87.8
+    },
+    {//2 Hannenovvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sdjJQJKTVYeKtUHvHVe1siw!2m2!1d54.81677!2d11.91482!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.81677,11.91482,3a,75y,90t/data=!3m4!1e1!3m2!1sdjJQJKTVYeKtUHvHVe1siw!2e0',
+        country: 'デンマーク', code: 'DK', state: 'シェラン地域', region: 'ヨーロッパ', townKm: 4.7, cityKm: 46.9
+    },
+    {//818 505 (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1syr8qoqdHe0bkrIyquMnKyw!2m2!1d56.28174!2d10.32185!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.28174,10.32185,3a,75y,90t/data=!3m4!1e1!3m2!1syr8qoqdHe0bkrIyquMnKyw!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 1, cityKm: 15.5
+    },
+    {//セント・ジョージズ・パリッシュ (バミューダ諸島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sqo8in_uTKWGcfDJ9o8fIdw!2m2!1d32.3318!2d-64.69224!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@32.3318,-64.69224,3a,75y,90t/data=!3m4!1e1!3m2!1sqo8in_uTKWGcfDJ9o8fIdw!2e0',
+        country: 'バミューダ諸島', code: 'BM', state: 'セント・ジョージズ', region: '北米', townKm: 3.7, cityKm: 1186.8
+    },
+    {//A10 (マン島)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sGVbULda3oihqpXBSdzp8cA!2m2!1d54.37042!2d-4.51566!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@54.37042,-4.51566,3a,75y,90t/data=!3m4!1e1!3m2!1sGVbULda3oihqpXBSdzp8cA!2e0',
+        country: 'マン島', code: 'IM', state: 'マン島', region: 'ヨーロッパ', townKm: 1.3, cityKm: 81.2
+    },
+    {//28 Ølstrupvej (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1saO1IU7a4X9KNcYlI4e2HPg!2m2!1d56.1198!2d8.38997!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@56.1198,8.38997,3a,75y,90t/data=!3m4!1e1!3m2!1saO1IU7a4X9KNcYlI4e2HPg!2e0',
+        country: 'デンマーク', code: 'DK', state: '中央ユラン地域', region: 'ヨーロッパ', townKm: 9.6, cityKm: 36.3
+    },
+    {//168 Svartebäcksvägen (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sTgO4wtcTWHesZF3iz_kSoQ!2m2!1d57.43785!2d12.10258!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@57.43785,12.10258,3a,75y,90t/data=!3m4!1e1!3m2!1sTgO4wtcTWHesZF3iz_kSoQ!2e0',
+        country: 'スウェーデン', code: 'SE', state: 'ハッランド県', region: 'ヨーロッパ', townKm: 4.6, cityKm: 24.7
+    },
+    {//29 Metavang (デンマーク)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s5pFS0SFJI9_vcxDx7_LhQQ!2m2!1d55.58323!2d12.29896!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@55.58323,12.29896,3a,75y,90t/data=!3m4!1e1!3m2!1s5pFS0SFJI9_vcxDx7_LhQQ!2e0',
+        country: 'デンマーク', code: 'DK', state: 'シェラン地域', region: 'ヨーロッパ', townKm: 0.1, cityKm: 11
+    },
+    {//小菅東スポーツ公園 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1skVlQs3yS8OueqsqBEBTshA!2m2!1d35.7548!2d139.82326!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.7548,139.82326,3a,75y,90t/data=!3m4!1e1!3m2!1skVlQs3yS8OueqsqBEBTshA!2e0',
+        country: '日本', code: 'JP', state: '東京都', region: 'アジア', townKm: 0.2, cityKm: 1.7
+    },
+    {//白浜町, 和歌山県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1slCvkchvwoXpVDGT1TRA-ig!2m2!1d33.66428!2d135.39714!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@33.66428,135.39714,3a,75y,90t/data=!3m4!1e1!3m2!1slCvkchvwoXpVDGT1TRA-ig!2e0',
+        country: '日本', code: 'JP', state: '和歌山県', region: 'アジア', townKm: 4.4, cityKm: 8.2
+    },
+    {//輪島市, 石川県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sZCRlRHvkYPFFQkC-wQnlHw!2m2!1d37.37459!2d136.95651!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.37459,136.95651,3a,75y,90t/data=!3m4!1e1!3m2!1sZCRlRHvkYPFFQkC-wQnlHw!2e0',
+        country: '日本', code: 'JP', state: '石川県', region: 'アジア', townKm: 6.1, cityKm: 36.2
+    },
+    {//松山市, 愛媛県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sASYVf6rE4RS6f-47IIUC5g!2m2!1d33.83584!2d132.8526!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@33.83584,132.8526,3a,75y,90t/data=!3m4!1e1!3m2!1sASYVf6rE4RS6f-47IIUC5g!2e0',
+        country: '日本', code: 'JP', state: '愛媛県', region: 'アジア', townKm: 5.8, cityKm: 8
+    },
+    {//南国市, 高知県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1ss2ck_4lhH9MyFYc617WRTg!2m2!1d33.64228!2d133.65254!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@33.64228,133.65254,3a,75y,90t/data=!3m4!1e1!3m2!1ss2ck_4lhH9MyFYc617WRTg!2e0',
+        country: '日本', code: 'JP', state: '高知県', region: 'アジア', townKm: 5.5, cityKm: 15
+    },
+    {//県道163号 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sAbxD_je2GaqIFhMHp4flaA!2m2!1d36.5304!2d140.09379!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.5304,140.09379,3a,75y,90t/data=!3m4!1e1!3m2!1sAbxD_je2GaqIFhMHp4flaA!2e0',
+        country: '日本', code: 'JP', state: '栃木県', region: 'アジア', townKm: 1.6, cityKm: 12.8
+    },
+    {//湖西市, 静岡県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s2SNSIpv4EP0Yb3rsuaZrAQ!2m2!1d34.6827!2d137.5587!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.6827,137.5587,3a,75y,90t/data=!3m4!1e1!3m2!1s2SNSIpv4EP0Yb3rsuaZrAQ!2e0',
+        country: '日本', code: 'JP', state: '静岡県', region: 'アジア', townKm: 0.7, cityKm: 3.8
+    },
+    {//白石市, 宮城県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sk-TOtCjBocT0sP8n7QH3Cw!2m2!1d37.99461!2d140.63367!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.99461,140.63367,3a,75y,90t/data=!3m4!1e1!3m2!1sk-TOtCjBocT0sP8n7QH3Cw!2e0',
+        country: '日本', code: 'JP', state: '宮城県', region: 'アジア', townKm: 1.7, cityKm: 23
+    },
+    {//吉見町, 埼玉県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1swM-PovApjffLF-lsu_gNKw!2m2!1d36.03126!2d139.42689!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.03126,139.42689,3a,75y,90t/data=!3m4!1e1!3m2!1swM-PovApjffLF-lsu_gNKw!2e0',
+        country: '日本', code: 'JP', state: '埼玉県', region: 'アジア', townKm: 0.9, cityKm: 0.9
+    },
+    {//斜里町, 北海道 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sedVyOyqxExGPWjxiWkXZDA!2m2!1d43.90735!2d144.67732!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@43.90735,144.67732,3a,75y,90t/data=!3m4!1e1!3m2!1sedVyOyqxExGPWjxiWkXZDA!2e0',
+        country: '日本', code: 'JP', state: '北海道', region: 'アジア', townKm: 0.9, cityKm: 64
+    },
+    {//三沢市, 青森県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sBZyW3qgBUb5NapshP8OzCg!2m2!1d40.69255!2d141.40426!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@40.69255,141.40426,3a,75y,90t/data=!3m4!1e1!3m2!1sBZyW3qgBUb5NapshP8OzCg!2e0',
+        country: '日本', code: 'JP', state: '青森県', region: 'アジア', townKm: 1.4, cityKm: 18.2
+    },
+    {//川口市, 埼玉県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sDFdSGkpKsNElCq1rrP5rjg!2m2!1d35.78892!2d139.74841!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.78892,139.74841,3a,75y,90t/data=!3m4!1e1!3m2!1sDFdSGkpKsNElCq1rrP5rjg!2e0',
+        country: '日本', code: 'JP', state: '東京都', region: 'アジア', townKm: 2.6, cityKm: 3.1
+    },
+    {//安芸高田市, 広島県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s32haYmClnyjrEpVIDS-1RA!2m2!1d34.76312!2d132.75098!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.76312,132.75098,3a,75y,90t/data=!3m4!1e1!3m2!1s32haYmClnyjrEpVIDS-1RA!2e0',
+        country: '日本', code: 'JP', state: '広島県', region: 'アジア', townKm: 9.9, cityKm: 9.9
+    },
+    {//磐田市, 静岡県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s5IAm6nO1wcAJvFDDt9KIOA!2m2!1d34.67606!2d137.8476!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.67606,137.8476,3a,75y,90t/data=!3m4!1e1!3m2!1s5IAm6nO1wcAJvFDDt9KIOA!2e0',
+        country: '日本', code: 'JP', state: '静岡県', region: 'アジア', townKm: 2.7, cityKm: 2.7
+    },
+    {//福知山市, 京都府 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sa0pgROdS3TvU_1_dUAd8Uw!2m2!1d35.43697!2d135.13072!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.43697,135.13072,3a,75y,90t/data=!3m4!1e1!3m2!1sa0pgROdS3TvU_1_dUAd8Uw!2e0',
+        country: '日本', code: 'JP', state: '京都府', region: 'アジア', townKm: 11.1, cityKm: 15.3
+    },
+    {//藤崎町, 青森県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sfXeMlE8l_Od1AwEs9iLlwg!2m2!1d40.6807!2d140.5075!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@40.6807,140.5075,3a,75y,90t/data=!3m4!1e1!3m2!1sfXeMlE8l_Od1AwEs9iLlwg!2e0',
+        country: '日本', code: 'JP', state: '青森県', region: 'アジア', townKm: 3.1, cityKm: 10.2
+    },
+    {//西脇市, 兵庫県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s-FPl9b9SXa8KhnpILwgm3A!2m2!1d34.97903!2d134.97863!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.97903,134.97863,3a,75y,90t/data=!3m4!1e1!3m2!1s-FPl9b9SXa8KhnpILwgm3A!2e0',
+        country: '日本', code: 'JP', state: '兵庫県', region: 'アジア', townKm: 0.7, cityKm: 19.9
+    },
+    {//匝瑳市, 千葉県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1ssxSah4MULHWxB80TzLwrMA!2m2!1d35.73516!2d140.55522!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.73516,140.55522,3a,75y,90t/data=!3m4!1e1!3m2!1ssxSah4MULHWxB80TzLwrMA!2e0',
+        country: '日本', code: 'JP', state: '千葉県', region: 'アジア', townKm: 2.2, cityKm: 8.8
+    },
+    {//大阪市, 大阪府 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sx_9Te2e-OW-rZwRyIxyeRA!2m2!1d34.74775!2d135.52932!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.74775,135.52932,3a,75y,90t/data=!3m4!1e1!3m2!1sx_9Te2e-OW-rZwRyIxyeRA!2e0',
+        country: '日本', code: 'JP', state: '大阪府', region: 'アジア', townKm: 2, cityKm: 2
+    },
+    {//鴻巣市, 埼玉県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sfPbdOSO-zqo0sG16YpLHug!2m2!1d36.09939!2d139.52474!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.09939,139.52474,3a,75y,90t/data=!3m4!1e1!3m2!1sfPbdOSO-zqo0sG16YpLHug!2e0',
+        country: '日本', code: 'JP', state: '埼玉県', region: 'アジア', townKm: 3.5, cityKm: 3.5
+    },
+    {//田辺市, 和歌山県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sLsqrdVGwosNXNMVS9v32Jg!2m2!1d33.72227!2d135.38615!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@33.72227,135.38615,3a,75y,90t/data=!3m4!1e1!3m2!1sLsqrdVGwosNXNMVS9v32Jg!2e0',
+        country: '日本', code: 'JP', state: '和歌山県', region: 'アジア', townKm: 2.2, cityKm: 2.2
+    },
+    {//佐伯市, 大分県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sEaOYIN3E8HG0Ct0JUUuXpA!2m2!1d32.80192!2d131.9234!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@32.80192,131.9234,3a,75y,90t/data=!3m4!1e1!3m2!1sEaOYIN3E8HG0Ct0JUUuXpA!2e0',
+        country: '日本', code: 'JP', state: '大分県', region: 'アジア', townKm: 16.6, cityKm: 16.6
+    },
+    {//東かがわ市, 香川県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s8u9YuPTCOynznS38MncUmg!2m2!1d34.2052!2d134.3258!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.2052,134.3258,3a,75y,90t/data=!3m4!1e1!3m2!1s8u9YuPTCOynznS38MncUmg!2e0',
+        country: '日本', code: 'JP', state: '香川県', region: 'アジア', townKm: 1.1, cityKm: 26
+    },
+    {//高崎市, 群馬県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sqVHe5-BLYbdEjDw7EC6XiQ!2m2!1d36.45422!2d138.77269!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.45422,138.77269,3a,75y,90t/data=!3m4!1e1!3m2!1sqVHe5-BLYbdEjDw7EC6XiQ!2e0',
+        country: '日本', code: 'JP', state: '群馬県', region: 'アジア', townKm: 14, cityKm: 17.6
+    },
+    {//新潟市, 新潟県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1snVWySO-VbGnro6QmF2244A!2m2!1d37.78164!2d139.09095!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.78164,139.09095,3a,75y,90t/data=!3m4!1e1!3m2!1snVWySO-VbGnro6QmF2244A!2e0',
+        country: '日本', code: 'JP', state: '新潟県', region: 'アジア', townKm: 3.4, cityKm: 3.4
+    },
+    {//天栄村, 福島県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1saJYy7z8pSqsvQ8ZPYYTMrQ!2m2!1d37.25978!2d140.21756!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.25978,140.21756,3a,75y,90t/data=!3m4!1e1!3m2!1saJYy7z8pSqsvQ8ZPYYTMrQ!2e0',
+        country: '日本', code: 'JP', state: '福島県', region: 'アジア', townKm: 2.3, cityKm: 14.9
+    },
+    {//鰺ヶ沢町, 青森県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s1gmay99oKnowU8-Uo3P5NQ!2m2!1d40.78126!2d140.20932!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@40.78126,140.20932,3a,75y,90t/data=!3m4!1e1!3m2!1s1gmay99oKnowU8-Uo3P5NQ!2e0',
+        country: '日本', code: 'JP', state: '青森県', region: 'アジア', townKm: 0.9, cityKm: 19.7
+    },
+    {//名張市, 三重県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sOYo1OA305S4Q6HFMAPIEjA!2m2!1d34.6046!2d136.09185!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.6046,136.09185,3a,75y,90t/data=!3m4!1e1!3m2!1sOYo1OA305S4Q6HFMAPIEjA!2e0',
+        country: '日本', code: 'JP', state: '三重県', region: 'アジア', townKm: 1.5, cityKm: 1.5
+    },
+    {//狭山市, 埼玉県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1shjNm-MTvE_DY5O0dnGHdfA!2m2!1d35.82804!2d139.41419!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.82804,139.41419,3a,75y,90t/data=!3m4!1e1!3m2!1shjNm-MTvE_DY5O0dnGHdfA!2e0',
+        country: '日本', code: 'JP', state: '埼玉県', region: 'アジア', townKm: 2.8, cityKm: 2.8
+    },
+    {//静岡市, 静岡県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sORvUmbt-RziHRfo1j6oFtA!2m2!1d35.02458!2d138.3056!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.02458,138.3056,3a,75y,90t/data=!3m4!1e1!3m2!1sORvUmbt-RziHRfo1j6oFtA!2e0',
+        country: '日本', code: 'JP', state: '静岡県', region: 'アジア', townKm: 8.4, cityKm: 8.4
+    },
+    {//伊予市, 愛媛県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1simTZVQOE7HDQyIY9H2vlHA!2m2!1d33.74911!2d132.71218!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@33.74911,132.71218,3a,75y,90t/data=!3m4!1e1!3m2!1simTZVQOE7HDQyIY9H2vlHA!2e0',
+        country: '日本', code: 'JP', state: '愛媛県', region: 'アジア', townKm: 1, cityKm: 11.2
+    },
+    {//入間市, 埼玉県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sfIe7WSp6wvcmY6SflkKFTA!2m2!1d35.85281!2d139.35599!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.85281,139.35599,3a,75y,90t/data=!3m4!1e1!3m2!1sfIe7WSp6wvcmY6SflkKFTA!2e0',
+        country: '日本', code: 'JP', state: '埼玉県', region: 'アジア', townKm: 3.4, cityKm: 3.4
+    },
+    {//牛久市, 茨城県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s0WdT1gDALKI0ris9ITUjuA!2m2!1d35.98308!2d140.15473!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.98308,140.15473,3a,75y,90t/data=!3m4!1e1!3m2!1s0WdT1gDALKI0ris9ITUjuA!2e0',
+        country: '日本', code: 'JP', state: '茨城県', region: 'アジア', townKm: 2.6, cityKm: 2.6
+    },
+    {//茅ヶ崎市, 神奈川県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s841lUc7Ux93hoi5RSa4SkQ!2m2!1d35.3838!2d139.41882!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.3838,139.41882,3a,75y,90t/data=!3m4!1e1!3m2!1s841lUc7Ux93hoi5RSa4SkQ!2e0',
+        country: '日本', code: 'JP', state: '神奈川県', region: 'アジア', townKm: 2, cityKm: 2
+    },
+    {//鞍手町, 福岡県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1siwnWsTC7xOR90x_VhdsdMg!2m2!1d33.80704!2d130.68194!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@33.80704,130.68194,3a,75y,90t/data=!3m4!1e1!3m2!1siwnWsTC7xOR90x_VhdsdMg!2e0',
+        country: '日本', code: 'JP', state: '福岡県', region: 'アジア', townKm: 0.7, cityKm: 8.3
+    },
+    {//喜多方市, 福島県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1slJo3qTTVCFnHQvH3xd8C1g!2m2!1d37.65685!2d139.87218!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.65685,139.87218,3a,75y,90t/data=!3m4!1e1!3m2!1slJo3qTTVCFnHQvH3xd8C1g!2e0',
+        country: '日本', code: 'JP', state: '福島県', region: 'アジア', townKm: 0.9, cityKm: 19.5
+    },
+    {//一戸町, 岩手県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s6FmpkszBIvN_UyV8FvHp0w!2m2!1d40.10296!2d141.17852!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@40.10296,141.17852,3a,75y,90t/data=!3m4!1e1!3m2!1s6FmpkszBIvN_UyV8FvHp0w!2e0',
+        country: '日本', code: 'JP', state: '岩手県', region: 'アジア', townKm: 15.5, cityKm: 33.5
+    },
+    {//昭和町, 山梨県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1stIn2rya2rAEJRVOmwtSEnQ!2m2!1d35.61356!2d138.52687!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.61356,138.52687,3a,75y,90t/data=!3m4!1e1!3m2!1stIn2rya2rAEJRVOmwtSEnQ!2e0',
+        country: '日本', code: 'JP', state: '山梨県', region: 'アジア', townKm: 1.8, cityKm: 5.6
+    },
+    {//八戸市, 青森県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s6ypbB2QCMIgSPQcct06FlQ!2m2!1d40.51112!2d141.4252!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@40.51112,141.4252,3a,75y,90t/data=!3m4!1e1!3m2!1s6ypbB2QCMIgSPQcct06FlQ!2e0',
+        country: '日本', code: 'JP', state: '青森県', region: 'アジア', townKm: 6.4, cityKm: 6.4
+    },
+    {//関川村, 新潟県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s3bE0C9-fTOimyqGCGCruCA!2m2!1d38.10127!2d139.57194!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@38.10127,139.57194,3a,75y,90t/data=!3m4!1e1!3m2!1s3bE0C9-fTOimyqGCGCruCA!2e0',
+        country: '日本', code: 'JP', state: '新潟県', region: 'アジア', townKm: 1.5, cityKm: 16.6
+    },
+    {//七戸町, 青森県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sv0pJKoFOxiKGLNzot8hXDg!2m2!1d40.72989!2d141.16153!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@40.72989,141.16153,3a,75y,90t/data=!3m4!1e1!3m2!1sv0pJKoFOxiKGLNzot8hXDg!2e0',
+        country: '日本', code: 'JP', state: '青森県', region: 'アジア', townKm: 4.3, cityKm: 12.8
+    },
+    {//豊岡市, 兵庫県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1szaPnXeBCE5QQqybo2eF2TQ!2m2!1d35.55548!2d134.80456!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.55548,134.80456,3a,75y,90t/data=!3m4!1e1!3m2!1szaPnXeBCE5QQqybo2eF2TQ!2e0',
+        country: '日本', code: 'JP', state: '兵庫県', region: 'アジア', townKm: 2.2, cityKm: 2.2
+    },
+    {//瑞浪市, 岐阜県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1st79gKKv0h1zgZVNuVPPtyQ!2m2!1d35.37204!2d137.25709!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.37204,137.25709,3a,75y,90t/data=!3m4!1e1!3m2!1st79gKKv0h1zgZVNuVPPtyQ!2e0',
+        country: '日本', code: 'JP', state: '岐阜県', region: 'アジア', townKm: 0.9, cityKm: 7.1
+    },
+    {//世田谷区, 東京都 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sV7Op9vWUoYo0yzbyn3eC_Q!2m2!1d35.61495!2d139.66258!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.61495,139.66258,3a,75y,90t/data=!3m4!1e1!3m2!1sV7Op9vWUoYo0yzbyn3eC_Q!2e0',
+        country: '日本', code: 'JP', state: '東京都', region: 'アジア', townKm: 0.6, cityKm: 3.3
+    },
+    {//帯広市, 北海道 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sqgu2VzAeTrD0JwqfXu_zbg!2m2!1d42.92243!2d143.20001!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@42.92243,143.20001,3a,75y,90t/data=!3m4!1e1!3m2!1sqgu2VzAeTrD0JwqfXu_zbg!2e0',
+        country: '日本', code: 'JP', state: '北海道', region: 'アジア', townKm: 0.7, cityKm: 0.7
+    },
+    {//南魚沼市, 新潟県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s8YW4xtZjJQP0gk7K9--r1A!2m2!1d37.04689!2d138.84873!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.04689,138.84873,3a,75y,90t/data=!3m4!1e1!3m2!1s8YW4xtZjJQP0gk7K9--r1A!2e0',
+        country: '日本', code: 'JP', state: '新潟県', region: 'アジア', townKm: 1, cityKm: 4.6
+    },
+    {//長浜市, 滋賀県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sANnSQ-OyfeI5fpbn3_kUhw!2m2!1d35.41417!2d136.22935!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.41417,136.22935,3a,75y,90t/data=!3m4!1e1!3m2!1sANnSQ-OyfeI5fpbn3_kUhw!2e0',
+        country: '日本', code: 'JP', state: '滋賀県', region: 'アジア', townKm: 4.8, cityKm: 4.8
+    },
+    {//富山市, 富山県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sq2KqOBeErZgGRXiUrdHanQ!2m2!1d36.64935!2d137.22104!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.64935,137.22104,3a,75y,90t/data=!3m4!1e1!3m2!1sq2KqOBeErZgGRXiUrdHanQ!2e0',
+        country: '日本', code: 'JP', state: '富山県', region: 'アジア', townKm: 5.6, cityKm: 5.6
+    },
+    {//大和郡山市, 奈良県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s-llK800pO-Zgg83a5UHUHg!2m2!1d34.60644!2d135.77651!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.60644,135.77651,3a,75y,90t/data=!3m4!1e1!3m2!1s-llK800pO-Zgg83a5UHUHg!2e0',
+        country: '日本', code: 'JP', state: '奈良県', region: 'アジア', townKm: 0.6, cityKm: 0.6
+    },
+    {//宇和島市, 愛媛県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1scEPQm6fw4v5tSY8LNsfDBQ!2m2!1d33.31281!2d132.56455!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@33.31281,132.56455,3a,75y,90t/data=!3m4!1e1!3m2!1scEPQm6fw4v5tSY8LNsfDBQ!2e0',
+        country: '日本', code: 'JP', state: '愛媛県', region: 'アジア', townKm: 7.5, cityKm: 9.9
+    },
+    {//矢吹町, 福島県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sG8gEpMvUKQwegi9IrRuH4g!2m2!1d37.20702!2d140.33172!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.20702,140.33172,3a,75y,90t/data=!3m4!1e1!3m2!1sG8gEpMvUKQwegi9IrRuH4g!2e0',
+        country: '日本', code: 'JP', state: '福島県', region: 'アジア', townKm: 1.5, cityKm: 9.6
+    },
+    {//四日市市, 三重県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sKsg_EQrvryVKewqcia4YrQ!2m2!1d34.90923!2d136.62469!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.90923,136.62469,3a,75y,90t/data=!3m4!1e1!3m2!1sKsg_EQrvryVKewqcia4YrQ!2e0',
+        country: '日本', code: 'JP', state: '三重県', region: 'アジア', townKm: 4.7, cityKm: 4.7
+    },
+    {//所沢市, 埼玉県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s6R9twiYWYc-CmuHLz0p4og!2m2!1d35.81385!2d139.47307!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.81385,139.47307,3a,75y,90t/data=!3m4!1e1!3m2!1s6R9twiYWYc-CmuHLz0p4og!2e0',
+        country: '日本', code: 'JP', state: '埼玉県', region: 'アジア', townKm: 1.7, cityKm: 1.7
+    },
+    {//厚木市, 神奈川県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sCBOyz5eX8gZUmeU-9JlFsA!2m2!1d35.43123!2d139.36646!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.43123,139.36646,3a,75y,90t/data=!3m4!1e1!3m2!1sCBOyz5eX8gZUmeU-9JlFsA!2e0',
+        country: '日本', code: 'JP', state: '神奈川県', region: 'アジア', townKm: 1.3, cityKm: 1.3
+    },
+    {//十日町市, 新潟県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sxtDraaPTuAiCpbfKR4rvYA!2m2!1d37.01976!2d138.69699!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.01976,138.69699,3a,75y,90t/data=!3m4!1e1!3m2!1sxtDraaPTuAiCpbfKR4rvYA!2e0',
+        country: '日本', code: 'JP', state: '新潟県', region: 'アジア', townKm: 3.9, cityKm: 14
+    },
+    {//上尾市, 埼玉県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s-yI4KC3bnw2dT3H9fACyNQ!2m2!1d35.9728!2d139.54345!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.9728,139.54345,3a,75y,90t/data=!3m4!1e1!3m2!1s-yI4KC3bnw2dT3H9fACyNQ!2e0',
+        country: '日本', code: 'JP', state: '埼玉県', region: 'アジア', townKm: 3.3, cityKm: 3.3
+    },
+    {//十和田市, 青森県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sI8gHm17m7nHkhXnjtJblFA!2m2!1d40.61037!2d141.22968!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@40.61037,141.22968,3a,75y,90t/data=!3m4!1e1!3m2!1sI8gHm17m7nHkhXnjtJblFA!2e0',
+        country: '日本', code: 'JP', state: '青森県', region: 'アジア', townKm: 2, cityKm: 2
+    },
+    {//宮崎市, 宮崎県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1scn5ZIZzxmTc3scY-B3Lajw!2m2!1d31.83826!2d131.43159!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@31.83826,131.43159,3a,75y,90t/data=!3m4!1e1!3m2!1scn5ZIZzxmTc3scY-B3Lajw!2e0',
+        country: '日本', code: 'JP', state: '宮崎県', region: 'アジア', townKm: 8.8, cityKm: 8.8
+    },
+    {//彦根市, 滋賀県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sd5jyFGy8XBV90YcoXZoONw!2m2!1d35.26938!2d136.2448!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.26938,136.2448,3a,75y,90t/data=!3m4!1e1!3m2!1sd5jyFGy8XBV90YcoXZoONw!2e0',
+        country: '日本', code: 'JP', state: '滋賀県', region: 'アジア', townKm: 2.2, cityKm: 2.2
+    },
+    {//周南市, 山口県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sho3JfLd4jddHbu4PffGkqw!2m2!1d34.05714!2d131.81405!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.05714,131.81405,3a,75y,90t/data=!3m4!1e1!3m2!1sho3JfLd4jddHbu4PffGkqw!2e0',
+        country: '日本', code: 'JP', state: '山口県', region: 'アジア', townKm: 0.8, cityKm: 0.8
+    },
+    {//戸田市, 埼玉県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sCoGC6RgRFLcW55JB5VecUQ!2m2!1d35.80953!2d139.65983!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.80953,139.65983,3a,75y,90t/data=!3m4!1e1!3m2!1sCoGC6RgRFLcW55JB5VecUQ!2e0',
+        country: '日本', code: 'JP', state: '埼玉県', region: 'アジア', townKm: 0.5, cityKm: 2.4
+    },
+    {//上郡町, 兵庫県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sYnk__bwcgwe6o2otBwQB0A!2m2!1d34.86361!2d134.36563!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@34.86361,134.36563,3a,75y,90t/data=!3m4!1e1!3m2!1sYnk__bwcgwe6o2otBwQB0A!2e0',
+        country: '日本', code: 'JP', state: '兵庫県', region: 'アジア', townKm: 1.3, cityKm: 12.6
+    },
+    {//板橋区, 東京都 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sBO8FVSceZhkWTb8SwOvIzA!2m2!1d35.76469!2d139.69159!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.76469,139.69159,3a,75y,90t/data=!3m4!1e1!3m2!1sBO8FVSceZhkWTb8SwOvIzA!2e0',
+        country: '日本', code: 'JP', state: '東京都', region: 'アジア', townKm: 0.5, cityKm: 2.7
+    },
+    {//永平寺町, 福井県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sv-u3ZSQjy3RPzTprUc1U3g!2m2!1d36.09745!2d136.32634!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.09745,136.32634,3a,75y,90t/data=!3m4!1e1!3m2!1sv-u3ZSQjy3RPzTprUc1U3g!2e0',
+        country: '日本', code: 'JP', state: '福井県', region: 'アジア', townKm: 3.1, cityKm: 10
+    },
+    {//阿賀町, 新潟県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sNLlEJvQD7645w7SjHmoG4A!2m2!1d37.7416!2d139.40372!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@37.7416,139.40372,3a,75y,90t/data=!3m4!1e1!3m2!1sNLlEJvQD7645w7SjHmoG4A!2e0',
+        country: '日本', code: 'JP', state: '新潟県', region: 'アジア', townKm: 8.3, cityKm: 23.9
+    },
+    {//出雲市, 島根県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1siqJPw0ImOhjA0-250TvNMg!2m2!1d35.32346!2d132.66377!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@35.32346,132.66377,3a,75y,90t/data=!3m4!1e1!3m2!1siqJPw0ImOhjA0-250TvNMg!2e0',
+        country: '日本', code: 'JP', state: '島根県', region: 'アジア', townKm: 10.5, cityKm: 10.5
+    },
+    {//矢祭町, 福島県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sdTAEaCxe6l6MbPPfYhNjbg!2m2!1d36.84989!2d140.44038!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@36.84989,140.44038,3a,75y,90t/data=!3m4!1e1!3m2!1sdTAEaCxe6l6MbPPfYhNjbg!2e0',
+        country: '日本', code: 'JP', state: '福島県', region: 'アジア', townKm: 2, cityKm: 33.4
+    },
+    {//大崎市, 宮城県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1srIws_3BTnf8slxEu4FttUg!2m2!1d38.52621!2d141.03845!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@38.52621,141.03845,3a,75y,90t/data=!3m4!1e1!3m2!1srIws_3BTnf8slxEu4FttUg!2e0',
+        country: '日本', code: 'JP', state: '宮城県', region: 'アジア', townKm: 2.6, cityKm: 8.8
+    },
+    {//岩見沢市, 北海道 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1s3SPwS6xqxObYN0YjdT8Lyg!2m2!1d43.13776!2d141.65763!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@43.13776,141.65763,3a,75y,90t/data=!3m4!1e1!3m2!1s3SPwS6xqxObYN0YjdT8Lyg!2e0',
+        country: '日本', code: 'JP', state: '北海道', region: 'アジア', townKm: 7.9, cityKm: 9.3
+    },
+    {//遠野市, 岩手県 (日本)
+        embedUrl: 'https://www.google.com/maps/embed?pb=!6m8!1m7!1sf9Bk2DSpuWIoGHLgv3ywJA!2m2!1d39.35746!2d141.38366!3f0!4f0!5f0.4',
+        answerUrl: 'https://www.google.com/maps/@39.35746,141.38366,3a,75y,90t/data=!3m4!1e1!3m2!1sf9Bk2DSpuWIoGHLgv3ywJA!2e0',
+        country: '日本', code: 'JP', state: '岩手県', region: 'アジア', townKm: 13.6, cityKm: 23.1
+    },
 ];
